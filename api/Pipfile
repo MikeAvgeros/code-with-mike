@@ -11,6 +11,7 @@ djoser = "*"
 pillow = "*"
 stripe = "*"
 django-dotenv = "*"
+drf-nested-routers = "*"
 
 [dev-packages]
 

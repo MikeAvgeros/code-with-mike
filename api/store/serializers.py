@@ -1,44 +1,40 @@
 from rest_framework import serializers
-
 from .models import Category, Product, Promotion
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = (
+        fields = [
             "id",
             "name",
             "description",
+            "category",
             "price",
             "promotion",
-            "image",
             "is_featured",
-            "get_absolute_url",
+            "image",
+            "get_url",
             "get_image",
             "get_thumbnail",
-        )
+        ]
 
 class CategorySerializer(serializers.ModelSerializer):
-    products = ProductSerializer(many=True)
-
     class Meta:
         model = Category
-        fields = (
+        fields = [
             "id",
             "name",
             "description",
-            "get_absolute_url",
-            "products",
-        )
+            "get_url",
+            "product_set",
+        ]
 
 class PromotionSerializer(serializers.ModelSerializer):
-    products = ProductSerializer(many=True)
-
     class Meta:
         model = Promotion
-        fields = (
+        fields = [
             "id",
             "name",
             "description",
-            "products",
-        )
+            "product_set",
+        ]
