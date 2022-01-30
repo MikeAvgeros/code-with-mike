@@ -20,9 +20,6 @@ class Category(models.Model):
         self.slug = slugify(self.name, allow_unicode=True)
         super().save(*args, **kwargs)
 
-    def get_url(self):
-        return f'{self.slug}/'
-
 class Promotion(models.Model):
     name = models.CharField(max_length=255, unique=True)
     description = models.TextField(blank=True, null=True)
@@ -56,9 +53,6 @@ class Product(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name, allow_unicode=True)
         super().save(*args, **kwargs)
-
-    def get_url(self):
-        return f'{self.slug}/'
 
     def get_image(self):
         if self.image:

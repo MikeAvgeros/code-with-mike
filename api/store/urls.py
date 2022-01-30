@@ -3,9 +3,9 @@ from . import views
 from django.urls import path, include
 
 router = DefaultRouter()
-router.register('products', views.ProductViewSet)
-router.register('categories', views.CategoryViewSet)
-router.register('promotions', views.PromotionViewSet)
+router.register(r'products', views.ProductViewSet)
+router.register(r'categories', views.CategoryViewSet)
+router.register(r'promotions', views.PromotionViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
