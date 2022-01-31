@@ -12,6 +12,8 @@ pillow = "*"
 stripe = "*"
 django-dotenv = "*"
 drf-nested-routers = "*"
+markdown = "*"
+django-filter = "*"
 
 [dev-packages]
 

@@ -20,7 +20,7 @@ class ProductSerializer(serializers.ModelSerializer):
             "is_featured",
             "image",
             "get_image",
-            "get_thumbnail",
+            "get_thumbnail"
         ]
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -43,7 +43,7 @@ class CategorySerializer(serializers.ModelSerializer):
             "url",
             "name",
             "description",
-            "product_set",
+            "product_set"
         ]
 
 class PromotionSerializer(serializers.ModelSerializer):
@@ -68,5 +68,5 @@ class PromotionSerializer(serializers.ModelSerializer):
             "description",
             "starts_at",
             "ends_at",
-            "product_set",
+            "product_set"
         ]
