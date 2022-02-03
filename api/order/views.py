@@ -4,6 +4,7 @@ from rest_framework.mixins import (
     CreateModelMixin, RetrieveModelMixin, DestroyModelMixin)
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
 from .models import Cart, CartItem, Order
+from customer.models import Customer
 from .serializers import (
     CartSerializer, CartItemSerializer, CreateOrderSerializer, OrderSerializer, UpdateOrderSerializer)
 
@@ -48,3 +49,5 @@ class OrderViewSet(ModelViewSet):
         if user.is_staff:
             return Order.objects.all()
 
+        (customer_id, created) = Customer.objects.only('id').get_or_create(user_id=self.request.user.id)
+        return Order.objects.filter(customer_id=customer_id)
