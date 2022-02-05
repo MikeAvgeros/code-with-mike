@@ -1,4 +1,12 @@
+from django.shortcuts import get_object_or_404
 from rest_framework.viewsets import ModelViewSet
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.response import Response
+from rest_framework import status
+from store.permissions import IsAdminOrReadOnly
+from .filters import ProductFilter
+from rest_framework.filters import SearchFilter, OrderingFilter
+from rest_framework.pagination import PageNumberPagination
 from .models import Product, Category, Promotion
 from .serializers import ProductSerializer, CategorySerializer, PromotionSerializer
 
@@ -8,8 +16,14 @@ class ProductViewSet(ModelViewSet):
     """
 
     lookup_field = "slug"
-    queryset = Product.objects.all().order_by('-last_update')
+    queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_class = ProductFilter
+    pagination_class = PageNumberPagination
+    permission_classes = [IsAdminOrReadOnly]
+    search_fields = ['name', 'description']
+    ordering_fields = ['price', 'last_update']
 
     def get_serializer_context(self):
         return {'request': self.request}
@@ -20,11 +34,21 @@ class CategoryViewSet(ModelViewSet):
     """
 
     lookup_field = "slug"
-    queryset = Category.objects.all().order_by('name')
+    queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    permission_classes = [IsAdminOrReadOnly]
 
     def get_serializer_context(self):
         return {'request': self.request}
+
+    def delete(self, request, pk):
+        category = get_object_or_404(Category, pk=pk)
+        if category.products.count() > 0:
+            return Response({
+                'error': 'Category cannot be deleted as it contains products'
+            })
+        category.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 class PromotionViewSet(ModelViewSet):
     """

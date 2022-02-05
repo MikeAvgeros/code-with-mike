@@ -37,7 +37,7 @@ class Product(models.Model):
     description = models.TextField(blank=True, null=True)
     price = models.DecimalField(
         max_digits=6, decimal_places=2, 
-        validators=[MinValueValidator(1), MaxValueValidator(9999)])
+        validators=[MinValueValidator(1), MaxValueValidator(9999.99)])
     category = models.ForeignKey(
         Category, null=True, blank=True, on_delete=models.SET_NULL)
     promotion = models.ForeignKey(

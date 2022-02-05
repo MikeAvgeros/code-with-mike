@@ -71,7 +71,7 @@ class CreateOrderSerializer(serializers.Serializer):
                 OrderItem(
                     order=order,
                     product=item.product,
-                    quantity=item.quantity
+                    quantity=item.quantity,
                     total_price=item.total_price
                 ) for item in cart_items
             ]
