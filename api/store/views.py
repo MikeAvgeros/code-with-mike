@@ -4,11 +4,13 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.response import Response
 from rest_framework import status
 from store.permissions import IsAdminOrReadOnly
+from rest_framework.permissions import IsAuthenticated
 from .filters import ProductFilter
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.pagination import PageNumberPagination
-from .models import Product, Category, Promotion
-from .serializers import ProductSerializer, CategorySerializer, PromotionSerializer
+from .models import Product, Category, Promotion, Review
+from .serializers import (
+    ProductSerializer, CategorySerializer, PromotionSerializer, ReviewSerializer)
 
 class ProductViewSet(ModelViewSet):
     """
@@ -57,3 +59,13 @@ class PromotionViewSet(ModelViewSet):
 
     queryset = Promotion.objects.all().order_by('discount')
     serializer_class = PromotionSerializer
+    permission_classes = [IsAdminOrReadOnly]
+
+class ReviewViewSet(ModelViewSet):
+    """
+    API endpoint that allows product reviews to be viewed or edited.
+    """
+
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+    permission_classes=[IsAuthenticated]

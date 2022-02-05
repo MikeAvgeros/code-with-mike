@@ -1,4 +1,5 @@
 from django.db import models
+from customer.models import Customer
 from io import BytesIO
 from PIL import Image
 from django.core.files import File
@@ -73,12 +74,16 @@ class Product(models.Model):
 
     def make_thumbnail(self, image, size=(300, 200)):
         img = Image.open(image)
-        img.convert('RGB')
-        img.thumbnail(size)
+        img.thumbnail(size, Image.ANTIALIAS)
+        img_file = BytesIO()
+        img.save(img_file, img.format)
 
-        thumb_io = BytesIO()
-        img.save(thumb_io, 'JPEG', quality=85)
-
-        thumbnail = File(thumb_io, name=image.name)
+        thumbnail = File(img_file, name=image.name)
 
         return thumbnail
+
+class Review(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews')
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='reviews')
+    description = models.TextField()
+    date = models.DateField(auto_now=True)
