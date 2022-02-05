@@ -6,7 +6,8 @@ from rest_framework.viewsets import GenericViewSet, ModelViewSet
 from .models import Cart, CartItem, Order
 from customer.models import Customer
 from .serializers import (
-    CartSerializer, CartItemSerializer, CreateOrderSerializer, OrderSerializer, UpdateOrderSerializer)
+    CartSerializer, CartItemSerializer, 
+    CreateOrderSerializer, OrderSerializer, UpdateOrderSerializer)
 
 class CartViewSet(
     CreateModelMixin, RetrieveModelMixin, DestroyModelMixin, GenericViewSet):

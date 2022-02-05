@@ -1,7 +1,7 @@
 from django.db import models
 from uuid import uuid4
 from store.models import Product
-from customer.models import Customer, User
+from customer.models import Customer
 
 class Cart(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4)
@@ -30,7 +30,8 @@ class Order(models.Model):
     payment_status = models.CharField(
         max_length=1, choices=PAYMENT_STATUS, default=PAYMENT_PENDING
     )
-    customer = models.ForeignKey(Customer, null=True, related_name='orders', on_delete=models.PROTECT)
+    customer = models.ForeignKey(
+        Customer, null=True, related_name='orders', on_delete=models.PROTECT)
 
     class Meta:
         permissions = [

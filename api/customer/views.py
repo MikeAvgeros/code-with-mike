@@ -1,6 +1,4 @@
 from rest_framework.viewsets import ModelViewSet
-
-from customer.permissions import ViewCustomerHistoryPermission
 from .models import Customer
 from .serializers import CustomerSerializer
 from rest_framework.decorators import action
