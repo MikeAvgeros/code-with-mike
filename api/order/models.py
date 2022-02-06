@@ -11,7 +11,10 @@ class CartItem(models.Model):
     cart = models.ForeignKey(
         Cart, on_delete=models.CASCADE, related_name='items')
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.PositiveSmallIntegerField()
+    quantity = models.PositiveSmallIntegerField(default=1)
+
+    def __str__(self):
+        return self.product.name
 
     class Meta:
         unique_together = [['cart', 'product']]
@@ -33,6 +36,9 @@ class Order(models.Model):
     customer = models.ForeignKey(
         Customer, null=True, related_name='orders', on_delete=models.PROTECT)
 
+    def __str__(self):
+        return f'Order for {self.customer} #{self.id}'
+
     class Meta:
         permissions = [
             ('cancel_order', 'Can cancel order')
@@ -43,5 +49,8 @@ class OrderItem(models.Model):
         Order, on_delete=models.PROTECT, related_name='items')
     product = models.ForeignKey(
         Product, on_delete=models.PROTECT)
-    quantity = models.PositiveSmallIntegerField()
+    quantity = models.PositiveSmallIntegerField(default=1)
     total_price = models.DecimalField(max_digits=6, decimal_places=2)
+
+    def __str__(self):
+        return self.product.name

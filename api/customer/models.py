@@ -1,3 +1,4 @@
+import os
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
@@ -31,7 +32,7 @@ class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.user.first_name} {self.user.last_name}'
+        return self.user.username
 
     class Meta:
         ordering = ['user__first_name', 'user__last_name']
@@ -41,18 +42,18 @@ class Customer(models.Model):
 
     def get_image(self):
         if self.image:
-            return 'http://localhost:8000' + self.image.url
+            return os.environ.get('DOMAIN') + self.image.url
         return ''
     
     def get_thumbnail(self):
         if self.thumbnail:
-            return 'http://localhost:8000/' + self.thumbnail.url
+            return os.environ.get('DOMAIN') + self.thumbnail.url
         else:
             if self.image:
                 self.thumbnail = self.make_thumbnail(self.image)
                 self.save()
 
-                return 'http://localhost:8000/' + self.thumbnail.url
+                return os.environ.get('DOMAIN') + self.thumbnail.url
             else:
                 return ''
 

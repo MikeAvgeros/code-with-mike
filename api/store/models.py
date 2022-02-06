@@ -1,3 +1,4 @@
+import os
 from django.db import models
 from customer.models import Customer
 from io import BytesIO
@@ -18,7 +19,8 @@ class Category(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name, allow_unicode=True)
+        if not self.slug:
+            self.slug = slugify(self.name, allow_unicode=True)
         super().save(*args, **kwargs)
 
 class Promotion(models.Model):
@@ -33,7 +35,7 @@ class Promotion(models.Model):
         return self.name
 
 class Product(models.Model):
-    slug = models.SlugField()
+    slug = models.SlugField(blank=True, null=True)
     name = models.CharField(max_length=255, unique=True)
     description = models.TextField(blank=True, null=True)
     price = models.DecimalField(
@@ -52,23 +54,24 @@ class Product(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name, allow_unicode=True)
+        if not self.slug:
+            self.slug = slugify(self.name, allow_unicode=True)
         super().save(*args, **kwargs)
 
     def get_image(self):
         if self.image:
-            return 'http://localhost:8000' + self.image.url
+            return os.environ.get('DOMAIN') + self.image.url
         return ''
     
     def get_thumbnail(self):
         if self.thumbnail:
-            return 'http://localhost:8000/' + self.thumbnail.url
+            return os.environ.get('DOMAIN') + self.thumbnail.url
         else:
             if self.image:
                 self.thumbnail = self.make_thumbnail(self.image)
                 self.save()
 
-                return 'http://localhost:8000/' + self.thumbnail.url
+                return os.environ.get('DOMAIN') + self.thumbnail.url
             else:
                 return ''
 
@@ -86,4 +89,6 @@ class Review(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews')
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='reviews')
     description = models.TextField()
+    rating = models.PositiveSmallIntegerField(null=True, blank=True,
+        validators=[MinValueValidator(1), MaxValueValidator(5)])
     date = models.DateField(auto_now=True)
