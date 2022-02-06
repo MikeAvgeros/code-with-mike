@@ -34,10 +34,10 @@ class Order(models.Model):
         max_length=1, choices=PAYMENT_STATUS, default=PAYMENT_PENDING
     )
     customer = models.ForeignKey(
-        Customer, null=True, related_name='orders', on_delete=models.PROTECT)
+        Customer, related_name='orders', on_delete=models.PROTECT)
 
     def __str__(self):
-        return f'Order for {self.customer} #{self.id}'
+        return f'Order #{self.id} for {self.customer}'
 
     class Meta:
         permissions = [

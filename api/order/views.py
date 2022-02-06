@@ -21,8 +21,6 @@ class CartItemViewSet(ModelViewSet):
         return CartItem.objects.filter(cart_id=self.kwargs['cart_pk']).select_related('product')
 
 class OrderViewSet(ModelViewSet):
-    http_method_names = ['get', 'patch', 'delete', 'head', 'options']
-
     def get_permissions(self):
         if self.request.method in ['PATCH', 'DELETE']:
             return [IsAdminUser()]
@@ -46,9 +44,7 @@ class OrderViewSet(ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-
         if user.is_staff:
             return Order.objects.all()
-
         (customer_id, created) = Customer.objects.only('id').get_or_create(user_id=self.request.user.id)
         return Order.objects.filter(customer_id=customer_id)
