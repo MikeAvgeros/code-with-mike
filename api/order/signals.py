@@ -6,5 +6,5 @@ from .models import Order, Cart
 def delete_cart(sender, **kwargs):
     if kwargs['created']:
         order = kwargs['instance']
-        cart_id = order['cart_id']
+        cart_id = order.cart_id
         Cart.objects.filter(pk=cart_id).delete()
