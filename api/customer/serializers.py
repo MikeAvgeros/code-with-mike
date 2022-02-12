@@ -1,4 +1,3 @@
-from asyncore import read
 from djoser.serializers import (UserSerializer as BaseUserSerializer, 
                                 UserCreateSerializer)
 from rest_framework import serializers

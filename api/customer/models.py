@@ -21,13 +21,13 @@ class Customer(models.Model):
         (HOBBYIST, 'Hobbyist'),
     ]
 
-    phone = PhoneNumberField(null=True, blank=True)
-    birth_date = models.DateField(null=True, blank=True)
-    country = CountryField()
+    phone = PhoneNumberField(blank=True, null=True)
+    birth_date = models.DateField(blank=True, null=True)
+    country = CountryField(blank=True, null=True)
     image = models.ImageField(upload_to='images/', blank=True, null=True)
     thumbnail = models.ImageField(upload_to='images/', blank=True, null=True)
-    customer_type = models.CharField(
-        max_length=1, choices=CUSTOMER_TYPE, default=STUDENT
+    customer_type = models.CharField( blank=True, null=True,
+        max_length=1, choices=CUSTOMER_TYPE
     )
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
@@ -35,7 +35,7 @@ class Customer(models.Model):
         return self.user.username
 
     class Meta:
-        ordering = ['user__first_name', 'user__last_name']
+        ordering = ['user__username']
         permissions = [
             ('view_history', 'Can view history')
         ]
@@ -44,7 +44,7 @@ class Customer(models.Model):
         if self.image:
             return os.environ.get('DOMAIN') + self.image.url
         return ''
-    
+
     def get_thumbnail(self):
         if self.thumbnail:
             return os.environ.get('DOMAIN') + self.thumbnail.url

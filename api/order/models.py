@@ -11,7 +11,7 @@ class CartItem(models.Model):
     cart = models.ForeignKey(
         Cart, on_delete=models.CASCADE, related_name='items')
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.PositiveSmallIntegerField(default=1)
+    quantity = models.PositiveSmallIntegerField()
 
     def __str__(self):
         return self.product.name
@@ -33,6 +33,7 @@ class Order(models.Model):
     payment_status = models.CharField(
         max_length=1, choices=PAYMENT_STATUS, default=PAYMENT_PENDING
     )
+    cart_id = models.UUIDField()
     customer = models.ForeignKey(
         Customer, related_name='orders', on_delete=models.PROTECT)
 

@@ -8,7 +8,7 @@ from django.utils.text import slugify
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 class Category(models.Model):
-    slug = models.SlugField()
+    slug = models.SlugField(blank=True, null=True)
     name = models.CharField(max_length=255, unique=True)
     description = models.TextField(blank=True, null=True)
 
@@ -89,6 +89,6 @@ class Review(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews')
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='reviews')
     description = models.TextField()
-    rating = models.PositiveSmallIntegerField(null=True, blank=True,
+    rating = models.PositiveSmallIntegerField(default=5,
         validators=[MinValueValidator(1), MaxValueValidator(5)])
     date = models.DateField(auto_now=True)

@@ -5,6 +5,11 @@ from customer.models import Customer
 from .models import Cart, CartItem, Order, OrderItem
 
 class ShortProductSerializer(serializers.ModelSerializer):
+    url = serializers.HyperlinkedIdentityField(
+        view_name='product-detail',
+        lookup_field='slug'
+    )
+
     class Meta:
         model = Product
         fields = ['url', 'name', 'price']
@@ -13,8 +18,8 @@ class CartItemSerializer(serializers.ModelSerializer):
     product = ShortProductSerializer()
     total_price = serializers.SerializerMethodField()
 
-    def get_total_price(self, cart_item):
-        return cart_item.quantity * cart_item.product.price
+    def get_total_price(self, **kwargs):
+        return self.quantity * self.product.price
 
     class Meta:
         model = CartItem
@@ -25,10 +30,10 @@ class CartSerializer(serializers.ModelSerializer):
     items = CartItemSerializer(many=True, read_only=True)
     grand_total = serializers.SerializerMethodField()
 
-    def get_grand_total(self, cart):
+    def get_grand_total(self, **kwargs):
         return sum(
-            [CartItemSerializer.get_total_price(item) \
-                for item in cart.items.all()]
+            [item.total_price \
+                for item in self.items.all()]
         )
 
     class Meta:
@@ -49,8 +54,10 @@ class OrderSerializer(serializers.ModelSerializer):
         model = Order
         fields = ['id', 'customer', 'created_at', 'payment_status', 'items']
 
-class CreateOrderSerializer(serializers.Serializer):
-    cart_id = serializers.UUIDField()
+class CreateOrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = ['cart_id']
 
     def validate_cart_id(self, cart_id):
         if not Cart.objects.filter(pk=cart_id).exists():
@@ -62,7 +69,7 @@ class CreateOrderSerializer(serializers.Serializer):
     def save(self, **kwargs):
         with transaction.atomic():
             cart_id = self.validated_data['cart_id']
-            (customer, created) = Customer.objects.get_or_create(user_id=self.context['user_id'])
+            customer = Customer.objects.get(user_id=self.context['user_id'])
             order = Order.objects.create(customer=customer)
             cart_items = CartItem.objects.select_related('product').filter(cart_id=cart_id)
             order_items = [
@@ -73,8 +80,7 @@ class CreateOrderSerializer(serializers.Serializer):
                     total_price=item.total_price
                 ) for item in cart_items
             ]
-            OrderItem.objects.bulk_create(order_items)
-            Cart.objects.filter(pk=cart_id).delete()
+            OrderItem.objects.bulk_create(order_items) 
             return order
 
 class UpdateOrderSerializer(serializers.ModelSerializer):

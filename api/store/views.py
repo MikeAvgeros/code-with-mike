@@ -13,10 +13,6 @@ from .serializers import (
     ProductSerializer, CategorySerializer, PromotionSerializer, ReviewSerializer)
 
 class ProductViewSet(ModelViewSet):
-    """
-    API endpoint that allows products to be viewed or edited.
-    """
-
     lookup_field = "slug"
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
@@ -31,10 +27,6 @@ class ProductViewSet(ModelViewSet):
         return {'request': self.request}
 
 class CategoryViewSet(ModelViewSet):
-    """
-    API endpoint that allows product categories to be viewed or edited.
-    """
-
     lookup_field = "slug"
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
@@ -47,25 +39,17 @@ class CategoryViewSet(ModelViewSet):
         category = get_object_or_404(Category, pk=pk)
         if category.products.count() > 0:
             return Response({
-                'error': 'Category cannot be deleted as it contains products'
+                'error': 'Category cannot be deleted as it contains products.'
             })
         category.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class PromotionViewSet(ModelViewSet):
-    """
-    API endpoint that allows promotions to be viewed or edited.
-    """
-
     queryset = Promotion.objects.all().order_by('discount')
     serializer_class = PromotionSerializer
     permission_classes = [IsAdminOrReadOnly]
 
 class ReviewViewSet(ModelViewSet):
-    """
-    API endpoint that allows product reviews to be viewed or edited.
-    """
-
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
     permission_classes=[IsAuthenticated]

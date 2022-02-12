@@ -1,3 +1,4 @@
+from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.mixins import (
@@ -18,9 +19,12 @@ class CartItemViewSet(ModelViewSet):
     serializer_class = CartItemSerializer
 
     def get_queryset(self):
-        return CartItem.objects.filter(cart_id=self.kwargs['cart_pk']).select_related('product')
+        return CartItem.objects\
+            .filter(cart_id=self.kwargs['cart_pk']).select_related('product')
 
 class OrderViewSet(ModelViewSet):
+    http_method_names = ['get', 'post', 'patch', 'delete', 'head', 'options']
+
     def get_permissions(self):
         if self.request.method in ['PATCH', 'DELETE']:
             return [IsAdminUser()]
@@ -33,18 +37,19 @@ class OrderViewSet(ModelViewSet):
         serializer.is_valid(raise_exception=True)
         order = serializer.save()
         serializer = OrderSerializer(order)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def get_serializer_class(self):
         if self.request.method == 'POST':
             return CreateOrderSerializer
         elif self.request.method == 'PATCH':
             return UpdateOrderSerializer
-        return OrderSerializer
+        else:
+            return OrderSerializer
 
     def get_queryset(self):
         user = self.request.user
         if user.is_staff:
             return Order.objects.all()
-        (customer_id, created) = Customer.objects.only('id').get_or_create(user_id=self.request.user.id)
+        customer_id = Customer.objects.only('id').get(user_id=self.request.user.id)
         return Order.objects.filter(customer_id=customer_id)
