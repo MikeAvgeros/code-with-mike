@@ -6,9 +6,10 @@ from django_countries.fields import CountryField
 from io import BytesIO
 from PIL import Image
 from django.core.files import File
+from django.utils.translation import gettext_lazy as _
 
 class User(AbstractUser):
-    email = models.EmailField(unique=True)
+    email = models.EmailField(_('email address'), unique=True)
 
 class Customer(models.Model):
     PROFESSIONAL = 'P'
