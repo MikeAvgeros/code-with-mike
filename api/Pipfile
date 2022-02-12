@@ -15,7 +15,6 @@ drf-nested-routers = "*"
 django-filter = "*"
 django-countries = {extras = ["pyuca"], version = "*"}
 django-phonenumber-field = {extras = ["phonenumbers"], version = "*"}
-djangorestframework-simplejwt = "*"
 
 [dev-packages]
 

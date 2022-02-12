@@ -6,10 +6,10 @@ from django.urls import path, include
 admin.site.site_header = 'Code with Mike Admin'
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/', include('customer.urls')),
-    path('api/', include('store.urls')),
-    path('api/', include('order.urls')),
-    path('api/', include('djoser.urls')),
-    path('api/', include('djoser.urls.jwt')),
+    path(r'admin/', admin.site.urls),
+    path(r'api/', include('store.urls')),
+    path(r'api/', include('order.urls')),
+    path(r'api/', include('customer.urls')),
+    path(r'api/', include('djoser.urls')),
+    path(r'api/', include('djoser.urls.authtoken')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -22,9 +22,10 @@ INSTALLED_APPS = [
     'django_filters',
 
     'rest_framework',
-    'djoser',
-    'rest_framework.authtoken',
     'corsheaders',
+    'rest_framework.authtoken',
+    'djoser',
+    
     'django_countries',
     'phonenumber_field',
 
@@ -105,12 +106,15 @@ MEDIA_ROOT = BASE_DIR / 'media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
     'COERCE_DECIMAL_TO_STRING': False,
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ]
 }
 
 AUTH_USER_MODEL = 'customer.User'
@@ -120,9 +124,4 @@ DJOSER = {
         'user_create': 'customer.serializers.CreateUserSerializer',
         'current_user': 'customer.serializers.UserSerializer',
     }
-}
-
-SIMPLE_JWT = {
-    'AUTH_HEADER_TYPES': ('JWT',),
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=1)
 }
