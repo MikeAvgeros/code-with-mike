@@ -9,8 +9,8 @@ urlpatterns = [
     path(r'admin/', admin.site.urls),
     path(r'api/', include('store.urls')),
     path(r'api/', include('order.urls')),
-    path(r'api/', include('customer.urls')),
-    path(r'api/', include('djoser.urls')),
-    path(r'api/', include('djoser.urls.authtoken')),
     path(r'api/', include('payment.urls')),
+    path(r'api/', include('customer.urls')),
+    path(r'auth/', include('djoser.urls')),
+    path(r'auth/', include('djoser.urls.authtoken')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

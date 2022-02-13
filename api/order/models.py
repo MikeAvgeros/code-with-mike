@@ -1,23 +1,15 @@
 from django.db import models
 from uuid import uuid4
 from store.models import Product
-from customer.models import Customer
+from customer.models import User
 
 class Cart(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid4)
+    id = models.CharField(primary_key=True, 
+    max_length=250, default=uuid4)
     created_at = models.DateTimeField(auto_now_add=True)
 
-class CartItem(models.Model):
-    cart = models.ForeignKey(
-        Cart, on_delete=models.CASCADE, related_name='items')
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.PositiveSmallIntegerField()
-
     def __str__(self):
-        return self.product.name
-
-    class Meta:
-        unique_together = [['cart', 'product']]
+        return f'Cart {self.id}'
 
 class Order(models.Model):
     PAYMENT_PENDING = 'P'
@@ -31,27 +23,40 @@ class Order(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     payment_status = models.CharField(
-        max_length=1, choices=PAYMENT_STATUS, default=PAYMENT_PENDING
+        max_length=1, choices=PAYMENT_STATUS, 
+        default=PAYMENT_PENDING
     )
-    cart_id = models.UUIDField()
-    customer = models.ForeignKey(
-        Customer, related_name='orders', on_delete=models.PROTECT)
+    user = models.ForeignKey(User,
+    on_delete=models.PROTECT, related_name='orders')
 
     def __str__(self):
-        return f'Order #{self.id} for {self.customer}'
+        return f'Order {self.id} from {self.user.username}'
 
     class Meta:
         permissions = [
             ('cancel_order', 'Can cancel order')
         ]
 
-class OrderItem(models.Model):
-    order = models.ForeignKey(
-        Order, on_delete=models.PROTECT, related_name='items')
-    product = models.ForeignKey(
-        Product, on_delete=models.PROTECT)
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, 
+    blank=True, null=True, related_name='items')
+    item = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveSmallIntegerField(default=1)
-    total_price = models.DecimalField(max_digits=6, decimal_places=2)
 
     def __str__(self):
-        return self.product.name
+        return f'{self.quantity} items of {self.item}'
+
+    class Meta:
+        unique_together = [['cart', 'item']]
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, 
+    blank=True, null=True, related_name='items')
+    item = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveSmallIntegerField(default=1)
+
+    def __str__(self):
+        return f'{self.quantity} items of {self.item}'
+
+    class Meta:
+        unique_together = [['order', 'item']]
