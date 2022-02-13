@@ -8,7 +8,7 @@ router.register(r'carts', views.CartViewSet)
 router.register(r'orders', views.OrderViewSet, basename='orders')
 
 carts_router = NestedDefaultRouter(router, 'carts', lookup='cart')
-carts_router.register('items', views.CartItemViewSet, basename='cart-items')
+carts_router.register(r'items', views.CartItemViewSet, basename='cart-items')
 
 urlpatterns = [
     path(r'', include(router.urls)),

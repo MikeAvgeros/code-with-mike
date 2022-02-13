@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from datetime import timedelta
+import django_heroku
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -127,3 +127,5 @@ DJOSER = {
         'current_user': 'customer.serializers.UserSerializer',
     }
 }
+
+django_heroku.settings(locals())
