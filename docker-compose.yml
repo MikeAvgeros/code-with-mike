@@ -1,26 +1,25 @@
-version: '3'
-
+version: "3.2"
 services:
   backend:
-    build:
-      context: ./api
-    command: gunicorn core.wsgi --bind 0.0.0.0:8000
+    build: ./api
+    volumes:
+      - ./api:/app/api
     ports:
       - "8000:8000"
+    stdin_open: true
+    tty: true
+    environment:
+      - DJANGO_SETTINGS_MODULE=hello_world.settings.development
+    command: python3 manage.py runserver 0.0.0.0:8000
   frontend:
-    build:
-      context: ./client
+    build: ./client
     volumes:
-      - react_build:/client/build
-  nginx:
-    image: nginx:latest
+      - ./client:/app
+      - /app/node_modules
     ports:
-      - 80:8080
-    volumes:
-      - ./nginx/nginx-setup.conf:/etc/nginx/conf.d/default.conf:ro
-      - react_build:/var/www/react
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
     depends_on:
-      - backend
-      - frontend
-volumes:
-  react_build:
+      - api
+    command: npm start
