@@ -21,6 +21,8 @@ django-heroku = "*"
 gunicorn = "*"
 whitenoise = "*"
 psycopg2 = "*"
+django-storages = "*"
+boto3 = "*"
 
 [dev-packages]
 

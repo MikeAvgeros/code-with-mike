@@ -18,9 +18,7 @@ class ProductSerializer(serializers.ModelSerializer):
             "price",
             "promotion",
             "is_featured",
-            "image",
-            "get_image",
-            "get_thumbnail"
+            "image"
         ]
 
 class CategorySerializer(serializers.ModelSerializer):

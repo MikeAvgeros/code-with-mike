@@ -25,8 +25,7 @@ class Customer(models.Model):
     phone = PhoneNumberField(blank=True, null=True)
     birth_date = models.DateField(blank=True, null=True)
     country = CountryField(blank=True, null=True)
-    image = models.ImageField(upload_to='images/', blank=True, null=True)
-    thumbnail = models.ImageField(upload_to='images/', blank=True, null=True)
+    image = models.ImageField(blank=True, null=True)
     customer_type = models.CharField( blank=True, null=True,
         max_length=1, choices=CUSTOMER_TYPE
     )
@@ -41,29 +40,15 @@ class Customer(models.Model):
             ('view_history', 'Can view history')
         ]
 
-    def get_image(self):
+    def save(self, *args, **kwargs):
         if self.image:
-            return os.environ.get('DOMAIN') + self.image.url
-        return ''
+            self.image = self.resize(self.image)
+        super().save(*args, **kwargs)
 
-    def get_thumbnail(self):
-        if self.thumbnail:
-            return os.environ.get('DOMAIN') + self.thumbnail.url
-        else:
-            if self.image:
-                self.thumbnail = self.make_thumbnail(self.image)
-                self.save()
-
-                return os.environ.get('DOMAIN') + self.thumbnail.url
-            else:
-                return ''
-
-    def make_thumbnail(self, image, size=(300, 200)):
+    def resize(self, image, size=(640, 480)):
         img = Image.open(image)
         img.thumbnail(size, Image.ANTIALIAS)
-        img_file = BytesIO()
-        img.save(img_file, img.format)
-
-        thumbnail = File(img_file, name=image.name)
-
-        return thumbnail
+        thumb_io = BytesIO()
+        img.save(thumb_io, img.format)
+        resized = File(thumb_io, name=image.name)
+        return resized

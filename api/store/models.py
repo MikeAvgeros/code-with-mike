@@ -46,8 +46,7 @@ class Product(models.Model):
     promotion = models.ForeignKey(
         Promotion, null=True, blank=True, on_delete=models.SET_NULL)
     is_featured = models.BooleanField(default=False)
-    image = models.ImageField(upload_to='images/', blank=True, null=True)
-    thumbnail = models.ImageField(upload_to='images/', blank=True, null=True)
+    image = models.ImageField(blank=True, null=True)
     last_update = models.DateTimeField(auto_now=True)
     
     def __str__(self):
@@ -56,34 +55,17 @@ class Product(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name, allow_unicode=True)
+        if self.image:
+            self.image = self.resize(self.image)
         super().save(*args, **kwargs)
 
-    def get_image(self):
-        if self.image:
-            return os.environ.get('DOMAIN') + self.image.url
-        return ''
-    
-    def get_thumbnail(self):
-        if self.thumbnail:
-            return os.environ.get('DOMAIN') + self.thumbnail.url
-        else:
-            if self.image:
-                self.thumbnail = self.make_thumbnail(self.image)
-                self.save()
-
-                return os.environ.get('DOMAIN') + self.thumbnail.url
-            else:
-                return ''
-
-    def make_thumbnail(self, image, size=(300, 200)):
+    def resize(self, image, size=(640, 480)):
         img = Image.open(image)
         img.thumbnail(size, Image.ANTIALIAS)
-        img_file = BytesIO()
-        img.save(img_file, img.format)
-
-        thumbnail = File(img_file, name=image.name)
-
-        return thumbnail
+        thumb_io = BytesIO()
+        img.save(thumb_io, img.format)
+        resized = File(thumb_io, name=image.name)
+        return resized
 
 class Review(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews')

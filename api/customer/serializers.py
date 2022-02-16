@@ -36,7 +36,5 @@ class CustomerSerializer(serializers.ModelSerializer):
             'birth_date',
             'country',
             "image",
-            "get_image",
-            "get_thumbnail",
             'customer_type'
         ]
