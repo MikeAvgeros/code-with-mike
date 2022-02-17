@@ -11,6 +11,17 @@ class Cart(models.Model):
     def __str__(self):
         return f'Cart {self.id}'
 
+class WishList(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User,
+    on_delete=models.PROTECT, related_name='wishlist')
+
+    class Meta:
+        verbose_name_plural = ("Wish list")
+
+    def __str__(self):
+        return f'Wishlist {self.id} from {self.user.username}'
+
 class Order(models.Model):
     PAYMENT_PENDING = 'P'
     PAYMENT_SUCCESS = 'S'
@@ -29,13 +40,13 @@ class Order(models.Model):
     user = models.ForeignKey(User,
     on_delete=models.PROTECT, related_name='orders')
 
-    def __str__(self):
-        return f'Order {self.id} from {self.user.username}'
-
     class Meta:
         permissions = [
             ('cancel_order', 'Can cancel order')
         ]
+
+    def __str__(self):
+        return f'Order {self.id} from {self.user.username}'
 
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, 
@@ -43,11 +54,22 @@ class CartItem(models.Model):
     item = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveSmallIntegerField(default=1)
 
-    def __str__(self):
-        return f'{self.quantity} items of {self.item}'
-
     class Meta:
         unique_together = [['cart', 'item']]
+
+    def __str__(self):
+        return f'{self.quantity} {self.item}'
+
+class WishListItem(models.Model):
+    wishlist = models.ForeignKey(WishList, on_delete=models.CASCADE, 
+    blank=True, null=True, related_name='items')
+    item = models.ForeignKey(Product, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = ("Wish list item")
+
+    def __str__(self):
+        return f'{self.item}'
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, 

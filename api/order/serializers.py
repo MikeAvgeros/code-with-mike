@@ -2,7 +2,7 @@ from django.db import transaction
 from rest_framework import serializers
 from customer.serializers import UserSerializer
 from store.models import Product
-from .models import Cart, CartItem, Order, OrderItem
+from .models import Cart, CartItem, Order, OrderItem, WishList, WishListItem
 
 class ShortProductSerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(
@@ -21,6 +21,13 @@ class CartItemSerializer(serializers.ModelSerializer):
         model = CartItem
         fields = ['id', 'item', 'quantity']
 
+class WishListItemSerializer(serializers.ModelSerializer):
+    item = ShortProductSerializer()
+
+    class Meta:
+        model = WishListItem
+        fields = ['id', 'item']
+
 class OrderItemSerializer(serializers.ModelSerializer):
     item = ShortProductSerializer()
 
@@ -34,6 +41,14 @@ class CartSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cart
         fields = ['id', 'items', 'created_at']
+
+class WishListSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+    items = WishListItemSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = WishList
+        fields = ['id', 'user', 'items', 'created_at']
 
 class OrderSerializer(serializers.ModelSerializer):
     user = UserSerializer()
@@ -76,3 +91,4 @@ class UpdateOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ['payment_status']
+

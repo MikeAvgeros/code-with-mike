@@ -4,10 +4,12 @@ from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.mixins import (
     CreateModelMixin, RetrieveModelMixin, DestroyModelMixin)
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
-from .models import Cart, CartItem, Order, OrderItem
+from .models import (Cart, CartItem, WishList, WishListItem, 
+    Order, OrderItem, WishList)
 from customer.models import User
 from .serializers import (
     CartSerializer, CartItemSerializer, 
+    WishListSerializer, WishListItemSerializer,
     OrderSerializer, UpdateOrderSerializer, 
     CreateOrderSerializer, OrderItemSerializer)
 
@@ -16,6 +18,20 @@ class CartViewSet(
     DestroyModelMixin, GenericViewSet):
     queryset = Cart.objects.prefetch_related('items__item').all()
     serializer_class = CartSerializer
+
+class WishListViewSet(
+    CreateModelMixin, RetrieveModelMixin, 
+    DestroyModelMixin, GenericViewSet):
+    serializer_class = WishListSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_staff:
+            return WishList.objects.all()
+        else:
+            user_id = User.objects.only('id')\
+                .get(id=self.request.user.id)
+            return WishList.objects.filter(user_id=user_id)
 
 class OrderViewSet(ModelViewSet):
     http_method_names = ['get', 'post', 'patch', 
@@ -59,6 +75,14 @@ class CartItemViewSet(ModelViewSet):
     def get_queryset(self):
         return CartItem.objects\
             .filter(cart_id=self.kwargs['cart_pk'])\
+            .select_related('items')
+
+class WishListItemViewSet(ModelViewSet):
+    serializer_class = WishListItemSerializer
+
+    def get_queryset(self):
+        return WishListItem.objects\
+            .filter(wishlist_id=self.kwargs['wishlist_pk'])\
             .select_related('items')
 
 class OrderItemViewSet(ModelViewSet):
