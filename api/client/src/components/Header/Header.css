@@ -1,0 +1,18 @@
+.nav-el {
+  text-decoration: none;
+  color: #fafafa;
+  letter-spacing: 1px;
+  align-self: center;
+}
+
+.primary-btn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  background-image: linear-gradient(to right, #7b1fa2, #c2185b);
+}
+
+.secondary-btn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  outline: 1px solid #fafafa;
+}

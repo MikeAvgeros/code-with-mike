@@ -1,0 +1,14 @@
+.home {
+  display: grid;
+  width: 100%;
+  height: 100vh;
+  background-image: linear-gradient(to right, #7b1fa2, #c2185b);
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
+}
+
+.home-tag {
+  width: 75%;
+  color: #fafafa;
+  text-align: center;
+  place-self: center center;
+}
