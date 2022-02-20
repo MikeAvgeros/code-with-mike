@@ -23,7 +23,6 @@ class StripeCheckoutView(APIView):
                 success_url=settings.SITE_URL + '/?success=true&session_id={CHECKOUT_SESSION_ID}',
                 cancel_url=settings.SITE_URL + '/?canceled=true',
             )
-
             return redirect(checkout_session.url)
         except:
             return Response(
