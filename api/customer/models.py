@@ -45,7 +45,7 @@ class Customer(models.Model):
             self.image = self.resize(self.image)
         super().save(*args, **kwargs)
 
-    def resize(self, image, size=(640, 480)):
+    def resize(self, image, size=(512, 512)):
         img = Image.open(image)
         img.thumbnail(size, Image.ANTIALIAS)
         thumb_io = BytesIO()

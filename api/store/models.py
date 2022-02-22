@@ -37,6 +37,7 @@ class Promotion(models.Model):
 class Product(models.Model):
     slug = models.SlugField(blank=True, null=True)
     name = models.CharField(max_length=255, unique=True)
+    tag = models.TextField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     price = models.DecimalField(
         max_digits=6, decimal_places=2, 
@@ -59,7 +60,7 @@ class Product(models.Model):
             self.image = self.resize(self.image)
         super().save(*args, **kwargs)
 
-    def resize(self, image, size=(640, 480)):
+    def resize(self, image, size=(512, 512)):
         img = Image.open(image)
         img.thumbnail(size, Image.ANTIALIAS)
         thumb_io = BytesIO()
