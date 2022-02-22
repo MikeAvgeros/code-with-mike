@@ -12,6 +12,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Stack from "@mui/material/Stack";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import Badge from '@mui/material/Badge';
 import './Header.css'
 
 const Header = () => {
@@ -119,10 +120,14 @@ const Header = () => {
         <Box sx={{ display: { xs: "none", md: "flex" }, marginRight: 5 }}>
           <Stack direction="row" spacing={3}>
             <Link className='nav-el' to='/wishlist'>
-              <FavoriteIcon />
+              <Badge badgeContent={0} color="secondary">
+                <FavoriteIcon />
+              </Badge>
             </Link>
             <Link className='nav-el' to='/cart'>
-              <ShoppingCartIcon />
+              <Badge badgeContent={0} color="secondary">
+                <ShoppingCartIcon />
+              </Badge>
             </Link>
             {renderUserSettings()}
           </Stack>
@@ -182,10 +187,14 @@ const Header = () => {
         <Box sx={{ display: { xs: "flex", md: "none" }, marginRight: 3}}>
           <Stack direction="row" spacing={3}>
             <Link className='nav-el' to='/wishlist'>
-              <FavoriteIcon />
+              <Badge badgeContent={0} color="secondary">
+                <FavoriteIcon />
+              </Badge>
             </Link>
             <Link className='nav-el' to='/cart'>
-              <ShoppingCartIcon />
+              <Badge badgeContent={0} color="secondary">
+                <ShoppingCartIcon />
+              </Badge>
             </Link>
           </Stack>
         </Box>
