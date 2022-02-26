@@ -4,8 +4,6 @@ import api from '../Api/Api';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -16,30 +14,30 @@ import { Alert } from '@mui/material';
 const Signup = () => {
   const [accountCreated, setAccountCreated] = useState(false);
   const [formData, setFormData] = useState({
-      username: '',
-      first_name: '',
-      last_name: '',
       email: '',
+      username: '',
       password: '',
       re_password: ''
   });
 
-  const { username, first_name, last_name, email, password, re_password } = formData;
+  const { email, username, password, re_password } = formData;
 
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const signup = async (username, first_name, last_name, email, password, re_password) => {
-    const req = {
-        header: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ username, first_name, last_name, email, password, re_password })
+  const signup = async (email, username, password, re_password) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
     };
 
+    const body = JSON.stringify({ email, username, password, re_password });
+
     try {
-      const { data } = await api.post('auth/users/', req.body, req.header);
+      const { data } = await api.post('auth/users/', body, config);
+      console.log(data)
       if (data.username === username) {
         setAccountCreated(true);
       }
@@ -52,15 +50,27 @@ const Signup = () => {
     e.preventDefault();
 
     if (password === re_password) {
-      signup(username, first_name, last_name, email, password, re_password);
+      signup(email, username, password, re_password);
     }
   };
 
   if (accountCreated) {
     return (
-      <Alert severity='info'>
-        You have successfully signup. <Link to='/login'>You can now login.</Link>
-      </Alert>
+      <Container component="main">
+        <Box
+          sx={{
+            marginTop: 20,
+            marginBottom: 10,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+        <Alert severity='info'>
+          You have successfully registered an account. You can now <Link to='/login'>login.</Link>
+        </Alert>
+        </Box>
+      </Container>
     )
   }
 
@@ -82,41 +92,6 @@ const Signup = () => {
         </Typography>
         <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
-          <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                id="username"
-                label="Username"
-                name="username"
-                value={username}
-                autoComplete="username"
-                autoFocus
-                onChange={onChange}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
-                id="firstName"
-                label="First Name"
-                name="firstName"
-                value={first_name}
-                autoComplete="given-name"
-                onChange={onChange}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                value={last_name}
-                autoComplete="family-name"
-                onChange={onChange}
-              />
-            </Grid>
             <Grid item xs={12}>
               <TextField
                 required
@@ -127,6 +102,19 @@ const Signup = () => {
                 value={email}
                 type="email"
                 autoComplete="email"
+                onChange={onChange}
+                autoFocus
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                id="username"
+                label="Username"
+                name="username"
+                value={username}
+                autoComplete="username"
                 onChange={onChange}
               />
             </Grid>
@@ -147,19 +135,13 @@ const Signup = () => {
               <TextField
                 required
                 fullWidth
-                id="repeat-password"
+                id="re_password"
                 label="Repeat Password"
-                name="repeat-password"
+                name="re_password"
                 value={re_password}
                 type="password"
-                autoComplete="repeat-password"
+                autoComplete="re_password"
                 onChange={onChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
               />
             </Grid>
           </Grid>
@@ -167,7 +149,7 @@ const Signup = () => {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+            sx={{ mt: 2, mb: 2 }}
           >
             Sign Up
           </Button>

@@ -25,19 +25,20 @@ const Login = () => {
   };
 
   const login = async (email, password) => {
-    const req = {
-        header: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email, password })
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
     };
 
+    const body = JSON.stringify({ email, password });
+
     try {
-        const { data } = await api.post("auth/token/login/", req.body, req.header);
-        localStorage.setItem('auth_token', data);
+      const { data } = await api.post("auth/token/login/", body, config);
+      localStorage.setItem('auth_token', data.auth_token);
 
     } catch (err) {
-        console.log(`Could not login using request: ${req}.\nError Message: ${err}`);
+        console.log(err);
     }
   };
 

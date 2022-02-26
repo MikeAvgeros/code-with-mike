@@ -1,8 +1,6 @@
 import os
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from phonenumber_field.modelfields import PhoneNumberField
-from django_countries.fields import CountryField
 from io import BytesIO
 from PIL import Image
 from django.core.files import File
@@ -22,9 +20,9 @@ class Customer(models.Model):
         (HOBBYIST, 'Hobbyist'),
     ]
 
-    phone = PhoneNumberField(blank=True, null=True)
+    phone = models.CharField(max_length=255, blank=True, null=True)
     birth_date = models.DateField(blank=True, null=True)
-    country = CountryField(blank=True, null=True)
+    country = models.CharField(max_length=255, blank=True, null=True)
     image = models.ImageField(blank=True, null=True)
     customer_type = models.CharField( blank=True, null=True,
         max_length=1, choices=CUSTOMER_TYPE

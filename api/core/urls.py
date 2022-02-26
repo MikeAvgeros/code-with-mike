@@ -4,7 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
 
-admin.site.site_header = 'Code with Mike Admin'
+admin.site.site_header = 'codewithmike Admin Page'
 
 urlpatterns = [
     path(r'admin/', admin.site.urls),
@@ -13,8 +13,8 @@ urlpatterns = [
     path(r'api/order/', include('order.urls')),
     path(r'api/payment/', include('payment.urls')),
     path(r'api/profile/', include('customer.urls')),
-    path(r'auth/', include('djoser.urls')),
-    path(r'auth/', include('djoser.urls.authtoken')),
+    path(r'api/auth/', include('djoser.urls')),
+    path(r'api/auth/', include('djoser.urls.authtoken')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

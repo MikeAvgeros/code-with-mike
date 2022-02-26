@@ -9,7 +9,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', '')
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'codewithmike.heroku.com']
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -113,7 +113,9 @@ DJOSER = {
     'USER_CREATE_PASSWORD_RETYPE': True,
     'SERIALIZERS': {
         'user_create': 'customer.serializers.CreateUserSerializer',
+        'user': 'customer.serializers.UserSerializer',
         'current_user': 'customer.serializers.UserSerializer',
+        'user_delete': 'djoser.serializers.UserDeleteSerializer',
     }
 }
 

@@ -18,25 +18,6 @@ import { useEffect, useState } from 'react';
 import api from './components/Api/Api';
 
 const App = () => {
-  const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [cart, setCart] = useState([]);
-
-  useEffect(() => {
-    getProducts();
-    getCategories();
-  }, []);
-
-  const getProducts = async () => {
-    const { data } = await api.get("store/products");
-    setProducts(data.results);
-  };
-
-  const getCategories = async () => {
-    const { data } = await api.get("store/categories");
-    setCategories(data.results);
-  };
-
   return (
     <Router>
       <Header />

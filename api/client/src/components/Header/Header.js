@@ -14,11 +14,12 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Badge from '@mui/material/Badge';
 import './Header.css'
+import api from '../Api/Api';
 
 const Header = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const [loginUser, setLoginUser] = useState(false);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
   const openNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -36,7 +37,7 @@ const Header = () => {
     setAnchorElUser(null);
   };
 
-  const pages = loginUser ? [
+  const pages = isUserLoggedIn ? [
     "Courses",
     "Categories",
     "Wishlist",
@@ -52,11 +53,21 @@ const Header = () => {
     "Login",
     "Signup"
   ];
-  
-  const settings = ["Profile", "Dashboard", "Logout"];
+
+  const logout = () => {
+    const token = localStorage.getItem('auth_token');
+    const config = {
+      headers: {
+        Authorization: `Token ${token}`
+      }
+    };
+    api.post("auth/token/logout/", token, config);
+    localStorage.removeItem('auth_token');
+    setIsUserLoggedIn(false);
+  };
 
   const renderUserSettings = () => {
-    if (loginUser) {
+    if (isUserLoggedIn) {
       return (
         <>
           <IconButton onClick={openUserMenu} sx={{ p: 0 }}>
@@ -77,11 +88,15 @@ const Header = () => {
             open={Boolean(anchorElUser)}
             onClose={closeUserMenu}
           >
-            {settings.map(setting => (
-              <MenuItem key={setting} onClick={closeUserMenu}>
-                <Typography textAlign="center">{setting}</Typography>
-              </MenuItem>
-            ))}
+            <MenuItem onClick={closeUserMenu}>
+              <Typography textAlign="center">Profile</Typography>
+            </MenuItem>
+            <MenuItem onClick={closeUserMenu}>
+              <Typography textAlign="center">Dashboard</Typography>
+            </MenuItem>
+            <MenuItem onClick={logout}>
+              <Typography textAlign="center">Logout</Typography>
+            </MenuItem>
           </Menu>
         </>
       )
