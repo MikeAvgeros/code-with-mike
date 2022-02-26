@@ -49,7 +49,7 @@ class Product(models.Model):
     is_featured = models.BooleanField(default=False)
     image = models.ImageField(blank=True, null=True)
     last_update = models.DateTimeField(auto_now=True)
-    
+
     def __str__(self):
         return self.name
 
@@ -74,4 +74,8 @@ class Review(models.Model):
     description = models.TextField()
     rating = models.PositiveSmallIntegerField(default=5,
         validators=[MinValueValidator(1), MaxValueValidator(5)])
+    on_site = models.BooleanField(default=False)
     date = models.DateField(auto_now=True)
+
+    def __str__(self):
+        return f'Review for {self.product.name} from {self.customer.user.username}'

@@ -6,12 +6,15 @@ import Typography from '@mui/material/Typography';
 import { CardActionArea, CardHeader } from '@mui/material';
 
 const Course = ({ course }) => {
+
+  if (!course) return null
+
   return (
-    <Card sx={{ display: 'grid', maxWidth: '300px', justifySelf: 'center' }}>
+    <Card sx={{ display: 'grid', maxWidth: '350px', justifySelf: 'center' }}>
       <CardHeader
         sx={{
           height: '24px',
-          backgroundImage: 'linear-gradient(to right, #7b1fa2, #c2185b)'
+          backgroundImage: 'linear-gradient(to right, #512da8, #c2185b)'
         }}
       />
       <CardActionArea sx={{ display: 'grid', height: '500px' }}>
@@ -22,7 +25,7 @@ const Course = ({ course }) => {
           alt={course.name}
         />
         <CardContent>
-          <Typography gutterBottom variant="h6" component="div">
+          <Typography gutterBottom variant="h6" component="div" sx={{ fontWeight: 'bold' }}>
             {course.name}
           </Typography>
           <Typography variant="body1">

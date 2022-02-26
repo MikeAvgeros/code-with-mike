@@ -37,7 +37,6 @@ const Signup = () => {
 
     try {
       const { data } = await api.post('auth/users/', body, config);
-      console.log(data)
       if (data.username === username) {
         setAccountCreated(true);
       }
@@ -59,8 +58,8 @@ const Signup = () => {
       <Container component="main">
         <Box
           sx={{
-            marginTop: 20,
-            marginBottom: 10,
+            mt: 20,
+            mb: 10,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -78,13 +77,13 @@ const Signup = () => {
     <Container component="main" maxWidth="xs">
       <Box
         sx={{
-          marginTop: 10,
+          mt: 15,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+        <Avatar sx={{ m: 1, backgroundImage: 'linear-gradient(to right, #512da8, #c2185b)' }}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
@@ -149,12 +148,15 @@ const Signup = () => {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 2, mb: 2 }}
+            sx={{ 
+              mt: 2, mb: 2,
+              backgroundImage: 'linear-gradient(to right, #512da8, #c2185b)'
+            }}
           >
             Sign Up
           </Button>
-          <Grid container justifyContent="flex-end">
-            <Grid item>
+          <Grid container sx={{ mb: 3 }}>
+            <Grid item xs={12}>
               <Link to="/login">
                 Already have an account? Log in
               </Link>

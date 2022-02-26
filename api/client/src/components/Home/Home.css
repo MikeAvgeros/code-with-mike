@@ -1,45 +1,27 @@
 .home {
   display: grid;
   height: 100vh;
-  background-image: linear-gradient(to right, #7b1fa2, #c2185b);
+  background-image: linear-gradient(to right, #512da8, #c2185b);
   clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
-}
-
-.about {
-  display: grid;
-  height: fit-content;
 }
 
 .reviews {
   display: grid;
-  height: 100vh;
   background-color: #e0e0e0;
-  clip-path: polygon(0 20%, 100% 0, 100% 80%, 0% 100%);
-}
-
-.featured {
-  display: grid;
-  margin-top: 48px;
-  width: 100%;
+  clip-path: polygon(0 15%, 100% 0, 100% 85%, 0% 100%);
 }
 
 .home-tag {
   color: #fafafa;
-  line-height: 50px;
   font-weight: 600 !important;
   font-size: 48px !important;
   text-align: center;
-  place-self: center center;
+  margin-top: 96px;
 }
 
 .tag {
-  font-weight: 400 !important;
-  font-size: 40px !important;
+  font-weight: 600 !important;
+  font-size: 36px !important;
   text-align: center;
-  margin-bottom: 48px;
+  margin-top: 48px;
 }
-
-.tag ~ p {
-  margin-bottom: 48px;
-}
-

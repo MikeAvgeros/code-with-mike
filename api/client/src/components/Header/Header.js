@@ -13,7 +13,9 @@ import Stack from "@mui/material/Stack";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Badge from '@mui/material/Badge';
-import './Header.css'
+import { Image } from 'mui-image';
+import logo from '../../images/logo.png';
+import './Header.css';
 import api from '../Api/Api';
 
 const Header = () => {
@@ -119,7 +121,7 @@ const Header = () => {
       <>
         <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }, marginLeft: 5 }}>
           <Link className='nav-el' to='/'>
-            LOGO
+            <Image sx={{ maxWidth: '48px' }} src={logo} />
           </Link>
           <Stack direction="row" spacing={3}
             sx={{ marginLeft: 5 }}
@@ -129,6 +131,9 @@ const Header = () => {
             </Link>
             <Link className='nav-el' to='/categories'>
               Categories
+            </Link>
+            <Link className='nav-el' to='/contact'>
+              Contact
             </Link>
           </Stack>
         </Box>
@@ -196,7 +201,7 @@ const Header = () => {
         </Box>
         <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
           <Link className='nav-el' to='/'>
-            LOGO
+            <Image sx={{ maxWidth: '48px' }} src={logo} />
           </Link>
         </Box>
         <Box sx={{ display: { xs: "flex", md: "none" }, marginRight: 3}}>

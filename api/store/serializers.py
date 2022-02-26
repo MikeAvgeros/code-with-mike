@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Category, Product, Promotion, Review
+from customer.serializers import CustomerSerializer
 
 class ProductSerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(
@@ -70,13 +71,24 @@ class PromotionSerializer(serializers.ModelSerializer):
             "product_set"
         ]
 
+class ShortProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = ['name']
+
 class ReviewSerializer(serializers.ModelSerializer):
+    product = ShortProductSerializer(read_only=True)
+    customer = CustomerSerializer(read_only=True)
+
     class Meta:
         model = Review
+        read_only_fields = ('on_site',)
         fields = [
             'id',
             'date',
             'description',
             'product',
-            'customer'
+            'customer',
+            'rating',
+            'on_site',
         ]

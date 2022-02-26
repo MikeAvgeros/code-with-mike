@@ -1,40 +1,35 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import api from "../Api/Api";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import LockResetIcon from '@mui/icons-material/LockReset';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
-const Login = () => {
+const ResetPassword = () => {
   const [formData, setFormData] = useState({
     email: '',
-    password: '' 
   });
 
-  const { email, password } = formData;
+  const { email } = formData;
 
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const login = async (email, password) => {
+  const reset_password = async (email) => {
     const config = {
       headers: {
         'Content-Type': 'application/json'
       }
     };
 
-    const body = JSON.stringify({ email, password });
+    const body = JSON.stringify({ email });
 
     try {
-      const { data } = await api.post("auth/token/login/", body, config);
-      localStorage.setItem('auth_token', data.auth_token);
-
+      await api.post("auth/users/reset_password/", body, config);
     } catch (err) {
         console.log(err);
     }
@@ -43,7 +38,7 @@ const Login = () => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    login(email, password);
+    reset_password(email);
   };
 
   return (
@@ -57,10 +52,10 @@ const Login = () => {
         }}
       >
         <Avatar sx={{ m: 1, backgroundImage: 'linear-gradient(to right, #512da8, #c2185b)' }}>
-          <LockOutlinedIcon />
+          <LockResetIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Reset Password
         </Typography>
         <Box component="form" onSubmit={onSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
@@ -76,45 +71,20 @@ const Login = () => {
             autoFocus
             onChange={onChange}
           />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="password"
-            label="Password"
-            name="password"
-            value={password}
-            type="password"
-            autoComplete="current-password"
-            onChange={onChange}
-          />
           <Button
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ 
-              mt: 2, mb: 2,
+            sx={{ mt: 2, mb: 2,
               backgroundImage: 'linear-gradient(to right, #512da8, #c2185b)'
             }}
           >
-            Log In
+            Reset Password
           </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link to='/reset_password'>
-                Forgot your password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link to='/signup'>
-                Don't have an account? Sign Up
-              </Link>
-            </Grid>
-          </Grid>
         </Box>
       </Box>
     </Container>
   );
 }
 
-export default Login;
+export default ResetPassword;
