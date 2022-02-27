@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -23,6 +23,30 @@ const Header = () => {
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
+  useEffect(() => {
+    if (isUserLoggedIn) {
+      if (!localStorage.getItem('wishlist')) {
+        createWishList()
+      }
+    }
+  }, [])
+
+  const createWishList = async () => {
+    const user = localStorage.getItem('user_id');
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+    const body = JSON.stringify({ user });
+    try {
+      const { data } = api.post("order/wishlist/", body, config);
+      localStorage.setItem('wishlist', data.id);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   const openNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -45,8 +69,7 @@ const Header = () => {
     "Wishlist",
     "Cart",
     "Profile",
-    "Dashboard",
-    "Logout"
+    "Dashboard"
   ] : [
     "Courses",
     "Categories",
@@ -140,14 +163,18 @@ const Header = () => {
         <Box sx={{ display: { xs: "none", md: "flex" }, marginRight: 5 }}>
           <Stack direction="row" spacing={3}>
             <Link className='nav-el' to='/wishlist'>
-              <Badge badgeContent={0} color="secondary">
-                <FavoriteIcon />
-              </Badge>
+              <IconButton sx={{ color: '#fafafa', p: 0 }}>
+                <Badge badgeContent={0} color="secondary">
+                  <FavoriteIcon />
+                </Badge>
+              </IconButton>
             </Link>
             <Link className='nav-el' to='/cart'>
-              <Badge badgeContent={0} color="secondary">
-                <ShoppingCartIcon />
-              </Badge>
+              <IconButton sx={{ color: '#fafafa', p: 0 }}>
+                <Badge badgeContent={0} color="secondary">
+                  <ShoppingCartIcon />
+                </Badge>
+              </IconButton>
             </Link>
             {renderUserSettings()}
           </Stack>
@@ -197,6 +224,9 @@ const Header = () => {
                 </Link>
               </MenuItem>
             ))}
+            <MenuItem onClick={logout}>
+              <Typography textAlign="center">Logout</Typography>
+            </MenuItem>
           </Menu>
         </Box>
         <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>

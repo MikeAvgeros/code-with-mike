@@ -43,7 +43,6 @@ class CartSerializer(serializers.ModelSerializer):
         fields = ['id', 'items', 'created_at']
 
 class WishListSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
     items = WishListItemSerializer(many=True, read_only=True)
 
     class Meta:

@@ -34,7 +34,6 @@ const Login = () => {
     try {
       const { data } = await api.post("auth/token/login/", body, config);
       localStorage.setItem('auth_token', data.auth_token);
-
     } catch (err) {
         console.log(err);
     }

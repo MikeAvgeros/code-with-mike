@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
@@ -16,8 +17,25 @@ import Terms from "./components/Terms/Terms";
 import Privacy from "./components/Privacy/Privacy";
 import Footer from "./components/Footer/Footer";
 import Box from '@mui/material/Box';
+import api from './components/Api/Api';
 
 const App = () => {
+  useEffect(() => {
+    if (!localStorage.getItem('cart')) {
+      createCart();
+    }
+  }, [])
+
+  const createCart = async () => {
+    try {
+      const { data } = await api.post("order/carts/");
+      localStorage.setItem('cart', data.id);
+    } catch (err) {
+      console.log(err);
+    }
+    
+  }
+
   return (
     <Router>
       <Box

@@ -12,9 +12,9 @@ class Cart(models.Model):
         return f'Cart {self.id}'
 
 class WishList(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User,
     on_delete=models.PROTECT, related_name='wishlist')
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name_plural = ("Wish list")
