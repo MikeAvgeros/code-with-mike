@@ -27,6 +27,8 @@ const Review = ({ review }) => {
     setExpanded(!expanded);
   };
 
+  if (!review) return null
+
   return (
     <Card sx={{ display: 'grid', maxWidth: '350px', justifySelf: 'center' }}>
       <CardHeader
@@ -36,7 +38,7 @@ const Review = ({ review }) => {
         title={review.customer.user.username}
       />
       <CardContent>
-        <Typography sx={{ mb: 3, fontWeight: 'bold' }} variant="body2">
+        <Typography sx={{ mb: 3, fontWeight: 'bold' }} variant="body1">
           {review.product.name}
         </Typography>
         <Typography variant="body2">

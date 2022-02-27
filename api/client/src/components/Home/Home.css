@@ -1,27 +1,39 @@
-.home {
+.landing {
   display: grid;
-  height: 100vh;
+  min-height: 100vh;
   background-image: linear-gradient(to right, #512da8, #c2185b);
-  clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 95%);
+}
+
+.about {
+  display: grid;
+  min-height: 100vh;
+  background-image: linear-gradient(to right, #e0e0e0, #f06292);
 }
 
 .reviews {
   display: grid;
-  background-color: #e0e0e0;
-  clip-path: polygon(0 15%, 100% 0, 100% 85%, 0% 100%);
+  min-height: 100vh;
+  background-image: linear-gradient(to right, #e0e0e0, #7986cb);
+  clip-path: polygon(0 15%, 100% 5%, 100% 85%, 0% 95%);
 }
 
-.home-tag {
+.courses {
+  display: grid;
+  min-height: 100vh;
+  background-color: #e0e0e0;
+}
+
+.landing-tag {
   color: #fafafa;
   font-weight: 600 !important;
   font-size: 48px !important;
   text-align: center;
-  margin-top: 96px;
+  margin-top: 5vh;
 }
 
 .tag {
   font-weight: 600 !important;
   font-size: 36px !important;
   text-align: center;
-  margin-top: 48px;
 }
