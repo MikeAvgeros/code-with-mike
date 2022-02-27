@@ -3,7 +3,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { CardActionArea, CardHeader } from '@mui/material';
+import { CardActionArea, CardHeader, Button } from '@mui/material';
 
 const Course = ({ course }) => {
 
@@ -31,6 +31,9 @@ const Course = ({ course }) => {
           <Typography variant="body1">
             {course.tag}
           </Typography>
+          <Button sx={{ mt: 3 }} variant="outlined">
+            Learn More
+          </Button>
         </CardContent>
       </CardActionArea>
     </Card>

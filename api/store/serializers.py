@@ -2,11 +2,23 @@ from rest_framework import serializers
 from .models import Category, Product, Promotion, Review
 from customer.serializers import CustomerSerializer
 
+class CategoryNameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model= Category
+        fields = ['name']
+
+class PromotionNameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model= Promotion
+        fields = ['name']
+
 class ProductSerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(
         view_name='product-detail',
         lookup_field='slug'
     )
+    category = CategoryNameSerializer(read_only=True)
+    promotion = PromotionNameSerializer(read_only=True)
 
     class Meta:
         model = Product

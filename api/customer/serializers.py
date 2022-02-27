@@ -32,14 +32,12 @@ class ShortUserSerializer(serializers.ModelSerializer):
         fields = ['username', 'email']
 
 class CustomerSerializer(serializers.ModelSerializer):
-    user_id = serializers.IntegerField(read_only=True)
     user = ShortUserSerializer(read_only=True)
 
     class Meta:
         model = Customer
         fields = [
             'id',
-            'user_id',
             'user',
             'phone',
             'birth_date',

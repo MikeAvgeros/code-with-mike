@@ -3,7 +3,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
-import { Avatar, CardHeader, Rating } from '@mui/material';
+import { Avatar, Button, CardHeader, Rating } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
@@ -46,6 +46,9 @@ const Review = ({ review }) => {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
+        <Button variant="outlined">
+          View Course
+        </Button>
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
