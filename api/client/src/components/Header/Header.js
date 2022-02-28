@@ -29,7 +29,7 @@ const Header = () => {
         createWishList()
       }
     }
-  }, [])
+  }, [isUserLoggedIn])
 
   const createWishList = async () => {
     const user = localStorage.getItem('user_id');

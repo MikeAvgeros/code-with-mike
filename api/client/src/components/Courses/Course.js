@@ -4,14 +4,14 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { CardHeader, Button, IconButton, Stack } from '@mui/material';
+import { CardHeader, Button, CardActions, IconButton } from '@mui/material';
 
 const Course = ({ course }) => {
 
   if (!course) return null
 
   return (
-    <Card sx={{ display: 'grid', maxWidth: '350px', justifySelf: 'center' }}>
+    <Card sx={{ maxWidth: 345 }}>
       <CardHeader
         sx={{
           height: '24px',
@@ -20,26 +20,23 @@ const Course = ({ course }) => {
       />
       <CardMedia
         component="img"
-        sx={{ width: '256px', height: '256px', justifySelf: 'center' }}
+        width="256"
+        height="256"
         image={course.image}
         alt={course.name}
       />
-      <CardContent sx={{ display: 'grid', height: '256px' }}>
+      <CardContent>
         <Typography gutterBottom variant="h6" component="div" sx={{ fontWeight: 'bold' }}>
           {course.name}
         </Typography>
-        <Typography variant="body1">
+        <Typography variant="body1" color="text.secondary">
           {course.tag}
         </Typography>
-        <Stack direction="row">
-          <Button variant="outlined">
-            Learn More
-          </Button>
-          <IconButton sx={{ ml: 17 }}>
-            <FavoriteIcon />
-          </IconButton>
-        </Stack>
       </CardContent>
+      <CardActions>
+        <IconButton><FavoriteIcon /></IconButton>
+        <Button variant="outlined" size="small">Learn More</Button>
+      </CardActions>
     </Card>
   )
 }

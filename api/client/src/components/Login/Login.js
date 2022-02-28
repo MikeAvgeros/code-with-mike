@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import api from "../Api/Api";
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
 
 const Login = () => {
   const [formData, setFormData] = useState({
-    email: '',
-    password: '' 
+    email: "",
+    password: "",
   });
 
   const { email, password } = formData;
@@ -25,17 +25,17 @@ const Login = () => {
   const login = async (email, password) => {
     const config = {
       headers: {
-        'Content-Type': 'application/json'
-      }
+        "Content-Type": "application/json",
+      },
     };
 
     const body = JSON.stringify({ email, password });
 
     try {
       const { data } = await api.post("auth/token/login/", body, config);
-      localStorage.setItem('auth_token', data.auth_token);
+      localStorage.setItem("auth_token", data.auth_token);
     } catch (err) {
-        console.log(err);
+      console.log(err);
     }
   };
 
@@ -50,12 +50,17 @@ const Login = () => {
       <Box
         sx={{
           mt: 15,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
-        <Avatar sx={{ m: 1, backgroundImage: 'linear-gradient(to right, #512da8, #c2185b)' }}>
+        <Avatar
+          sx={{
+            m: 1,
+            backgroundImage: "linear-gradient(to right, #512da8, #c2185b)",
+          }}
+        >
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
@@ -91,29 +96,26 @@ const Login = () => {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ 
-              mt: 2, mb: 2,
-              backgroundImage: 'linear-gradient(to right, #512da8, #c2185b)'
+            sx={{
+              mt: 2,
+              mb: 2,
+              backgroundImage: "linear-gradient(to right, #512da8, #c2185b)",
             }}
           >
             Log In
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link to='/reset_password'>
-                Forgot your password?
-              </Link>
+              <Link to="/reset_password">Forgot your password?</Link>
             </Grid>
             <Grid item>
-              <Link to='/signup'>
-                Don't have an account? Sign Up
-              </Link>
+              <Link to="/signup">Don't have an account? Sign Up</Link>
             </Grid>
           </Grid>
         </Box>
       </Box>
     </Container>
   );
-}
+};
 
 export default Login;

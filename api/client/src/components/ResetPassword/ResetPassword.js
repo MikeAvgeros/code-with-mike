@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import api from "../Api/Api";
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
-import LockResetIcon from '@mui/icons-material/LockReset';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+import LockResetIcon from "@mui/icons-material/LockReset";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
 
 const ResetPassword = () => {
   const [formData, setFormData] = useState({
-    email: '',
+    email: "",
   });
 
   const { email } = formData;
@@ -22,8 +22,8 @@ const ResetPassword = () => {
   const reset_password = async (email) => {
     const config = {
       headers: {
-        'Content-Type': 'application/json'
-      }
+        "Content-Type": "application/json",
+      },
     };
 
     const body = JSON.stringify({ email });
@@ -31,7 +31,7 @@ const ResetPassword = () => {
     try {
       await api.post("auth/users/reset_password/", body, config);
     } catch (err) {
-        console.log(err);
+      console.log(err);
     }
   };
 
@@ -46,12 +46,17 @@ const ResetPassword = () => {
       <Box
         sx={{
           mt: 15,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
-        <Avatar sx={{ m: 1, backgroundImage: 'linear-gradient(to right, #512da8, #c2185b)' }}>
+        <Avatar
+          sx={{
+            m: 1,
+            backgroundImage: "linear-gradient(to right, #512da8, #c2185b)",
+          }}
+        >
           <LockResetIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
@@ -75,8 +80,10 @@ const ResetPassword = () => {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 2, mb: 2,
-              backgroundImage: 'linear-gradient(to right, #512da8, #c2185b)'
+            sx={{
+              mt: 2,
+              mb: 2,
+              backgroundImage: "linear-gradient(to right, #512da8, #c2185b)",
             }}
           >
             Reset Password
@@ -85,6 +92,6 @@ const ResetPassword = () => {
       </Box>
     </Container>
   );
-}
+};
 
 export default ResetPassword;
