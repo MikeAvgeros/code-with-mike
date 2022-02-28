@@ -1,18 +1,20 @@
-import React, { useState } from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import EmailIcon from '@mui/icons-material/Email';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
+import React, { useState } from "react";
+import {
+  Box,
+  Container,
+  Grid,
+  Avatar,
+  Button,
+  TextField,
+  Typography,
+} from "@mui/material";
+import EmailIcon from "@mui/icons-material/Email";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
-    email: '',
-    name: '',
-    message: ''
+    email: "",
+    name: "",
+    message: "",
   });
 
   const { email, name, message } = formData;
@@ -24,7 +26,7 @@ const Contact = () => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    alert("submitted")
+    alert("submitted");
   };
 
   return (
@@ -32,12 +34,17 @@ const Contact = () => {
       <Box
         sx={{
           mt: 15,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
-        <Avatar sx={{ m: 1, backgroundImage: 'linear-gradient(to right, #512da8, #c2185b)' }}>
+        <Avatar
+          sx={{
+            m: 1,
+            backgroundImage: "linear-gradient(to right, #512da8, #c2185b)",
+          }}
+        >
           <EmailIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
@@ -72,27 +79,28 @@ const Contact = () => {
               />
             </Grid>
             <Grid item xs={12}>
-            <TextField
-              required
-              fullWidth
-              multiline
-              minRows={5}
-              id="message"
-              label="Message"
-              name="message"
-              value={message}
-              autoComplete="message"
-              onChange={onChange}
-            />
+              <TextField
+                required
+                fullWidth
+                multiline
+                minRows={5}
+                id="message"
+                label="Message"
+                name="message"
+                value={message}
+                autoComplete="message"
+                onChange={onChange}
+              />
             </Grid>
           </Grid>
           <Button
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ 
-              mt: 2, mb: 2,
-              backgroundImage: 'linear-gradient(to right, #512da8, #c2185b)'
+            sx={{
+              mt: 2,
+              mb: 2,
+              backgroundImage: "linear-gradient(to right, #512da8, #c2185b)",
             }}
           >
             Send
@@ -100,7 +108,7 @@ const Contact = () => {
         </Box>
       </Box>
     </Container>
-  )
-}
+  );
+};
 
 export default Contact;

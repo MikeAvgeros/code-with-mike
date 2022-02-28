@@ -1,13 +1,18 @@
 import React, { useState } from "react";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
-import Typography from "@mui/material/Typography";
-import { Avatar, Button, CardHeader, Rating } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { styled } from "@mui/material/styles";
-import IconButton from "@mui/material/IconButton";
-import Collapse from "@mui/material/Collapse";
+import {
+  Card,
+  CardContent,
+  Collapse,
+  CardHeader,
+  CardActions,
+  Button,
+  IconButton,
+  Typography,
+  Rating,
+  Avatar
+} from "@mui/material";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;

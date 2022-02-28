@@ -1,23 +1,25 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import api from '../Api/Api';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { Alert } from '@mui/material';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import api from "../Api/Api";
+import {
+  Container,
+  Box,
+  Avatar,
+  Button,
+  TextField,
+  Grid,
+  Typography,
+} from "@mui/material";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import { Alert } from "@mui/material";
 
 const Signup = () => {
   const [accountCreated, setAccountCreated] = useState(false);
   const [formData, setFormData] = useState({
-      email: '',
-      username: '',
-      password: '',
-      re_password: ''
+    email: "",
+    username: "",
+    password: "",
+    re_password: "",
   });
 
   const { email, username, password, re_password } = formData;
@@ -29,14 +31,14 @@ const Signup = () => {
   const signup = async (email, username, password, re_password) => {
     const config = {
       headers: {
-        'Content-Type': 'application/json'
-      }
+        "Content-Type": "application/json",
+      },
     };
 
     const body = JSON.stringify({ email, username, password, re_password });
 
     try {
-      const { data } = await api.post('auth/users/', body, config);
+      const { data } = await api.post("auth/users/", body, config);
       if (data.username === username) {
         setAccountCreated(true);
       }
@@ -60,17 +62,18 @@ const Signup = () => {
           sx={{
             mt: 20,
             mb: 10,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
-        <Alert severity='info'>
-          You have successfully registered an account. You can now <Link to='/login'>login.</Link>
-        </Alert>
+          <Alert severity="info">
+            You have successfully registered an account. You can now{" "}
+            <Link to="/login">login.</Link>
+          </Alert>
         </Box>
       </Container>
-    )
+    );
   }
 
   return (
@@ -78,12 +81,17 @@ const Signup = () => {
       <Box
         sx={{
           mt: 15,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
-        <Avatar sx={{ m: 1, backgroundImage: 'linear-gradient(to right, #512da8, #c2185b)' }}>
+        <Avatar
+          sx={{
+            m: 1,
+            backgroundImage: "linear-gradient(to right, #512da8, #c2185b)",
+          }}
+        >
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
@@ -148,24 +156,23 @@ const Signup = () => {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ 
-              mt: 2, mb: 2,
-              backgroundImage: 'linear-gradient(to right, #512da8, #c2185b)'
+            sx={{
+              mt: 2,
+              mb: 2,
+              backgroundImage: "linear-gradient(to right, #512da8, #c2185b)",
             }}
           >
             Sign Up
           </Button>
           <Grid container sx={{ mb: 3 }}>
             <Grid item xs={12}>
-              <Link to="/login">
-                Already have an account? Log in
-              </Link>
+              <Link to="/login">Already have an account? Log in</Link>
             </Grid>
           </Grid>
         </Box>
       </Box>
     </Container>
-  )
-}
+  );
+};
 
 export default Signup;

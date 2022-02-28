@@ -1,21 +1,25 @@
-import React from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import { CardHeader, Button, CardActions, IconButton } from '@mui/material';
+import React from "react";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  CardHeader,
+  CardActions,
+  Button,
+  IconButton,
+  Typography,
+} from "@mui/material";
 
 const Course = ({ course }) => {
-
-  if (!course) return null
+  if (!course) return null;
 
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader
         sx={{
-          height: '24px',
-          backgroundImage: 'linear-gradient(to right, #512da8, #c2185b)'
+          height: "24px",
+          backgroundImage: "linear-gradient(to right, #512da8, #c2185b)",
         }}
       />
       <CardMedia
@@ -26,7 +30,12 @@ const Course = ({ course }) => {
         alt={course.name}
       />
       <CardContent>
-        <Typography gutterBottom variant="h6" component="div" sx={{ fontWeight: 'bold' }}>
+        <Typography
+          gutterBottom
+          variant="h6"
+          component="div"
+          sx={{ fontWeight: "bold" }}
+        >
           {course.name}
         </Typography>
         <Typography variant="body1" color="text.secondary">
@@ -34,11 +43,15 @@ const Course = ({ course }) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <IconButton><FavoriteIcon /></IconButton>
-        <Button variant="outlined" size="small">Learn More</Button>
+        <IconButton>
+          <FavoriteIcon />
+        </IconButton>
+        <Button variant="outlined" size="small">
+          Learn More
+        </Button>
       </CardActions>
     </Card>
-  )
-}
+  );
+};
 
 export default Course;

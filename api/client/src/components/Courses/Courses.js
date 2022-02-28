@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Course from "./Course";
 import api from "../Api/Api";
-import { Container, Grid } from "@mui/material";
-import Typography from "@mui/material/Typography";
+import { Container, Grid, Typography } from "@mui/material";
 
 const Courses = () => {
   const [courses, setCourses] = useState([]);

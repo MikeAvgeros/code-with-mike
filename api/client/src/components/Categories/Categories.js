@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import api from "../Api/Api";
 import Category from "./Category";
-import { Container, Grid } from "@mui/material";
-import Typography from "@mui/material/Typography";
+import { Container, Grid, Typography } from "@mui/material";
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
