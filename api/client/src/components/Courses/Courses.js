@@ -1,19 +1,11 @@
-import React, { useState, useEffect } from "react";
-import Course from "./Course";
-import api from "../Api/Api";
+import React from "react";
 import { Container, Grid, Typography } from "@mui/material";
+import Course from "./Course";
+import { useSnapshot } from "valtio";
+import store from "../Store/Store";
 
 const Courses = () => {
-  const [courses, setCourses] = useState([]);
-
-  useEffect(() => {
-    getCourses();
-  }, []);
-
-  const getCourses = async () => {
-    const { data } = await api.get("store/products");
-    setCourses(data.results);
-  };
+  const snap = useSnapshot(store); 
 
   return (
     <Container sx={{ mt: 12, mb: 5 }}>
@@ -25,8 +17,8 @@ const Courses = () => {
         developent, here you will find all the courses to help you get started.
       </Typography>
       <Grid container spacing={5}>
-        {courses &&
-          courses.map((course, i) => (
+        {snap.courses &&
+          snap.courses.map((course, i) => (
             <Grid item key={i} xs={12} sm={6} md={4}>
               <Course course={course} />
             </Grid>

@@ -9,6 +9,8 @@ import {
 } from "@mui/material";
 
 const Category = ({ category }) => {
+  if (!category) return null;
+
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardHeader

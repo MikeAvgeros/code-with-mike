@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import api from "../Api/Api";
+import { useSnapshot } from "valtio";
+import store from "../Store/Store";
 import {
   AppBar,
   Toolbar,
@@ -23,15 +25,15 @@ import "./Header.css";
 const Header = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  const snap = useSnapshot(store); 
 
   useEffect(() => {
-    if (isUserLoggedIn) {
+    if (snap.userAuthenticated) {
       if (!localStorage.getItem("wishlist")) {
         createWishList();
       }
     }
-  }, [isUserLoggedIn]);
+  }, [snap.userAuthenticated]);
 
   const createWishList = async () => {
     const user = localStorage.getItem("user_id");
@@ -65,7 +67,7 @@ const Header = () => {
     setAnchorElUser(null);
   };
 
-  const pages = isUserLoggedIn
+  const pages = snap.userAuthenticated
     ? ["Courses", "Categories", "Wishlist", "Cart", "Profile", "MyOrders"]
     : ["Courses", "Categories", "Cart", "Login", "Signup"];
 
@@ -78,11 +80,11 @@ const Header = () => {
     };
     api.post("auth/token/logout/", token, config);
     localStorage.removeItem("auth_token");
-    setIsUserLoggedIn(false);
+    store.userAuthenticated = false;
   };
 
   const renderUserSettings = () => {
-    if (isUserLoggedIn) {
+    if (snap.userAuthenticated) {
       return (
         <React.Fragment>
           <IconButton onClick={openUserMenu} sx={{ p: 0 }}>
@@ -156,7 +158,7 @@ const Header = () => {
         </Box>
         <Box sx={{ display: { xs: "none", md: "flex" }, marginRight: 5 }}>
           <Stack direction="row" spacing={3}>
-            {isUserLoggedIn && 
+            {snap.userAuthenticated && 
               <Link className="nav-el" to="/wishlist">
                 <IconButton sx={{ color: "#fafafa", p: 0 }}>
                   <Badge badgeContent={0} color="secondary">

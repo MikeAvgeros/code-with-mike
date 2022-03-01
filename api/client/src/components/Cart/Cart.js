@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
+import api from "../Api/Api";
+import { useSnapshot } from "valtio";
+import store from "../Store/Store";
 import {
   Box,
   Container,
@@ -9,7 +12,23 @@ import {
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
-const Cart = ({ items }) => {
+const Cart = () => {
+  const cartId = localStorage.getItem("cart");
+  const snap = useSnapshot(store);
+
+  useEffect(() => {
+    getCart();
+  });
+
+  const getCart = async () => {
+    try {
+      const { data } = await api.get(`order/carts/${cartId}/`);
+      store.cart = data.items;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <Container component="main" maxWidth="xs">
       <Box
@@ -32,8 +51,13 @@ const Cart = ({ items }) => {
           Shopping Cart
         </Typography>
         <Stack direction="column" spacing={2} sx={{ mt: 5 }}>
-          {items ? (
-            items.map((item, i) => <Stack direction="row" spacing={3}></Stack>)
+          {snap.cart ? (
+            snap.cart.map((item, i) => (
+              <Stack key={i} direction="row" spacing={5}>
+                <Typography>Course: {item.item.name}</Typography>
+                <Typography>Quantity: {item.quantity}</Typography>
+              </Stack>
+            ))
           ) : (
             <Typography align="center" variant="body1">
               The are no items in your cart

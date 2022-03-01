@@ -1,31 +1,16 @@
-import React, { useEffect, useState } from "react";
-import api from "../Api/Api";
+import React from "react";
 import Landing from "../Landing/Landing";
 import About from "../About/About";
 import Reviews from "../Reviews/Reviews";
 import FeaturedCourses from "../Courses/FeaturedCourses";
+import { useSnapshot } from "valtio";
+import store from "../Store/Store";
 import "./Home.css";
 
 const Home = () => {
-  const [courses, setCourses] = useState([]);
-  const [reviews, setReviews] = useState([]);
-
-  const getFeaturedCourses = async () => {
-    const { data } = await api.get("store/products");
-    const featured = data.results.filter((p) => p.is_featured === true);
-    setCourses(featured);
-  };
-
-  const getFeaturedReviews = async () => {
-    const { data } = await api.get("store/reviews");
-    const featured_reviews = data.results.filter((p) => p.on_site === true);
-    setReviews(featured_reviews);
-  };
-
-  useEffect(() => {
-    getFeaturedCourses();
-    getFeaturedReviews();
-  }, []);
+  const snap = useSnapshot(store); 
+  const featuredCourses = snap.courses.filter(p => p.is_featured === true);
+  const featuredReviews = snap.reviews.filter(p => p.on_site === true);
 
   return (
     <React.Fragment>
@@ -36,10 +21,10 @@ const Home = () => {
         <About />
       </div>
       <div className="reviews">
-        <Reviews reviews={reviews} />
+        <Reviews reviews={featuredReviews} />
       </div>
       <div className="courses">
-        <FeaturedCourses courses={courses} />
+        <FeaturedCourses courses={featuredCourses} />
       </div>
     </React.Fragment>
   );

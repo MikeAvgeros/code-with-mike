@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../Api/Api";
+import { useSnapshot } from "valtio";
+import store from "../Store/Store";
 import {
   Avatar,
   Button,
@@ -13,6 +15,8 @@ import {
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
 const Login = () => {
+  const snap = useSnapshot(store);
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -35,7 +39,10 @@ const Login = () => {
 
     try {
       const { data } = await api.post("auth/token/login/", body, config);
-      localStorage.setItem("auth_token", data.auth_token);
+      if (data.auth_token) {
+        localStorage.setItem("auth_token", data.auth_token);
+        store.userAuthenticated = true;
+      }
     } catch (err) {
       console.log(err);
     }
@@ -46,6 +53,10 @@ const Login = () => {
 
     login(email, password);
   };
+
+  if (snap.userAuthenticated) {
+    window.location.assign("http://localhost:3000/");
+  }
 
   return (
     <Container component="main" maxWidth="xs">
