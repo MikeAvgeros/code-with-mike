@@ -8,7 +8,6 @@ import Login from "./components/Login/Login";
 import ResetPassword from './components/ResetPassword/ResetPassword';
 import Signup from "./components/Signup/Signup";
 import Profile from "./components/Profile/Profile";
-import Dashboard from "./components/Dashboard/Dashboard";
 import Wishlist from "./components/Wishlist/Wishlist";
 import Cart from "./components/Cart/Cart";
 import Checkout from "./components/Checkout/Checkout";
@@ -54,7 +53,6 @@ const App = () => {
           <Route path='/reset_password' element={<ResetPassword />} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/profile' element={<Profile />} />
-          <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/wishlist' element={<Wishlist />} />
           <Route path='/cart' element={<Cart />} />
           <Route path='/checkout' element={<Checkout />} />

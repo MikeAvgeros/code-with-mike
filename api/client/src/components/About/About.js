@@ -52,7 +52,7 @@ const About = () => {
           spacing={5}
         >
           <Grid item xs={12} sm={6}>
-            <Image sx={{ maxWidth: "480px" }} src={messages} />
+            <Image sx={{ maxWidth: "480px", display: { xs: "none", md: "grid" } }} src={messages} />
           </Grid>
           <Grid item xs={12} sm={6}>
             <Typography variant="body1">
@@ -73,6 +73,9 @@ const About = () => {
               maiores earum minus, ex eius ea. Perspiciatis nisi velit illum
               cumque earum dolore enim non assumenda id.
             </Typography>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Image sx={{ maxWidth: "480px", display: { md: "none" } }} src={messages} />
           </Grid>
         </Grid>
       </Container>

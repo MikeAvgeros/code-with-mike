@@ -28,7 +28,7 @@ const Home = () => {
   }, []);
 
   return (
-    <>
+    <React.Fragment>
       <div className="landing">
         <Landing />
       </div>
@@ -41,7 +41,7 @@ const Home = () => {
       <div className="courses">
         <FeaturedCourses courses={courses} />
       </div>
-    </>
+    </React.Fragment>
   );
 };
 

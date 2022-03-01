@@ -5,10 +5,10 @@ import {
   Avatar,
   Button,
   TextField,
-  Grid,
   Box,
   Typography,
   Container,
+  Stack,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
@@ -66,7 +66,7 @@ const Login = () => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Log in
         </Typography>
         <Box component="form" onSubmit={onSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
@@ -106,14 +106,10 @@ const Login = () => {
           >
             Log In
           </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link to="/reset_password">Forgot your password?</Link>
-            </Grid>
-            <Grid item>
-              <Link to="/signup">Don't have an account? Sign Up</Link>
-            </Grid>
-          </Grid>
+          <Stack direction="column" spacing={2}>
+            <Link to="/reset_password">Forgot your password?</Link>
+            <Link to="/signup">Don't have an account? Sign Up</Link>
+          </Stack>
         </Box>
       </Box>
     </Container>

@@ -66,8 +66,8 @@ const Header = () => {
   };
 
   const pages = isUserLoggedIn
-    ? ["Courses", "Categories", "Wishlist", "Cart", "Profile", "Dashboard"]
-    : ["Courses", "Categories", "Wishlist", "Cart", "Login", "Signup"];
+    ? ["Courses", "Categories", "Wishlist", "Cart", "Profile", "MyOrders"]
+    : ["Courses", "Categories", "Cart", "Login", "Signup"];
 
   const logout = () => {
     const token = localStorage.getItem("auth_token");
@@ -84,7 +84,7 @@ const Header = () => {
   const renderUserSettings = () => {
     if (isUserLoggedIn) {
       return (
-        <>
+        <React.Fragment>
           <IconButton onClick={openUserMenu} sx={{ p: 0 }}>
             <Avatar alt="user's avatar" src="" />
           </IconButton>
@@ -107,31 +107,31 @@ const Header = () => {
               <Typography textAlign="center">Profile</Typography>
             </MenuItem>
             <MenuItem onClick={closeUserMenu}>
-              <Typography textAlign="center">Dashboard</Typography>
+              <Typography textAlign="center">My Orders</Typography>
             </MenuItem>
             <MenuItem onClick={logout}>
               <Typography textAlign="center">Logout</Typography>
             </MenuItem>
           </Menu>
-        </>
+        </React.Fragment>
       );
     } else {
       return (
-        <>
+        <React.Fragment>
           <Link className="nav-el secondary-btn" to="/login">
             Login
           </Link>
           <Link className="nav-el primary-btn" to="/signup">
             Signup
           </Link>
-        </>
+        </React.Fragment>
       );
     }
   };
 
   const renderDesktopView = () => {
     return (
-      <>
+      <React.Fragment>
         <Box
           sx={{
             flexGrow: 1,
@@ -156,13 +156,15 @@ const Header = () => {
         </Box>
         <Box sx={{ display: { xs: "none", md: "flex" }, marginRight: 5 }}>
           <Stack direction="row" spacing={3}>
-            <Link className="nav-el" to="/wishlist">
-              <IconButton sx={{ color: "#fafafa", p: 0 }}>
-                <Badge badgeContent={0} color="secondary">
-                  <FavoriteIcon />
-                </Badge>
-              </IconButton>
-            </Link>
+            {isUserLoggedIn && 
+              <Link className="nav-el" to="/wishlist">
+                <IconButton sx={{ color: "#fafafa", p: 0 }}>
+                  <Badge badgeContent={0} color="secondary">
+                    <FavoriteIcon />
+                  </Badge>
+                </IconButton>
+              </Link>
+            }
             <Link className="nav-el" to="/cart">
               <IconButton sx={{ color: "#fafafa", p: 0 }}>
                 <Badge badgeContent={0} color="secondary">
@@ -173,13 +175,13 @@ const Header = () => {
             {renderUserSettings()}
           </Stack>
         </Box>
-      </>
+      </React.Fragment>
     );
   };
 
   const renderMobileView = () => {
     return (
-      <>
+      <React.Fragment>
         <Box
           sx={{
             flexGrow: 1,
@@ -249,7 +251,7 @@ const Header = () => {
             </Link>
           </Stack>
         </Box>
-      </>
+      </React.Fragment>
     );
   };
 
