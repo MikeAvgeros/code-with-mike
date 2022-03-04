@@ -24,6 +24,9 @@ class WishListViewSet(
     DestroyModelMixin, GenericViewSet):
     serializer_class = WishListSerializer
 
+    def get_permissions(self):
+        return [IsAuthenticated()]
+
     def get_queryset(self):
         user = self.request.user
         if user.is_staff:

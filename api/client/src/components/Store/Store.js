@@ -7,6 +7,7 @@ const store = proxy({
   promotions: [],
   cart: [],
   wishlist: [],
+  user: [],
   userAuthenticated: false
 });
 

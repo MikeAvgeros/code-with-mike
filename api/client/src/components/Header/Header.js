@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../Api/Api";
 import { useSnapshot } from "valtio";
@@ -25,31 +25,7 @@ import "./Header.css";
 const Header = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const snap = useSnapshot(store); 
-
-  useEffect(() => {
-    if (snap.userAuthenticated) {
-      if (!localStorage.getItem("wishlist")) {
-        createWishList();
-      }
-    }
-  }, [snap.userAuthenticated]);
-
-  const createWishList = async () => {
-    const user = localStorage.getItem("user_id");
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    const body = JSON.stringify({ user });
-    try {
-      const { data } = api.post("order/wishlist/", body, config);
-      localStorage.setItem("wishlist", data.id);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const snap = useSnapshot(store);
 
   const openNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -72,63 +48,61 @@ const Header = () => {
     : ["Courses", "Categories", "Cart", "Login", "Signup"];
 
   const logout = () => {
-    const token = localStorage.getItem("auth_token");
+    const token = localStorage.getItem("token");
     const config = {
       headers: {
         Authorization: `Token ${token}`,
       },
     };
     api.post("auth/token/logout/", token, config);
-    localStorage.removeItem("auth_token");
-    store.userAuthenticated = false;
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    localStorage.removeItem("wishlist");
+    window.location.assign("http://localhost:3000/");
   };
 
   const renderUserSettings = () => {
-    if (snap.userAuthenticated) {
-      return (
-        <React.Fragment>
-          <IconButton onClick={openUserMenu} sx={{ p: 0 }}>
-            <Avatar alt="user's avatar" src="" />
-          </IconButton>
-          <Menu
-            sx={{ mt: "45px" }}
-            anchorEl={anchorElUser}
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            open={Boolean(anchorElUser)}
-            onClose={closeUserMenu}
-          >
-            <MenuItem onClick={closeUserMenu}>
-              <Typography textAlign="center">Profile</Typography>
-            </MenuItem>
-            <MenuItem onClick={closeUserMenu}>
-              <Typography textAlign="center">My Orders</Typography>
-            </MenuItem>
-            <MenuItem onClick={logout}>
-              <Typography textAlign="center">Logout</Typography>
-            </MenuItem>
-          </Menu>
-        </React.Fragment>
-      );
-    } else {
-      return (
-        <React.Fragment>
-          <Link className="nav-el secondary-btn" to="/login">
-            Login
-          </Link>
-          <Link className="nav-el primary-btn" to="/signup">
-            Signup
-          </Link>
-        </React.Fragment>
-      );
-    }
+    return snap.userAuthenticated ? (
+      <React.Fragment>
+        <IconButton onClick={openUserMenu} sx={{ p: 0 }}>
+          <Avatar alt="user's avatar" src="" />
+        </IconButton>
+        <Menu
+          sx={{ mt: "45px" }}
+          anchorEl={anchorElUser}
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          keepMounted
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          open={Boolean(anchorElUser)}
+          onClose={closeUserMenu}
+        >
+          <MenuItem onClick={closeUserMenu}>
+            <Typography textAlign="center">Profile</Typography>
+          </MenuItem>
+          <MenuItem onClick={closeUserMenu}>
+            <Typography textAlign="center">My Orders</Typography>
+          </MenuItem>
+          <MenuItem onClick={logout}>
+            <Typography textAlign="center">Logout</Typography>
+          </MenuItem>
+        </Menu>
+      </React.Fragment>
+    ) : (
+      <React.Fragment>
+        <Link className="nav-el secondary-btn" to="/login">
+          Login
+        </Link>
+        <Link className="nav-el primary-btn" to="/signup">
+          Signup
+        </Link>
+      </React.Fragment>
+    );
   };
 
   const renderDesktopView = () => {
@@ -158,7 +132,7 @@ const Header = () => {
         </Box>
         <Box sx={{ display: { xs: "none", md: "flex" }, marginRight: 5 }}>
           <Stack direction="row" spacing={3}>
-            {snap.userAuthenticated && 
+            {snap.userAuthenticated && (
               <Link className="nav-el" to="/wishlist">
                 <IconButton sx={{ color: "#fafafa", p: 0 }}>
                   <Badge badgeContent={0} color="secondary">
@@ -166,7 +140,7 @@ const Header = () => {
                   </Badge>
                 </IconButton>
               </Link>
-            }
+            )}
             <Link className="nav-el" to="/cart">
               <IconButton sx={{ color: "#fafafa", p: 0 }}>
                 <Badge badgeContent={0} color="secondary">
@@ -229,9 +203,11 @@ const Header = () => {
                 </Link>
               </MenuItem>
             ))}
-            <MenuItem onClick={logout}>
-              <Typography textAlign="center">Logout</Typography>
-            </MenuItem>
+            {snap.userAuthenticated && (
+              <MenuItem onClick={logout}>
+                <Typography textAlign="center">Logout</Typography>
+              </MenuItem>
+            )}
           </Menu>
         </Box>
         <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -241,11 +217,13 @@ const Header = () => {
         </Box>
         <Box sx={{ display: { xs: "flex", md: "none" }, marginRight: 3 }}>
           <Stack direction="row" spacing={3}>
-            <Link className="nav-el" to="/wishlist">
-              <Badge badgeContent={0} color="secondary">
-                <FavoriteIcon />
-              </Badge>
-            </Link>
+            {snap.userAuthenticated && (
+              <Link className="nav-el" to="/wishlist">
+                <Badge badgeContent={0} color="secondary">
+                  <FavoriteIcon />
+                </Badge>
+              </Link>
+            )}
             <Link className="nav-el" to="/cart">
               <Badge badgeContent={0} color="secondary">
                 <ShoppingCartIcon />

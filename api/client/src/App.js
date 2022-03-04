@@ -18,42 +18,110 @@ import Footer from "./components/Footer/Footer";
 import Box from "@mui/material/Box";
 import api from "./components/Api/Api";
 import store from "./components/Store/Store";
+import { useSnapshot } from "valtio";
 
 const App = () => {
+  const snap = useSnapshot(store);
+
   useEffect(() => {
-    getCourses();
-    getCategories();
-    getReviews();
-    getPromotions();
+    if (snap.courses.length === 0) {
+      getCourses();
+    }
+    if (snap.categories.length === 0) {
+      getCategories();
+    }
+    if (snap.reviews.length === 0) {
+      getReviews();
+    }
+    if (snap.courses.length === 0) {
+      getPromotions();
+    }
     if (!localStorage.getItem("cart")) {
       createCart();
+    }
+    if (localStorage.getItem("token")) {
+      store.userAuthenticated = true;
+      if (snap.user.length === 0) {
+        getUser();
+      }
     }
   }, []);
 
   const getCourses = async () => {
-    const { data } = await api.get("store/products");
-    store.courses = data.results;
+    try {
+      const { data } = await api.get("store/products");
+      store.courses = data.results;
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const getCategories = async () => {
-    const { data } = await api.get("store/categories");
-    store.categories = data.results;
+    try {
+      const { data } = await api.get("store/categories");
+      store.categories = data.results;
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const getReviews = async () => {
-    const { data } = await api.get("store/reviews");
-    store.reviews = data.results;
+    try {
+      const { data } = await api.get("store/reviews");
+      store.reviews = data.results;
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const getPromotions = async () => {
-    const { data } = await api.get("store/promotions");
-    store.promotions = data.results;
+    try {
+      const { data } = await api.get("store/promotions");
+      store.promotions = data.results;
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const createCart = async () => {
     try {
       const { data } = await api.post("order/carts/");
       localStorage.setItem("cart", data.id);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getUser = async () => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${localStorage.getItem("token")}`,
+      },
+    };
+    try {
+      const { data } = await api.get("auth/users/me", config);
+      localStorage.setItem("user", data.id);
+      store.user = data;
+      if (!localStorage.getItem("wishlist")) {
+        createWishList();
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const createWishList = async () => {
+    const user = localStorage.getItem("user");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const body = JSON.stringify({ user });
+    try {
+      const { data } = await api.post("order/wishlist/", body, config);
+      localStorage.setItem("wishlist", data.id);
     } catch (err) {
       console.log(err);
     }
