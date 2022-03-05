@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -7,8 +8,19 @@ import {
   CardHeader,
   CardActions,
 } from "@mui/material";
+import axios from "axios";
+import store from "../Store/Store";
 
 const Category = ({ category }) => {
+  const getCategoryDetails = async () => {
+    try {
+      const { data } = await axios.get(category.url);
+      store.categoryDetails = data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   if (!category) return null;
 
   return (
@@ -33,9 +45,11 @@ const Category = ({ category }) => {
         </Typography>
       </CardContent>
       <CardActions sx={{ ml: 1 }}>
-        <Button variant="contained" size="small">
-          Learn More
-        </Button>
+        <Link style={{ textDecoration: 'none' }} to={`/category/${category.slug}`}>
+          <Button onClick={getCategoryDetails} variant="contained" size="small">
+            Learn More
+          </Button>
+        </Link>
       </CardActions>
     </Card>
   );

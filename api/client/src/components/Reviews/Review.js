@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { styled } from "@mui/material/styles";
 import {
@@ -13,6 +14,8 @@ import {
   Rating,
   Avatar
 } from "@mui/material";
+import store from "../Store/Store";
+import api from "../Api/Api";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -30,6 +33,15 @@ const Review = ({ review }) => {
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
+  };
+
+  const getCourseDetails = async () => {
+    try {
+      const { data } = await api.get(`store/products/${review.product.slug}`);
+      store.courseDetails = data;
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   if (!review) return null;
@@ -54,9 +66,11 @@ const Review = ({ review }) => {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <Button size="small" variant="outlined">
-          View Course
-        </Button>
+        <Link style={{ textDecoration: "none" }} to={`/course/${review.product.slug}`}>
+          <Button onClick={getCourseDetails} size="small" variant="outlined">
+            View Course
+          </Button>
+        </Link>
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}

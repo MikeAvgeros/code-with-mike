@@ -3,13 +3,15 @@ import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
 import Courses from "./components/Courses/Courses";
+import CourseDetails from "./components/Courses/CourseDetails";
 import Categories from "./components/Categories/Categories";
+import CategoryDetails from "./components/Categories/CategoryDetails";
+import Cart from "./components/Cart/Cart";
+import Signup from "./components/Signup/Signup";
 import Login from "./components/Login/Login";
 import ResetPassword from "./components/ResetPassword/ResetPassword";
-import Signup from "./components/Signup/Signup";
 import Profile from "./components/Profile/Profile";
 import Wishlist from "./components/Wishlist/Wishlist";
-import Cart from "./components/Cart/Cart";
 import Checkout from "./components/Checkout/Checkout";
 import Contact from "./components/Contact/Contact";
 import Terms from "./components/Terms/Terms";
@@ -48,38 +50,54 @@ const App = () => {
   }, []);
 
   const getCourses = async () => {
-    try {
-      const { data } = await api.get("store/products");
-      store.courses = data.results;
-    } catch (err) {
-      console.log(err);
+    if (sessionStorage.getItem("courses")) {
+      store.courses = JSON.parse(sessionStorage.getItem("courses"));
+    } else {
+      try {
+        const { data } = await api.get("store/products");
+        store.courses = data.results;
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
   const getCategories = async () => {
-    try {
-      const { data } = await api.get("store/categories");
-      store.categories = data.results;
-    } catch (err) {
-      console.log(err);
+    if (sessionStorage.getItem("categories")) {
+      store.categories = JSON.parse(sessionStorage.getItem("categories"));
+    } else {
+      try {
+        const { data } = await api.get("store/categories");
+        store.categories = data.results;
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
   const getReviews = async () => {
-    try {
-      const { data } = await api.get("store/reviews");
-      store.reviews = data.results;
-    } catch (err) {
-      console.log(err);
+    if (sessionStorage.getItem("reviews")) {
+      store.reviews = JSON.parse(sessionStorage.getItem("reviews"));
+    } else {
+      try {
+        const { data } = await api.get("store/reviews");
+        store.reviews = data.results;
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
   const getPromotions = async () => {
-    try {
-      const { data } = await api.get("store/promotions");
-      store.promotions = data.results;
-    } catch (err) {
-      console.log(err);
+    if (sessionStorage.getItem("promotions")) {
+      store.promotions = JSON.parse(sessionStorage.getItem("promotions"));
+    } else {
+      try {
+        const { data } = await api.get("store/promotions");
+        store.promotions = data.results;
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
@@ -101,7 +119,6 @@ const App = () => {
     };
     try {
       const { data } = await api.get("auth/users/me", config);
-      localStorage.setItem("user", data.id);
       store.user = data;
       if (!localStorage.getItem("wishlist")) {
         createWishList();
@@ -112,7 +129,7 @@ const App = () => {
   };
 
   const createWishList = async () => {
-    const user = localStorage.getItem("user");
+    const user = snap.user.id;
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -140,13 +157,15 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} exact />
           <Route path="/courses" element={<Courses />} />
+          <Route path="/course/:id" element={<CourseDetails />} />
           <Route path="/categories" element={<Categories />} />
+          <Route path="/category/:id" element={<CategoryDetails />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/reset_password" element={<ResetPassword />} />
-          <Route path="/signup" element={<Signup />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/wishlist" element={<Wishlist />} />
-          <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/terms" element={<Terms />} />

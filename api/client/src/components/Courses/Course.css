@@ -1,0 +1,18 @@
+.course-detail {
+  min-height: 65vh;
+  background-image: linear-gradient(to right, #9575cd, #f06292);
+}
+
+.title {
+  color: #fafafa;
+  font-weight: 600 !important;
+  font-size: 44px !important;
+  letter-spacing: 1px;
+}
+
+.subtitle {
+  color: #fafafa;
+  font-size: 24px !important;
+  letter-spacing: 1px;
+  text-align: center;
+}

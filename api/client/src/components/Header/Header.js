@@ -56,7 +56,6 @@ const Header = () => {
     };
     api.post("auth/token/logout/", token, config);
     localStorage.removeItem("token");
-    localStorage.removeItem("user");
     localStorage.removeItem("wishlist");
     window.location.assign("http://localhost:3000/");
   };

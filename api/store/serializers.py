@@ -25,6 +25,7 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "url",
+            "slug",
             "name",
             "tag",
             "description",
@@ -53,6 +54,7 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "url",
+            "slug",
             "name",
             "description",
             "product_set"
@@ -86,7 +88,7 @@ class PromotionSerializer(serializers.ModelSerializer):
 class ShortProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ['name']
+        fields = ['name', 'slug']
 
 class ReviewSerializer(serializers.ModelSerializer):
     product = ShortProductSerializer(read_only=True)

@@ -18,7 +18,7 @@ const Cart = () => {
 
   useEffect(() => {
     getCart();
-  });
+  }, []);
 
   const getCart = async () => {
     try {
