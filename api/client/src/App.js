@@ -41,6 +41,9 @@ const App = () => {
     if (!localStorage.getItem("cart")) {
       createCart();
     }
+    if (localStorage.getItem("cart")) {
+      getCart();
+    }
     if (localStorage.getItem("token")) {
       store.userAuthenticated = true;
       if (snap.user.length === 0) {
@@ -55,7 +58,7 @@ const App = () => {
     } else {
       try {
         const { data } = await api.get("store/products");
-        store.courses = data.results;
+        store.courses = data;
       } catch (err) {
         console.log(err);
       }
@@ -68,7 +71,7 @@ const App = () => {
     } else {
       try {
         const { data } = await api.get("store/categories");
-        store.categories = data.results;
+        store.categories = data;
       } catch (err) {
         console.log(err);
       }
@@ -81,7 +84,7 @@ const App = () => {
     } else {
       try {
         const { data } = await api.get("store/reviews");
-        store.reviews = data.results;
+        store.reviews = data;
       } catch (err) {
         console.log(err);
       }
@@ -94,7 +97,7 @@ const App = () => {
     } else {
       try {
         const { data } = await api.get("store/promotions");
-        store.promotions = data.results;
+        store.promotions = data;
       } catch (err) {
         console.log(err);
       }
@@ -105,6 +108,16 @@ const App = () => {
     try {
       const { data } = await api.post("order/carts/");
       localStorage.setItem("cart", data.id);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getCart = async () => {
+    const cartId = localStorage.getItem("cart");
+    try {
+      const { data } = await api.get(`order/carts/${cartId}/`);
+      store.cart = data.items;
     } catch (err) {
       console.log(err);
     }

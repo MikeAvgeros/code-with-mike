@@ -7,7 +7,7 @@ import messages from "../../images/messages.png";
 const About = () => {
   return (
     <Container sx={{ mt: 5 }} maxWidth="lg">
-      <Typography className="tag" variant="h2" component="div">
+      <Typography className="tag" variant="h2">
         I love to teach you coding!
       </Typography>
       <Container sx={{ mb: 5, mt: 5 }}>

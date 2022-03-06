@@ -8,7 +8,7 @@ from .models import (Cart, CartItem, WishList, WishListItem,
     Order, OrderItem, WishList)
 from customer.models import User
 from .serializers import (
-    CartSerializer, CartItemSerializer, 
+    AddCartItemSerializer, CartSerializer, CartItemSerializer, UpdateCartItemSerializer, 
     WishListSerializer, WishListItemSerializer,
     OrderSerializer, UpdateOrderSerializer, 
     CreateOrderSerializer, OrderItemSerializer)
@@ -59,8 +59,7 @@ class OrderViewSet(ModelViewSet):
             return CreateOrderSerializer
         elif self.request.method == 'PATCH':
             return UpdateOrderSerializer
-        else:
-            return OrderSerializer
+        return OrderSerializer
 
     def create(self, request, *args, **kwargs):
         serializer = CreateOrderSerializer(
@@ -73,12 +72,23 @@ class OrderViewSet(ModelViewSet):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 class CartItemViewSet(ModelViewSet):
-    serializer_class = CartItemSerializer
+    http_method_names = ['get', 'post', 'patch', 
+                        'delete', 'head', 'options']
+
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return AddCartItemSerializer
+        elif self.request.method == 'PATCH':
+            return UpdateCartItemSerializer
+        return CartItemSerializer
+
+    def get_serializer_context(self):
+        return {'cart_id': self.kwargs['cart_pk']}
 
     def get_queryset(self):
         return CartItem.objects\
             .filter(cart_id=self.kwargs['cart_pk'])\
-            .select_related('items')
+            .select_related('item')
 
 class WishListItemViewSet(ModelViewSet):
     serializer_class = WishListItemSerializer
@@ -86,7 +96,7 @@ class WishListItemViewSet(ModelViewSet):
     def get_queryset(self):
         return WishListItem.objects\
             .filter(wishlist_id=self.kwargs['wishlist_pk'])\
-            .select_related('items')
+            .select_related('item')
 
 class OrderItemViewSet(ModelViewSet):
     serializer_class = OrderItemSerializer
@@ -94,4 +104,4 @@ class OrderItemViewSet(ModelViewSet):
     def get_queryset(self):
         return OrderItem.objects\
             .filter(order_id=self.kwargs['order_pk'])\
-            .select_related('items')
+            .select_related('item')

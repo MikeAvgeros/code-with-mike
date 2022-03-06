@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import store from "../Store/Store";
 import { useSnapshot } from "valtio";
 import api from "../Api/Api";
-import { Container, Box, Grid, Typography } from "@mui/material";
+import { Container, Grid, Typography } from "@mui/material";
 import "./Category.css";
 import Course from "../Courses/Course";
 

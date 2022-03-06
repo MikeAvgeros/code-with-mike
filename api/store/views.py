@@ -7,7 +7,6 @@ from store.permissions import IsAdminOrReadOnly
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from .filters import ProductFilter
 from rest_framework.filters import SearchFilter, OrderingFilter
-from rest_framework.pagination import PageNumberPagination
 from .models import Product, Category, Promotion, Review
 from .serializers import (
     ProductSerializer, CategorySerializer, PromotionSerializer, ReviewSerializer)
@@ -18,7 +17,6 @@ class ProductViewSet(ModelViewSet):
     serializer_class = ProductSerializer
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_class = ProductFilter
-    pagination_class = PageNumberPagination
     permission_classes = [IsAdminOrReadOnly]
     search_fields = ['name', 'description']
     ordering_fields = ['price', 'last_update']

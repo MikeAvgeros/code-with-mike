@@ -13,21 +13,7 @@ import {
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 const Cart = () => {
-  const cartId = localStorage.getItem("cart");
   const snap = useSnapshot(store);
-
-  useEffect(() => {
-    getCart();
-  }, []);
-
-  const getCart = async () => {
-    try {
-      const { data } = await api.get(`order/carts/${cartId}/`);
-      store.cart = data.items;
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   return (
     <Container component="main" maxWidth="xs">

@@ -8,7 +8,6 @@ User=get_user_model()
 
 class CreateUserSerializer(UserCreatePasswordRetypeSerializer):
     class Meta(UserCreatePasswordRetypeSerializer.Meta):
-        model = User
         fields = [
             'id',
             'username',
@@ -19,20 +18,16 @@ class CreateUserSerializer(UserCreatePasswordRetypeSerializer):
 
 class UserSerializer(BaseUserSerializer):
     class Meta(BaseUserSerializer.Meta):
-        model = User
         fields = [
             'id',
             'username',
             'email',
+            'first_name',
+            'last_name',
         ]
 
-class ShortUserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['username', 'email']
-
 class CustomerSerializer(serializers.ModelSerializer):
-    user = ShortUserSerializer(read_only=True)
+    user = UserSerializer(read_only=True)
 
     class Meta:
         model = Customer

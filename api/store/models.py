@@ -1,11 +1,10 @@
-import os
 from django.db import models
 from customer.models import Customer
 from io import BytesIO
 from PIL import Image
 from django.core.files import File
 from django.utils.text import slugify
-from django.core.validators import MinValueValidator, MaxValueValidator
+from django.core.validators import MinValueValidator , MaxValueValidator
 
 class Category(models.Model):
     slug = models.SlugField(blank=True, null=True)

@@ -9,7 +9,7 @@ const Courses = () => {
 
   return (
     <Container sx={{ mt: 12, mb: 5 }}>
-      <Typography gutterBottom variant="h3" component="div">
+      <Typography gutterBottom variant="h3">
         All Courses
       </Typography>
       <Typography variant="body1" sx={{ mb: 3 }}>

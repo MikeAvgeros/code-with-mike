@@ -82,7 +82,7 @@ const Header = () => {
           onClose={closeUserMenu}
         >
           <MenuItem onClick={closeUserMenu}>
-            <Typography textAlign="center">Profile</Typography>
+            <Link style={{ textDecoration: "none", textAlign: "center" }} to="/profile">Profile</Link>
           </MenuItem>
           <MenuItem onClick={closeUserMenu}>
             <Typography textAlign="center">My Orders</Typography>
@@ -142,7 +142,7 @@ const Header = () => {
             )}
             <Link className="nav-el" to="/cart">
               <IconButton sx={{ color: "#fafafa", p: 0 }}>
-                <Badge badgeContent={0} color="secondary">
+                <Badge badgeContent={snap.cart.length} color="secondary">
                   <ShoppingCartIcon />
                 </Badge>
               </IconButton>
@@ -224,7 +224,7 @@ const Header = () => {
               </Link>
             )}
             <Link className="nav-el" to="/cart">
-              <Badge badgeContent={0} color="secondary">
+              <Badge badgeContent={snap.cart.length} color="secondary">
                 <ShoppingCartIcon />
               </Badge>
             </Link>
