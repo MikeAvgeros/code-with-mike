@@ -13,6 +13,8 @@ class Cart(models.Model):
         return f'Cart {self.id}'
 
 class WishList(models.Model):
+    id = models.CharField(primary_key=True, 
+    max_length=250, default=uuid4)
     user = models.ForeignKey(User,
     on_delete=models.PROTECT, related_name='wishlist')
     created_at = models.DateTimeField(auto_now_add=True)
@@ -69,6 +71,7 @@ class WishListItem(models.Model):
 
     class Meta:
         verbose_name = ("Wish list item")
+        unique_together = [['wishlist', 'item']]
 
     def __str__(self):
         return f'{self.item}'

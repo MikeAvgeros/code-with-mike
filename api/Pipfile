@@ -13,8 +13,6 @@ stripe = "*"
 django-dotenv = "*"
 drf-nested-routers = "*"
 django-filter = "*"
-django-countries = {extras = ["pyuca"], version = "*"}
-django-phonenumber-field = {extras = ["phonenumbers"], version = "*"}
 dj-database-url = "*"
 psycopg2-binary = "*"
 django-heroku = "*"

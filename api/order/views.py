@@ -8,7 +8,8 @@ from .models import (Cart, CartItem, WishList, WishListItem,
     Order, OrderItem, WishList)
 from customer.models import User
 from .serializers import (
-    AddCartItemSerializer, CartSerializer, CartItemSerializer, UpdateCartItemSerializer, 
+    AddCartItemSerializer, AddWishListItemSerializer, 
+    CartSerializer, CartItemSerializer, UpdateCartItemSerializer, 
     WishListSerializer, WishListItemSerializer,
     OrderSerializer, UpdateOrderSerializer, 
     CreateOrderSerializer, OrderItemSerializer)
@@ -91,7 +92,13 @@ class CartItemViewSet(ModelViewSet):
             .select_related('item')
 
 class WishListItemViewSet(ModelViewSet):
-    serializer_class = WishListItemSerializer
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return AddWishListItemSerializer
+        return WishListItemSerializer
+
+    def get_serializer_context(self):
+        return {'wishlist_id': self.kwargs['wishlist_pk']}
 
     def get_queryset(self):
         return WishListItem.objects\

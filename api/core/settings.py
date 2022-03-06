@@ -24,9 +24,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework.authtoken',
     'djoser',
-    'storages',   
-    'django_countries',
-    'phonenumber_field',
+    'storages',
 
     'store',
     'order',
