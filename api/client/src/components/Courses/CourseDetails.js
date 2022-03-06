@@ -16,7 +16,6 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { Image } from "mui-image";
 import api from "../Api/Api";
-import "./Course.css";
 
 const CourseDetails = () => {
   const snap = useSnapshot(store);
@@ -48,8 +47,7 @@ const CourseDetails = () => {
     const cart = localStorage.getItem("cart");
     const body = JSON.stringify({ item_id: snap.courseDetails.id, quantity: qty });
     try {
-      const { data } = await api.post(`order/carts/${cart}/items/`, body, config);
-      console.log(data)
+      await api.post(`order/carts/${cart}/items/`, body, config);
     } catch (err) {
       console.log(err)
     }
@@ -126,7 +124,7 @@ const CourseDetails = () => {
                   sx={{
                     height: "48px",
                     backgroundImage:
-                      "linear-gradient(to right, #512da8, #c2185b)",
+                      "linear-gradient(to right, #5e35b1, #d81b60)",
                   }}
                 />
                 <CardContent>
@@ -197,7 +195,7 @@ const CourseDetails = () => {
                   </Typography>
                 </CardContent>
                 <CardActions sx={{ mt:1, mb: 1, justifyContent: 'center' }}>
-                  <Button onClick={addToCart} variant="contained">
+                  <Button onClick={addToCart} className="btn">
                     Add to Cart
                   </Button>
                   <Button onClick={decreaseQty}>

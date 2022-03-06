@@ -21,6 +21,7 @@ import Box from "@mui/material/Box";
 import api from "./components/Api/Api";
 import store from "./components/Store/Store";
 import { useSnapshot } from "valtio";
+import "./App.css";
 
 const App = () => {
   const snap = useSnapshot(store);

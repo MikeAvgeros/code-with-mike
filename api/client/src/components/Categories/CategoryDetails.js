@@ -3,7 +3,6 @@ import store from "../Store/Store";
 import { useSnapshot } from "valtio";
 import api from "../Api/Api";
 import { Container, Grid, Typography } from "@mui/material";
-import "./Category.css";
 import Course from "../Courses/Course";
 
 const CategoryDetails = () => {

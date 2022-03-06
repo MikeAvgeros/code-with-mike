@@ -16,7 +16,7 @@ const Wishlist = ({ items }) => {
         <Avatar
           sx={{
             m: 1,
-            backgroundImage: "linear-gradient(to right, #512da8, #c2185b)",
+            backgroundImage: "linear-gradient(to right, #5e35b1, #d81b60)",
           }}
         >
           <FavoriteIcon />

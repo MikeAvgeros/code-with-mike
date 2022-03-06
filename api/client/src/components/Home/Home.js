@@ -5,7 +5,6 @@ import Reviews from "../Reviews/Reviews";
 import FeaturedCourses from "../Courses/FeaturedCourses";
 import { useSnapshot } from "valtio";
 import store from "../Store/Store";
-import "./Home.css";
 
 const Home = () => {
   const snap = useSnapshot(store); 
@@ -20,10 +19,10 @@ const Home = () => {
       <div className="about">
         <About />
       </div>
-      <div className="reviews">
+      <div className="featured-reviews">
         <Reviews reviews={featuredReviews} />
       </div>
-      <div className="courses">
+      <div className="featured-courses">
         <FeaturedCourses courses={featuredCourses} />
       </div>
     </React.Fragment>

@@ -42,7 +42,7 @@ const Contact = () => {
         <Avatar
           sx={{
             m: 1,
-            backgroundImage: "linear-gradient(to right, #512da8, #c2185b)",
+            backgroundImage: "linear-gradient(to right, #5e35b1, #d81b60)",
           }}
         >
           <EmailIcon />
@@ -100,7 +100,7 @@ const Contact = () => {
             sx={{
               mt: 2,
               mb: 2,
-              backgroundImage: "linear-gradient(to right, #512da8, #c2185b)",
+              backgroundImage: "linear-gradient(to right, #5e35b1, #d81b60)",
             }}
           >
             Send

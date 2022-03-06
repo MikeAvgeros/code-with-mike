@@ -20,7 +20,6 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Image } from "mui-image";
 import logo from "../../images/logo.png";
-import "./Header.css";
 
 const Header = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -134,7 +133,7 @@ const Header = () => {
             {snap.userAuthenticated && (
               <Link className="nav-el" to="/wishlist">
                 <IconButton sx={{ color: "#fafafa", p: 0 }}>
-                  <Badge badgeContent={0} color="secondary">
+                  <Badge badgeContent={snap.wishlist.length} color="secondary">
                     <FavoriteIcon />
                   </Badge>
                 </IconButton>
@@ -218,7 +217,7 @@ const Header = () => {
           <Stack direction="row" spacing={3}>
             {snap.userAuthenticated && (
               <Link className="nav-el" to="/wishlist">
-                <Badge badgeContent={0} color="secondary">
+                <Badge badgeContent={snap.wishlist.length} color="secondary">
                   <FavoriteIcon />
                 </Badge>
               </Link>

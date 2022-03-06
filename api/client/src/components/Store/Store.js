@@ -17,6 +17,7 @@ subscribe(store, () => {
   sessionStorage.setItem("courses", JSON.stringify(store.courses));
   sessionStorage.setItem("course-details", JSON.stringify(store.courseDetails));
   sessionStorage.setItem("categories", JSON.stringify(store.categories));
+  sessionStorage.setItem("category-details", JSON.stringify(store.categoryDetails));
   sessionStorage.setItem("reviews", JSON.stringify(store.reviews));
   sessionStorage.setItem("promotions", JSON.stringify(store.promotions));
 });

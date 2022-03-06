@@ -17,14 +17,13 @@ const Landing = () => {
         <Stack direction="row" spacing={3}>
           <Link to="/courses" style={{ textDecoration: "none" }}>
             <Button
-              variant="outlined"
               sx={{
                 mt: 10,
                 width: "150px",
                 height: "50px",
                 color: "#fafafa",
-                borderColor: "#fafafa",
-                borderWidth: "medium",
+                border: "2px solid #fafafa",
+                borderRadius: 2
               }}
             >
               Courses
@@ -32,14 +31,13 @@ const Landing = () => {
           </Link>
           <Link to="/" style={{ textDecoration: "none" }}>
             <Button
-              variant="outlined"
               sx={{
                 mt: 10,
                 width: "150px",
                 height: "50px",
                 color: "#fafafa",
-                borderColor: "#fafafa",
-                borderWidth: "medium",
+                border: "2px solid #fafafa",
+                borderRadius: 2
               }}
             >
               Learn More

@@ -52,7 +52,7 @@ const Course = ({ course }) => {
       <CardHeader
         sx={{
           height: "24px",
-          backgroundImage: "linear-gradient(to right, #512da8, #c2185b)",
+          backgroundImage: "linear-gradient(to right, #5e35b1, #d81b60)",
         }}
       />
       <CardMedia
@@ -82,7 +82,7 @@ const Course = ({ course }) => {
           </IconButton>
         )}
         <Link style={{ textDecoration: "none" }} to={`/course/${course.slug}`}>
-          <Button onClick={getCourseDetails} variant="outlined" size="small">
+          <Button onClick={getCourseDetails} className="btn">
             Learn More
           </Button>
         </Link>

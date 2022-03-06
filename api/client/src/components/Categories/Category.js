@@ -28,7 +28,7 @@ const Category = ({ category }) => {
       <CardHeader
         sx={{
           height: "18px",
-          backgroundImage: "linear-gradient(to right, #512da8, #c2185b)",
+          backgroundImage: "linear-gradient(to right, #5e35b1, #d81b60)",
         }}
       />
       <CardContent>
@@ -46,7 +46,7 @@ const Category = ({ category }) => {
       </CardContent>
       <CardActions sx={{ ml: 1 }}>
         <Link style={{ textDecoration: 'none' }} to={`/category/${category.slug}`}>
-          <Button onClick={getCategoryDetails} variant="contained" size="small">
+          <Button onClick={getCategoryDetails} className="btn">
             Learn More
           </Button>
         </Link>

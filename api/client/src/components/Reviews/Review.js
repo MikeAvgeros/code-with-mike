@@ -67,7 +67,7 @@ const Review = ({ review }) => {
       </CardContent>
       <CardActions disableSpacing>
         <Link style={{ textDecoration: "none" }} to={`/course/${review.product.slug}`}>
-          <Button onClick={getCourseDetails} size="small" variant="outlined">
+          <Button onClick={getCourseDetails} className="btn">
             View Course
           </Button>
         </Link>

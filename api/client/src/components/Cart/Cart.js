@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import api from "../Api/Api";
+import React from "react";
 import { useSnapshot } from "valtio";
 import store from "../Store/Store";
 import {
@@ -28,7 +27,7 @@ const Cart = () => {
         <Avatar
           sx={{
             m: 1,
-            backgroundImage: "linear-gradient(to right, #512da8, #c2185b)",
+            backgroundImage: "linear-gradient(to right, #5e35b1, #d81b60)",
           }}
         >
           <ShoppingCartIcon />
@@ -51,20 +50,10 @@ const Cart = () => {
           )}
         </Stack>
         <Stack direction="row" spacing={2} sx={{ mt: 10 }}>
-          <Button
-            variant="contained"
-            sx={{
-              backgroundImage: "linear-gradient(to right, #512da8, #c2185b)",
-            }}
-          >
+          <Button className="btn">
             Keep shopping
           </Button>
-          <Button
-            variant="contained"
-            sx={{
-              backgroundImage: "linear-gradient(to right, #512da8, #c2185b)",
-            }}
-          >
+          <Button className="btn">
             Checkout
           </Button>
         </Stack>
