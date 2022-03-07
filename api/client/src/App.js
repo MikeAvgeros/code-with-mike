@@ -49,6 +49,7 @@ const App = () => {
       store.userAuthenticated = true;
       if (snap.user.length === 0) {
         getUser();
+        createWishList();
       }
     }
   }, []);
@@ -115,30 +116,35 @@ const App = () => {
   };
 
   const getCart = async () => {
-    const cartId = localStorage.getItem("cart");
-    try {
-      const { data } = await api.get(`order/carts/${cartId}/`);
-      store.cart = data.items;
-    } catch (err) {
-      console.log(err);
+    if (sessionStorage.getItem("cart-items")) {
+      store.cart = JSON.parse(sessionStorage.getItem("cart-items"));
+    } else {
+      const cartId = localStorage.getItem("cart");
+      try {
+        const { data } = await api.get(`order/carts/${cartId}/`);
+        store.cart = data.items;
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
   const getUser = async () => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${localStorage.getItem("token")}`,
-      },
-    };
-    try {
-      const { data } = await api.get("auth/users/me", config);
-      store.user = data;
-      if (!localStorage.getItem("wishlist")) {
-        createWishList();
+    if (sessionStorage.getItem("user")) {
+      store.user = JSON.parse(sessionStorage.getItem("user"));
+    } else {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Token ${localStorage.getItem("token")}`,
+        },
+      };
+      try {
+        const { data } = await api.get("profile/customers/me", config);
+        store.user = data;
+      } catch (err) {
+        console.log(err);
       }
-    } catch (err) {
-      console.log(err);
     }
   };
 
@@ -147,6 +153,7 @@ const App = () => {
     const config = {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Token ${localStorage.getItem("token")}`,
       },
     };
     const body = JSON.stringify({ user });

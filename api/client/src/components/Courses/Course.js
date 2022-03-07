@@ -14,6 +14,7 @@ import {
 import axios from "axios";
 import store from "../Store/Store";
 import { snapshot } from "valtio";
+import api from "../Api/Api";
 
 const Course = ({ course }) => {
   const snap = snapshot(store);
@@ -44,6 +45,22 @@ const Course = ({ course }) => {
       console.log(err);
     }
   };
+
+  const addToWishList = async () => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${localStorage.getItem("token")}`,
+      },
+    };
+    const wishlist = localStorage.getItem("wishlist");
+    const body = JSON.stringify({ item_id: snap.courseDetails.id });
+    try {
+      await api.post(`order/wishlist/${wishlist}/items/`, body, config);
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   if (!course) return null;
 
@@ -77,7 +94,7 @@ const Course = ({ course }) => {
       </CardContent>
       <CardActions>
         {snap.userAuthenticated && (
-          <IconButton>
+          <IconButton onClick={addToWishList}>
             <FavoriteIcon />
           </IconButton>
         )}

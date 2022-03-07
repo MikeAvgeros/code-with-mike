@@ -20,6 +20,9 @@ subscribe(store, () => {
   sessionStorage.setItem("category-details", JSON.stringify(store.categoryDetails));
   sessionStorage.setItem("reviews", JSON.stringify(store.reviews));
   sessionStorage.setItem("promotions", JSON.stringify(store.promotions));
+  sessionStorage.setItem("user", JSON.stringify(store.user));
+  sessionStorage.setItem("cart-items", JSON.stringify(store.cart));
+  sessionStorage.setItem("wishlist-items", JSON.stringify(store.wishlist));
 });
 
 export default store;

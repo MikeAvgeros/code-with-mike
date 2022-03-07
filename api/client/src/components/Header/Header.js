@@ -63,7 +63,7 @@ const Header = () => {
     return snap.userAuthenticated ? (
       <React.Fragment>
         <IconButton onClick={openUserMenu} sx={{ p: 0 }}>
-          <Avatar alt="user's avatar" src="" />
+          <Avatar alt="user's avatar" src={snap.user.image} />
         </IconButton>
         <Menu
           sx={{ mt: "45px" }}
