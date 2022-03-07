@@ -21,6 +21,7 @@ whitenoise = "*"
 psycopg2 = "*"
 django-storages = "*"
 boto3 = "*"
+pipfile = "*"
 
 [dev-packages]
 
