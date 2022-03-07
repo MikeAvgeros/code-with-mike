@@ -37,7 +37,7 @@ const Login = () => {
       const { data } = await api.post("auth/token/login/", body, config);
       if (data.auth_token) {
         localStorage.setItem("token", data.auth_token);
-        window.location.assign("http://localhost:3000/");
+        window.location.assign("https://codewithmike.herokuapp.com/");
       }
     } catch (err) {
       console.log(err);

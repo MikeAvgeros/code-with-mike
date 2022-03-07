@@ -56,7 +56,7 @@ const Header = () => {
     api.post("auth/token/logout/", token, config);
     localStorage.removeItem("token");
     localStorage.removeItem("wishlist");
-    window.location.assign("http://localhost:3000/");
+    window.location.assign("https://codewithmike.herokuapp.com/");
   };
 
   const renderUserSettings = () => {
