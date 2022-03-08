@@ -42,7 +42,9 @@ const Course = ({ course }) => {
       const { data } = await axios.get(course.url);
       store.courseDetails = data;
     } catch (err) {
-      console.log(err);
+      alert(
+        `An error occured while trying to get the full course description.\n\r${err}`
+      );
     }
   };
 
@@ -58,9 +60,11 @@ const Course = ({ course }) => {
     try {
       await api.post(`order/wishlist/${wishlist}/items/`, body, config);
     } catch (err) {
-      console.log(err)
+      alert(
+        `An error occured while trying to add course to the wishlist.\n\r${err}`
+      );
     }
-  }
+  };
 
   if (!course) return null;
 

@@ -43,7 +43,7 @@ const Signup = () => {
         setAccountCreated(true);
       }
     } catch (err) {
-      console.log(err);
+      alert(`An error occured while trying to sign up.\n\r${err}`);
     }
   };
 

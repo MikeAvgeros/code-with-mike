@@ -46,17 +46,21 @@ const Header = () => {
     ? ["Courses", "Categories", "Wishlist", "Cart", "Profile", "MyOrders"]
     : ["Courses", "Categories", "Cart", "Login", "Signup"];
 
-  const logout = () => {
+  const logout = async () => {
     const token = localStorage.getItem("token");
     const config = {
       headers: {
         Authorization: `Token ${token}`,
       },
     };
-    api.post("auth/token/logout/", token, config);
-    localStorage.removeItem("token");
-    localStorage.removeItem("wishlist");
-    window.location.assign("https://codewithmike.herokuapp.com/");
+    try {
+      await api.post("auth/token/logout/", token, config);
+      localStorage.removeItem("token");
+      localStorage.removeItem("wishlist");
+      window.location.assign("https://codewithmike.herokuapp.com/");
+    } catch (err) {
+      alert(`Unable to logout.\n\r${err}`)
+    }
   };
 
   const renderUserSettings = () => {

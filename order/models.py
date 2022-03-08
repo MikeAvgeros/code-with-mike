@@ -16,7 +16,7 @@ class WishList(models.Model):
     id = models.CharField(primary_key=True, 
     max_length=250, default=uuid4)
     user = models.ForeignKey(User,
-    on_delete=models.PROTECT, related_name='wishlist')
+    on_delete=models.CASCADE, related_name='wishlist')
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

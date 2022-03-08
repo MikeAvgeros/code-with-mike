@@ -22,8 +22,6 @@ class UserSerializer(BaseUserSerializer):
             'id',
             'username',
             'email',
-            'first_name',
-            'last_name',
         ]
 
 class CustomerSerializer(serializers.ModelSerializer):

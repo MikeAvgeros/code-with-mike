@@ -43,13 +43,18 @@ const App = () => {
       createCart();
     }
     if (localStorage.getItem("cart")) {
-      getCart();
+      getCartItems();
     }
     if (localStorage.getItem("token")) {
       store.userAuthenticated = true;
       if (snap.user.length === 0) {
         getUser();
-        createWishList();
+      }
+      if (!localStorage.getItem("wishlist")) {
+        getWishList();
+      }
+      if (localStorage.getItem("wishlist")) {
+        getWishListItems();
       }
     }
   }, []);
@@ -59,10 +64,10 @@ const App = () => {
       store.courses = JSON.parse(sessionStorage.getItem("courses"));
     } else {
       try {
-        const { data } = await api.get("store/products");
+        const { data } = await api.get("store/products/");
         store.courses = data;
       } catch (err) {
-        console.log(err);
+        alert(`An error occured while trying to get the courses.\n\r${err}`);
       }
     }
   };
@@ -72,10 +77,10 @@ const App = () => {
       store.categories = JSON.parse(sessionStorage.getItem("categories"));
     } else {
       try {
-        const { data } = await api.get("store/categories");
+        const { data } = await api.get("store/categories/");
         store.categories = data;
       } catch (err) {
-        console.log(err);
+        alert(`An error occured while trying to get the categories.\n\r${err}`);
       }
     }
   };
@@ -85,10 +90,10 @@ const App = () => {
       store.reviews = JSON.parse(sessionStorage.getItem("reviews"));
     } else {
       try {
-        const { data } = await api.get("store/reviews");
+        const { data } = await api.get("store/reviews/");
         store.reviews = data;
       } catch (err) {
-        console.log(err);
+        alert(`An error occured while trying to get the reviews.\n\r${err}`);
       }
     }
   };
@@ -98,10 +103,10 @@ const App = () => {
       store.promotions = JSON.parse(sessionStorage.getItem("promotions"));
     } else {
       try {
-        const { data } = await api.get("store/promotions");
+        const { data } = await api.get("store/promotions/");
         store.promotions = data;
       } catch (err) {
-        console.log(err);
+        alert(`An error occured while trying to get the promotions.\n\r${err}`);
       }
     }
   };
@@ -111,11 +116,26 @@ const App = () => {
       const { data } = await api.post("order/carts/");
       localStorage.setItem("cart", data.id);
     } catch (err) {
-      console.log(err);
+      alert(`An error occured while trying to create a cart.\n\r${err}`);
     }
   };
 
-  const getCart = async () => {
+  const getWishList = async () => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${localStorage.getItem("token")}`,
+      },
+    };
+    try {
+      const { data } = await api.get("order/wishlist/", config);
+      localStorage.setItem("wishlist", data.id);
+    } catch (err) {
+      alert(`An error occured while trying to get the wishlist.\n\r${err}`);
+    }
+  };
+
+  const getCartItems = async () => {
     if (sessionStorage.getItem("cart-items")) {
       store.cart = JSON.parse(sessionStorage.getItem("cart-items"));
     } else {
@@ -124,7 +144,23 @@ const App = () => {
         const { data } = await api.get(`order/carts/${cartId}/`);
         store.cart = data.items;
       } catch (err) {
-        console.log(err);
+        alert(`An error occured while trying to get the cart items.\n\r${err}`);
+      }
+    }
+  };
+
+  const getWishListItems = async () => {
+    if (sessionStorage.getItem("wishlist-items")) {
+      store.wishlist = JSON.parse(sessionStorage.getItem("wishlist-items"));
+    } else {
+      const wishlistId = localStorage.getItem("wishlist");
+      try {
+        const { data } = await api.get(`order/wishlist/${wishlistId}/`);
+        store.wishlist = data.items;
+      } catch (err) {
+        alert(
+          `An error occured while trying to get the wishlist items.\n\r${err}`
+        );
       }
     }
   };
@@ -140,28 +176,13 @@ const App = () => {
         },
       };
       try {
-        const { data } = await api.get("profile/customers/me", config);
+        const { data } = await api.get("profile/customers/me/", config);
         store.user = data;
       } catch (err) {
-        console.log(err);
+        alert(
+          `An error occured while trying to get the user's data.\n\r${err}`
+        );
       }
-    }
-  };
-
-  const createWishList = async () => {
-    const user = snap.user.id;
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${localStorage.getItem("token")}`,
-      },
-    };
-    const body = JSON.stringify({ user });
-    try {
-      const { data } = await api.post("order/wishlist/", body, config);
-      localStorage.setItem("wishlist", data.id);
-    } catch (err) {
-      console.log(err);
     }
   };
 

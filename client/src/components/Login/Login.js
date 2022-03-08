@@ -40,7 +40,7 @@ const Login = () => {
         window.location.assign("https://codewithmike.herokuapp.com/");
       }
     } catch (err) {
-      console.log(err);
+      alert(`An error occured while trying to login.\n\r${err}`);
     }
   };
 
