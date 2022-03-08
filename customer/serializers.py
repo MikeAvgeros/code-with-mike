@@ -22,6 +22,7 @@ class UserSerializer(BaseUserSerializer):
             'id',
             'username',
             'email',
+            'wishlist'
         ]
 
 class CustomerSerializer(serializers.ModelSerializer):
