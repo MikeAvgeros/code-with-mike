@@ -9,7 +9,9 @@ from .filters import ProductFilter
 from rest_framework.filters import SearchFilter, OrderingFilter
 from .models import Product, Category, Promotion, Review
 from .serializers import (
-    ProductSerializer, CategorySerializer, PromotionSerializer, ReviewSerializer)
+    AddReviewSerializer, ProductSerializer, CategorySerializer, 
+    PromotionSerializer, ReviewSerializer, UpdateReviewSerializer)
+
 
 class ProductViewSet(ModelViewSet):
     lookup_field = "slug"
@@ -23,6 +25,7 @@ class ProductViewSet(ModelViewSet):
 
     def get_serializer_context(self):
         return {'request': self.request}
+
 
 class CategoryViewSet(ModelViewSet):
     lookup_field = "slug"
@@ -42,15 +45,30 @@ class CategoryViewSet(ModelViewSet):
         category.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
 class PromotionViewSet(ModelViewSet):
+    lookup_field = "slug"
     queryset = Promotion.objects.all().order_by('discount')
     serializer_class = PromotionSerializer
     permission_classes = [IsAdminOrReadOnly]
 
+    def get_serializer_context(self):
+        return {'request': self.request}
+
+
 class ReviewViewSet(ModelViewSet):
+    http_method_names = ['get', 'post', 'patch',
+                        'delete', 'head', 'options']
+
     queryset = Review.objects.all()
-    serializer_class = ReviewSerializer
-    
+
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return AddReviewSerializer
+        elif self.request.method == 'PATCH':
+            return UpdateReviewSerializer
+        return ReviewSerializer
+
     def get_permissions(self):
         if self.request.method == 'GET':
             return [AllowAny()]

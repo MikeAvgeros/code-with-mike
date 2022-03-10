@@ -22,6 +22,7 @@ import api from "./components/Api/Api";
 import store from "./components/Store/Store";
 import { useSnapshot } from "valtio";
 import "./App.css";
+import EditProfile from "./components/Profile/EditProfile";
 
 const App = () => {
   const snap = useSnapshot(store);
@@ -45,19 +46,23 @@ const App = () => {
     if (localStorage.getItem("cart")) {
       getCartItems();
     }
+  }, []);
+
+  useEffect(() => {
     if (localStorage.getItem("token")) {
       store.userAuthenticated = true;
       if (snap.user.length === 0) {
         getUser();
       }
-      if (!localStorage.getItem("wishlist")) {
-        getWishList();
+      if (snap.user.user) {
+        const wishlist = snap.user.user.wishlist[0];
+        localStorage.setItem("wishlist", wishlist);
       }
       if (localStorage.getItem("wishlist")) {
         getWishListItems();
       }
     }
-  }, []);
+  }, [snap.user]);
 
   const getCourses = async () => {
     if (sessionStorage.getItem("courses")) {
@@ -120,7 +125,35 @@ const App = () => {
     }
   };
 
-  const getWishList = async () => {
+  const getCartItems = async () => {
+    const cartId = localStorage.getItem("cart");
+    try {
+      const { data } = await api.get(`order/carts/${cartId}/`);
+      store.cart = data.items;
+    } catch (err) {
+      alert(`An error occured while trying to get the cart items.\n\r${err}`);
+    }
+  };
+
+  const getWishListItems = async () => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${localStorage.getItem("token")}`,
+      },
+    };
+    const wishlistId = localStorage.getItem("wishlist");
+    try {
+      const { data } = await api.get(`order/wishlist/${wishlistId}/`, config);
+      store.wishlist = data.items;
+    } catch (err) {
+      alert(
+        `An error occured while trying to get the wishlist items.\n\r${err}`
+      );
+    }
+  };
+
+  const getUser = async () => {
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -128,61 +161,10 @@ const App = () => {
       },
     };
     try {
-      const { data } = await api.get("order/wishlist/", config);
-      localStorage.setItem("wishlist", data.id);
+      const { data } = await api.get("profile/customers/me/", config);
+      store.user = data;
     } catch (err) {
-      alert(`An error occured while trying to get the wishlist.\n\r${err}`);
-    }
-  };
-
-  const getCartItems = async () => {
-    if (sessionStorage.getItem("cart-items")) {
-      store.cart = JSON.parse(sessionStorage.getItem("cart-items"));
-    } else {
-      const cartId = localStorage.getItem("cart");
-      try {
-        const { data } = await api.get(`order/carts/${cartId}/`);
-        store.cart = data.items;
-      } catch (err) {
-        alert(`An error occured while trying to get the cart items.\n\r${err}`);
-      }
-    }
-  };
-
-  const getWishListItems = async () => {
-    if (sessionStorage.getItem("wishlist-items")) {
-      store.wishlist = JSON.parse(sessionStorage.getItem("wishlist-items"));
-    } else {
-      const wishlistId = localStorage.getItem("wishlist");
-      try {
-        const { data } = await api.get(`order/wishlist/${wishlistId}/`);
-        store.wishlist = data.items;
-      } catch (err) {
-        alert(
-          `An error occured while trying to get the wishlist items.\n\r${err}`
-        );
-      }
-    }
-  };
-
-  const getUser = async () => {
-    if (sessionStorage.getItem("user")) {
-      store.user = JSON.parse(sessionStorage.getItem("user"));
-    } else {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Token ${localStorage.getItem("token")}`,
-        },
-      };
-      try {
-        const { data } = await api.get("profile/customers/me/", config);
-        store.user = data;
-      } catch (err) {
-        alert(
-          `An error occured while trying to get the user's data.\n\r${err}`
-        );
-      }
+      alert(`An error occured while trying to get the user's data.\n\r${err}`);
     }
   };
 
@@ -207,6 +189,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/reset_password" element={<ResetPassword />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/edit-profile" element={<EditProfile />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/contact" element={<Contact />} />

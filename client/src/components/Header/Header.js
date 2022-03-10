@@ -43,7 +43,7 @@ const Header = () => {
   };
 
   const pages = snap.userAuthenticated
-    ? ["Courses", "Categories", "Wishlist", "Cart", "Profile", "MyOrders"]
+    ? ["Courses", "Categories", "Wishlist", "Cart", "Profile"]
     : ["Courses", "Categories", "Cart", "Login", "Signup"];
 
   const logout = async () => {
@@ -57,7 +57,7 @@ const Header = () => {
       await api.post("auth/token/logout/", token, config);
       localStorage.removeItem("token");
       localStorage.removeItem("wishlist");
-      window.location.assign("https://codewithmike.herokuapp.com/");
+      window.location.assign("http://localhost.com:3000/");
     } catch (err) {
       alert(`Unable to logout.\n\r${err}`)
     }
@@ -86,9 +86,6 @@ const Header = () => {
         >
           <MenuItem onClick={closeUserMenu}>
             <Link style={{ textDecoration: "none", textAlign: "center" }} to="/profile">Profile</Link>
-          </MenuItem>
-          <MenuItem onClick={closeUserMenu}>
-            <Typography textAlign="center">My Orders</Typography>
           </MenuItem>
           <MenuItem onClick={logout}>
             <Typography textAlign="center">Logout</Typography>

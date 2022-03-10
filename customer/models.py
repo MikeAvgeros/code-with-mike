@@ -1,4 +1,3 @@
-import os
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from io import BytesIO
@@ -6,8 +5,10 @@ from PIL import Image
 from django.core.files import File
 from django.utils.translation import gettext_lazy as _
 
+
 class User(AbstractUser):
     email = models.EmailField(_('email address'), unique=True)
+
 
 class Customer(models.Model):
     PROFESSIONAL = 'P'
@@ -20,16 +21,18 @@ class Customer(models.Model):
         (HOBBYIST, 'Hobbyist'),
     ]
 
+    first_name = models.CharField(max_length=255, blank=True, null=True)
+    last_name = models.CharField(max_length=255, blank=True, null=True)
     phone = models.CharField(max_length=255, blank=True, null=True)
     birth_date = models.DateField(blank=True, null=True)
     country = models.CharField(max_length=255, blank=True, null=True)
     image = models.ImageField(blank=True, null=True)
-    customer_type = models.CharField( blank=True, null=True,
-        max_length=1, choices=CUSTOMER_TYPE
-    )
+    customer_type = models.CharField(blank=True, null=True,
+                                    max_length=1, choices=CUSTOMER_TYPE
+                                    )
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.user.username
 
     class Meta:

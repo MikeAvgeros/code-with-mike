@@ -4,25 +4,26 @@ from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.mixins import (
     CreateModelMixin, RetrieveModelMixin, DestroyModelMixin)
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
-from .models import (Cart, CartItem, WishList, WishListItem, 
-    Order, OrderItem, WishList)
-from customer.models import User
+from .models import (Cart, CartItem, WishList, WishListItem,
+                    Order, OrderItem, WishList)
+from customer.models import Customer
 from .serializers import (
-    AddCartItemSerializer, AddWishListItemSerializer, 
-    CartSerializer, CartItemSerializer, UpdateCartItemSerializer, 
+    AddCartItemSerializer, AddWishListItemSerializer,
+    CartSerializer, CartItemSerializer, UpdateCartItemSerializer,
     WishListSerializer, WishListItemSerializer,
-    OrderSerializer, UpdateOrderSerializer, 
+    OrderSerializer, UpdateOrderSerializer,
     CreateOrderSerializer, OrderItemSerializer)
 
+
 class CartViewSet(
-    CreateModelMixin, RetrieveModelMixin, 
-    DestroyModelMixin, GenericViewSet):
+        CreateModelMixin, RetrieveModelMixin,
+        DestroyModelMixin, GenericViewSet):
     queryset = Cart.objects.prefetch_related('items__item').all()
     serializer_class = CartSerializer
 
-class WishListViewSet(
-    CreateModelMixin, RetrieveModelMixin, 
-    DestroyModelMixin, GenericViewSet):
+
+class WishListViewSet(CreateModelMixin, 
+        RetrieveModelMixin, GenericViewSet):
     serializer_class = WishListSerializer
 
     def get_permissions(self):
@@ -33,12 +34,13 @@ class WishListViewSet(
         if user.is_staff:
             return WishList.objects.all()
         else:
-            user_id = User.objects.only('id')\
-                .get(id=self.request.user.id)
-            return WishList.objects.filter(user_id=user_id)
+            customer_id = Customer.objects.only('id')\
+                .get(user_id=user.id)
+            return WishList.objects.filter(customer_id=customer_id)
+
 
 class OrderViewSet(ModelViewSet):
-    http_method_names = ['get', 'post', 'patch', 
+    http_method_names = ['get', 'post', 'patch',
                         'delete', 'head', 'options']
 
     def get_permissions(self):
@@ -50,10 +52,9 @@ class OrderViewSet(ModelViewSet):
         user = self.request.user
         if user.is_staff:
             return Order.objects.all()
-        else:
-            user_id = User.objects.only('id')\
-                .get(id=self.request.user.id)
-            return Order.objects.filter(user_id=user_id)
+        customer_id = Customer.objects.only('id')\
+            .get(user_id=user.id)
+        return Order.objects.filter(customer_id=customer_id)
 
     def get_serializer_class(self):
         if self.request.method == 'POST':
@@ -64,16 +65,17 @@ class OrderViewSet(ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         serializer = CreateOrderSerializer(
-            data = request.data,
+            data=request.data,
             context={'id': self.request.user.id})
         serializer.is_valid(raise_exception=True)
         order = serializer.save()
-        serializer = OrderSerializer(order, 
-        context={'request': request})
+        serializer = OrderSerializer(order,
+                                    context={'request': request})
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+
 class CartItemViewSet(ModelViewSet):
-    http_method_names = ['get', 'post', 'patch', 
+    http_method_names = ['get', 'post', 'patch',
                         'delete', 'head', 'options']
 
     def get_serializer_class(self):
@@ -91,7 +93,11 @@ class CartItemViewSet(ModelViewSet):
             .filter(cart_id=self.kwargs['cart_pk'])\
             .select_related('item')
 
+
 class WishListItemViewSet(ModelViewSet):
+    http_method_names = ['get', 'post',
+                        'delete', 'head', 'options']
+
     def get_serializer_class(self):
         if self.request.method == 'POST':
             return AddWishListItemSerializer
@@ -104,6 +110,7 @@ class WishListItemViewSet(ModelViewSet):
         return WishListItem.objects\
             .filter(wishlist_id=self.kwargs['wishlist_pk'])\
             .select_related('item')
+
 
 class OrderItemViewSet(ModelViewSet):
     serializer_class = OrderItemSerializer

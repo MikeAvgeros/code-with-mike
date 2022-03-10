@@ -12,7 +12,8 @@ carts_router = NestedDefaultRouter(router, 'carts', lookup='cart')
 carts_router.register(r'items', views.CartItemViewSet, basename='cart-items')
 
 wishlist_router = NestedDefaultRouter(router, 'wishlist', lookup='wishlist')
-wishlist_router.register(r'items', views.WishListItemViewSet, basename='wishlist-items')
+wishlist_router.register(
+    r'items', views.WishListItemViewSet, basename='wishlist-items')
 
 urlpatterns = [
     path(r'', include(router.urls)),

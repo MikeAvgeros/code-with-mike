@@ -8,7 +8,7 @@ def create_customer_from_user(sender, **kwargs):
     if kwargs['created']:
         Customer.objects.create(user=kwargs['instance'])
 
-@receiver(post_save, sender=User)
-def create_wishlist_from_user(sender, **kwargs):
+@receiver(post_save, sender=Customer)
+def create_wishlist_from_customer(sender, **kwargs):
     if kwargs['created']:
-        WishList.objects.create(user=kwargs['instance'])
+        WishList.objects.create(customer=kwargs['instance'])

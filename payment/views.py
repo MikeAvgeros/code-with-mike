@@ -8,6 +8,7 @@ import stripe
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
+
 class StripeCheckoutView(APIView):
     def post(self, request):
         try:
@@ -18,9 +19,10 @@ class StripeCheckoutView(APIView):
                         'quantity': 1,
                     },
                 ],
-                payment_method_types=['card',],
+                payment_method_types=['card', ],
                 mode='payment',
-                success_url=settings.SITE_URL + '/?success=true&session_id={CHECKOUT_SESSION_ID}',
+                success_url=settings.SITE_URL +
+                '/?success=true&session_id={CHECKOUT_SESSION_ID}',
                 cancel_url=settings.SITE_URL + '/?canceled=true',
             )
             return redirect(checkout_session.url)
