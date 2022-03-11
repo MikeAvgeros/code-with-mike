@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   Container,
   Box,
@@ -13,29 +13,15 @@ import {
 } from "@mui/material";
 import { useSnapshot } from "valtio";
 import store from "../Store/Store";
-import api from "../Api/Api";
 
 const Profile = () => {
   const snap = useSnapshot(store);
 
-  useEffect(() => {
-    getOrders();
-  }, []);
-
-  const getOrders = async () => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${localStorage.getItem("token")}`,
-      },
-    };
-    try {
-      const { data } = await api.get("order/checkout/", config);
-      store.orders = data;
-    } catch (err) {
-      alert(`An error occured while trying to get the orders.\n\r${err}`);
-    }
-  };
+  if (snap.customer.length === 0) {
+    <Container component="main" maxWidth="lg">
+      <h2>Unfortunately, we couldn't get your profile details.</h2>
+    </Container>
+  }
 
   return (
     <Container component="main" maxWidth="lg">
@@ -57,16 +43,19 @@ const Profile = () => {
             component="img"
             width="300"
             height="250"
-            image={snap.user.length > 0 && snap.user.image}
-            alt="user's image"
+            image={snap.customer.image ? snap.customer.image : "../../images/blank-profile-picture.png"}
+            alt={`${snap.customer.username} profile picture`}
           />
           <CardContent>
             <Typography gutterBottom variant="h6" sx={{ fontWeight: "bold" }}>
-              {snap.user.length > 0 && snap.user.user.username}
+              {snap.customer.user.username}
             </Typography>
-            <p>Email: {snap.user.length > 0 && snap.user.user.email}</p>
-            <p>Phone: {snap.user.length > 0 && snap.user.phone}</p>
-            <p>Country: {snap.user.length > 0 && snap.user.country}</p>
+            <p>Email: {snap.customer.user.email}</p>
+            <p>First Name: {snap.customer.first_name}</p>
+            <p>Last Name: {snap.customer.last_name}</p>
+            <p>Phone: {snap.customer.phone}</p>
+            <p>Country: {snap.customer.country}</p>
+            <p>Birth Date: {snap.customer.birth_date}</p>
           </CardContent>
           <CardActions>
             <Button sx={{ mb: 1, ml: 1 }} className="btn">
@@ -79,7 +68,7 @@ const Profile = () => {
             My subscribed courses
           </Typography>
           <Stack direction="column" spacing={2}>
-            {snap.orders.length > 0 && snap.orders.map((order, i) => (
+            {snap.customer.orders.length > 0 && snap.customer.orders.map((order, i) => (
               <div key={i}>
                 {order.items.map((item, idx) => (
                   <Card key={idx}>

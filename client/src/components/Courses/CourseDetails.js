@@ -38,16 +38,25 @@ const CourseDetails = () => {
     }
   };
 
+  const getCartItems = async () => {
+    try {
+      const { data } = await api.get(`order/carts/${snap.cartId}/`);
+      store.cartItems = data.items;
+    } catch (err) {
+      alert(`An error occured while trying to get the cart items.\n\r${err}`);
+    }
+  };
+
   const addToCart = async () => {
     const config = {
       headers: {
         "Content-Type": "application/json",
       },
     };
-    const cart = localStorage.getItem("cart");
     const body = JSON.stringify({ item_id: snap.courseDetails.id, quantity: qty });
     try {
-      await api.post(`order/carts/${cart}/items/`, body, config);
+      await api.post(`order/carts/${snap.cartId}/items/`, body, config);
+      getCartItems();
     } catch (err) {
       console.log(err)
     }
@@ -77,7 +86,7 @@ const CourseDetails = () => {
               {snap.courseDetails.name}
             </Typography>
             <Typography sx={{ mb: 5 }} className="subtitle" variant="body1">
-              {snap.courseDetails.tag}
+              {snap.courseDetails.tagline}
             </Typography>
           </Grid>
         </Container>
@@ -98,7 +107,7 @@ const CourseDetails = () => {
             </Grid>
             <Grid item xs={12} sm={6}>
               <Image
-                style={{ maxWidth: "256px" }}
+                style={{ maxWidth: "350px" }}
                 src={snap.courseDetails.image}
                 alt={snap.courseDetails.name}
                 loading="lazy"

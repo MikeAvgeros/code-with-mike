@@ -52,10 +52,10 @@ const Course = ({ course }) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Token ${localStorage.getItem("token")}`,
+        Authorization: `Token ${snap.token}`,
       },
     };
-    const wishlist = localStorage.getItem("wishlist");
+    const wishlist = snap.customer.wishlist;
     const body = JSON.stringify({ item_id: snap.courseDetails.id });
     try {
       await api.post(`order/wishlist/${wishlist}/items/`, body, config);
@@ -65,8 +65,6 @@ const Course = ({ course }) => {
       );
     }
   };
-
-  if (!course) return null;
 
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -78,8 +76,8 @@ const Course = ({ course }) => {
       />
       <CardMedia
         component="img"
-        width="256"
-        height="256"
+        width="300"
+        height="250"
         image={course.image}
         alt={course.name}
       />
@@ -93,7 +91,7 @@ const Course = ({ course }) => {
           {course.name}
         </Typography>
         <Typography variant="body1" color="text.secondary">
-          {summarise(course.tag)}
+          {summarise(course.tagline)}
         </Typography>
       </CardContent>
       <CardActions>

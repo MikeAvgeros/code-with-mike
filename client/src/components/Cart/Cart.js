@@ -1,4 +1,5 @@
 import React from "react";
+import api from "../Api/Api";
 import { useSnapshot } from "valtio";
 import store from "../Store/Store";
 import {
@@ -13,6 +14,23 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 const Cart = () => {
   const snap = useSnapshot(store);
+
+  const checkout = async () => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${snap.token}`,
+      },
+    };
+    const body = JSON.stringify({ cart_id: snap.cartId });
+    store.cartId = null;
+    store.cartItems = [];
+    try {
+      await api.post("order/checkout/", body, config);
+    } catch (err) {
+      alert(`Unable to checkout.\n\r${err}`);
+    }
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -36,8 +54,8 @@ const Cart = () => {
           Shopping Cart
         </Typography>
         <Stack direction="column" spacing={2} sx={{ mt: 5 }}>
-          {snap.cart ? (
-            snap.cart.map((item, i) => (
+          {snap.cartItems ? (
+            snap.cartItems.map((item, i) => (
               <Stack key={i} direction="row" spacing={5}>
                 <Typography>Course: {item.item.name}</Typography>
                 <Typography>Quantity: {item.quantity}</Typography>
@@ -50,10 +68,8 @@ const Cart = () => {
           )}
         </Stack>
         <Stack direction="row" spacing={2} sx={{ mt: 10 }}>
-          <Button className="btn">
-            Keep shopping
-          </Button>
-          <Button className="btn">
+          <Button className="btn">Keep shopping</Button>
+          <Button className="btn" onClick={checkout}>
             Checkout
           </Button>
         </Stack>

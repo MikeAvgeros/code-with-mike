@@ -47,7 +47,7 @@ const Header = () => {
     : ["Courses", "Categories", "Cart", "Login", "Signup"];
 
   const logout = async () => {
-    const token = localStorage.getItem("token");
+    const token = snap.token;
     const config = {
       headers: {
         Authorization: `Token ${token}`,
@@ -55,11 +55,12 @@ const Header = () => {
     };
     try {
       await api.post("auth/token/logout/", token, config);
-      localStorage.removeItem("token");
-      localStorage.removeItem("wishlist");
+      store.token = null;
+      store.customer = [];
+      store.userAuthenticated = false;
       window.location.assign("http://localhost.com:3000/");
     } catch (err) {
-      alert(`Unable to logout.\n\r${err}`)
+      alert(`Unable to logout.\n\r${err}`);
     }
   };
 
@@ -67,7 +68,7 @@ const Header = () => {
     return snap.userAuthenticated ? (
       <React.Fragment>
         <IconButton onClick={openUserMenu} sx={{ p: 0 }}>
-          <Avatar alt="user's avatar" src={snap.user.image} />
+          <Avatar alt="user's avatar" src={snap.customer.image} />
         </IconButton>
         <Menu
           sx={{ mt: "45px" }}
@@ -85,7 +86,12 @@ const Header = () => {
           onClose={closeUserMenu}
         >
           <MenuItem onClick={closeUserMenu}>
-            <Link style={{ textDecoration: "none", textAlign: "center" }} to="/profile">Profile</Link>
+            <Link
+              style={{ textDecoration: "none", textAlign: "center" }}
+              to="/profile"
+            >
+              Profile
+            </Link>
           </MenuItem>
           <MenuItem onClick={logout}>
             <Typography textAlign="center">Logout</Typography>
@@ -134,7 +140,10 @@ const Header = () => {
             {snap.userAuthenticated && (
               <Link className="nav-el" to="/wishlist">
                 <IconButton sx={{ color: "#fafafa", p: 0 }}>
-                  <Badge badgeContent={snap.wishlist.length} color="secondary">
+                  <Badge
+                    badgeContent={snap.wishlistItems.length}
+                    color="secondary"
+                  >
                     <FavoriteIcon />
                   </Badge>
                 </IconButton>
@@ -142,7 +151,7 @@ const Header = () => {
             )}
             <Link className="nav-el" to="/cart">
               <IconButton sx={{ color: "#fafafa", p: 0 }}>
-                <Badge badgeContent={snap.cart.length} color="secondary">
+                <Badge badgeContent={snap.cartItems.length} color="secondary">
                   <ShoppingCartIcon />
                 </Badge>
               </IconButton>
@@ -218,13 +227,16 @@ const Header = () => {
           <Stack direction="row" spacing={3}>
             {snap.userAuthenticated && (
               <Link className="nav-el" to="/wishlist">
-                <Badge badgeContent={snap.wishlist.length} color="secondary">
+                <Badge
+                  badgeContent={snap.wishlistItems.length}
+                  color="secondary"
+                >
                   <FavoriteIcon />
                 </Badge>
               </Link>
             )}
             <Link className="nav-el" to="/cart">
-              <Badge badgeContent={snap.cart.length} color="secondary">
+              <Badge badgeContent={snap.cartItems.length} color="secondary">
                 <ShoppingCartIcon />
               </Badge>
             </Link>

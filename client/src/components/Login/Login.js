@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../Api/Api";
+import store from "../Store/Store";
 import {
   Avatar,
   Button,
@@ -36,7 +37,8 @@ const Login = () => {
     try {
       const { data } = await api.post("auth/token/login/", body, config);
       if (data.auth_token) {
-        localStorage.setItem("token", data.auth_token);
+        store.token = data.auth_token;
+        window.location.assign("http://localhost.com:3000/");
       }
     } catch (err) {
       alert(`An error occured while trying to login.\n\r${err}`);

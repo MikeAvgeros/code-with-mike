@@ -54,7 +54,6 @@ const Review = ({ review }) => {
       />
       <CardContent>
         <Typography
-          gutterBottom
           variant="h6"
           component="div"
           sx={{ fontWeight: "bold" }}
