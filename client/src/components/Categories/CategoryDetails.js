@@ -21,7 +21,7 @@ const CategoryDetails = () => {
       const { data } = await api.get(`store/categories/${slug}`);
       store.categoryDetails = data;
     } catch (err) {
-      console.log(err);
+      alert(`An error occured while trying to get the category details.\n\r${err}`);
     }
   };
 

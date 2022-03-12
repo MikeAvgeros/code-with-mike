@@ -1,19 +1,20 @@
 import React from "react";
-import { Container, Grid, Button, Stack, Typography } from "@mui/material";
+import { Container, Grid, Button, Stack } from "@mui/material";
 import { Link } from "react-router-dom";
 
 const Landing = () => {
   return (
-    <Container sx={{ mt: 25 }} maxWidth="md">
+    <Container component="main">
       <Grid
         container
+        sx={{ mt: 20 }}
         direction="column"
         justifyContent="center"
         alignItems="center"
       >
-        <Typography className="landing-tag" variant="h1" component="div">
+        <h1 className="landing-tag">
           Learn the coding skills you need to become an expert developer
-        </Typography>
+        </h1>
         <Stack direction="row" spacing={3}>
           <Link to="/courses" style={{ textDecoration: "none" }}>
             <Button

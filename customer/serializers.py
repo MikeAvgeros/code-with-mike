@@ -41,7 +41,6 @@ class CustomerSerializer(serializers.ModelSerializer):
             'country',
             'image',
             'customer_type',
-            'orders',
             'wishlist'
         ]
 

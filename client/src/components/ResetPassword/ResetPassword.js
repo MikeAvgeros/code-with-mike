@@ -31,7 +31,7 @@ const ResetPassword = () => {
     try {
       await api.post("auth/users/reset_password/", body, config);
     } catch (err) {
-      console.log(err);
+      alert(`An error occured while trying to reset the password.\n\r${err}`);
     }
   };
 

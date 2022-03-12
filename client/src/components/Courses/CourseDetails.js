@@ -11,14 +11,18 @@ import {
   CardContent,
   CardHeader,
   CardActions,
+  Rating,
+  Avatar,
 } from "@mui/material";
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import { Image } from "mui-image";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import api from "../Api/Api";
 
 const CourseDetails = () => {
   const snap = useSnapshot(store);
+  const courseReviews = snap.reviews.filter((r) =>
+    snap.courseDetails.reviews.includes(r.id)
+  );
   const [qty, setQty] = useState(1);
 
   useEffect(() => {
@@ -27,14 +31,14 @@ const CourseDetails = () => {
     if (snap.courses.length === 0) {
       getCourseDetails(slug);
     }
-  }, []);
+  }, [snap.courses.length]);
 
   const getCourseDetails = async (slug) => {
     try {
       const { data } = await api.get(`store/products/${slug}`);
       store.courseDetails = data;
     } catch (err) {
-      console.log(err);
+      alert(`An error occured while trying to get the course details.\n\r${err}`);
     }
   };
 
@@ -53,22 +57,25 @@ const CourseDetails = () => {
         "Content-Type": "application/json",
       },
     };
-    const body = JSON.stringify({ item_id: snap.courseDetails.id, quantity: qty });
+    const body = JSON.stringify({
+      item_id: snap.courseDetails.id,
+      quantity: qty,
+    });
     try {
       await api.post(`order/carts/${snap.cartId}/items/`, body, config);
       getCartItems();
     } catch (err) {
-      console.log(err)
+      alert(`An error occured while trying to add course to cart.\n\r${err}`);
     }
   };
 
   const increaseQty = () => {
-    setQty(prevQty => prevQty + 1);
+    setQty((prevQty) => prevQty + 1);
   };
 
   const decreaseQty = () => {
     if (qty > 1) {
-      setQty(prevQty => prevQty - 1);
+      setQty((prevQty) => prevQty - 1);
     }
   };
 
@@ -82,17 +89,17 @@ const CourseDetails = () => {
             justifyContent="center"
             alignItems="center"
           >
-            <Typography sx={{ mb: 5 }} className="title" variant="h1">
+            <h1 style={{ mb: 5 }} className="title">
               {snap.courseDetails.name}
-            </Typography>
-            <Typography sx={{ mb: 5 }} className="subtitle" variant="body1">
+            </h1>
+            <p sx={{ mb: 5 }} className="subtitle">
               {snap.courseDetails.tagline}
-            </Typography>
+            </p>
           </Grid>
         </Container>
       </div>
       <div>
-        <Container sx={{ mt: 5 }} maxWidth="lg">
+        <Container sx={{ mt: 5 }}>
           <Grid
             container
             direction="row"
@@ -100,33 +107,15 @@ const CourseDetails = () => {
             alignItems="center"
             spacing={5}
           >
-            <Grid item xs={12} sm={6}>
-              <Typography sx={{ fontSize: 18 }} variant="body1">
-                <div dangerouslySetInnerHTML={{ __html: snap.courseDetails.description }} />
-              </Typography>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Image
-                style={{ maxWidth: "350px" }}
-                src={snap.courseDetails.image}
-                alt={snap.courseDetails.name}
-                loading="lazy"
+            <Grid item sm={12} md={6}>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: snap.courseDetails.description,
+                }}
               />
             </Grid>
-          </Grid>
-        </Container>
-      </div>
-      <div>
-        <Container sx={{ mt: 15 }} maxWidth="md">
-          <Grid
-            container
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-            spacing={5}
-          >
-            <Grid item xs={12} sm={6}>
-              <Card sx={{ mb: 5 }}>
+            <Grid item sm={12} md={6}>
+              <Card sx={{ mb: 5, width: "350px" }}>
                 <CardHeader
                   title="Monthly Payment"
                   titleTypographyProps={{ align: "center", color: "#fafafa" }}
@@ -203,19 +192,44 @@ const CourseDetails = () => {
                     Software Discounts
                   </Typography>
                 </CardContent>
-                <CardActions sx={{ mt:1, mb: 1, justifyContent: 'center' }}>
+                <CardActions sx={{ mt: 1, mb: 1, justifyContent: "center" }}>
                   <Button onClick={addToCart} className="btn">
                     Add to Cart
                   </Button>
                   <Button onClick={decreaseQty}>
                     <ArrowDropDownIcon />
                   </Button>
-                    Qty: {qty}
+                  <Typography>Qty: {qty}</Typography>
                   <Button onClick={increaseQty}>
                     <ArrowDropUpIcon />
                   </Button>
                 </CardActions>
               </Card>
+            </Grid>
+          </Grid>
+        </Container>
+        <Container sx={{ mt: 5 }}>
+          <Grid
+            container
+            direction="row"
+            alignItems="center"
+            spacing={5}
+          >
+            <Grid item sm={12} md={6}>
+              {courseReviews.map((review, i) => (
+                <Card key={i} sx={{ mb: 5, maxWidth: "350px" }}>
+                  <CardHeader
+                    avatar={
+                      <Avatar alt="user's avatar" src={review.customer.image} />
+                    }
+                    title={review.customer.user.username}
+                  />
+                  <CardContent>
+                    <Rating name="read-only" value={review.rating} readOnly />
+                    <Typography paragraph>{review.description}</Typography>
+                  </CardContent>
+                </Card>
+              ))}
             </Grid>
           </Grid>
         </Container>

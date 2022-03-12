@@ -17,7 +17,7 @@ const Category = ({ category }) => {
       const { data } = await axios.get(category.url);
       store.categoryDetails = data;
     } catch (err) {
-      console.log(err);
+      alert(`An error occured while trying to get the category details.\n\r${err}`);
     }
   };
 

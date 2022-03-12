@@ -1,113 +1,156 @@
-// import React from "react";
-// import api from "../Api/Api";
-// import {
-//   Container,
-//   Box,
-//   Avatar,
-//   Button,
-//   TextField,
-//   Grid,
-//   Typography,
-// } from "@mui/material";
+import React, { useState } from "react";
+import { useSnapshot } from "valtio";
+import store from "../Store/Store";
+import api from "../Api/Api";
+import {
+  Container,
+  Box,
+  Button,
+  TextField,
+  Grid,
+  Avatar,
+  Typography
+} from "@mui/material";
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 
-// const EditProfile = () => {
-//   return (
-//     <Container component="main" maxWidth="xs">
-//     <Box
-//       sx={{
-//         mt: 15,
-//         display: "flex",
-//         flexDirection: "column",
-//         alignItems: "center",
-//       }}
-//     >
-//       <Avatar
-//         sx={{
-//           m: 1,
-//           backgroundImage: "linear-gradient(to right, #5e35b1, #d81b60)",
-//         }}
-//       >
-//         <LockOutlinedIcon />
-//       </Avatar>
-//       <Typography component="h1" variant="h5">
-//         Sign up
-//       </Typography>
-//       <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 3 }}>
-//         <Grid container spacing={2}>
-//           <Grid item xs={12}>
-//             <TextField
-//               required
-//               fullWidth
-//               id="email"
-//               label="Email Address"
-//               name="email"
-//               value={email}
-//               type="email"
-//               autoComplete="email"
-//               onChange={onChange}
-//               autoFocus
-//             />
-//           </Grid>
-//           <Grid item xs={12}>
-//             <TextField
-//               required
-//               fullWidth
-//               id="username"
-//               label="Username"
-//               name="username"
-//               value={username}
-//               autoComplete="username"
-//               onChange={onChange}
-//             />
-//           </Grid>
-//           <Grid item xs={12}>
-//             <TextField
-//               required
-//               fullWidth
-//               id="password"
-//               label="Password"
-//               name="password"
-//               value={password}
-//               type="password"
-//               autoComplete="new-password"
-//               onChange={onChange}
-//             />
-//           </Grid>
-//           <Grid item xs={12}>
-//             <TextField
-//               required
-//               fullWidth
-//               id="re_password"
-//               label="Repeat Password"
-//               name="re_password"
-//               value={re_password}
-//               type="password"
-//               autoComplete="re_password"
-//               onChange={onChange}
-//             />
-//           </Grid>
-//         </Grid>
-//         <Button
-//           type="submit"
-//           fullWidth
-//           variant="contained"
-//           sx={{
-//             mt: 2,
-//             mb: 2,
-//             backgroundImage: "linear-gradient(to right, #5e35b1, #d81b60)",
-//           }}
-//         >
-//           Sign Up
-//         </Button>
-//         <Grid container sx={{ mb: 3 }}>
-//           <Grid item xs={12}>
-//             <Link to="/login">Already have an account? Log in</Link>
-//           </Grid>
-//         </Grid>
-//       </Box>
-//     </Box>
-//   </Container>
-//   )
-// };
+const EditProfile = () => {
+  const snap = useSnapshot(store);
 
-// export default EditProfile;
+  const [formData, setFormData] = useState({
+    first_name: "",
+    last_name: "",
+    phone: "",
+    country: "",
+    birth_date: ""
+  });
+
+  const { first_name, last_name, phone, country, birth_date } = formData;
+
+  const onChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const updateProfile = async (first_name, last_name, phone, country, birth_date) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${snap.token}`,
+      },
+    };
+
+    const body = JSON.stringify({ first_name, last_name, phone, country, birth_date });
+
+    try {
+      await api.post("auth/users/", body, config);
+    } catch (err) {
+      alert(`An error occured while trying to update your profile.\n\r${err}`);
+    }
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    updateProfile(first_name, last_name, phone, country, birth_date);
+  };
+
+  return (
+    <Container component="main" maxWidth="xs">
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Avatar
+          sx={{
+            m: 1,
+            backgroundImage: "linear-gradient(to right, #5e35b1, #d81b60)",
+          }}
+        >
+          <ManageAccountsIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Update Profile
+        </Typography>
+      <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 3 }}>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <TextField
+              required
+              fullWidth
+              id="first_name"
+              label="First Name"
+              name="first_name"
+              value={first_name}
+              autoComplete="first_name"
+              onChange={onChange}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              fullWidth
+              id="last_name"
+              label="Last Name"
+              name="last_name"
+              value={last_name}
+              autoComplete="last_name"
+              onChange={onChange}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              fullWidth
+              id="phone"
+              label="Phone Number"
+              name="phone"
+              value={phone}
+              autoComplete="phone"
+              onChange={onChange}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              fullWidth
+              id="country"
+              label="Country"
+              name="country"
+              value={country}
+              autoComplete="country"
+              onChange={onChange}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              fullWidth
+              id="birth_date"
+              label="Birth Date"
+              name="birth_date"
+              value={birth_date}
+              autoComplete="birth_date"
+              onChange={onChange}
+            />
+          </Grid>
+        </Grid>
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          sx={{
+            mt: 2,
+            mb: 2,
+            backgroundImage: "linear-gradient(to right, #5e35b1, #d81b60)",
+          }}
+        >
+          Update Profile
+        </Button>
+      </Box>
+      </Box>
+  </Container>
+  )
+};
+
+export default EditProfile;

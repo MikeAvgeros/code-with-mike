@@ -38,7 +38,6 @@ const Login = () => {
       const { data } = await api.post("auth/token/login/", body, config);
       if (data.auth_token) {
         store.token = data.auth_token;
-        window.location.assign("http://localhost.com:3000/");
       }
     } catch (err) {
       alert(`An error occured while trying to login.\n\r${err}`);

@@ -115,6 +115,7 @@ class ReviewSerializer(serializers.ModelSerializer):
             'description',
             'rating',
             'last_update',
+            'is_featured',
             'product',
             'customer',
         ]

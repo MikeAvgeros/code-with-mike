@@ -55,10 +55,10 @@ const Cart = () => {
         </Typography>
         <Stack direction="column" spacing={2} sx={{ mt: 5 }}>
           {snap.cartItems ? (
-            snap.cartItems.map((item, i) => (
+            snap.cartItems.map((course, i) => (
               <Stack key={i} direction="row" spacing={5}>
-                <Typography>Course: {item.item.name}</Typography>
-                <Typography>Quantity: {item.quantity}</Typography>
+                <Typography>Course: {course.item.name}</Typography>
+                <Typography>Quantity: {course.quantity}</Typography>
               </Stack>
             ))
           ) : (

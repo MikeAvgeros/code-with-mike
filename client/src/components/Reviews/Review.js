@@ -40,7 +40,7 @@ const Review = ({ review }) => {
       const { data } = await api.get(`store/products/${review.product.slug}`);
       store.courseDetails = data;
     } catch (err) {
-      console.log(err);
+      alert(`An error occured while trying to get the course details.\n\r${err}`);
     }
   };
 

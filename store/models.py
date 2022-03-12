@@ -84,6 +84,7 @@ class Review(models.Model):
     description = models.TextField()
     rating = models.PositiveSmallIntegerField(
         validators=[MinValueValidator(1), MaxValueValidator(5)])
+    is_featured = models.BooleanField(default=False)
     last_update = models.DateField(auto_now=True)
 
     def __str__(self):

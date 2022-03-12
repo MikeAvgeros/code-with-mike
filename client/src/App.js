@@ -22,7 +22,7 @@ import api from "./components/Api/Api";
 import store from "./components/Store/Store";
 import { useSnapshot } from "valtio";
 import "./App.css";
-import EditProfile from "./components/Profile/EditProfile";
+import Orders from "./components/Profile/Orders";
 
 const App = () => {
   const snap = useSnapshot(store);
@@ -40,7 +40,12 @@ const App = () => {
     if (snap.promotions.length === 0) {
       getPromotions();
     }
-  }, []);
+  }, [
+    snap.courses.length,
+    snap.categories.length,
+    snap.reviews.length,
+    snap.promotions.length,
+  ]);
 
   useEffect(() => {
     if (!snap.cartId) {
@@ -49,7 +54,7 @@ const App = () => {
     if (snap.cartId && snap.cartItems.length === 0) {
       getCartItems();
     }
-  }, [snap.cartId, snap.cartItems]);
+  }, [snap.cartId, snap.cartItems, snap.cartItems.length]);
 
   useEffect(() => {
     if (snap.token) {
@@ -57,11 +62,16 @@ const App = () => {
       if (snap.customer.length === 0) {
         getCustomer();
       }
-      if (snap.wishlistItems.length === 0) {
+      if (snap.customer.wishlist && snap.wishlistItems.length === 0) {
         getWishListItems();
       }
     }
-  }, [snap.token, snap.customer]);
+  }, [
+    snap.token,
+    snap.customer,
+    store.userAuthenticated,
+    snap.wishlistItems.length,
+  ]);
 
   const getCourses = async () => {
     try {
@@ -171,7 +181,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/reset_password" element={<ResetPassword />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/edit-profile" element={<EditProfile />} />
+          <Route path="/orders" element={<Orders />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/contact" element={<Contact />} />

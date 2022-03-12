@@ -48,6 +48,21 @@ const Course = ({ course }) => {
     }
   };
 
+  const getWishlistItems = async () => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${snap.token}`,
+      },
+    };
+    try {
+      const { data } = await api.get(`order/wishlist/${snap.customer.wishlist}/`, config);
+      store.wishlistItems = data.items;
+    } catch (err) {
+      alert(`An error occured while trying to get the wishlist items.\n\r${err}`);
+    }
+  };
+
   const addToWishList = async () => {
     const config = {
       headers: {
@@ -56,9 +71,10 @@ const Course = ({ course }) => {
       },
     };
     const wishlist = snap.customer.wishlist;
-    const body = JSON.stringify({ item_id: snap.courseDetails.id });
+    const body = JSON.stringify({ item_id: course.id });
     try {
       await api.post(`order/wishlist/${wishlist}/items/`, body, config);
+      getWishlistItems();
     } catch (err) {
       alert(
         `An error occured while trying to add course to the wishlist.\n\r${err}`
@@ -67,7 +83,7 @@ const Course = ({ course }) => {
   };
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345, minWidth: 300 }}>
       <CardHeader
         sx={{
           height: "24px",

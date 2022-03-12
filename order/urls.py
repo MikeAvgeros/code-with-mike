@@ -4,6 +4,7 @@ from . import views
 from django.urls import path, include
 
 router = DefaultRouter()
+
 router.register(r'carts', views.CartViewSet)
 router.register(r'wishlist', views.WishListViewSet, basename='wishlist')
 router.register(r'checkout', views.OrderViewSet, basename='checkout')

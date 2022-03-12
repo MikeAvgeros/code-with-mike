@@ -58,7 +58,6 @@ const Header = () => {
       store.token = null;
       store.customer = [];
       store.userAuthenticated = false;
-      window.location.assign("http://localhost.com:3000/");
     } catch (err) {
       alert(`Unable to logout.\n\r${err}`);
     }
