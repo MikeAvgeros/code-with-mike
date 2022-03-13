@@ -128,3 +128,17 @@ p {
   letter-spacing: 1px;
   text-align: center;
 }
+
+@media (max-width: 600px) {
+  .landing {
+    clip-path: polygon(0 0, 100% 0, 100% 90%, 0% 95%);
+  }
+
+  .landing-tag {
+    margin-top: 2vh;
+  }
+  
+  .featured-reviews {
+    clip-path: polygon(0 7.5%, 100% 5%, 100% 92.5%, 0% 95%);
+  }
+}

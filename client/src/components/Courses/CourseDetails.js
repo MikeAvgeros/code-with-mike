@@ -15,15 +15,11 @@ import {
   Rating,
   Avatar,
 } from "@mui/material";
-import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 const CourseDetails = () => {
   const snap = useSnapshot(store);
-  const courseReviews = snap.reviews.filter((r) =>
-    snap.courseDetails.reviews.includes(r.id)
-  );
   const [qty, setQty] = useState(1);
+  const [courseReviews, setCourseReviews] = useState([]);
 
   useEffect(() => {
     const url = window.location.href;
@@ -37,6 +33,9 @@ const CourseDetails = () => {
     try {
       const { data } = await api.get(`store/products/${slug}`);
       store.courseDetails = data;
+      setCourseReviews(
+        snap.reviews.filter((r) => snap.courseDetails.reviews.includes(r.id))
+      );
     } catch (err) {
       alert(
         `An error occured while trying to get the course details.\n\r${err}`
@@ -91,17 +90,9 @@ const CourseDetails = () => {
     <React.Fragment>
       <div className="course-detail">
         <Container sx={{ mt: 15 }} maxWidth="md">
-          <Grid
-            container
-            direction="column"
-            justifyContent="center"
-          >
-            <h1 className="title">
-              {snap.courseDetails.name}
-            </h1>
-            <p className="subtitle">
-              {snap.courseDetails.tagline}
-            </p>
+          <Grid container direction="column" justifyContent="center">
+            <h1 className="title">{snap.courseDetails.name}</h1>
+            <p className="subtitle">{snap.courseDetails.tagline}</p>
           </Grid>
         </Container>
       </div>
@@ -139,10 +130,7 @@ const CourseDetails = () => {
                       alignItems: "baseline",
                     }}
                   >
-                    <Typography
-                      variant="h3"
-                      color="text.primary"
-                    >
+                    <Typography variant="h3" color="text.primary">
                       £{snap.courseDetails.price}
                     </Typography>
                     <Typography variant="h6" color="text.secondary">
@@ -159,11 +147,11 @@ const CourseDetails = () => {
                     Add to Cart
                   </Button>
                   <Button onClick={decreaseQty}>
-                    <ArrowDropDownIcon />
+                    🡻
                   </Button>
                   <Typography>Qty: {qty}</Typography>
                   <Button onClick={increaseQty}>
-                    <ArrowDropUpIcon />
+                    🡹
                   </Button>
                 </CardActions>
               </Card>

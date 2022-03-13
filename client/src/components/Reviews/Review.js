@@ -45,8 +45,6 @@ const Review = ({ review }) => {
     }
   };
 
-  if (!review) return null;
-
   return (
     <Card sx={{ minWidth: 250 }}>
       <CardHeader

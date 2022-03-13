@@ -66,12 +66,7 @@ const App = () => {
         getWishListItems();
       }
     }
-  }, [
-    snap.token,
-    snap.customer,
-    store.userAuthenticated,
-    snap.wishlistItems.length,
-  ]);
+  }, [snap.token, snap.customer, snap.wishlistItems.length]);
 
   const getCourses = async () => {
     try {

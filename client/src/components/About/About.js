@@ -17,7 +17,7 @@ const About = () => {
         alignItems="center"
         spacing={5}
       >
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} md={6}>
           <p>
             Lorem ipsum dolor sit amet consectetur, adipisicing elit.
             Doloremque molestiae odit eius veniam dolores commodi
@@ -37,21 +37,21 @@ const About = () => {
             cumque earum dolore enim non assumenda id.
           </p>
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} md={6}>
           <Image sx={{ maxWidth: "450px" }} src={coding} />
         </Grid>
       </Grid>
       <Grid
         container
-        sx={{ mb: 10, mt: 5 }}
+        sx={{ mb: 5, mt: 5 }}
         justifyContent="center"
         alignItems="center"
         spacing={5}
       >
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} md={6}>
           <Image sx={{ maxWidth: "480px", display: { xs: "none", md: "grid" } }} src={messages} />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} md={6}>
           <p>
             Lorem ipsum dolor sit amet consectetur, adipisicing elit.
             Doloremque molestiae odit eius veniam dolores commodi
@@ -71,7 +71,7 @@ const About = () => {
             cumque earum dolore enim non assumenda id.
           </p>
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} md={6}>
           <Image sx={{ maxWidth: "480px", display: { md: "none" } }} src={messages} />
         </Grid>
       </Grid>

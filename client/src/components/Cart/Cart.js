@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import api from "../Api/Api";
 import { useSnapshot } from "valtio";
 import store from "../Store/Store";
@@ -11,12 +11,9 @@ import {
   Button,
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 const Cart = () => {
   const snap = useSnapshot(store);
-  const [qty, setQty] = useState();
 
   const checkout = async () => {
     const config = {
@@ -35,13 +32,59 @@ const Cart = () => {
     }
   };
 
-  const increaseQty = () => {
-    setQty((prevQty) => prevQty + 1);
+  const getCartItems = async () => {
+    try {
+      const { data } = await api.get(`order/carts/${snap.cartId}/`);
+      store.cartItems = data.items;
+    } catch (err) {
+      alert(`An error occured while trying to get the cart items.\n\r${err}`);
+    }
   };
 
-  const decreaseQty = () => {
-    if (qty > 1) {
-      setQty((prevQty) => prevQty - 1);
+  const increaseQty = async (e) => {
+    const cartItemId = parseInt(e.target.value);
+    let currentQty = snap.cartItems.find((c) => c.id === cartItemId).quantity;
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const body = JSON.stringify({
+      quantity: currentQty + 1,
+    });
+    try {
+      await api.patch(
+        `order/carts/${snap.cartId}/items/${cartItemId}/`,
+        body,
+        config
+      );
+      getCartItems();
+    } catch (err) {
+      alert(`An error occured while trying to update cart item.\n\r${err}`);
+    }
+  };
+
+  const decreaseQty = async (e) => {
+    const cartItemId = parseInt(e.target.value);
+    let currentQty = snap.cartItems.find((c) => c.id === cartItemId).quantity;
+    if (currentQty <= 1) return;
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const body = JSON.stringify({
+      quantity: currentQty - 1,
+    });
+    try {
+      await api.patch(
+        `order/carts/${snap.cartId}/items/${cartItemId}/`,
+        body,
+        config
+      );
+      getCartItems();
+    } catch (err) {
+      alert(`An error occured while trying to update cart item.\n\r${err}`);
     }
   };
 
@@ -49,7 +92,7 @@ const Cart = () => {
     <Container component="main">
       <Box
         sx={{
-          mt: 15,
+          mt: 12,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -66,27 +109,46 @@ const Cart = () => {
         <Typography component="h1" variant="h5">
           Your Shopping Cart
         </Typography>
-        <Stack direction="column" spacing={2} sx={{ mt: 5 }}>
+        <Stack direction="column" spacing={5} sx={{ mt: 5 }}>
           {snap.cartItems.length > 0 ? (
-            snap.cartItems.map((course, i) => (
+            snap.cartItems.map((cartItem, i) => (
               <Stack key={i} direction="row" spacing={5}>
-                <p style={{ minWidth: "250px", fontSize: 18 }}>{course.item.name}</p>
+                <Avatar alt="course image" src={cartItem.item.image} />
+                <p
+                  style={{
+                    minWidth: "200px",
+                    fontSize: 18,
+                    alignSelf: "center",
+                  }}
+                >
+                  {cartItem.item.name}
+                </p>
                 <Stack direction="row">
-                  <Button onClick={decreaseQty}>
-                    <ArrowDropDownIcon />
+                  <Button value={cartItem.id} onClick={decreaseQty}>
+                    🡻
                   </Button>
-                  <p>Qty: {course.quantity}</p>
-                  <Button onClick={increaseQty}>
-                    <ArrowDropUpIcon />
+                  <p style={{ alignSelf: "center" }}>
+                    Qty: {cartItem.quantity}
+                  </p>
+                  <Button value={cartItem.id} onClick={increaseQty}>
+                    🡹
                   </Button>
                 </Stack>
+                <p
+                  style={{
+                    fontSize: 18,
+                    alignSelf: "center",
+                  }}
+                >
+                  £ {cartItem.total_price}
+                </p>
               </Stack>
             ))
           ) : (
             <p style={{ textAlign: "center" }}>The are no items in your cart</p>
           )}
         </Stack>
-        {snap.cartItems.length >0 && (
+        {snap.cartItems.length > 0 && (
           <Button sx={{ mt: 10 }} className="btn" onClick={checkout}>
             Checkout
           </Button>
