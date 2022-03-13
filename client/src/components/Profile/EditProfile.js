@@ -53,25 +53,24 @@ const EditProfile = () => {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <Box
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
+      <Avatar
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          m: 1,
+          backgroundImage: "linear-gradient(to right, #5e35b1, #d81b60)",
         }}
       >
-        <Avatar
-          sx={{
-            m: 1,
-            backgroundImage: "linear-gradient(to right, #5e35b1, #d81b60)",
-          }}
-        >
-          <ManageAccountsIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Update Profile
-        </Typography>
+        <ManageAccountsIcon />
+      </Avatar>
+      <Typography component="h1" variant="h5">
+        Update Profile
+      </Typography>
       <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 3 }}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
@@ -148,8 +147,7 @@ const EditProfile = () => {
           Update Profile
         </Button>
       </Box>
-      </Box>
-  </Container>
+    </Box>
   )
 };
 

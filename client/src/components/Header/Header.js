@@ -43,7 +43,7 @@ const Header = () => {
   };
 
   const pages = snap.userAuthenticated
-    ? ["Courses", "Categories", "Wishlist", "Cart", "Profile"]
+    ? ["Courses", "Categories", "Wishlist", "Cart", "Profile", "Orders"]
     : ["Courses", "Categories", "Cart", "Login", "Signup"];
 
   const logout = async () => {
@@ -90,6 +90,14 @@ const Header = () => {
               to="/profile"
             >
               Profile
+            </Link>
+          </MenuItem>
+          <MenuItem onClick={closeUserMenu}>
+            <Link
+              style={{ textDecoration: "none", textAlign: "center" }}
+              to="/orders"
+            >
+              Orders
             </Link>
           </MenuItem>
           <MenuItem onClick={logout}>

@@ -40,7 +40,7 @@ const Wishlist = () => {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main">
       <Box
         sx={{
           mt: 15,
@@ -64,14 +64,12 @@ const Wishlist = () => {
           {snap.wishlistItems ? (
             snap.wishlistItems.map((course, i) => (
               <Stack key={i} direction="row" spacing={5}>
-                <Typography>Course: {course.item.name}</Typography>
-                <Button className="btn" onClick={addToCart}>Add To Cart</Button>
+                <p style={{ minWidth: "250px", fontSize: 18 }}>{course.item.name}</p>
+                <Button size="small" className="btn" onClick={addToCart}>Add To Cart</Button>
               </Stack>
             ))
           ) : (
-            <Typography align="center" variant="body1">
-              The are no items in your cart
-            </Typography>
+            <p style={{ textAlign: "center" }}>The are no items in your wishlist</p>
           )}
         </Stack>
       </Box>

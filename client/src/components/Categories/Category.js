@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import {
   Card,
   CardContent,
-  Typography,
   Button,
   CardHeader,
   CardActions,
@@ -21,6 +20,12 @@ const Category = ({ category }) => {
     }
   };
 
+  const pStyle = {
+    marginTop: 10,
+    color: 'gray',
+    fontSize: 15
+  };
+
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardHeader
@@ -30,21 +35,12 @@ const Category = ({ category }) => {
         }}
       />
       <CardContent>
-        <Typography
-          gutterBottom
-          variant="h6"
-          component="div"
-          sx={{ fontWeight: "bold" }}
-        >
-          {category.name}
-        </Typography>
-        <Typography variant="body1" color="text.secondary">
-          {category.description}
-        </Typography>
+        <h3>{category.name}</h3>
+        <p style={pStyle}>{category.description}</p>
       </CardContent>
       <CardActions sx={{ ml: 1 }}>
         <Link style={{ textDecoration: 'none' }} to={`/category/${category.slug}`}>
-          <Button onClick={getCategoryDetails} className="btn">
+          <Button size="small" className="btn" onClick={getCategoryDetails}>
             Learn More
           </Button>
         </Link>

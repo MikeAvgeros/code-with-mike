@@ -9,7 +9,6 @@ import {
   CardActions,
   Button,
   IconButton,
-  Typography,
 } from "@mui/material";
 import axios from "axios";
 import store from "../Store/Store";
@@ -83,7 +82,7 @@ const Course = ({ course }) => {
   };
 
   return (
-    <Card sx={{ maxWidth: 345, minWidth: 300 }}>
+    <Card sx={{ minWidth: 250 }}>
       <CardHeader
         sx={{
           height: "24px",
@@ -92,28 +91,19 @@ const Course = ({ course }) => {
       />
       <CardMedia
         component="img"
-        width="300"
-        height="250"
+        width="250"
+        height="200"
         image={course.image}
         alt={course.name}
       />
       <CardContent>
-        <Typography
-          gutterBottom
-          variant="h6"
-          component="div"
-          sx={{ fontWeight: "bold" }}
-        >
-          {course.name}
-        </Typography>
-        <Typography variant="body1" color="text.secondary">
-          {summarise(course.tagline)}
-        </Typography>
+        <h3>{course.name}</h3>
+        <p>{summarise(course.tagline)}</p>
       </CardContent>
       <CardActions>
         {snap.userAuthenticated && (
           <IconButton onClick={addToWishList}>
-            <FavoriteIcon />
+            <FavoriteIcon className="heart-icon" />
           </IconButton>
         )}
         <Link style={{ textDecoration: "none" }} to={`/course/${course.slug}`}>

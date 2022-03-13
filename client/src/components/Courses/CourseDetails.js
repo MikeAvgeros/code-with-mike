@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import api from "../Api/Api";
 import store from "../Store/Store";
 import { useSnapshot } from "valtio";
 import {
@@ -16,7 +17,6 @@ import {
 } from "@mui/material";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import api from "../Api/Api";
 
 const CourseDetails = () => {
   const snap = useSnapshot(store);
@@ -38,7 +38,9 @@ const CourseDetails = () => {
       const { data } = await api.get(`store/products/${slug}`);
       store.courseDetails = data;
     } catch (err) {
-      alert(`An error occured while trying to get the course details.\n\r${err}`);
+      alert(
+        `An error occured while trying to get the course details.\n\r${err}`
+      );
     }
   };
 
@@ -79,20 +81,25 @@ const CourseDetails = () => {
     }
   };
 
+  const pStyle = {
+    textAlign: "center",
+    color: "gray",
+    marginTop: 2,
+  };
+
   return (
     <React.Fragment>
       <div className="course-detail">
-        <Container sx={{ mt: 15 }} maxWidth="sm">
+        <Container sx={{ mt: 15 }} maxWidth="md">
           <Grid
             container
             direction="column"
             justifyContent="center"
-            alignItems="center"
           >
-            <h1 style={{ mb: 5 }} className="title">
+            <h1 className="title">
               {snap.courseDetails.name}
             </h1>
-            <p sx={{ mb: 5 }} className="subtitle">
+            <p className="subtitle">
               {snap.courseDetails.tagline}
             </p>
           </Grid>
@@ -102,7 +109,6 @@ const CourseDetails = () => {
         <Container sx={{ mt: 5 }}>
           <Grid
             container
-            direction="row"
             justifyContent="center"
             alignItems="center"
             spacing={5}
@@ -134,65 +140,21 @@ const CourseDetails = () => {
                     }}
                   >
                     <Typography
-                      component="h2"
                       variant="h3"
                       color="text.primary"
                     >
-                      £
-                    </Typography>
-                    <Typography
-                      component="h2"
-                      variant="h3"
-                      color="text.primary"
-                    >
-                      {snap.courseDetails.price}
+                      £{snap.courseDetails.price}
                     </Typography>
                     <Typography variant="h6" color="text.secondary">
                       /month
                     </Typography>
                   </Box>
-                  <Typography
-                    sx={{ mt: 2 }}
-                    align="center"
-                    variant="body1"
-                    color="text.secondary"
-                  >
-                    Frequent Course Updates
-                  </Typography>
-                  <Typography
-                    sx={{ mt: 2 }}
-                    align="center"
-                    variant="body1"
-                    color="text.secondary"
-                  >
-                    Tutor Support
-                  </Typography>
-                  <Typography
-                    sx={{ mt: 2 }}
-                    align="center"
-                    variant="body1"
-                    color="text.secondary"
-                  >
-                    Career Guidance
-                  </Typography>
-                  <Typography
-                    sx={{ mt: 2 }}
-                    align="center"
-                    variant="body1"
-                    color="text.secondary"
-                  >
-                    Student Forum
-                  </Typography>
-                  <Typography
-                    sx={{ mt: 2 }}
-                    align="center"
-                    variant="body1"
-                    color="text.secondary"
-                  >
-                    Software Discounts
-                  </Typography>
+                  <p style={pStyle}>Frequent Course Updates</p>
+                  <p style={pStyle}>Tutor Support</p>
+                  <p style={pStyle}>Career Guidance</p>
+                  <p style={pStyle}>Student Forum</p>
                 </CardContent>
-                <CardActions sx={{ mt: 1, mb: 1, justifyContent: "center" }}>
+                <CardActions sx={{ mb: 1, justifyContent: "center" }}>
                   <Button onClick={addToCart} className="btn">
                     Add to Cart
                   </Button>
@@ -209,12 +171,7 @@ const CourseDetails = () => {
           </Grid>
         </Container>
         <Container sx={{ mt: 5 }}>
-          <Grid
-            container
-            direction="row"
-            alignItems="center"
-            spacing={5}
-          >
+          <Grid container spacing={5}>
             <Grid item sm={12} md={6}>
               {courseReviews.map((review, i) => (
                 <Card key={i} sx={{ mb: 5, maxWidth: "350px" }}>

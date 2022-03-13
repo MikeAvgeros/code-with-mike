@@ -25,37 +25,38 @@ const Profile = () => {
       <Grid
         container
         sx={{ mt: 15, mb: 10 }}
-        direction="row"
-        justifyContent="center"
+        justifyContent="space-around"
         alignItems="center"
       >
-        <Card sx={{ maxWidth: 350 }}>
-          <CardHeader
-            sx={{
-              height: "24px",
-              backgroundImage: "linear-gradient(to right, #5e35b1, #d81b60)",
-            }}
-          />
-          <CardMedia
-            component="img"
-            width="350"
-            height="250"
-            image={snap.customer.image}
-            alt={`${snap.customer.user.username} profile picture`}
-          />
-          <CardContent spacing={2}>
-            <h3 style={{ fontWeight: "bold" }}>
-              {snap.customer.user.username}
-            </h3>
-            <p>Email: {snap.customer.user.email}</p>
-            <p>First Name: {snap.customer.first_name}</p>
-            <p>Last Name: {snap.customer.last_name}</p>
-            <p>Phone: {snap.customer.phone}</p>
-            <p>Country: {snap.customer.country}</p>
-            <p>Birth Date: {snap.customer.birth_date}</p>
-          </CardContent>
-        </Card>
-        <EditProfile />
+        <Grid item xs={12} sm={6} md={4}>
+          <Card sx={{ minWidth: 250 }}>
+            <CardHeader
+              sx={{
+                height: "24px",
+                backgroundImage: "linear-gradient(to right, #5e35b1, #d81b60)",
+              }}
+            />
+            <CardMedia
+              component="img"
+              width="250"
+              height="200"
+              image={snap.customer.image}
+              alt={`${snap.customer.user.username} profile picture`}
+            />
+            <CardContent spacing={2}>
+              <h3>{snap.customer.user.username}</h3>
+              <p>Email: {snap.customer.user.email}</p>
+              <p>First Name: {snap.customer.first_name}</p>
+              <p>Last Name: {snap.customer.last_name}</p>
+              <p>Phone: {snap.customer.phone}</p>
+              <p>Country: {snap.customer.country}</p>
+              <p>Birth Date: {snap.customer.birth_date}</p>
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item xs={12} sm={6} md={4}>
+          <EditProfile />
+        </Grid>
       </Grid>
     </Container>
   );

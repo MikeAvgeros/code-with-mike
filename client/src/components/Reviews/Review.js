@@ -10,9 +10,8 @@ import {
   CardActions,
   Button,
   IconButton,
-  Typography,
   Rating,
-  Avatar
+  Avatar,
 } from "@mui/material";
 import store from "../Store/Store";
 import api from "../Api/Api";
@@ -40,32 +39,29 @@ const Review = ({ review }) => {
       const { data } = await api.get(`store/products/${review.product.slug}`);
       store.courseDetails = data;
     } catch (err) {
-      alert(`An error occured while trying to get the course details.\n\r${err}`);
+      alert(
+        `An error occured while trying to get the course details.\n\r${err}`
+      );
     }
   };
 
   if (!review) return null;
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ minWidth: 250 }}>
       <CardHeader
-        avatar={<Avatar alt="user's avatar" src={review.customer.image} />}
+        avatar={<Avatar alt="reviewer's avatar" src={review.customer.image} />}
         title={review.customer.user.username}
       />
       <CardContent>
-        <Typography
-          variant="h6"
-          component="div"
-          sx={{ fontWeight: "bold" }}
-        >
-          {review.product.name}
-        </Typography>
-        <Typography variant="body1">
-          <Rating name="read-only" value={review.rating} readOnly />
-        </Typography>
+        <h4>{review.product.name}</h4>
+        <Rating name="read-only" value={review.rating} readOnly />
       </CardContent>
       <CardActions disableSpacing>
-        <Link style={{ textDecoration: "none" }} to={`/course/${review.product.slug}`}>
+        <Link
+          style={{ textDecoration: "none" }}
+          to={`/course/${review.product.slug}`}
+        >
           <Button onClick={getCourseDetails} className="btn">
             View Course
           </Button>
@@ -81,7 +77,7 @@ const Review = ({ review }) => {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph>{review.description}</Typography>
+          <p>{review.description}</p>
         </CardContent>
       </Collapse>
     </Card>

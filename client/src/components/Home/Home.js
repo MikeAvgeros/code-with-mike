@@ -9,7 +9,7 @@ import store from "../Store/Store";
 const Home = () => {
   const snap = useSnapshot(store); 
   const featuredCourses = snap.courses.filter(p => p.is_featured === true);
-  const featuredReviews = snap.reviews.filter(p => p.rating === 5);
+  const featuredReviews = snap.reviews.filter(p => p.is_featured === true);
 
   return (
     <React.Fragment>

@@ -7,13 +7,12 @@ import messages from "../../images/messages.png";
 const About = () => {
   return (
     <Container sx={{ mt: 5 }}>
-      <h2 className="tag">
+      <h2 style={{ textAlign: "center" }}>
         I love to teach you coding!
       </h2>
       <Grid
         container
         sx={{ mb: 5, mt: 5 }}
-        direction="row"
         justifyContent="center"
         alignItems="center"
         spacing={5}
@@ -45,7 +44,6 @@ const About = () => {
       <Grid
         container
         sx={{ mb: 10, mt: 5 }}
-        direction="row"
         justifyContent="center"
         alignItems="center"
         spacing={5}

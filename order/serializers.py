@@ -7,7 +7,7 @@ from .models import Cart, CartItem, Order, OrderItem, WishList, WishListItem
 class ShortProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ['id', 'slug', 'name', 'price']
+        fields = ['slug', 'name', 'image', 'price']
 
 
 class CartItemSerializer(serializers.ModelSerializer):
@@ -137,8 +137,8 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ['id', 'customer', 'items',
-                  'total_price', 'payment_status']
+        fields = ['id', 'customer', 'items', 'created_at',
+                'total_price', 'payment_status']
 
 
 class CreateOrderSerializer(serializers.Serializer):
