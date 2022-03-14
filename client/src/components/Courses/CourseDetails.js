@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import api from "../Api/Api";
+import { api, getCartItems } from "../Api/Api";
 import store from "../Store/Store";
 import { useSnapshot } from "valtio";
 import {
@@ -43,15 +43,6 @@ const CourseDetails = () => {
     }
   };
 
-  const getCartItems = async () => {
-    try {
-      const { data } = await api.get(`order/carts/${snap.cartId}/`);
-      store.cartItems = data.items;
-    } catch (err) {
-      alert(`An error occured while trying to get the cart items.\n\r${err}`);
-    }
-  };
-
   const addToCart = async () => {
     const config = {
       headers: {
@@ -64,7 +55,7 @@ const CourseDetails = () => {
     });
     try {
       await api.post(`order/carts/${snap.cartId}/items/`, body, config);
-      getCartItems();
+      getCartItems(snap.cartId);
     } catch (err) {
       alert(`An error occured while trying to add course to cart.\n\r${err}`);
     }

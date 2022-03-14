@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import api from "../Api/Api";
+import { signup } from "../Api/Api";
 import {
   Container,
   Box,
@@ -11,10 +11,8 @@ import {
   Typography,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { Alert } from "@mui/material";
 
 const Signup = () => {
-  const [accountCreated, setAccountCreated] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     username: "",
@@ -28,53 +26,12 @@ const Signup = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const signup = async (email, username, password, re_password) => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
-    const body = JSON.stringify({ email, username, password, re_password });
-
-    try {
-      const { data } = await api.post("auth/users/", body, config);
-      if (data.username === username) {
-        setAccountCreated(true);
-      }
-    } catch (err) {
-      alert(`An error occured while trying to sign up.\n\r${err}`);
-    }
-  };
-
   const onSubmit = (e) => {
     e.preventDefault();
-
     if (password === re_password) {
       signup(email, username, password, re_password);
     }
   };
-
-  if (accountCreated) {
-    return (
-      <Container component="main">
-        <Box
-          sx={{
-            mt: 20,
-            mb: 10,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Alert severity="info">
-            You have successfully registered an account. You can now{" "}
-            <Link to="/login">login.</Link>
-          </Alert>
-        </Box>
-      </Container>
-    );
-  }
 
   return (
     <Container component="main" maxWidth="xs">

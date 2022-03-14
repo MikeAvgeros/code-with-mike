@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSnapshot } from "valtio";
 import store from "../Store/Store";
-import api from "../Api/Api";
+import { getOrders } from "../Api/Api";
 import { Container, Grid } from "@mui/material";
 import Order from "./Order";
 
@@ -10,26 +10,9 @@ const Orders = () => {
 
   useEffect(() => {
     if (snap.orders.length === 0) {
-      getOrders();
+      getOrders(snap.token);
     }
-  }, [snap.orders.length])
-
-  const getOrders = async () => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${snap.token}`,
-      },
-    };
-    try {
-      const { data } = await api.get("order/checkout/", config);
-      store.orders = data;
-    } catch (err) {
-      alert(
-        `An error occured while trying to get the wishlist items.\n\r${err}`
-      );
-    }
-  };
+  }, [snap.orders.length, snap.token])
 
   return (
     <Container sx={{ mt: 12, mb: 5 }}>

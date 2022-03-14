@@ -10,7 +10,7 @@ const Categories = () => {
   return (
     <Container sx={{ mt: 12, mb: 5 }}>
       <h2>Learning Paths</h2>
-      <p style={{ marginBottom: 10 }}>
+      <p style={{ marginBottom: 15 }}>
         Whether you're a beginner just starting out or an experienced developer
         looking for courses to enhance your skills and reach higher levels of
         software engineering, these learning paths will help you achieve your

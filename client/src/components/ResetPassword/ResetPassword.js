@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import api from "../Api/Api";
+import { resetPassword } from "../Api/Api";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -19,26 +19,9 @@ const ResetPassword = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const reset_password = async (email) => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
-    const body = JSON.stringify({ email });
-
-    try {
-      await api.post("auth/users/reset_password/", body, config);
-    } catch (err) {
-      alert(`An error occured while trying to reset the password.\n\r${err}`);
-    }
-  };
-
   const onSubmit = (e) => {
     e.preventDefault();
-
-    reset_password(email);
+    resetPassword(email);
   };
 
   return (

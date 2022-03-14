@@ -1,5 +1,5 @@
 import React from "react";
-import api from "../Api/Api";
+import { api, getCartItems } from "../Api/Api";
 import { useSnapshot } from "valtio";
 import store from "../Store/Store";
 import {
@@ -14,15 +14,6 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 
 const Wishlist = () => {
   const snap = useSnapshot(store);
-
-  const getCartItems = async () => {
-    try {
-      const { data } = await api.get(`order/carts/${snap.cartId}/`);
-      store.cartItems = data.items;
-    } catch (err) {
-      alert(`An error occured while trying to get the cart items.\n\r${err}`);
-    }
-  };
 
   const getWishListItems = async () => {
     const config = {
@@ -77,7 +68,7 @@ const Wishlist = () => {
     });
     try {
       await api.post(`order/carts/${snap.cartId}/items/`, body, config);
-      getCartItems();
+      getCartItems(snap.cartId);
       removeFromWishlist(e.target.value);
     } catch (err) {
       alert(

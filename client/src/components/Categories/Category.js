@@ -40,7 +40,7 @@ const Category = ({ category }) => {
       </CardContent>
       <CardActions sx={{ ml: 1 }}>
         <Link style={{ textDecoration: 'none' }} to={`/category/${category.slug}`}>
-          <Button size="small" className="btn" onClick={getCategoryDetails}>
+          <Button size="small" className="btn" sx={{ mb: 1 }} onClick={getCategoryDetails}>
             Learn More
           </Button>
         </Link>

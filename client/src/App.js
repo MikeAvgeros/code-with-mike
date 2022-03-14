@@ -11,6 +11,7 @@ import Signup from "./components/Signup/Signup";
 import Login from "./components/Login/Login";
 import ResetPassword from "./components/ResetPassword/ResetPassword";
 import Profile from "./components/Profile/Profile";
+import Orders from "./components/Profile/Orders";
 import Wishlist from "./components/Wishlist/Wishlist";
 import Checkout from "./components/Checkout/Checkout";
 import Contact from "./components/Contact/Contact";
@@ -18,11 +19,19 @@ import Terms from "./components/Terms/Terms";
 import Privacy from "./components/Privacy/Privacy";
 import Footer from "./components/Footer/Footer";
 import Box from "@mui/material/Box";
-import api from "./components/Api/Api";
+import {
+  getCourses,
+  getCategories,
+  getReviews,
+  getPromotions,
+  createCart,
+  getCartItems,
+  getCustomer,
+  getWishListItems,
+} from "./components/Api/Api";
 import store from "./components/Store/Store";
 import { useSnapshot } from "valtio";
 import "./App.css";
-import Orders from "./components/Profile/Orders";
 
 const App = () => {
   const snap = useSnapshot(store);
@@ -52,7 +61,7 @@ const App = () => {
       createCart();
     }
     if (snap.cartId && snap.cartItems.length === 0) {
-      getCartItems();
+      getCartItems(snap.cartId);
     }
   }, [snap.cartId, snap.cartItems, snap.cartItems.length]);
 
@@ -60,100 +69,13 @@ const App = () => {
     if (snap.token) {
       store.userAuthenticated = true;
       if (snap.customer.length === 0) {
-        getCustomer();
+        getCustomer(snap.token);
       }
       if (snap.customer.wishlist && snap.wishlistItems.length === 0) {
-        getWishListItems();
+        getWishListItems(snap.token, snap.customer.wishlist);
       }
     }
   }, [snap.token, snap.customer, snap.wishlistItems.length]);
-
-  const getCourses = async () => {
-    try {
-      const { data } = await api.get("store/products/");
-      store.courses = data;
-    } catch (err) {
-      alert(`An error occured while trying to get the courses.\n\r${err}`);
-    }
-  };
-
-  const getCategories = async () => {
-    try {
-      const { data } = await api.get("store/categories/");
-      store.categories = data;
-    } catch (err) {
-      alert(`An error occured while trying to get the categories.\n\r${err}`);
-    }
-  };
-
-  const getReviews = async () => {
-    try {
-      const { data } = await api.get("store/reviews/");
-      store.reviews = data;
-    } catch (err) {
-      alert(`An error occured while trying to get the reviews.\n\r${err}`);
-    }
-  };
-
-  const getPromotions = async () => {
-    try {
-      const { data } = await api.get("store/promotions/");
-      store.promotions = data;
-    } catch (err) {
-      alert(`An error occured while trying to get the promotions.\n\r${err}`);
-    }
-  };
-
-  const createCart = async () => {
-    try {
-      const { data } = await api.post("order/carts/");
-      store.cartId = data.id;
-    } catch (err) {
-      alert(`An error occured while trying to create a cart.\n\r${err}`);
-    }
-  };
-
-  const getCartItems = async () => {
-    try {
-      const { data } = await api.get(`order/carts/${snap.cartId}/`);
-      store.cartItems = data.items;
-    } catch (err) {
-      alert(`An error occured while trying to get the cart items.\n\r${err}`);
-    }
-  };
-
-  const getCustomer = async () => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${snap.token}`,
-      },
-    };
-    try {
-      const { data } = await api.get("profile/customers/me/", config);
-      store.customer = data;
-    } catch (err) {
-      alert(`An error occured while trying to get the user's data.\n\r${err}`);
-    }
-  };
-
-  const getWishListItems = async () => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${snap.token}`,
-      },
-    };
-    try {
-      const wishlistId = snap.customer.wishlist;
-      const { data } = await api.get(`order/wishlist/${wishlistId}/`, config);
-      store.wishlistItems = data.items;
-    } catch (err) {
-      alert(
-        `An error occured while trying to get the wishlist items.\n\r${err}`
-      );
-    }
-  };
 
   return (
     <Router>

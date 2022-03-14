@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import store from "../Store/Store";
 import { useSnapshot } from "valtio";
-import api from "../Api/Api";
+import { api } from "../Api/Api";
 import { Container, Grid } from "@mui/material";
 import Course from "../Courses/Course";
 

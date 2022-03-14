@@ -10,7 +10,7 @@ const Courses = () => {
   return (
     <Container sx={{ mt: 12, mb: 5 }}>
       <h2>All Courses</h2>
-      <p style={{ marginBottom: 10 }}>
+      <p style={{ marginBottom: 15 }}>
         Whether you are looking for a career as a frontend or backend or mobile
         developent, here you will find all the courses to help you get started.
       </p>

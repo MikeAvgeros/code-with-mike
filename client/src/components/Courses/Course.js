@@ -13,7 +13,7 @@ import {
 import axios from "axios";
 import store from "../Store/Store";
 import { snapshot } from "valtio";
-import api from "../Api/Api";
+import { api } from "../Api/Api";
 
 const Course = ({ course }) => {
   const snap = snapshot(store);
@@ -102,12 +102,12 @@ const Course = ({ course }) => {
       </CardContent>
       <CardActions>
         {snap.userAuthenticated && (
-          <IconButton onClick={addToWishList}>
+          <IconButton sx={{ mb: 1 }} onClick={addToWishList}>
             <FavoriteIcon className="heart-icon" />
           </IconButton>
         )}
         <Link style={{ textDecoration: "none" }} to={`/course/${course.slug}`}>
-          <Button onClick={getCourseDetails} className="btn">
+          <Button size="small" className="btn" sx={{ ml: 1, mb: 1 }} onClick={getCourseDetails}>
             Learn More
           </Button>
         </Link>

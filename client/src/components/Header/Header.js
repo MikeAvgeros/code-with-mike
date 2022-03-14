@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import api from "../Api/Api";
+import { api } from "../Api/Api";
 import { useSnapshot } from "valtio";
 import store from "../Store/Store";
 import {
@@ -127,10 +127,10 @@ const Header = () => {
             marginLeft: 5,
           }}
         >
-          <Link className="nav-el" to="/">
-            <Image sx={{ maxWidth: "48px" }} src={logo} />
-          </Link>
-          <Stack direction="row" spacing={3} sx={{ marginLeft: 5 }}>
+          <Stack direction="row" spacing={3}>
+            <Link className="nav-el" to="/">
+              <Image sx={{ maxWidth: "48px" }} src={logo} />
+            </Link>
             <Link className="nav-el" to="/courses">
               Courses
             </Link>

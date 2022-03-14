@@ -1,5 +1,5 @@
 import React from "react";
-import api from "../Api/Api";
+import { api, getCartItems } from "../Api/Api";
 import { useSnapshot } from "valtio";
 import store from "../Store/Store";
 import {
@@ -32,15 +32,6 @@ const Cart = () => {
     }
   };
 
-  const getCartItems = async () => {
-    try {
-      const { data } = await api.get(`order/carts/${snap.cartId}/`);
-      store.cartItems = data.items;
-    } catch (err) {
-      alert(`An error occured while trying to get the cart items.\n\r${err}`);
-    }
-  };
-
   const increaseQty = async (e) => {
     const cartItemId = parseInt(e.target.value);
     let currentQty = snap.cartItems.find((c) => c.id === cartItemId).quantity;
@@ -58,7 +49,7 @@ const Cart = () => {
         body,
         config
       );
-      getCartItems();
+      getCartItems(snap.cartId);
     } catch (err) {
       alert(`An error occured while trying to update cart item.\n\r${err}`);
     }
@@ -82,7 +73,7 @@ const Cart = () => {
         body,
         config
       );
-      getCartItems();
+      getCartItems(snap.cartId);
     } catch (err) {
       alert(`An error occured while trying to update cart item.\n\r${err}`);
     }

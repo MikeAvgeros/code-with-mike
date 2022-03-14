@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { useSnapshot } from "valtio";
 import store from "../Store/Store";
-import api from "../Api/Api";
+import { updateProfile } from "../Api/Api";
 import {
-  Container,
   Box,
   Button,
   TextField,
@@ -30,26 +29,9 @@ const EditProfile = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const updateProfile = async (first_name, last_name, phone, country, birth_date) => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${snap.token}`,
-      },
-    };
-
-    const body = JSON.stringify({ first_name, last_name, phone, country, birth_date });
-
-    try {
-      await api.post("auth/users/", body, config);
-    } catch (err) {
-      alert(`An error occured while trying to update your profile.\n\r${err}`);
-    }
-  };
-
   const onSubmit = (e) => {
     e.preventDefault();
-    updateProfile(first_name, last_name, phone, country, birth_date);
+    updateProfile(snap.token, first_name, last_name, phone, country, birth_date);
   };
 
   return (

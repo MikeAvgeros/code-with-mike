@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import api from "../Api/Api";
-import store from "../Store/Store";
+import { login } from "../Api/Api";
 import {
   Avatar,
   Button,
@@ -23,25 +22,6 @@ const Login = () => {
 
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const login = async (email, password) => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
-    const body = JSON.stringify({ email, password });
-
-    try {
-      const { data } = await api.post("auth/token/login/", body, config);
-      if (data.auth_token) {
-        store.token = data.auth_token;
-      }
-    } catch (err) {
-      alert(`An error occured while trying to login.\n\r${err}`);
-    }
   };
 
   const onSubmit = (e) => {

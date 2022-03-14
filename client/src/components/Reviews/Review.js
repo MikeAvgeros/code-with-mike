@@ -14,7 +14,7 @@ import {
   Avatar,
 } from "@mui/material";
 import store from "../Store/Store";
-import api from "../Api/Api";
+import { api } from "../Api/Api";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
