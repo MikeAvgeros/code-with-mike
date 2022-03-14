@@ -129,7 +129,7 @@ export const signup = async (email, username, password, re_password) => {
   try {
     const { data } = await api.post("auth/users/", body, config);
     if (data.username === username) {
-      alert("Account created. Please login.");
+      window.location.assign("https://codewithmike.herokuapp.com/#/login");
     }
   } catch (err) {
     alert(`An error occured while trying to sign up.\n\r${err}`);
@@ -147,6 +147,7 @@ export const login = async (email, password) => {
     const { data } = await api.post("auth/token/login/", body, config);
     if (data.auth_token) {
       store.token = data.auth_token;
+      window.location.assign("https://codewithmike.herokuapp.com/");
     }
   } catch (err) {
     alert(`An error occured while trying to login.\n\r${err}`);

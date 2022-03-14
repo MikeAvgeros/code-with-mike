@@ -58,6 +58,7 @@ const Header = () => {
       store.token = null;
       store.customer = [];
       store.userAuthenticated = false;
+      window.location.assign("https://codewithmike.herokuapp.com/");
     } catch (err) {
       alert(`Unable to logout.\n\r${err}`);
     }

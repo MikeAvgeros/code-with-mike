@@ -35,7 +35,6 @@ const Orders = () => {
           ))}
       </Grid>
     </Container>
-
   )
 };
 
