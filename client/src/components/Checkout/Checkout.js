@@ -50,13 +50,14 @@ const Checkout = () => {
       store.cartId = null;
       store.cartItems = [];
       getOrders(snap.token);
+      alert("Thank you for your order.")
     } catch (err) {
       alert(`Unable to checkout.\n\r${err}`);
     }
   };
 
   return (
-    <Container component="main" maxWidth="sm" sx={{ mt: 8, mb: 4 }}>
+    <Container component="main" maxWidth="sm" sx={{ mt: 4, mb: 4 }}>
       <Paper
         variant="outlined"
         sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
@@ -72,17 +73,7 @@ const Checkout = () => {
           ))}
         </Stepper>
         <React.Fragment>
-          {activeStep === steps.length ? (
-            <React.Fragment>
-              <h4>
-                Thank you for your order.
-              </h4>
-              <p>
-                We have emailed your order confirmation, and will send you an
-                update when your order has shipped.
-              </p>
-            </React.Fragment>
-          ) : (
+          {activeStep !== steps.length && (
             <React.Fragment>
               {getStepContent(activeStep)}
               <Box sx={{ display: "flex", justifyContent: "flex-end" }}>

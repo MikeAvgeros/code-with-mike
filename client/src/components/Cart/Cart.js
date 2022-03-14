@@ -47,7 +47,7 @@ const Cart = () => {
           )}
         </Stack>
         {snap.cartItems.length > 0 && (
-          <Link to="/checkout">
+          <Link to="/checkout" style={{ textDecoration: "none" }}>
             <Button sx={{ mt: 10 }} className="btn">
               Checkout
             </Button>

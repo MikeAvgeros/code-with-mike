@@ -6,7 +6,7 @@ const AddressForm = () => {
   return (
     <React.Fragment>
       <h3>
-        Shipping address
+        Billing address
       </h3>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>

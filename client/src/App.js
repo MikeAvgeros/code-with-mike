@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
 import Courses from "./components/Courses/Courses";
@@ -95,12 +95,22 @@ const App = () => {
           <Route path="/category/:id" element={<CategoryDetails />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
+          <Route 
+            path="/login" 
+            element={!snap.token ? <Login /> : <Navigate to="/profile" />} 
+          />
           <Route path="/reset_password" element={<ResetPassword />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/orders" element={<Orders />} />
+          <Route
+            path="/profile" 
+            element={snap.token ? <Profile /> : <Navigate to="/" />} />
+          <Route 
+            path="/orders" 
+            element={snap.token ? <Orders /> : <Navigate to="/" />} />
           <Route path="/wishlist" element={<Wishlist />} />
-          <Route path="/checkout" element={<Checkout />} />
+          <Route 
+            path="/checkout" 
+            element={snap.cartItems.length > 0 ? <Checkout /> : <Navigate to="/" />} 
+          />
           <Route path="/contact" element={<Contact />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/privacy" element={<Privacy />} />

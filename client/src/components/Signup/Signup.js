@@ -37,7 +37,7 @@ const Signup = () => {
     <Container component="main" maxWidth="xs">
       <Box
         sx={{
-          mt: 15,
+          mt: 12,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",

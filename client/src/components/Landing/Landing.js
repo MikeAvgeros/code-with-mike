@@ -30,7 +30,7 @@ const Landing = () => {
               Courses
             </Button>
           </Link>
-          <Link to="/" style={{ textDecoration: "none" }}>
+          <Link to="/contact" style={{ textDecoration: "none" }}>
             <Button
               sx={{
                 mt: 10,
@@ -41,7 +41,7 @@ const Landing = () => {
                 borderRadius: 2
               }}
             >
-              Learn More
+              Contact Us
             </Button>
           </Link>
         </Stack>
