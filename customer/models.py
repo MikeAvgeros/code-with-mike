@@ -11,24 +11,20 @@ class User(AbstractUser):
 
 
 class Customer(models.Model):
-    PROFESSIONAL = 'P'
-    STUDENT = 'S'
-    HOBBYIST = 'H'
-
     CUSTOMER_TYPE = [
-        (PROFESSIONAL, 'Professional'),
-        (STUDENT, 'Student'),
-        (HOBBYIST, 'Hobbyist'),
+        ('Professional', 'Professional'),
+        ('Student', 'Student'),
+        ('Hobbyist', 'Hobbyist'),
     ]
 
     first_name = models.CharField(max_length=255, blank=True, null=True)
     last_name = models.CharField(max_length=255, blank=True, null=True)
     phone = models.CharField(max_length=255, blank=True, null=True)
-    birth_date = models.DateField(blank=True, null=True)
+    birth_date = models.CharField(max_length=255, blank=True, null=True)
     country = models.CharField(max_length=255, blank=True, null=True)
     image = models.ImageField(blank=True, null=True)
     customer_type = models.CharField(blank=True, null=True,
-                                    max_length=1, choices=CUSTOMER_TYPE
+                                    max_length=12, choices=CUSTOMER_TYPE
                                     )
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 

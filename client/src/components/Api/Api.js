@@ -159,8 +159,10 @@ export const updateProfile = async (
   first_name,
   last_name,
   phone,
+  birth_date,
   country,
-  birth_date
+  image,
+  customer_type
 ) => {
   const config = {
     headers: {
@@ -172,11 +174,14 @@ export const updateProfile = async (
     first_name,
     last_name,
     phone,
-    country,
     birth_date,
+    country,
+    image,
+    customer_type
   });
   try {
-    await api.post("auth/users/", body, config);
+    await api.put("profile/customers/me/", body, config);
+    getCustomer(token);
   } catch (err) {
     alert(`An error occured while trying to update your profile.\n\r${err}`);
   }

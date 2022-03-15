@@ -51,6 +51,7 @@ const Profile = () => {
               <p>Phone: {snap.customer.phone}</p>
               <p>Country: {snap.customer.country}</p>
               <p>Birth Date: {snap.customer.birth_date}</p>
+              <p>Customer Type: {snap.customer.customer_type}</p>
             </CardContent>
           </Card>
         </Grid>
