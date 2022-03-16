@@ -235,3 +235,33 @@ export const resetPassword = async (email) => {
     alert(`An error occured while trying to reset the password.\n\r${err}`);
   }
 };
+
+export const sendReview = async (
+  token,
+  name,
+  description,
+  rating,
+  product,
+  customer
+) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Token ${token}`,
+    },
+  };
+  const body = JSON.stringify({
+    name,
+    description,
+    rating,
+    product,
+    customer,
+  });
+  try {
+    await api.post("store/reviews/", body, config);
+    alert("Thank you for your review.");
+    getReviews();
+  } catch (err) {
+    alert(`An error occured while trying to get the wishlist items.\n\r${err}`);
+  }
+};

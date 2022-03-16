@@ -1,5 +1,10 @@
 import { useEffect } from "react";
-import { HashRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import {
+  HashRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
 import Courses from "./components/Courses/Courses";
@@ -12,6 +17,7 @@ import Login from "./components/Login/Login";
 import ResetPassword from "./components/ResetPassword/ResetPassword";
 import Profile from "./components/Profile/Profile";
 import Orders from "./components/Profile/Orders";
+import ReviewForm from "./components/Reviews/ReviewForm";
 import Wishlist from "./components/Wishlist/Wishlist";
 import Checkout from "./components/Checkout/Checkout";
 import Contact from "./components/Contact/Contact";
@@ -95,21 +101,33 @@ const App = () => {
           <Route path="/category/:id" element={<CategoryDetails />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/signup" element={<Signup />} />
-          <Route 
-            path="/login" 
-            element={!snap.token ? <Login /> : <Navigate to="/profile" />} 
+          <Route
+            path="/login"
+            element={!snap.token ? <Login /> : <Navigate to="/profile" />}
           />
           <Route path="/reset_password" element={<ResetPassword />} />
           <Route
-            path="/profile" 
-            element={snap.token ? <Profile /> : <Navigate to="/" />} />
-          <Route 
-            path="/orders" 
-            element={snap.token ? <Orders /> : <Navigate to="/" />} />
+            path="/profile"
+            element={snap.token ? <Profile /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/orders"
+            element={snap.token ? <Orders /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/send_review/:id"
+            element={snap.token ? <ReviewForm /> : <Navigate to="/" />}
+          />
           <Route path="/wishlist" element={<Wishlist />} />
-          <Route 
-            path="/checkout" 
-            element={snap.cartItems.length > 0 ? <Checkout /> : <Navigate to="/" />} 
+          <Route
+            path="/checkout"
+            element={
+              snap.cartItems.length > 0 || snap.orders.length > 0 ? (
+                <Checkout />
+              ) : (
+                <Navigate to="/" />
+              )
+            }
           />
           <Route path="/contact" element={<Contact />} />
           <Route path="/terms" element={<Terms />} />

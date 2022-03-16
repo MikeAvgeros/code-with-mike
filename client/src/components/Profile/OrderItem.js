@@ -1,5 +1,13 @@
 import React from "react";
-import { Card, CardContent, Grid, CardHeader, Avatar } from "@mui/material";
+import { Link } from "react-router-dom";
+import {
+  Card,
+  CardContent,
+  Grid,
+  CardHeader,
+  Avatar,
+  Button,
+} from "@mui/material";
 
 const OrderItem = ({ order }) => {
   return (
@@ -24,7 +32,7 @@ const OrderItem = ({ order }) => {
                 <Avatar alt={item.item.name} src={item.item.image} />
               </Grid>
               <Grid item>
-                <p style={{ width: "15vw" }}>{item.item.name}</p>
+                <p style={{ width: "340px"}}>{item.item.name}</p>
               </Grid>
               <Grid item>
                 <p>Qty: {item.quantity}</p>
@@ -34,9 +42,33 @@ const OrderItem = ({ order }) => {
               </Grid>
             </Grid>
           ))}
-        <p>Date of Purchase: {order.created_at.split("T")[0]}</p>
-        <p>Payment Status: {order.payment_status}</p>
-        <p style={{ fontWeight: "bold" }}>Grand Total: £{order.total_price}</p>
+        <Grid
+          container
+          alignItems="center"
+          sx={{ mb: 2 }}
+          spacing={3}
+        >
+          <Grid item xs={8}>
+            <p style={{ marginBottom: 2 }}>Date of Purchase: {order.created_at.split("T")[0]}</p>
+            <p style={{ marginBottom: 2 }}>Payment Status: {order.payment_status}</p>
+            <p style={{ fontWeight: "bold", marginBottom: 2 }}>Grand Total: £{order.total_price}</p>
+          </Grid>
+          <Grid item xs={4} sx={{ alignSelf: "end" }}>
+            {order.payment_status === "Success" ? (
+              <Link to={`/send_review/${order.id}`} style={{ textDecoration: "none" }}>
+                <Button size="small" className="btn">
+                  Leave a review
+                </Button>
+              </Link>
+            ) : (
+              <Link to="/checkout" style={{ textDecoration: "none" }}>
+                <Button size="small" className="btn">
+                  Retry Payment
+                </Button>
+              </Link>
+            )}
+          </Grid>
+        </Grid>
       </CardContent>
     </Card>
   );
