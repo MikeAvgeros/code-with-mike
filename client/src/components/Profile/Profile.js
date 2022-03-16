@@ -38,8 +38,8 @@ const Profile = () => {
             />
             <CardMedia
               component="img"
-              width="250"
-              height="200"
+              width="256"
+              height="256"
               image={snap.customer.image}
               alt={`${snap.customer.user.username} profile picture`}
             />

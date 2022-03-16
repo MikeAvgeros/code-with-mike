@@ -29,9 +29,9 @@ class WishList(models.Model):
 
 
 class Order(models.Model):
-    PAYMENT_PENDING = 'P'
-    PAYMENT_SUCCESS = 'S'
-    PAYMENT_FAILED = 'F'
+    PAYMENT_PENDING = 'Pending'
+    PAYMENT_SUCCESS = 'Success'
+    PAYMENT_FAILED = 'Failed'
     PAYMENT_STATUS = [
         (PAYMENT_PENDING, 'Pending'),
         (PAYMENT_SUCCESS, 'Success'),

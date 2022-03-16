@@ -154,6 +154,24 @@ export const login = async (email, password) => {
   }
 };
 
+const updatePhoto = async (token, image) => {
+  let formData = new FormData();
+  console.log(image);
+  formData.append("image", image);
+  const config = {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: `Token ${token}`,
+    },
+  };
+  try {
+    await api.patch("profile/customers/me/", formData, config);
+    getCustomer(token);
+  } catch (err) {
+    alert(`An error occured while trying to update the image.\n\r${err}`);
+  }
+};
+
 export const updateProfile = async (
   token,
   first_name,
@@ -176,11 +194,13 @@ export const updateProfile = async (
     phone,
     birth_date,
     country,
-    image,
-    customer_type
+    customer_type,
   });
   try {
-    await api.put("profile/customers/me/", body, config);
+    await api.patch("profile/customers/me/", body, config);
+    if (image) {
+      updatePhoto(token, image);
+    }
     getCustomer(token);
   } catch (err) {
     alert(`An error occured while trying to update your profile.\n\r${err}`);

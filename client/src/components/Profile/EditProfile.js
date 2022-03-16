@@ -18,24 +18,18 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DatePicker from "@mui/lab/DatePicker";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
-import { styled } from "@mui/material/styles";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
-import "react-datepicker/dist/react-datepicker.css";
-
-const Input = styled("input")({
-  display: "none",
-});
 
 const EditProfile = () => {
   const snap = useSnapshot(store);
 
   const [formData, setFormData] = useState({
-    first_name: "",
-    last_name: "",
-    phone: "",
-    country: "",
-    customer_type: "",
-    birth_date: new Date(),
+    first_name: snap.customer.first_name,
+    last_name: snap.customer.last_name,
+    phone: snap.customer.phone,
+    country: snap.customer.country,
+    customer_type: snap.customer.customer_type,
+    birth_date: snap.customer.birth_date,
     image: null,
   });
 
@@ -57,6 +51,10 @@ const EditProfile = () => {
     setFormData({ ...formData, birth_date: new Date(e).toDateString() });
   };
 
+  const uploadFile = (e) => {
+    setFormData({ ...formData, image: e.target.files[0] });
+  };
+
   const onSubmit = (e) => {
     e.preventDefault();
     updateProfile(
@@ -67,7 +65,7 @@ const EditProfile = () => {
       birth_date,
       country,
       image,
-      customer_type,
+      customer_type
     );
   };
 
@@ -155,7 +153,7 @@ const EditProfile = () => {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={8}>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
                 label="Birth Date"
@@ -166,15 +164,21 @@ const EditProfile = () => {
               />
             </LocalizationProvider>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={4}>
             <label htmlFor="image">
-              <Input onChange={onChange} accept="image/*" id="image" name="image" type="file" />
+              <input
+                style={{ display: "none" }}
+                onChange={uploadFile}
+                accept="image/*"
+                id="image"
+                type="file"
+              />
               <Button
                 variant="outlined"
                 component="span"
                 startIcon={<PhotoCamera />}
               >
-                Upload Photo
+                Upload
               </Button>
             </label>
           </Grid>
