@@ -35,6 +35,7 @@ const OrderItem = ({ order }) => {
             </Grid>
           ))}
         <p>Date of Purchase: {order.created_at.split("T")[0]}</p>
+        <p>Payment Status: {order.payment_status}</p>
         <p style={{ fontWeight: "bold" }}>Grand Total: £{order.total_price}</p>
       </CardContent>
     </Card>
