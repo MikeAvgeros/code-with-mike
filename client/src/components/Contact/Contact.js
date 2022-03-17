@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { sendEmail } from "../Api/Api";
 import {
   Box,
   Container,
@@ -25,8 +26,7 @@ const Contact = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-
-    alert("submitted");
+    sendEmail(email, name, message);
   };
 
   return (

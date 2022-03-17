@@ -12,6 +12,7 @@ urlpatterns = [
     path(r'api/store/', include('store.urls')),
     path(r'api/order/', include('order.urls')),
     path(r'api/payment/', include('payment.urls')),
+    path(r'api/contact/', include('contact.urls')),
     path(r'api/profile/', include('customer.urls')),
     path(r'api/auth/', include('djoser.urls')),
     path(r'api/auth/', include('djoser.urls.authtoken')),

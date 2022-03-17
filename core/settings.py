@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'order',
     'customer',
     'payment',
+    'contact',
 
     'whitenoise.runserver_nostatic',
 ]

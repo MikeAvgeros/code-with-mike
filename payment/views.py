@@ -1,4 +1,6 @@
 from django.conf import settings
+from rest_framework import permissions
+from rest_framework.decorators import permission_classes
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -8,7 +10,7 @@ import stripe
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
-
+@permission_classes([permissions.IsAuthenticated])
 class StripeCheckoutView(APIView):
     def post(self, request):
         try:

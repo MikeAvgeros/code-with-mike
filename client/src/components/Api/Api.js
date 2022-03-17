@@ -236,7 +236,7 @@ export const resetPassword = async (email) => {
   try {
     await api.post("auth/users/reset_password/", body, config);
     window.location.assign("https://codewithmike.herokuapp.com/");
-    alert("We have sent a password reset link to your email.")
+    alert("We have sent a password reset link to your email.");
   } catch (err) {
     alert(`An error occured while trying to reset the password.\n\r${err}`);
   }
@@ -257,7 +257,7 @@ export const resetPasswordConfirmation = async (
   try {
     await api.post("auth/users/reset_password_confirm/", body, config);
     window.location.assign("https://codewithmike.herokuapp.com/#/login/");
-    alert("You can now log in with your new password.")
+    alert("You can now log in with your new password.");
   } catch (err) {
     alert(`An error occured while trying to reset the password.\n\r${err}`);
   }
@@ -335,4 +335,19 @@ export const payment = async () => {
   } catch (err) {
     alert(`An error occured while trying to make payment.\n\r${err}`);
   }
-}
+};
+
+export const sendEmail = async () => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  try {
+    await api.post("contact/email/", config);
+    window.location.assign("https://codewithmike.herokuapp.com/");
+    alert("Thank you for getting in touch.");
+  } catch (err) {
+    alert(`An error occured while trying to send the email.\n\r${err}`);
+  }
+};
