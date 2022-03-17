@@ -337,14 +337,19 @@ export const payment = async () => {
   }
 };
 
-export const sendEmail = async () => {
+export const sendEmail = async (email, name, message) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
+  const body = JSON.stringify({
+    email,
+    name,
+    message,
+  });
   try {
-    await api.post("contact/email/", config);
+    await api.post("contact/email/", body, config);
     window.location.assign("https://codewithmike.herokuapp.com/");
     alert("Thank you for getting in touch.");
   } catch (err) {
