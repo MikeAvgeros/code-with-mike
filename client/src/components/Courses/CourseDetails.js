@@ -78,8 +78,6 @@ const CourseDetails = () => {
     marginTop: 2,
   };
 
-  console.log(courseReviews)
-
   return (
     <React.Fragment>
       <div className="course-detail">
