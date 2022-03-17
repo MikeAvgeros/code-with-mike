@@ -78,6 +78,8 @@ const CourseDetails = () => {
     marginTop: 2,
   };
 
+  console.log(courseReviews)
+
   return (
     <React.Fragment>
       <div className="course-detail">
@@ -138,13 +140,9 @@ const CourseDetails = () => {
                   <Button onClick={addToCart} className="btn">
                     Add to Cart
                   </Button>
-                  <Button onClick={decreaseQty}>
-                    🡻
-                  </Button>
+                  <Button onClick={decreaseQty}>🡻</Button>
                   <Typography>Qty: {qty}</Typography>
-                  <Button onClick={increaseQty}>
-                    🡹
-                  </Button>
+                  <Button onClick={increaseQty}>🡹</Button>
                 </CardActions>
               </Card>
             </Grid>
@@ -153,28 +151,36 @@ const CourseDetails = () => {
         <Container sx={{ mt: 5 }}>
           <Grid container spacing={5}>
             <Grid item sm={12} md={6}>
-              {courseReviews.map((review, i) => (
-                <Card key={i} sx={{ mb: 5, maxWidth: "350px" }}>
-                  <CardHeader
-                    avatar={
-                      <Avatar alt="user's avatar" src={review.customer.image} />
-                    }
-                    title={review.customer.user.username}
-                  />
-                  <CardContent>
-                    <Rating name="read-only" value={review.rating} readOnly />
-                    <Typography paragraph>{review.description}</Typography>
-                    {snap.customer && 
-                      review.customer.user.username === snap.customer.user.username && (
-                      <Link to={`/edit-review/${snap.courseDetails.slug}`} style={{ textDecoration: "none" }}>
-                        <Button size="small" className="btn">
-                          Edit Review
-                        </Button>
-                      </Link>
-                    )}
-                  </CardContent>
-                </Card>
-              ))}
+              {courseReviews.length > 0 &&
+                courseReviews.map((review, i) => (
+                  <Card key={i} sx={{ mb: 5, maxWidth: "350px" }}>
+                    <CardHeader
+                      avatar={
+                        <Avatar
+                          alt="user's avatar"
+                          src={review.customer.image}
+                        />
+                      }
+                      title={review.customer.user.username}
+                    />
+                    <CardContent>
+                      <Rating name="read-only" value={review.rating} readOnly />
+                      <Typography paragraph>{review.description}</Typography>
+                      {snap.customer.length > 0 &&
+                        review.customer.user.username ===
+                          snap.customer.user.username && (
+                          <Link
+                            to={`/edit-review/${snap.courseDetails.slug}`}
+                            style={{ textDecoration: "none" }}
+                          >
+                            <Button size="small" className="btn">
+                              Edit Review
+                            </Button>
+                          </Link>
+                        )}
+                    </CardContent>
+                  </Card>
+                ))}
             </Grid>
           </Grid>
         </Container>

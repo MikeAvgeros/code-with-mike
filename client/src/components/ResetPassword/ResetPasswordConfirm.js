@@ -50,7 +50,7 @@ const ResetPasswordConfirm = () => {
           <LockResetIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Reset Password
+          Confirm New Password
         </Typography>
         <Box component="form" onSubmit={onSubmit} noValidate sx={{ mt: 1 }}>
           <Grid item xs={12}>
