@@ -129,7 +129,7 @@ export const signup = async (email, username, password, re_password) => {
   try {
     const { data } = await api.post("auth/users/", body, config);
     if (data.username === username) {
-      window.location.assign("https://codewithmike.herokuapp.com/login");
+      window.location.assign("https://codewithmike.herokuapp.com/#/login/");
       alert("You have successfully signed up. Please login");
     } else {
       alert(
@@ -256,7 +256,7 @@ export const resetPasswordConfirmation = async (
   const body = JSON.stringify({ uid, token, new_password, re_new_password });
   try {
     await api.post("auth/users/reset_password_confirm/", body, config);
-    window.location.assign("https://codewithmike.herokuapp.com/login");
+    window.location.assign("https://codewithmike.herokuapp.com/#/login/");
     alert("You can now log in with your new password.")
   } catch (err) {
     alert(`An error occured while trying to reset the password.\n\r${err}`);
@@ -321,3 +321,18 @@ export const updateReview = async (
     alert(`An error occured while trying to update your review.\n\r${err}`);
   }
 };
+
+export const payment = async () => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  try {
+    await api.post("payment/checkout/", config);
+    window.location.assign("https://codewithmike.herokuapp.com/#/orders/");
+    alert("Payment successful");
+  } catch (err) {
+    alert(`An error occured while trying to make payment.\n\r${err}`);
+  }
+}

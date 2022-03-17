@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Routes,
   Route,
   Navigate,
@@ -96,7 +96,7 @@ const App = () => {
       >
         <Header />
         <Routes>
-          <Route path="/" element={<Home />} exact />
+          <Route path="*" element={<Home />} />
           <Route path="/courses" element={<Courses />} />
           <Route path="/course/:id" element={<CourseDetails />} />
           <Route path="/categories" element={<Categories />} />
