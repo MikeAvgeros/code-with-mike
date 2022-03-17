@@ -89,7 +89,7 @@ const Login = () => {
             Log In
           </Button>
           <Stack direction="column" spacing={2}>
-            <Link to="/reset_password">Forgot your password?</Link>
+            <Link to="/reset/password">Forgot your password?</Link>
             <Link to="/signup">Don't have an account? Sign Up</Link>
           </Stack>
         </Box>

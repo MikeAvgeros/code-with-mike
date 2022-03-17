@@ -15,6 +15,7 @@ import Cart from "./components/Cart/Cart";
 import Signup from "./components/Signup/Signup";
 import Login from "./components/Login/Login";
 import ResetPassword from "./components/ResetPassword/ResetPassword";
+import ResetPasswordConfirm from "./components/ResetPassword/ResetPasswordConfirm";
 import Profile from "./components/Profile/Profile";
 import Orders from "./components/Profile/Orders";
 import ReviewForm from "./components/Reviews/ReviewForm";
@@ -106,7 +107,12 @@ const App = () => {
             path="/login"
             element={!snap.token ? <Login /> : <Navigate to="/profile" />}
           />
-          <Route path="/reset_password" element={<ResetPassword />} />
+          <Route path="/reset/password" element={<ResetPassword />} />
+          <Route
+            exact
+            path="/password/reset/confirm/:uid/:token"
+            element={<ResetPasswordConfirm />}
+          />
           <Route
             path="/profile"
             element={snap.token ? <Profile /> : <Navigate to="/" />}

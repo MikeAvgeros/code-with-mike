@@ -130,6 +130,11 @@ export const signup = async (email, username, password, re_password) => {
     const { data } = await api.post("auth/users/", body, config);
     if (data.username === username) {
       window.location.assign("https://codewithmike.herokuapp.com/#/login");
+      alert("You have successfully signed up. Please login");
+    } else {
+      alert(
+        "An error occured while trying to get your user details. Please try again."
+      );
     }
   } catch (err) {
     alert(`An error occured while trying to sign up.\n\r${err}`);
@@ -230,6 +235,29 @@ export const resetPassword = async (email) => {
   const body = JSON.stringify({ email });
   try {
     await api.post("auth/users/reset_password/", body, config);
+    window.location.assign("https://codewithmike.herokuapp.com/");
+    alert("We have sent a password reset link to your email.")
+  } catch (err) {
+    alert(`An error occured while trying to reset the password.\n\r${err}`);
+  }
+};
+
+export const resetPasswordConfirmation = async (
+  uid,
+  token,
+  new_password,
+  re_new_password
+) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const body = JSON.stringify({ uid, token, new_password, re_new_password });
+  try {
+    await api.post("auth/users/reset_password_confirm/", body, config);
+    window.location.assign("https://codewithmike.herokuapp.com/#/login");
+    alert("You can now log in with your new password.")
   } catch (err) {
     alert(`An error occured while trying to reset the password.\n\r${err}`);
   }
@@ -258,6 +286,7 @@ export const sendReview = async (
   });
   try {
     await api.post("store/reviews/", body, config);
+    window.location.assign("https://codewithmike.herokuapp.com/");
     alert("Thank you for your review.");
     getReviews();
   } catch (err) {
@@ -270,7 +299,7 @@ export const updateReview = async (
   name,
   description,
   rating,
-  reviewId,
+  reviewId
 ) => {
   const config = {
     headers: {
@@ -285,6 +314,7 @@ export const updateReview = async (
   });
   try {
     await api.patch(`store/reviews/${reviewId}/`, body, config);
+    window.location.assign("https://codewithmike.herokuapp.com/");
     alert("Thank you for updating your review.");
     getReviews();
   } catch (err) {

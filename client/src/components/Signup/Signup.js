@@ -91,7 +91,7 @@ const Signup = () => {
                 name="password"
                 value={password}
                 type="password"
-                autoComplete="new-password"
+                autoComplete="password"
                 onChange={onChange}
               />
             </Grid>
