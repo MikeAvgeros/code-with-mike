@@ -156,7 +156,6 @@ export const login = async (email, password) => {
 
 const updatePhoto = async (token, image) => {
   let formData = new FormData();
-  console.log(image);
   formData.append("image", image);
   const config = {
     headers: {
@@ -198,10 +197,10 @@ export const updateProfile = async (
   });
   try {
     await api.patch("profile/customers/me/", body, config);
+    getCustomer(token);
     if (image) {
       updatePhoto(token, image);
     }
-    getCustomer(token);
   } catch (err) {
     alert(`An error occured while trying to update your profile.\n\r${err}`);
   }
@@ -262,6 +261,33 @@ export const sendReview = async (
     alert("Thank you for your review.");
     getReviews();
   } catch (err) {
-    alert(`An error occured while trying to get the wishlist items.\n\r${err}`);
+    alert(`An error occured while trying to send a review.\n\r${err}`);
+  }
+};
+
+export const updateReview = async (
+  token,
+  name,
+  description,
+  rating,
+  reviewId,
+) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Token ${token}`,
+    },
+  };
+  const body = JSON.stringify({
+    name,
+    description,
+    rating,
+  });
+  try {
+    await api.patch(`store/reviews/${reviewId}/`, body, config);
+    alert("Thank you for updating your review.");
+    getReviews();
+  } catch (err) {
+    alert(`An error occured while trying to update your review.\n\r${err}`);
   }
 };

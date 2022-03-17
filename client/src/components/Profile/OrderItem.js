@@ -7,6 +7,7 @@ import {
   CardHeader,
   Avatar,
   Button,
+  Stack
 } from "@mui/material";
 
 const OrderItem = ({ order }) => {
@@ -32,13 +33,13 @@ const OrderItem = ({ order }) => {
                 <Avatar alt={item.item.name} src={item.item.image} />
               </Grid>
               <Grid item>
-                <p style={{ width: "340px"}}>{item.item.name}</p>
+                <p style={{ width: "300px"}}>{item.item.name}</p>
               </Grid>
               <Grid item>
-                <p>Qty: {item.quantity}</p>
-              </Grid>
-              <Grid item>
-                <p>Total Price: £{item.total_price}</p>
+                <Stack direction="row" spacing={3}>
+                  <p>Qty: {item.quantity}</p>
+                  <p>Total Price: £{item.total_price}</p>
+                </Stack>
               </Grid>
             </Grid>
           ))}
@@ -55,7 +56,7 @@ const OrderItem = ({ order }) => {
           </Grid>
           <Grid item xs={4} sx={{ alignSelf: "end" }}>
             {order.payment_status === "Success" ? (
-              <Link to={`/send_review/${order.id}`} style={{ textDecoration: "none" }}>
+              <Link to={`/send-review/${order.id}`} style={{ textDecoration: "none" }}>
                 <Button size="small" className="btn">
                   Leave a review
                 </Button>

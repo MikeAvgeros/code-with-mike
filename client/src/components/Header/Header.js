@@ -152,7 +152,7 @@ const Header = () => {
                     badgeContent={snap.wishlistItems.length}
                     color="secondary"
                   >
-                    <FavoriteIcon />
+                    <FavoriteIcon className="header-icon" />
                   </Badge>
                 </IconButton>
               </Link>
@@ -160,7 +160,7 @@ const Header = () => {
             <Link className="nav-el" to="/cart">
               <IconButton sx={{ color: "#fafafa", p: 0 }}>
                 <Badge badgeContent={snap.cartItems.length} color="secondary">
-                  <ShoppingCartIcon />
+                  <ShoppingCartIcon className="header-icon" />
                 </Badge>
               </IconButton>
             </Link>
@@ -239,13 +239,13 @@ const Header = () => {
                   badgeContent={snap.wishlistItems.length}
                   color="secondary"
                 >
-                  <FavoriteIcon />
+                  <FavoriteIcon className="header-icon" />
                 </Badge>
               </Link>
             )}
             <Link className="nav-el" to="/cart">
               <Badge badgeContent={snap.cartItems.length} color="secondary">
-                <ShoppingCartIcon />
+                <ShoppingCartIcon className="header-icon" />
               </Badge>
             </Link>
           </Stack>

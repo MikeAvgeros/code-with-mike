@@ -26,6 +26,7 @@ const Landing = () => {
                 border: "2px solid #fafafa",
                 borderRadius: 2
               }}
+              className="secondary-btn"
             >
               Courses
             </Button>
@@ -40,6 +41,7 @@ const Landing = () => {
                 border: "2px solid #fafafa",
                 borderRadius: 2
               }}
+              className="secondary-btn"
             >
               Contact Us
             </Button>

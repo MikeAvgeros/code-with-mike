@@ -70,6 +70,14 @@ p {
   align-self: center;
 }
 
+.nav-el:hover {
+  color: #d81b60;
+}
+
+.header-icon:hover {
+  color: #d81b60;
+}
+
 .primary-btn {
   padding: 10px 24px !important;
   border-radius: 10px !important;
@@ -79,7 +87,8 @@ p {
 
 .primary-btn:hover {
   color: black !important;
-  background-image: linear-gradient(to right, #7986cb, #f06292) !important;
+  background-image: none !important;
+  background-color: #fafafa !important;
 }
 
 .secondary-btn {
@@ -89,7 +98,7 @@ p {
 }
 
 .secondary-btn:hover {
-  color: #d81b60;
+  background-color: #5e35b1 !important;
   border: 2px solid #5e35b1;
 }
 
@@ -128,7 +137,7 @@ p {
   font-size: 44px !important;
   letter-spacing: 1px;
   text-align: center;
-  margin-bottom: 28px;
+  margin-bottom: 36px;
 }
 
 .subtitle {

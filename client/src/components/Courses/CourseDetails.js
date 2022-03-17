@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { api, getCartItems } from "../Api/Api";
 import store from "../Store/Store";
 import { useSnapshot } from "valtio";
@@ -24,18 +25,18 @@ const CourseDetails = () => {
   useEffect(() => {
     const url = window.location.href;
     const slug = url.substring(url.lastIndexOf("/") + 1);
-    if (snap.courses.length === 0) {
+    if (snap.courseDetails.length === 0) {
       getCourseDetails(slug);
     }
-  }, [snap.courses.length]);
+    setCourseReviews(
+      snap.reviews.filter((r) => snap.courseDetails.reviews.includes(r.id))
+    );
+  }, [snap.courseDetails, snap.reviews]);
 
   const getCourseDetails = async (slug) => {
     try {
       const { data } = await api.get(`store/products/${slug}`);
       store.courseDetails = data;
-      setCourseReviews(
-        snap.reviews.filter((r) => snap.courseDetails.reviews.includes(r.id))
-      );
     } catch (err) {
       alert(
         `An error occured while trying to get the course details.\n\r${err}`
@@ -163,6 +164,14 @@ const CourseDetails = () => {
                   <CardContent>
                     <Rating name="read-only" value={review.rating} readOnly />
                     <Typography paragraph>{review.description}</Typography>
+                    {snap.customer && 
+                      review.customer.user.username === snap.customer.user.username && (
+                      <Link to={`/edit-review/${snap.courseDetails.slug}`} style={{ textDecoration: "none" }}>
+                        <Button size="small" className="btn">
+                          Edit Review
+                        </Button>
+                      </Link>
+                    )}
                   </CardContent>
                 </Card>
               ))}

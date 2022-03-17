@@ -1,18 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container } from "@mui/material";
 
 const Footer = () => {
   const Copyright = () => {
     return (
-      <Typography variant="body2" align="center" sx={{ color: "#fafafa" }}>
+      <p style={{ textAlign: "center", color: "#fafafa" }}>
         {"Copyright © "}
         <Link to="/" style={{ textDecoration: "none", color: "#fafafa" }}>
           Code with Mike
         </Link>{" "}
         {new Date().getFullYear()}
         {"."}
-      </Typography>
+      </p>
     );
   };
 
@@ -27,9 +27,6 @@ const Footer = () => {
       }}
     >
       <Container maxWidth="sm">
-        <Typography variant="body1" align="center" sx={{ color: "#fafafa" }}>
-          Footer
-        </Typography>
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </Box>

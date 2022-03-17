@@ -18,6 +18,7 @@ import ResetPassword from "./components/ResetPassword/ResetPassword";
 import Profile from "./components/Profile/Profile";
 import Orders from "./components/Profile/Orders";
 import ReviewForm from "./components/Reviews/ReviewForm";
+import EditReview from "./components/Reviews/EditReview";
 import Wishlist from "./components/Wishlist/Wishlist";
 import Checkout from "./components/Checkout/Checkout";
 import Contact from "./components/Contact/Contact";
@@ -115,8 +116,12 @@ const App = () => {
             element={snap.token ? <Orders /> : <Navigate to="/" />}
           />
           <Route
-            path="/send_review/:id"
+            path="/send-review/:id"
             element={snap.token ? <ReviewForm /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/edit-review/:id"
+            element={snap.token ? <EditReview /> : <Navigate to="/" />}
           />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route

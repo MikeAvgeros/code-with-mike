@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSnapshot } from "valtio";
 import store from "../Store/Store";
-import { sendReview } from "../Api/Api";
+import { updateReview } from "../Api/Api";
 import {
   Box,
   Container,
@@ -11,32 +11,33 @@ import {
   TextField,
   Typography,
   Rating,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
 } from "@mui/material";
 import RateReviewIcon from "@mui/icons-material/RateReview";
 
-const ReviewForm = () => {
+const EditReview = () => {
   const snap = useSnapshot(store);
-  const [courses, setCourses] = useState([]);
-
-  useEffect(() => {
-    const url = window.location.href;
-    const id = url.substring(url.lastIndexOf("/") + 1);
-    setCourses(snap.orders.find((order) => order.id === parseInt(id)).items);
-  }, [snap.orders]);
-
+  const [review, setReview] = useState(null);
   const [formData, setFormData] = useState({
     name: "",
     description: "",
     rating: 5,
-    product: "",
-    customer: snap.customer.id,
   });
 
-  const { name, description, rating, product, customer } = formData;
+  useEffect(() => {
+    const url = window.location.href;
+    const slug = url.substring(url.lastIndexOf("/") + 1);
+    setReview(snap.reviews.find((review) => review.product.slug === slug));
+  }, [snap.reviews]);
+
+  useEffect(() => {
+    setFormData({
+      name: review ? review.name : "",
+      description: review ? review.description : "",
+      rating: review ? parseInt(review.rating) : 5,
+    });
+  }, [review]);
+
+  const { name, description, rating } = formData;
 
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -44,8 +45,7 @@ const ReviewForm = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-
-    sendReview(snap.token, name, description, rating, product, customer);
+    updateReview(snap.token, name, description, rating, review.id);
   };
 
   return (
@@ -67,37 +67,12 @@ const ReviewForm = () => {
           <RateReviewIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Write a review
+          Update your review
         </Typography>
         <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <FormControl fullWidth>
-                <InputLabel id="customer_type">Select Course</InputLabel>
-                <Select
-                  labelId="product"
-                  id="product"
-                  label="Select Course"
-                  name="product"
-                  value={product}
-                  autoComplete="product"
-                  onChange={onChange}
-                >
-                  <MenuItem disabled>Choose...</MenuItem>
-                  {courses.map((course, i) => (
-                    <MenuItem key={i} value={course.item.id}>
-                      {course.item.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid item xs={12}>
-              <Rating
-                name="rating"
-                value={rating}
-                onChange={onChange}
-              />
+              <Rating name="rating" value={rating} onChange={onChange} />
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -135,7 +110,7 @@ const ReviewForm = () => {
               backgroundImage: "linear-gradient(to right, #5e35b1, #d81b60)",
             }}
           >
-            Send
+            Update
           </Button>
         </Box>
       </Box>
@@ -143,4 +118,4 @@ const ReviewForm = () => {
   );
 };
 
-export default ReviewForm;
+export default EditReview;
