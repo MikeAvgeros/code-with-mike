@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { api, getCartItems } from "../Api/Api";
+import { api, getCartItems, getReviews } from "../Api/Api";
 import store from "../Store/Store";
 import { useSnapshot } from "valtio";
 import {
@@ -28,9 +28,14 @@ const CourseDetails = () => {
     if (snap.courseDetails.length === 0) {
       getCourseDetails(slug);
     }
-    setCourseReviews(
-      snap.reviews.filter((r) => snap.courseDetails.reviews.includes(r.id))
-    );
+    getReviews();
+    if (snap.courseDetails.reviews.length > 0) {
+      setCourseReviews(
+        snap.reviews.filter((r) => snap.courseDetails.reviews.includes(r.id))
+      );
+    } else {
+      setCourseReviews([]);
+    }
   }, [snap.courseDetails, snap.reviews]);
 
   const getCourseDetails = async (slug) => {
@@ -164,7 +169,7 @@ const CourseDetails = () => {
                     <CardContent>
                       <Rating name="read-only" value={review.rating} readOnly />
                       <Typography paragraph>{review.description}</Typography>
-                      {snap.customer.length > 0 &&
+                      {snap.customer &&
                         review.customer.user.username ===
                           snap.customer.user.username && (
                           <Link
