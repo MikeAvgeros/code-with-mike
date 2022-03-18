@@ -29,10 +29,10 @@ const ReviewForm = () => {
   }, [snap.orders]);
 
   const [formData, setFormData] = useState({
-    name: "",
-    description: "",
-    rating: 5,
-    product: "",
+    name: null,
+    description: null,
+    rating: null,
+    product: null,
     customer: snap.customer.id,
   });
 
@@ -44,8 +44,11 @@ const ReviewForm = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-
-    sendReview(snap.token, name, description, rating, product, customer);
+    if (name && description && rating && product) {
+      sendReview(snap.token, name, description, rating, product, customer);
+    } else {
+      alert("Please fill all the required fields.");
+    }
   };
 
   return (
@@ -73,7 +76,9 @@ const ReviewForm = () => {
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <FormControl fullWidth>
-                <InputLabel id="customer_type">Select Course</InputLabel>
+                <InputLabel required id="customer_type">
+                  Select Course
+                </InputLabel>
                 <Select
                   labelId="product"
                   id="product"
@@ -93,14 +98,11 @@ const ReviewForm = () => {
               </FormControl>
             </Grid>
             <Grid item xs={12}>
-              <Rating
-                name="rating"
-                value={rating}
-                onChange={onChange}
-              />
+              <Rating name="rating" value={rating} onChange={onChange} />
             </Grid>
             <Grid item xs={12}>
               <TextField
+                required
                 fullWidth
                 id="name"
                 label="Title"

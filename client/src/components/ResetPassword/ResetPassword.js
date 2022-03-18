@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import { resetPassword } from "../Api/Api";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
+import {
+  Avatar,
+  Container,
+  Box,
+  Button,
+  TextField,
+  Typography
+} from "@mui/material";
 import LockResetIcon from "@mui/icons-material/LockReset";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
 
 const ResetPassword = () => {
   const [formData, setFormData] = useState({
-    email: "",
+    email: null,
   });
 
   const { email } = formData;
@@ -21,7 +23,11 @@ const ResetPassword = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    resetPassword(email);
+    if (email) {
+      resetPassword(email);
+    } else {
+      alert("Please type your email.");
+    }
   };
 
   return (

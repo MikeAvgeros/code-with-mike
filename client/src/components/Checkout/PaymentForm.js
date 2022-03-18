@@ -1,7 +1,5 @@
 import React from "react";
-import Grid from "@mui/material/Grid";
-import TextField from "@mui/material/TextField";
-import { Button } from "@mui/material";
+import { Grid, TextField, Button } from "@mui/material";
 import { payment } from "../Api/Api";
 
 const PaymentForm = () => {

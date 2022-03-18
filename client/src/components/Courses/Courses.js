@@ -1,8 +1,8 @@
 import React from "react";
-import { Container, Grid } from "@mui/material";
-import Course from "./Course";
 import { useSnapshot } from "valtio";
 import store from "../Store/Store";
+import { Container, Grid } from "@mui/material";
+import Course from "./Course";
 
 const Courses = () => {
   const snap = useSnapshot(store); 

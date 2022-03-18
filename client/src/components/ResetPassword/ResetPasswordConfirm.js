@@ -1,18 +1,20 @@
 import React, { useState } from "react";
 import { resetPasswordConfirmation } from "../Api/Api";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
+import {
+  Avatar,
+  Container,
+  Box,
+  Grid,
+  Button,
+  TextField,
+  Typography,
+} from "@mui/material";
 import LockResetIcon from "@mui/icons-material/LockReset";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
 
 const ResetPasswordConfirm = () => {
   const [formData, setFormData] = useState({
-    new_password: "",
-    re_new_password: "",
+    new_password: null,
+    re_new_password: null,
   });
 
   const { new_password, re_new_password } = formData;
@@ -26,7 +28,7 @@ const ResetPasswordConfirm = () => {
 
     const url = window.location.href;
     const uid = url.split("/")[6];
-    const token =url.split("/")[7];
+    const token = url.split("/")[7];
 
     resetPasswordConfirmation(uid, token, new_password, re_new_password);
   };

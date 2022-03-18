@@ -13,9 +13,9 @@ import EmailIcon from "@mui/icons-material/Email";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
-    email: "",
-    name: "",
-    message: "",
+    email: null,
+    name: null,
+    message: null,
   });
 
   const { email, name, message } = formData;
@@ -26,7 +26,11 @@ const Contact = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    sendEmail(email, name, message);
+    if (email && name && message) {
+      sendEmail(email, name, message);
+    } else {
+      alert("Please fill all required fields.");
+    }
   };
 
   return (

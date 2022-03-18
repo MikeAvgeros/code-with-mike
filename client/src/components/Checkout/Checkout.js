@@ -1,14 +1,16 @@
 import React from "react";
-import { useSnapshot } from "valtio";
 import { api, getOrders } from "../Api/Api";
+import { useSnapshot } from "valtio";
 import store from "../Store/Store";
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
-import Paper from "@mui/material/Paper";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
-import Button from "@mui/material/Button";
+import {
+  Box,
+  Container,
+  Paper,
+  Stepper,
+  Step,
+  StepLabel,
+  Button,
+} from "@mui/material";
 import AddressForm from "./AddressForm";
 import PaymentForm from "./PaymentForm";
 
@@ -50,7 +52,7 @@ const Checkout = () => {
       store.cartId = null;
       store.cartItems = [];
       getOrders(snap.token);
-      alert("Thank you for your order.")
+      alert("Thank you for your order.");
     } catch (err) {
       alert(`Unable to checkout.\n\r${err}`);
     }
@@ -62,9 +64,7 @@ const Checkout = () => {
         variant="outlined"
         sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
       >
-        <h2 style={{ textAlign: "center" }}>
-          Checkout
-        </h2>
+        <h2 style={{ textAlign: "center" }}>Checkout</h2>
         <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
           {steps.map((label) => (
             <Step key={label}>

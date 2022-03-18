@@ -14,10 +14,10 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
-    email: "",
-    username: "",
-    password: "",
-    re_password: "",
+    email: null,
+    username: null,
+    password: null,
+    re_password: null,
   });
 
   const { email, username, password, re_password } = formData;
@@ -28,8 +28,10 @@ const Signup = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (password === re_password) {
+    if (email && username && password && password === re_password) {
       signup(email, username, password, re_password);
+    } else {
+      alert("Please fill the required fields to sign up.");
     }
   };
 

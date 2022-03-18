@@ -1,6 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import FavoriteIcon from "@mui/icons-material/Favorite";
+import axios from "axios";
+import { api } from "../Api/Api";
+import store from "../Store/Store";
+import { snapshot } from "valtio";
 import {
   Card,
   CardContent,
@@ -10,10 +13,7 @@ import {
   Button,
   IconButton,
 } from "@mui/material";
-import axios from "axios";
-import store from "../Store/Store";
-import { snapshot } from "valtio";
-import { api } from "../Api/Api";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 const Course = ({ course }) => {
   const snap = snapshot(store);
@@ -55,10 +55,15 @@ const Course = ({ course }) => {
       },
     };
     try {
-      const { data } = await api.get(`order/wishlist/${snap.customer.wishlist}/`, config);
+      const { data } = await api.get(
+        `order/wishlist/${snap.customer.wishlist}/`,
+        config
+      );
       store.wishlistItems = data.items;
     } catch (err) {
-      alert(`An error occured while trying to get the wishlist items.\n\r${err}`);
+      alert(
+        `An error occured while trying to get the wishlist items.\n\r${err}`
+      );
     }
   };
 
@@ -107,7 +112,12 @@ const Course = ({ course }) => {
           </IconButton>
         )}
         <Link style={{ textDecoration: "none" }} to={`/course/${course.slug}`}>
-          <Button size="small" className="btn" sx={{ ml: 1, mb: 1 }} onClick={getCourseDetails}>
+          <Button
+            size="small"
+            className="btn"
+            sx={{ ml: 1, mb: 1 }}
+            onClick={getCourseDetails}
+          >
             Learn More
           </Button>
         </Link>
