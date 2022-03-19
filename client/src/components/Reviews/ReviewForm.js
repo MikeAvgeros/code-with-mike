@@ -29,8 +29,8 @@ const ReviewForm = () => {
   }, [snap.orders]);
 
   const [formData, setFormData] = useState({
-    name: null,
-    description: null,
+    name: "",
+    description: "",
     rating: null,
     product: null,
     customer: snap.customer.id,
@@ -44,11 +44,7 @@ const ReviewForm = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (name && description && rating && product) {
-      sendReview(snap.token, name, description, rating, product, customer);
-    } else {
-      alert("Please fill all the required fields.");
-    }
+    sendReview(snap.token, name, description, rating, product, customer);
   };
 
   return (

@@ -52,9 +52,12 @@ const Checkout = () => {
       store.cartId = null;
       store.cartItems = [];
       getOrders(snap.token);
-      alert("Thank you for your order.");
-    } catch (err) {
-      alert(`Unable to checkout.\n\r${err}`);
+    } catch (error) {
+      let errorArray = [];
+      for (const key in error.response.data) {
+        errorArray.push(`${key}: ${error.response.data[key]}`);
+      }
+      store.errorResponses = errorArray;
     }
   };
 

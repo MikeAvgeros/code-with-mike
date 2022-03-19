@@ -59,8 +59,12 @@ const Header = () => {
       store.customer = [];
       store.userAuthenticated = false;
       window.location.assign("https://codewithmike.herokuapp.com/");
-    } catch (err) {
-      alert(`Unable to logout.\n\r${err}`);
+    } catch (error) {
+      let errorArray = [];
+      for (const key in error.response.data) {
+        errorArray.push(`${key}: ${error.response.data[key]}`);
+      }
+      store.errorResponses = errorArray;
     }
   };
 

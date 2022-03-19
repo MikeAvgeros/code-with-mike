@@ -40,10 +40,12 @@ const Course = ({ course }) => {
     try {
       const { data } = await axios.get(course.url);
       store.courseDetails = data;
-    } catch (err) {
-      alert(
-        `An error occured while trying to get the full course description.\n\r${err}`
-      );
+    } catch (error) {
+      let errorArray = [];
+      for (const key in error.response.data) {
+        errorArray.push(`${key}: ${error.response.data[key]}`);
+      }
+      store.errorResponses = errorArray;
     }
   };
 
@@ -60,10 +62,12 @@ const Course = ({ course }) => {
         config
       );
       store.wishlistItems = data.items;
-    } catch (err) {
-      alert(
-        `An error occured while trying to get the wishlist items.\n\r${err}`
-      );
+    } catch (error) {
+      let errorArray = [];
+      for (const key in error.response.data) {
+        errorArray.push(`${key}: ${error.response.data[key]}`);
+      }
+      store.errorResponses = errorArray;
     }
   };
 
@@ -79,10 +83,12 @@ const Course = ({ course }) => {
     try {
       await api.post(`order/wishlist/${wishlist}/items/`, body, config);
       getWishlistItems();
-    } catch (err) {
-      alert(
-        `An error occured while trying to add course to the wishlist.\n\r${err}`
-      );
+    } catch (error) {
+      let errorArray = [];
+      for (const key in error.response.data) {
+        errorArray.push(`${key}: ${error.response.data[key]}`);
+      }
+      store.errorResponses = errorArray;
     }
   };
 

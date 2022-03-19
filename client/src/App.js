@@ -5,6 +5,8 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import store from "./components/Store/Store";
+import { useSnapshot } from "valtio";
 import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
 import Courses from "./components/Courses/Courses";
@@ -25,6 +27,7 @@ import Checkout from "./components/Checkout/Checkout";
 import Contact from "./components/Contact/Contact";
 import Terms from "./components/Terms/Terms";
 import Privacy from "./components/Privacy/Privacy";
+import Alerts from "./components/Alerts/Alerts";
 import Footer from "./components/Footer/Footer";
 import Box from "@mui/material/Box";
 import {
@@ -37,8 +40,6 @@ import {
   getCustomer,
   getWishListItems,
 } from "./components/Api/Api";
-import store from "./components/Store/Store";
-import { useSnapshot } from "valtio";
 import "./App.css";
 
 const App = () => {
@@ -144,6 +145,7 @@ const App = () => {
           <Route path="/terms" element={<Terms />} />
           <Route path="/privacy" element={<Privacy />} />
         </Routes>
+        <Alerts />
         <Footer />
       </Box>
     </Router>

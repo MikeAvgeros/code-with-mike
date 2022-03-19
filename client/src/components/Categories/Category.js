@@ -15,8 +15,12 @@ const Category = ({ category }) => {
     try {
       const { data } = await axios.get(category.url);
       store.categoryDetails = data;
-    } catch (err) {
-      alert(`An error occured while trying to get the category details.\n\r${err}`);
+    } catch (error) {
+      let errorArray = [];
+      for (const key in error.response.data) {
+        errorArray.push(`${key}: ${error.response.data[key]}`);
+      }
+      store.errorResponses = errorArray;
     }
   };
 

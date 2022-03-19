@@ -58,9 +58,8 @@ p {
 .landing-tag {
   color: #fafafa;
   font-weight: 600 !important;
-  font-size: 44px !important;
+  font-size: calc(2vw + 16px) !important;
   text-align: center;
-  margin-top: 5vh;
 }
 
 .nav-el {

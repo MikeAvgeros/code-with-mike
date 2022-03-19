@@ -38,10 +38,12 @@ const Review = ({ review }) => {
     try {
       const { data } = await api.get(`store/products/${review.product.slug}`);
       store.courseDetails = data;
-    } catch (err) {
-      alert(
-        `An error occured while trying to get the course details.\n\r${err}`
-      );
+    } catch (error) {
+      let errorArray = [];
+      for (const key in error.response.data) {
+        errorArray.push(`${key}: ${error.response.data[key]}`);
+      }
+      store.errorResponses = errorArray;
     }
   };
 

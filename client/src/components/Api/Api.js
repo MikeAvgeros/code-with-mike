@@ -14,8 +14,12 @@ export const getCourses = async () => {
   try {
     const { data } = await api.get("store/products/", config);
     store.courses = data;
-  } catch (err) {
-    alert(`An error occured while trying to get the courses.\n\r${err}`);
+  } catch (error) {
+    let errorArray = [];
+    for (const key in error.response.data) {
+      errorArray.push(`${key}: ${error.response.data[key]}`);
+    }
+    store.errorResponses = errorArray;
   }
 };
 
@@ -28,8 +32,12 @@ export const getCategories = async () => {
   try {
     const { data } = await api.get("store/categories/", config);
     store.categories = data;
-  } catch (err) {
-    alert(`An error occured while trying to get the categories.\n\r${err}`);
+  } catch (error) {
+    let errorArray = [];
+    for (const key in error.response.data) {
+      errorArray.push(`${key}: ${error.response.data[key]}`);
+    }
+    store.errorResponses = errorArray;
   }
 };
 
@@ -42,8 +50,12 @@ export const getReviews = async () => {
   try {
     const { data } = await api.get("store/reviews/", config);
     store.reviews = data;
-  } catch (err) {
-    alert(`An error occured while trying to get the reviews.\n\r${err}`);
+  } catch (error) {
+    let errorArray = [];
+    for (const key in error.response.data) {
+      errorArray.push(`${key}: ${error.response.data[key]}`);
+    }
+    store.errorResponses = errorArray;
   }
 };
 
@@ -56,8 +68,12 @@ export const getPromotions = async () => {
   try {
     const { data } = await api.get("store/promotions/", config);
     store.promotions = data;
-  } catch (err) {
-    alert(`An error occured while trying to get the promotions.\n\r${err}`);
+  } catch (error) {
+    let errorArray = [];
+    for (const key in error.response.data) {
+      errorArray.push(`${key}: ${error.response.data[key]}`);
+    }
+    store.errorResponses = errorArray;
   }
 };
 
@@ -70,8 +86,12 @@ export const createCart = async () => {
   try {
     const { data } = await api.post("order/carts/", config);
     store.cartId = data.id;
-  } catch (err) {
-    alert(`An error occured while trying to create a cart.\n\r${err}`);
+  } catch (error) {
+    let errorArray = [];
+    for (const key in error.response.data) {
+      errorArray.push(`${key}: ${error.response.data[key]}`);
+    }
+    store.errorResponses = errorArray;
   }
 };
 
@@ -84,8 +104,12 @@ export const getCartItems = async (cartId) => {
   try {
     const { data } = await api.get(`order/carts/${cartId}/`, config);
     store.cartItems = data.items;
-  } catch (err) {
-    alert(`An error occured while trying to get the cart items.\n\r${err}`);
+  } catch (error) {
+    let errorArray = [];
+    for (const key in error.response.data) {
+      errorArray.push(`${key}: ${error.response.data[key]}`);
+    }
+    store.errorResponses = errorArray;
   }
 };
 
@@ -99,8 +123,12 @@ export const getCustomer = async (token) => {
   try {
     const { data } = await api.get("profile/customers/me/", config);
     store.customer = data;
-  } catch (err) {
-    alert(`An error occured while trying to get the user's data.\n\r${err}`);
+  } catch (error) {
+    let errorArray = [];
+    for (const key in error.response.data) {
+      errorArray.push(`${key}: ${error.response.data[key]}`);
+    }
+    store.errorResponses = errorArray;
   }
 };
 
@@ -114,8 +142,12 @@ export const getWishListItems = async (token, wishlistId) => {
   try {
     const { data } = await api.get(`order/wishlist/${wishlistId}/`, config);
     store.wishlistItems = data.items;
-  } catch (err) {
-    alert(`An error occured while trying to get the wishlist items.\n\r${err}`);
+  } catch (error) {
+    let errorArray = [];
+    for (const key in error.response.data) {
+      errorArray.push(`${key}: ${error.response.data[key]}`);
+    }
+    store.errorResponses = errorArray;
   }
 };
 
@@ -127,17 +159,17 @@ export const signup = async (email, username, password, re_password) => {
   };
   const body = JSON.stringify({ email, username, password, re_password });
   try {
-    const { data } = await api.post("auth/users/", body, config);
-    if (data.username === username) {
+    const { status } = await api.post("auth/users/", body, config);
+    if (status === 200) {
       window.location.assign("https://codewithmike.herokuapp.com/#/login/");
-      alert("You have successfully signed up. Please login");
-    } else {
-      alert(
-        "An error occured while trying to get your user details. Please try again."
-      );
+      store.successResponse = "You have successfully signed up. Please log in.";
     }
-  } catch (err) {
-    alert(`An error occured while trying to sign up.\n\r${err}`);
+  } catch (error) {
+    let errorArray = [];
+    for (const key in error.response.data) {
+      errorArray.push(`${key}: ${error.response.data[key]}`);
+    }
+    store.errorResponses = errorArray;
   }
 };
 
@@ -153,9 +185,14 @@ export const login = async (email, password) => {
     if (data.auth_token) {
       store.token = data.auth_token;
       window.location.assign("https://codewithmike.herokuapp.com/");
+      store.successResponse = "You have successfully logged in.";
     }
-  } catch (err) {
-    alert(`An error occured while trying to login.\n\r${err}`);
+  } catch (error) {
+    let errorArray = [];
+    for (const key in error.response.data) {
+      errorArray.push(`${key}: ${error.response.data[key]}`);
+    }
+    store.errorResponses = errorArray;
   }
 };
 
@@ -171,8 +208,12 @@ const updatePhoto = async (token, image) => {
   try {
     await api.patch("profile/customers/me/", formData, config);
     getCustomer(token);
-  } catch (err) {
-    alert(`An error occured while trying to update the image.\n\r${err}`);
+  } catch (error) {
+    let errorArray = [];
+    for (const key in error.response.data) {
+      errorArray.push(`${key}: ${error.response.data[key]}`);
+    }
+    store.errorResponses = errorArray;
   }
 };
 
@@ -206,8 +247,12 @@ export const updateProfile = async (
     if (image) {
       updatePhoto(token, image);
     }
-  } catch (err) {
-    alert(`An error occured while trying to update your profile.\n\r${err}`);
+  } catch (error) {
+    let errorArray = [];
+    for (const key in error.response.data) {
+      errorArray.push(`${key}: ${error.response.data[key]}`);
+    }
+    store.errorResponses = errorArray;
   }
 };
 
@@ -221,8 +266,12 @@ export const getOrders = async (token) => {
   try {
     const { data } = await api.get("order/checkout/", config);
     store.orders = data;
-  } catch (err) {
-    alert(`An error occured while trying to get the wishlist items.\n\r${err}`);
+  } catch (error) {
+    let errorArray = [];
+    for (const key in error.response.data) {
+      errorArray.push(`${key}: ${error.response.data[key]}`);
+    }
+    store.errorResponses = errorArray;
   }
 };
 
@@ -236,9 +285,13 @@ export const resetPassword = async (email) => {
   try {
     await api.post("auth/users/reset_password/", body, config);
     window.location.assign("https://codewithmike.herokuapp.com/");
-    alert("We have sent a password reset link to your email.");
-  } catch (err) {
-    alert(`An error occured while trying to reset the password.\n\r${err}`);
+    store.successResponse = "We have sent a password reset link to your email.";
+  } catch (error) {
+    let errorArray = [];
+    for (const key in error.response.data) {
+      errorArray.push(`${key}: ${error.response.data[key]}`);
+    }
+    store.errorResponses = errorArray;
   }
 };
 
@@ -257,9 +310,13 @@ export const resetPasswordConfirmation = async (
   try {
     await api.post("auth/users/reset_password_confirm/", body, config);
     window.location.assign("https://codewithmike.herokuapp.com/#/login/");
-    alert("You can now log in with your new password.");
-  } catch (err) {
-    alert(`An error occured while trying to reset the password.\n\r${err}`);
+    store.successResponse = "You can now log in with your new password.";
+  } catch (error) {
+    let errorArray = [];
+    for (const key in error.response.data) {
+      errorArray.push(`${key}: ${error.response.data[key]}`);
+    }
+    store.errorResponses = errorArray;
   }
 };
 
@@ -287,10 +344,14 @@ export const sendReview = async (
   try {
     await api.post("store/reviews/", body, config);
     window.location.assign("https://codewithmike.herokuapp.com/");
-    alert("Thank you for your review.");
+    store.successResponse = "Thank you for your review.";
     getReviews();
-  } catch (err) {
-    alert(`An error occured while trying to send a review.\n\r${err}`);
+  } catch (error) {
+    let errorArray = [];
+    for (const key in error.response.data) {
+      errorArray.push(`${key}: ${error.response.data[key]}`);
+    }
+    store.errorResponses = errorArray;
   }
 };
 
@@ -315,10 +376,14 @@ export const updateReview = async (
   try {
     await api.patch(`store/reviews/${reviewId}/`, body, config);
     window.location.assign("https://codewithmike.herokuapp.com/");
-    alert("Thank you for updating your review.");
+    store.successResponse = "You have successfully updated your review.";
     getReviews();
-  } catch (err) {
-    alert(`An error occured while trying to update your review.\n\r${err}`);
+  } catch (error) {
+    let errorArray = [];
+    for (const key in error.response.data) {
+      errorArray.push(`${key}: ${error.response.data[key]}`);
+    }
+    store.errorResponses = errorArray;
   }
 };
 
@@ -331,9 +396,14 @@ export const payment = async () => {
   try {
     await api.post("payment/checkout/", config);
     window.location.assign("https://codewithmike.herokuapp.com/#/orders/");
-    alert("Payment successful");
-  } catch (err) {
-    alert(`An error occured while trying to make payment.\n\r${err}`);
+    store.successResponse =
+      "Your Payment was successful. Thank you for shopping with us.";
+  } catch (error) {
+    let errorArray = [];
+    for (const key in error.response.data) {
+      errorArray.push(`${key}: ${error.response.data[key]}`);
+    }
+    store.errorResponses = errorArray;
   }
 };
 
@@ -351,8 +421,13 @@ export const sendEmail = async (email, name, message) => {
   try {
     await api.post("contact/email/", body, config);
     window.location.assign("https://codewithmike.herokuapp.com/");
-    alert("Thank you for getting in touch.");
-  } catch (err) {
-    alert(`An error occured while trying to send the email.\n\r${err}`);
+    store.successResponse =
+      "Thank you for getting in touch. We'll respond as soon as possible.";
+  } catch (error) {
+    let errorArray = [];
+    for (const key in error.response.data) {
+      errorArray.push(`${key}: ${error.response.data[key]}`);
+    }
+    store.errorResponses = errorArray;
   }
 };

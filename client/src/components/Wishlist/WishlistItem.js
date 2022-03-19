@@ -34,10 +34,12 @@ const WishlistItem = ({ course }) => {
         config
       );
       getWishListItems(snap.token, snap.customer.wishlist);
-    } catch (err) {
-      alert(
-        `An error occured while trying to delete the item that you added to the cart from the wishlist.\n\r${err}`
-      );
+    } catch (error) {
+      let errorArray = [];
+      for (const key in error.response.data) {
+        errorArray.push(`${key}: ${error.response.data[key]}`);
+      }
+      store.errorResponses = errorArray;
     }
   };
 
@@ -55,10 +57,12 @@ const WishlistItem = ({ course }) => {
       await api.post(`order/carts/${snap.cartId}/items/`, body, config);
       getCartItems(snap.cartId);
       removeFromWishlist(e.target.value);
-    } catch (err) {
-      alert(
-        `An error occured while trying to add the course to cart.\n\r${err}`
-      );
+    } catch (error) {
+      let errorArray = [];
+      for (const key in error.response.data) {
+        errorArray.push(`${key}: ${error.response.data[key]}`);
+      }
+      store.errorResponses = errorArray;
     }
   };
 

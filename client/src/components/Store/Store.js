@@ -18,6 +18,8 @@ const initialState = storedState
       customer: [],
       token: null,
       userAuthenticated: false,
+      errorResponses: [],
+      successResponse: null,
     };
 
 const store = proxy(initialState);
