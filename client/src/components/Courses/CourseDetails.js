@@ -29,14 +29,10 @@ const CourseDetails = () => {
       getCourseDetails(slug);
     }
     getReviews();
-    if (snap.courseDetails.reviews.length > 0) {
-      setCourseReviews(
-        snap.reviews.filter((r) => snap.courseDetails.reviews.includes(r.id))
-      );
-    } else {
-      setCourseReviews([]);
-    }
-  }, [snap.courseDetails, snap.reviews]);
+    setCourseReviews(
+      snap.reviews.filter((r) => snap.courseDetails.reviews.includes(r.id))
+    );
+  }, [snap.courseDetails]);
 
   const getCourseDetails = async (slug) => {
     try {
@@ -180,7 +176,7 @@ const CourseDetails = () => {
                     <CardContent>
                       <Rating name="read-only" value={review.rating} readOnly />
                       <Typography paragraph>{review.description}</Typography>
-                      {snap.customer &&
+                      {snap.customer.user &&
                         review.customer.user.username ===
                           snap.customer.user.username && (
                           <Link
