@@ -160,7 +160,7 @@ export const signup = async (email, username, password, re_password) => {
   const body = JSON.stringify({ email, username, password, re_password });
   try {
     const { status } = await api.post("auth/users/", body, config);
-    if (status === 200) {
+    if (status === 201) {
       window.location.assign("https://codewithmike.herokuapp.com/login/");
       store.successResponse = "You have successfully signed up. Please log in.";
     }
@@ -256,15 +256,21 @@ export const updateProfile = async (
   }
 };
 
-export const deleteUser = async (token) => {
+export const deleteUser = async (token, current_password) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Token ${token}`,
     },
   };
+  const body = JSON.stringify({ current_password });
+  console.log(body);
   try {
-    await api.delete("auth/users/me/", config);
+    const { status } = await api.delete("auth/users/me/", body, config);
+    if (status === 204) {
+      window.location.assign("https://codewithmike.herokuapp.com/");
+      store.successResponse = "Your account was successfully deleted.";
+    }
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
@@ -301,9 +307,15 @@ export const resetPassword = async (email) => {
   };
   const body = JSON.stringify({ email });
   try {
-    await api.post("auth/users/reset_password/", body, config);
-    window.location.assign("https://codewithmike.herokuapp.com/");
-    store.successResponse = "We have sent a password reset link to your email.";
+    const { status } = await api.post(
+      "auth/users/reset_password/",
+      body,
+      config
+    );
+    if (status === 204) {
+      store.successResponse =
+        "We have sent a password reset link to your email.";
+    }
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
@@ -326,9 +338,15 @@ export const resetPasswordConfirmation = async (
   };
   const body = JSON.stringify({ uid, token, new_password, re_new_password });
   try {
-    await api.post("auth/users/reset_password_confirm/", body, config);
-    window.location.assign("https://codewithmike.herokuapp.com/login/");
-    store.successResponse = "You can now log in with your new password.";
+    const { status } = await api.post(
+      "auth/users/reset_password_confirm/",
+      body,
+      config
+    );
+    if (status === 204) {
+      window.location.assign("https://codewithmike.herokuapp.com/login/");
+      store.successResponse = "You can now log in with your new password.";
+    }
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
@@ -360,10 +378,12 @@ export const sendReview = async (
     customer,
   });
   try {
-    await api.post("store/reviews/", body, config);
-    window.location.assign("https://codewithmike.herokuapp.com/");
-    store.successResponse = "Thank you for your review.";
-    getReviews();
+    const { status } = await api.post("store/reviews/", body, config);
+    if (status === 201) {
+      window.location.assign("https://codewithmike.herokuapp.com/");
+      store.successResponse = "Thank you for your review.";
+      getReviews();
+    }
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
@@ -392,10 +412,16 @@ export const updateReview = async (
     rating,
   });
   try {
-    await api.patch(`store/reviews/${reviewId}/`, body, config);
-    window.location.assign("https://codewithmike.herokuapp.com/");
-    store.successResponse = "You have successfully updated your review.";
-    getReviews();
+    const { status } = await api.patch(
+      `store/reviews/${reviewId}/`,
+      body,
+      config
+    );
+    if (status === 200) {
+      getReviews();
+      window.location.assign("https://codewithmike.herokuapp.com/");
+      store.successResponse = "You have successfully updated your review.";
+    }
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
@@ -437,10 +463,12 @@ export const sendEmail = async (email, name, message) => {
     message,
   });
   try {
-    await api.post("contact/email/", body, config);
-    window.location.assign("https://codewithmike.herokuapp.com/");
-    store.successResponse =
-      "Thank you for getting in touch. We'll respond as soon as possible.";
+    const { status } = await api.post("contact/email/", body, config);
+    if (status === 200) {
+      window.location.assign("https://codewithmike.herokuapp.com/");
+      store.successResponse =
+        "Thank you for getting in touch. We'll respond as soon as possible.";
+    }
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {

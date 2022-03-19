@@ -19,6 +19,7 @@ import Login from "./components/Login/Login";
 import ResetPassword from "./components/ResetPassword/ResetPassword";
 import ResetPasswordConfirm from "./components/ResetPassword/ResetPasswordConfirm";
 import Profile from "./components/Profile/Profile";
+import DeleteUser from "./components/Profile/DeleteUser";
 import Orders from "./components/Profile/Orders";
 import ReviewForm from "./components/Reviews/ReviewForm";
 import EditReview from "./components/Reviews/EditReview";
@@ -103,7 +104,10 @@ const App = () => {
           <Route path="/categories" element={<Categories />} />
           <Route path="/category/:id" element={<CategoryDetails />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route
+            path="/signup"
+            element={!snap.token ? <Signup /> : <Navigate to="/profile" />}
+          />
           <Route
             path="/login"
             element={!snap.token ? <Login /> : <Navigate to="/profile" />}
@@ -116,21 +120,28 @@ const App = () => {
           />
           <Route
             path="/profile"
-            element={snap.token ? <Profile /> : <Navigate to="/" />}
+            element={snap.token ? <Profile /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/profile/delete"
+            element={snap.token ? <DeleteUser /> : <Navigate to="/login" />}
           />
           <Route
             path="/orders"
             element={snap.token ? <Orders /> : <Navigate to="/" />}
           />
           <Route
-            path="/send-review/:id"
+            path="/review/send/:id"
             element={snap.token ? <ReviewForm /> : <Navigate to="/" />}
           />
           <Route
-            path="/edit-review/:id"
+            path="/review/edit/:id"
             element={snap.token ? <EditReview /> : <Navigate to="/" />}
           />
-          <Route path="/wishlist" element={<Wishlist />} />
+          <Route 
+            path="/wishlist" 
+            element={snap.token ? <Wishlist /> : <Navigate to="/" />}
+          />
           <Route
             path="/checkout"
             element={

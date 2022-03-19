@@ -54,32 +54,34 @@ const ResetPasswordConfirm = () => {
         <Typography component="h1" variant="h5">
           Confirm New Password
         </Typography>
-        <Box component="form" onSubmit={onSubmit} noValidate sx={{ mt: 1 }}>
-          <Grid item xs={12}>
-            <TextField
-              required
-              fullWidth
-              id="new_password"
-              label="New Password"
-              name="new_password"
-              value={new_password}
-              type="password"
-              autoComplete="new-password"
-              onChange={onChange}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              required
-              fullWidth
-              id="re_new_password"
-              label="Repeat New Password"
-              name="re_new_password"
-              value={re_new_password}
-              type="password"
-              autoComplete="re_new_password"
-              onChange={onChange}
-            />
+        <Box component="form" onSubmit={onSubmit} noValidate sx={{ mt: 3 }}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                id="new_password"
+                label="New Password"
+                name="new_password"
+                value={new_password}
+                type="password"
+                autoComplete="new-password"
+                onChange={onChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                id="re_new_password"
+                label="Repeat New Password"
+                name="re_new_password"
+                value={re_new_password}
+                type="password"
+                autoComplete="re_new_password"
+                onChange={onChange}
+              />
+            </Grid>
           </Grid>
           <Button
             type="submit"
