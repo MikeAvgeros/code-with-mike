@@ -161,7 +161,7 @@ export const signup = async (email, username, password, re_password) => {
   try {
     const { status } = await api.post("auth/users/", body, config);
     if (status === 200) {
-      window.location.assign("https://codewithmike.herokuapp.com/#/login/");
+      window.location.assign("https://codewithmike.herokuapp.com/login/");
       store.successResponse = "You have successfully signed up. Please log in.";
     }
   } catch (error) {
@@ -327,7 +327,7 @@ export const resetPasswordConfirmation = async (
   const body = JSON.stringify({ uid, token, new_password, re_new_password });
   try {
     await api.post("auth/users/reset_password_confirm/", body, config);
-    window.location.assign("https://codewithmike.herokuapp.com/#/login/");
+    window.location.assign("https://codewithmike.herokuapp.com/login/");
     store.successResponse = "You can now log in with your new password.";
   } catch (error) {
     let errorArray = [];
@@ -413,7 +413,7 @@ export const payment = async () => {
   };
   try {
     await api.post("payment/checkout/", config);
-    window.location.assign("https://codewithmike.herokuapp.com/#/orders/");
+    window.location.assign("https://codewithmike.herokuapp.com/orders/");
     store.successResponse =
       "Your Payment was successful. Thank you for shopping with us.";
   } catch (error) {
