@@ -5,19 +5,19 @@ from django.urls import path, include
 
 router = DefaultRouter()
 
-router.register(r'carts', views.CartViewSet)
-router.register(r'wishlist', views.WishListViewSet, basename='wishlist')
-router.register(r'checkout', views.OrderViewSet, basename='checkout')
+router.register('carts', views.CartViewSet)
+router.register('wishlist', views.WishListViewSet, basename='wishlist')
+router.register('checkout', views.OrderViewSet, basename='checkout')
 
 carts_router = NestedDefaultRouter(router, 'carts', lookup='cart')
-carts_router.register(r'items', views.CartItemViewSet, basename='cart-items')
+carts_router.register('items', views.CartItemViewSet, basename='cart-items')
 
 wishlist_router = NestedDefaultRouter(router, 'wishlist', lookup='wishlist')
 wishlist_router.register(
-    r'items', views.WishListItemViewSet, basename='wishlist-items')
+    'items', views.WishListItemViewSet, basename='wishlist-items')
 
 urlpatterns = [
-    path(r'', include(router.urls)),
-    path(r'', include(carts_router.urls)),
-    path(r'', include(wishlist_router.urls)),
+    path('', include(router.urls)),
+    path('', include(carts_router.urls)),
+    path('', include(wishlist_router.urls)),
 ]
