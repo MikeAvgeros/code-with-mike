@@ -18,9 +18,9 @@ const Img = styled("img")({
 const WishlistItem = ({ course }) => {
   const snap = useSnapshot(store);
 
-  const removeFromWishlist = async (itemId) => {
+  const removeFromWishlist = async (e) => {
     const wishlistItem = snap.wishlistItems.find(
-      (w) => w.item.id === parseInt(itemId)
+      (w) => w.item.id === parseInt(e.target.value)
     );
     const config = {
       headers: {
@@ -56,7 +56,8 @@ const WishlistItem = ({ course }) => {
     try {
       await api.post(`order/carts/${snap.cartId}/items/`, body, config);
       getCartItems(snap.cartId);
-      removeFromWishlist(e.target.value);
+      removeFromWishlist(e);
+      store.successResponse = "Course added to the cart.";
     } catch (error) {
       let errorArray = [];
       for (const key in error.response.data) {
@@ -95,6 +96,16 @@ const WishlistItem = ({ course }) => {
             onClick={addToCart}
           >
             Add To Cart
+          </Button>
+        </Grid>
+        <Grid item>
+          <Button
+            value={course.item.id}
+            size="small"
+            className="btn"
+            onClick={removeFromWishlist}
+          >
+            Delete Item
           </Button>
         </Grid>
       </Grid>

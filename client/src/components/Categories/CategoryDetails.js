@@ -35,9 +35,7 @@ const CategoryDetails = () => {
         <Container maxWidth="md">
           <Grid
             container
-            sx={{ marginTop: "20vh" }}
             direction="column"
-            justifyContent="center"
           >
             <h1 className="title">
               {snap.categoryDetails.name}

@@ -43,8 +43,8 @@ const Header = () => {
   };
 
   const pages = snap.userAuthenticated
-    ? ["Courses", "Categories", "Wishlist", "Cart", "Profile", "Orders"]
-    : ["Courses", "Categories", "Cart", "Login", "Signup"];
+    ? ["Courses", "Categories", "Contact", "Wishlist", "Cart", "Profile", "Orders"]
+    : ["Courses", "Categories", "Contact", "Cart", "Login", "Signup"];
 
   const logout = async () => {
     const token = snap.token;

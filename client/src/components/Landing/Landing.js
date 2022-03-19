@@ -7,7 +7,6 @@ const Landing = () => {
     <Container component="main">
       <Grid
         container
-        sx={{ marginTop: "30vh" }}
         direction="column"
         alignItems="center"
       >

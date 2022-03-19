@@ -4,14 +4,14 @@ import Course from "./Course";
 
 const FeaturedCourses = ({ courses }) => {
   return (
-    <Container sx={{ mt: 5 }}>
+    <Container sx={{ mt: "5vh" }}>
       <h2 style={{ textAlign: "center" }}>
         Featured Courses
       </h2>
       <Grid
         container 
-        sx={{ mb: 5, mt: 5 }}
-        justifyContent="center"
+        sx={{ mt: "5vh", mb: "5vh" }}
+        alignItems="center"
         spacing={5}
       >
         {courses &&

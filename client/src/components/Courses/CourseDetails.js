@@ -29,9 +29,11 @@ const CourseDetails = () => {
       getCourseDetails(slug);
     }
     getReviews();
-    setCourseReviews(
-      snap.reviews.filter((r) => snap.courseDetails.reviews.includes(r.id))
-    );
+    if (snap.courseDetails.reviews) {
+      setCourseReviews(
+        snap.reviews.filter((r) => snap.courseDetails.reviews.includes(r.id))
+      );
+    }
   }, [snap.courseDetails]);
 
   const getCourseDetails = async (slug) => {
@@ -60,6 +62,7 @@ const CourseDetails = () => {
     try {
       await api.post(`order/carts/${snap.cartId}/items/`, body, config);
       getCartItems(snap.cartId);
+      store.successResponse = "Course added to the cart.";
     } catch (error) {
       let errorArray = [];
       for (const key in error.response.data) {
@@ -91,9 +94,7 @@ const CourseDetails = () => {
         <Container maxWidth="md">
           <Grid
             container
-            sx={{ marginTop: "20vh" }}
             direction="column"
-            justifyContent="center"
           >
             <h1 className="title">{snap.courseDetails.name}</h1>
             <p className="subtitle">{snap.courseDetails.tagline}</p>

@@ -256,6 +256,24 @@ export const updateProfile = async (
   }
 };
 
+export const deleteUser = async (token) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Token ${token}`,
+    },
+  };
+  try {
+    await api.delete("auth/users/me/", config);
+  } catch (error) {
+    let errorArray = [];
+    for (const key in error.response.data) {
+      errorArray.push(`${key}: ${error.response.data[key]}`);
+    }
+    store.errorResponses = errorArray;
+  }
+};
+
 export const getOrders = async (token) => {
   const config = {
     headers: {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { api } from "../Api/Api";
@@ -17,6 +17,15 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 
 const Course = ({ course }) => {
   const snap = snapshot(store);
+  const [allowWishlist, setAllowWishlist] = useState(false);
+
+  useEffect(() => {
+    let itemArray = [];
+    snap.wishlistItems.forEach((x) => {
+      itemArray.push(x.item.name);
+    });
+    setAllowWishlist(!itemArray.includes(course.name));
+  }, []);
 
   const summarise = (text) => {
     const maxLength = 50;
@@ -112,7 +121,7 @@ const Course = ({ course }) => {
         <p>{summarise(course.tagline)}</p>
       </CardContent>
       <CardActions>
-        {snap.userAuthenticated && (
+        {snap.userAuthenticated && allowWishlist && (
           <IconButton sx={{ mb: 1 }} onClick={addToWishList}>
             <FavoriteIcon className="heart-icon" />
           </IconButton>
