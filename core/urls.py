@@ -15,7 +15,7 @@ urlpatterns = [
     path(r'api/profile/', include('customer.urls')),
     path(r'api/auth/', include('djoser.urls')),
     path(r'api/auth/', include('djoser.urls.authtoken')),
-    path(r'/*', TemplateView.as_view(template_name='index.html'))
+    path(r'^$', TemplateView.as_view(template_name='index.html')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
