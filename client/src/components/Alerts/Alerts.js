@@ -52,6 +52,7 @@ const Alerts = () => {
         }}
         open={state.open}
         onClose={handleClose}
+        autoHideDuration={5000}
       >
         <Alert
           variant="filled"

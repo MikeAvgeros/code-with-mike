@@ -56,7 +56,7 @@ const OrderItem = ({ order }) => {
           </Grid>
           <Grid item xs={4} sx={{ alignSelf: "end" }}>
             {order.payment_status === "Success" ? (
-              <Link to={`/send-review/${order.id}`} style={{ textDecoration: "none" }}>
+              <Link to={`/review/send/${order.id}`} style={{ textDecoration: "none" }}>
                 <Button size="small" className="btn">
                   Leave a review
                 </Button>

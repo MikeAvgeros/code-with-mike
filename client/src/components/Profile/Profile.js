@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useSnapshot } from "valtio";
 import store from "../Store/Store";
 import {
@@ -7,7 +8,8 @@ import {
   Card,
   CardHeader,
   CardMedia,
-  CardContent
+  CardContent,
+  CardActions,
 } from "@mui/material";
 import EditProfile from "./EditProfile";
 
@@ -53,6 +55,15 @@ const Profile = () => {
               <p>Birth Date: {snap.customer.birth_date}</p>
               <p>Customer Type: {snap.customer.customer_type}</p>
             </CardContent>
+            <CardActions>
+              <Link
+                to="/profile/delete"
+                className="btn"
+                style={{ textDecoration: "none" }}
+              >
+                Delete Account
+              </Link>
+            </CardActions>
           </Card>
         </Grid>
         <Grid item xs={12} sm={6} md={4}>

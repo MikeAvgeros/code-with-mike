@@ -15,6 +15,7 @@ import {
   CardActions,
   Rating,
   Avatar,
+  Stack,
 } from "@mui/material";
 
 const CourseDetails = () => {
@@ -34,7 +35,7 @@ const CourseDetails = () => {
         snap.reviews.filter((r) => snap.courseDetails.reviews.includes(r.id))
       );
     }
-  }, [snap.courseDetails]);
+  }, [snap.courseDetails, snap.reviews.length]);
 
   const getCourseDetails = async (slug) => {
     try {
@@ -72,6 +73,26 @@ const CourseDetails = () => {
     }
   };
 
+  const deleteReview = async (e) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${snap.token}`,
+      },
+    };
+    try {
+      await api.delete(`store/reviews/${e.target.value}/`, config);
+      getReviews();
+      store.successResponse = "Review was successfully deleted.";
+    } catch (error) {
+      let errorArray = [];
+      for (const key in error.response.data) {
+        errorArray.push(`${key}: ${error.response.data[key]}`);
+      }
+      store.errorResponses = errorArray;
+    }
+  };
+
   const increaseQty = () => {
     setQty((prevQty) => prevQty + 1);
   };
@@ -92,10 +113,7 @@ const CourseDetails = () => {
     <React.Fragment>
       <div className="course-detail">
         <Container maxWidth="md">
-          <Grid
-            container
-            direction="column"
-          >
+          <Grid container direction="column">
             <h1 className="title">{snap.courseDetails.name}</h1>
             <p className="subtitle">{snap.courseDetails.tagline}</p>
           </Grid>
@@ -180,14 +198,24 @@ const CourseDetails = () => {
                       {snap.customer.user &&
                         review.customer.user.username ===
                           snap.customer.user.username && (
-                          <Link
-                            to={`/edit-review/${snap.courseDetails.slug}`}
-                            style={{ textDecoration: "none" }}
-                          >
-                            <Button size="small" className="btn">
-                              Edit Review
+                          <Stack direction="row" spacing={2}>
+                            <Link
+                              to={`/review/edit/${snap.courseDetails.slug}`}
+                              style={{ textDecoration: "none" }}
+                            >
+                              <Button size="small" className="btn">
+                                Edit Review
+                              </Button>
+                            </Link>
+                            <Button
+                              value={review.id}
+                              size="small"
+                              className="btn"
+                              onClick={deleteReview}
+                            >
+                              Delete Review
                             </Button>
-                          </Link>
+                          </Stack>
                         )}
                     </CardContent>
                   </Card>
