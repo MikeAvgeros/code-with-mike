@@ -25,7 +25,7 @@ const Course = ({ course }) => {
       itemArray.push(x.item.name);
     });
     setAllowWishlist(!itemArray.includes(course.name));
-  }, []);
+  }, [snap.wishlistItems]);
 
   const summarise = (text) => {
     const maxLength = 50;
@@ -92,6 +92,7 @@ const Course = ({ course }) => {
     try {
       await api.post(`order/wishlist/${wishlist}/items/`, body, config);
       getWishlistItems();
+      store.successResponse = "Course added to the wishlist.";
     } catch (error) {
       let errorArray = [];
       for (const key in error.response.data) {
