@@ -7,7 +7,7 @@ import {
   Card,
   CardHeader,
   CardMedia,
-  CardContent,
+  CardContent
 } from "@mui/material";
 import EditProfile from "./EditProfile";
 
@@ -17,7 +17,7 @@ const Profile = () => {
   if (snap.customer.length === 0) {
     <Container component="main" maxWidth="lg">
       <h2>Unfortunately, we couldn't get your profile details.</h2>
-    </Container>
+    </Container>;
   }
 
   return (

@@ -4,13 +4,13 @@ import Review from "./Review";
 
 const Reviews = ({ reviews }) => {
   return (
-    <Container sx={{ mt: 15 }}>
+    <Container sx={{ mt: "15vh" }}>
       <h2 style={{ textAlign: "center" }}>
         Some happy students!
       </h2>
       <Grid
         container 
-        sx={{ mb: 15, mt: 5 }}
+        sx={{ mt: "5vh", mb: "15vh" }}
         spacing={5}
       >
         {reviews &&

@@ -6,12 +6,11 @@ import messages from "../../images/messages.png";
 
 const About = () => {
   return (
-    <Container sx={{ mt: 5 }}>
+    <Container sx={{ mt: "5vh" }}>
       <h2 style={{ textAlign: "center" }}>I love to teach you coding!</h2>
       <Grid
         container
-        sx={{ mb: 5, mt: 5 }}
-        justifyContent="center"
+        sx={{ mt: "1vh" }}
         alignItems="center"
         spacing={5}
       >
@@ -40,8 +39,7 @@ const About = () => {
       </Grid>
       <Grid
         container
-        sx={{ mb: 5, mt: 5 }}
-        justifyContent="center"
+        sx={{ mt: "1vh", mb: "5vh" }}
         alignItems="center"
         spacing={5}
       >

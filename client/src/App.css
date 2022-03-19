@@ -15,7 +15,7 @@ body, html {
 }
 
 h2 {
-  font-size: calc(1vw + 20px);
+  font-size: calc(1vw + 22px);
   margin-bottom: 10px;
 }
 
@@ -34,6 +34,8 @@ p {
 }
 
 .landing {
+  display: grid;
+  place-content: center;
   min-height: 100vh;
   background-image: linear-gradient(to right, #5e35b1, #d81b60);
   clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 95%);
@@ -58,7 +60,7 @@ p {
 .landing-tag {
   color: #fafafa;
   font-weight: 600 !important;
-  font-size: calc(1.5vw + 20px) !important;
+  font-size: calc(1vw + 28px) !important;
   text-align: center;
 }
 
@@ -121,11 +123,15 @@ p {
 }
 
 .course-detail {
+  display: grid;
+  place-content: center;
   min-height: 60vh;
   background-image: linear-gradient(to right, #7e57c2, #ec407a);
 }
 
 .category-detail {
+  display: grid;
+  place-content: center;
   min-height: 60vh;
   background-image: linear-gradient(to right, #7e57c2, #ec407a);
 }
@@ -133,7 +139,7 @@ p {
 .title {
   color: #fafafa;
   font-weight: 600 !important;
-  font-size: calc(1.5vw + 20px) !important;
+  font-size: calc(1vw + 22px) !important;
   letter-spacing: 1px;
   text-align: center;
   margin-bottom: 36px;
@@ -141,7 +147,7 @@ p {
 
 .subtitle {
   color: #fafafa;
-  font-size: calc(.5vw + 14px) !important;
+  font-size: calc(.5vw + 16px) !important;
   letter-spacing: 1px;
   text-align: center;
 }
