@@ -42,10 +42,12 @@ const CourseDetails = () => {
     try {
       const { data } = await api.get(`store/products/${slug}`);
       store.courseDetails = data;
-    } catch (err) {
-      alert(
-        `An error occured while trying to get the course details.\n\r${err}`
-      );
+    } catch (error) {
+      let errorArray = [];
+      for (const key in error.response.data) {
+        errorArray.push(`${key}: ${error.response.data[key]}`);
+      }
+      store.errorResponses = errorArray;
     }
   };
 
@@ -62,8 +64,12 @@ const CourseDetails = () => {
     try {
       await api.post(`order/carts/${snap.cartId}/items/`, body, config);
       getCartItems(snap.cartId);
-    } catch (err) {
-      alert(`An error occured while trying to add course to cart.\n\r${err}`);
+    } catch (error) {
+      let errorArray = [];
+      for (const key in error.response.data) {
+        errorArray.push(`${key}: ${error.response.data[key]}`);
+      }
+      store.errorResponses = errorArray;
     }
   };
 
@@ -86,8 +92,13 @@ const CourseDetails = () => {
   return (
     <React.Fragment>
       <div className="course-detail">
-        <Container sx={{ mt: 15 }} maxWidth="md">
-          <Grid container direction="column" justifyContent="center">
+        <Container maxWidth="md">
+          <Grid
+            container
+            sx={{ marginTop: "20vh" }}
+            direction="column"
+            justifyContent="center"
+          >
             <h1 className="title">{snap.courseDetails.name}</h1>
             <p className="subtitle">{snap.courseDetails.tagline}</p>
           </Grid>

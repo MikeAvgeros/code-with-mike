@@ -37,8 +37,12 @@ const CartItem = ({ course }) => {
         config
       );
       getCartItems(snap.cartId);
-    } catch (err) {
-      alert(`An error occured while trying to update cart item.\n\r${err}`);
+    } catch (error) {
+      let errorArray = [];
+      for (const key in error.response.data) {
+        errorArray.push(`${key}: ${error.response.data[key]}`);
+      }
+      store.errorResponses = errorArray;
     }
   };
 
@@ -61,8 +65,12 @@ const CartItem = ({ course }) => {
         config
       );
       getCartItems(snap.cartId);
-    } catch (err) {
-      alert(`An error occured while trying to update cart item.\n\r${err}`);
+    } catch (error) {
+      let errorArray = [];
+      for (const key in error.response.data) {
+        errorArray.push(`${key}: ${error.response.data[key]}`);
+      }
+      store.errorResponses = errorArray;
     }
   };
 

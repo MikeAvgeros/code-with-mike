@@ -20,17 +20,22 @@ const CategoryDetails = () => {
     try {
       const { data } = await api.get(`store/categories/${slug}`);
       store.categoryDetails = data;
-    } catch (err) {
-      alert(`An error occured while trying to get the category details.\n\r${err}`);
+    } catch (error) {
+      let errorArray = [];
+      for (const key in error.response.data) {
+        errorArray.push(`${key}: ${error.response.data[key]}`);
+      }
+      store.errorResponses = errorArray;
     }
   };
 
   return (
     <React.Fragment>
       <div className="category-detail">
-        <Container sx={{ mt: 15 }} maxWidth="md">
+        <Container maxWidth="md">
           <Grid
             container
+            sx={{ marginTop: "20vh" }}
             direction="column"
             justifyContent="center"
           >

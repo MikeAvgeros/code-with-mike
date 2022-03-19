@@ -12,7 +12,7 @@ import LockResetIcon from "@mui/icons-material/LockReset";
 
 const ResetPassword = () => {
   const [formData, setFormData] = useState({
-    email: null,
+    email: "",
   });
 
   const { email } = formData;
@@ -23,11 +23,7 @@ const ResetPassword = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (email) {
-      resetPassword(email);
-    } else {
-      alert("Please type your email.");
-    }
+    resetPassword(email);
   };
 
   return (
