@@ -167,16 +167,36 @@ export const getCartItems = async (cartId) => {
   }
 };
 
-export const getCustomer = async (token) => {
+export const updateCartItem = async (qty, cartId, itemId) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Token ${token}`,
+    },
+  };
+  const body = JSON.stringify({
+    quantity: qty,
+  });
+  try {
+    await api.patch(`order/carts/${cartId}/items/${itemId}/`, body, config);
+    getCartItems(cartId);
+  } catch (error) {
+    let errorArray = [];
+    for (const key in error.response.data) {
+      errorArray.push(`${key}: ${error.response.data[key]}`);
+    }
+    store.errorResponses = errorArray;
+  }
+};
+
+export const removeItemFromCart = async (cartId, itemId) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
     },
   };
   try {
-    const { data } = await api.get("profile/customers/me/", config);
-    store.customer = data;
+    await api.delete(`order/carts/${cartId}/items/${itemId}/`, config);
+    getCartItems(cartId);
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
@@ -196,6 +216,25 @@ export const getWishListItems = async (token, wishlistId) => {
   try {
     const { data } = await api.get(`order/wishlist/${wishlistId}/`, config);
     store.wishlistItems = data.items;
+  } catch (error) {
+    let errorArray = [];
+    for (const key in error.response.data) {
+      errorArray.push(`${key}: ${error.response.data[key]}`);
+    }
+    store.errorResponses = errorArray;
+  }
+};
+
+export const getCustomer = async (token) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Token ${token}`,
+    },
+  };
+  try {
+    const { data } = await api.get("profile/customers/me/", config);
+    store.customer = data;
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
@@ -318,12 +357,13 @@ export const deleteUser = async (token, current_password) => {
     },
   };
   const body = JSON.stringify({ current_password });
-  console.log(body);
   try {
     const { status } = await api.delete("auth/users/me/", body, config);
     if (status === 204) {
       window.location.assign("https://codewithmike.herokuapp.com/");
       store.successResponse = "Your account was successfully deleted.";
+      store.customer = [];
+      store.token = null;
     }
   } catch (error) {
     let errorArray = [];

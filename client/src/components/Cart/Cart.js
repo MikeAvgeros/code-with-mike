@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSnapshot } from "valtio";
 import store from "../Store/Store";
+import { getCartItems } from "../Api/Api";
 import {
   Box,
   Container,
@@ -15,6 +16,10 @@ import CartItem from "./CartItem";
 
 const Cart = () => {
   const snap = useSnapshot(store);
+
+  useEffect(() => {
+    getCartItems(snap.cartId);
+  }, []);
 
   return (
     <Container component="main">
@@ -48,7 +53,7 @@ const Cart = () => {
         </Stack>
         {snap.cartItems.length > 0 && (
           <Link to="/checkout" style={{ textDecoration: "none" }}>
-            <Button sx={{ mt: 10 }} className="btn">
+            <Button sx={{ mt: 5, mb: 5 }} className="btn">
               Checkout
             </Button>
           </Link>
