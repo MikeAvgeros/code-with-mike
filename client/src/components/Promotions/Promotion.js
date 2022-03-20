@@ -10,11 +10,11 @@ import {
   CardActions,
 } from "@mui/material";
 
-const Category = ({ category }) => {
-  const getCategoryDetails = async () => {
+const Promotion = ({ promotion }) => {
+  const getPromotionDetails = async () => {
     try {
-      const { data } = await axios.get(category.url);
-      store.categoryDetails = data;
+      const { data } = await axios.get(promotion.url);
+      store.promotionDetails = data;
     } catch (error) {
       let errorArray = [];
       for (const key in error.response.data) {
@@ -22,12 +22,6 @@ const Category = ({ category }) => {
       }
       store.errorResponses = errorArray;
     }
-  };
-
-  const pStyle = {
-    marginTop: 10,
-    color: "gray",
-    fontSize: 15,
   };
 
   return (
@@ -39,21 +33,20 @@ const Category = ({ category }) => {
         }}
       />
       <CardContent>
-        <h3>{category.name}</h3>
-        <p style={pStyle}>{category.description}</p>
+        <h3>{promotion.name}</h3>
       </CardContent>
       <CardActions>
         <Link
           style={{ textDecoration: "none" }}
-          to={`/category/${category.slug}`}
+          to={`/promotion/${promotion.slug}`}
         >
           <Button
             size="small"
             className="btn"
             sx={{ ml: 1, mb: 1 }}
-            onClick={getCategoryDetails}
+            onClick={getPromotionDetails}
           >
-            Learn More
+            Discounted Courses
           </Button>
         </Link>
       </CardActions>
@@ -61,4 +54,4 @@ const Category = ({ category }) => {
   );
 };
 
-export default Category;
+export default Promotion;

@@ -11,6 +11,8 @@ import {
 } from "@mui/material";
 
 const OrderItem = ({ order }) => {
+  const vat = order.total_price * 0.20;
+
   return (
     <Card>
       <CardHeader
@@ -38,7 +40,7 @@ const OrderItem = ({ order }) => {
               <Grid item>
                 <Stack direction="row" spacing={3}>
                   <p>Qty: {item.quantity}</p>
-                  <p>Total Price: £{item.total_price}</p>
+                  <p>Price: £{item.total_price}</p>
                 </Stack>
               </Grid>
             </Grid>
@@ -52,7 +54,9 @@ const OrderItem = ({ order }) => {
           <Grid item xs={8}>
             <p style={{ marginBottom: 2 }}>Date of Purchase: {order.created_at.split("T")[0]}</p>
             <p style={{ marginBottom: 2 }}>Payment Status: {order.payment_status}</p>
-            <p style={{ fontWeight: "bold", marginBottom: 2 }}>Grand Total: £{order.total_price}</p>
+            <p style={{ fontWeight: "bold", marginBottom: 2 }}>Total Price: £{order.total_price}</p>
+            <p style={{ fontWeight: "bold", marginBottom: 2 }}>VAT: £{vat}</p>
+            <p style={{ fontWeight: "bold", marginBottom: 2 }}>Grand Total: £{order.total_price + vat}</p>
           </Grid>
           <Grid item xs={4} sx={{ alignSelf: "end" }}>
             {order.payment_status === "Success" ? (

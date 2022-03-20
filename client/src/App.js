@@ -13,6 +13,7 @@ import Courses from "./components/Courses/Courses";
 import CourseDetails from "./components/Courses/CourseDetails";
 import Categories from "./components/Categories/Categories";
 import CategoryDetails from "./components/Categories/CategoryDetails";
+import PromotionDetails from "./components/Promotions/PromotionDetails";
 import Cart from "./components/Cart/Cart";
 import Signup from "./components/Signup/Signup";
 import Login from "./components/Login/Login";
@@ -103,6 +104,7 @@ const App = () => {
           <Route path="/course/:id" element={<CourseDetails />} />
           <Route path="/categories" element={<Categories />} />
           <Route path="/category/:id" element={<CategoryDetails />} />
+          <Route path="/promotion/:id" element={<PromotionDetails />} />
           <Route path="/cart" element={<Cart />} />
           <Route
             path="/signup"

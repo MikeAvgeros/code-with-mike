@@ -5,6 +5,7 @@ import Reviews from "../Reviews/Reviews";
 import FeaturedCourses from "../Courses/FeaturedCourses";
 import { useSnapshot } from "valtio";
 import store from "../Store/Store";
+import Promotions from "../Promotions/Promotions";
 
 const Home = () => {
   const snap = useSnapshot(store); 
@@ -18,6 +19,9 @@ const Home = () => {
       </div>
       <div className="about">
         <About />
+      </div>
+      <div className="promotions">
+        <Promotions promotions={snap.promotions} />
       </div>
       <div className="featured-reviews">
         <Reviews reviews={featuredReviews} />

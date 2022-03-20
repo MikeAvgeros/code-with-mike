@@ -11,10 +11,10 @@ const CategoryDetails = () => {
   useEffect(() => {
     const url = window.location.href;
     const slug = url.substring(url.lastIndexOf("/") + 1);
-    if (snap.courses.length === 0) {
+    if (snap.categoryDetails.length === 0) {
       getCategoryDetails(slug);
     }
-  }, [snap.courses.length]);
+  }, [snap.categoryDetails.length]);
 
   const getCategoryDetails = async (slug) => {
     try {
