@@ -25,7 +25,7 @@ const Course = ({ course }) => {
       itemArray.push(x.item.name);
     });
     setAllowWishlist(!itemArray.includes(course.name));
-  }, [snap.wishlistItems]);
+  }, [snap.wishlistItems, course.name]);
 
   const summarise = (text) => {
     const maxLength = 50;
@@ -103,7 +103,7 @@ const Course = ({ course }) => {
   };
 
   return (
-    <Card sx={{ minWidth: 250 }}>
+    <Card sx={{ minWidth: 275 }}>
       <CardHeader
         sx={{
           height: "24px",
@@ -112,7 +112,7 @@ const Course = ({ course }) => {
       />
       <CardMedia
         component="img"
-        width="250"
+        width="275"
         height="200"
         image={course.image}
         alt={course.name}

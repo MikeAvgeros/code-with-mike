@@ -57,12 +57,12 @@ const Review = ({ review }) => {
         <h4>{review.product.name}</h4>
         <Rating name="read-only" value={review.rating} readOnly />
       </CardContent>
-      <CardActions disableSpacing>
+      <CardActions>
         <Link
           style={{ textDecoration: "none" }}
           to={`/course/${review.product.slug}`}
         >
-          <Button onClick={getCourseDetails} className="btn">
+          <Button className="btn" sx={{ ml: 1 }} onClick={getCourseDetails}>
             View Course
           </Button>
         </Link>

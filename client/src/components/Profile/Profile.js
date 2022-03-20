@@ -10,6 +10,7 @@ import {
   CardMedia,
   CardContent,
   CardActions,
+  Button,
 } from "@mui/material";
 import EditProfile from "./EditProfile";
 
@@ -56,12 +57,10 @@ const Profile = () => {
               <p>Customer Type: {snap.customer.customer_type}</p>
             </CardContent>
             <CardActions>
-              <Link
-                to="/profile/delete"
-                className="btn"
-                style={{ textDecoration: "none" }}
-              >
-                Delete Account
+              <Link to="/profile/delete" style={{ textDecoration: "none" }}>
+                <Button size="small" className="btn" sx={{ ml: 1, mb: 1 }}>
+                  Delete Account
+                </Button>
               </Link>
             </CardActions>
           </Card>

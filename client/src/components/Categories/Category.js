@@ -26,8 +26,8 @@ const Category = ({ category }) => {
 
   const pStyle = {
     marginTop: 10,
-    color: 'gray',
-    fontSize: 15
+    color: "gray",
+    fontSize: 15,
   };
 
   return (
@@ -42,9 +42,17 @@ const Category = ({ category }) => {
         <h3>{category.name}</h3>
         <p style={pStyle}>{category.description}</p>
       </CardContent>
-      <CardActions sx={{ ml: 1 }}>
-        <Link style={{ textDecoration: 'none' }} to={`/category/${category.slug}`}>
-          <Button size="small" className="btn" sx={{ mb: 1 }} onClick={getCategoryDetails}>
+      <CardActions>
+        <Link
+          style={{ textDecoration: "none" }}
+          to={`/category/${category.slug}`}
+        >
+          <Button
+            size="small"
+            className="btn"
+            sx={{ ml: 1, mb: 1 }}
+            onClick={getCategoryDetails}
+          >
             Learn More
           </Button>
         </Link>

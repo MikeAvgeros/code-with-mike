@@ -17,6 +17,9 @@ import {
   Avatar,
   Stack,
 } from "@mui/material";
+import { Image } from "mui-image";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 
 const CourseDetails = () => {
   const snap = useSnapshot(store);
@@ -135,53 +138,68 @@ const CourseDetails = () => {
               />
             </Grid>
             <Grid item sm={12} md={6}>
-              <Card sx={{ mb: 5, width: "350px" }}>
-                <CardHeader
-                  title="Monthly Payment"
-                  titleTypographyProps={{ align: "center", color: "#fafafa" }}
-                  sx={{
-                    height: "48px",
-                    backgroundImage:
-                      "linear-gradient(to right, #5e35b1, #d81b60)",
-                  }}
+              <Stack direction="column" spacing={5}>
+                <Image
+                  sx={{ maxWidth: "350px" }}
+                  src={snap.courseDetails.image}
                 />
-                <CardContent>
-                  <Box
+                <Card sx={{ width: "350px", alignSelf: "center" }}>
+                  <CardHeader
+                    title="Monthly Payment"
+                    titleTypographyProps={{ align: "center", color: "#fafafa" }}
                     sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "baseline",
+                      height: "48px",
+                      backgroundImage:
+                        "linear-gradient(to right, #5e35b1, #d81b60)",
                     }}
-                  >
-                    <Typography variant="h3" color="text.primary">
-                      £{snap.courseDetails.price}
-                    </Typography>
-                    <Typography variant="h6" color="text.secondary">
-                      /month
-                    </Typography>
-                  </Box>
-                  <p style={pStyle}>Frequent Course Updates</p>
-                  <p style={pStyle}>Tutor Support</p>
-                  <p style={pStyle}>Career Guidance</p>
-                  <p style={pStyle}>Student Forum</p>
-                </CardContent>
-                <CardActions sx={{ mb: 1, justifyContent: "center" }}>
-                  <Button onClick={addToCart} className="btn">
-                    Add to Cart
-                  </Button>
-                  <Button onClick={decreaseQty}>🡻</Button>
-                  <Typography>Qty: {qty}</Typography>
-                  <Button onClick={increaseQty}>🡹</Button>
-                </CardActions>
-              </Card>
+                  />
+                  <CardContent>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "baseline",
+                      }}
+                    >
+                      <Typography variant="h3" color="text.primary">
+                        £{snap.courseDetails.price}
+                      </Typography>
+                      <Typography variant="h6" color="text.secondary">
+                        /month
+                      </Typography>
+                    </Box>
+                    <p style={pStyle}>Frequent Course Updates</p>
+                    <p style={pStyle}>Tutor Support</p>
+                    <p style={pStyle}>Career Guidance</p>
+                    <p style={pStyle}>Student Forum</p>
+                  </CardContent>
+                  <CardActions sx={{ mb: 1, justifyContent: "center" }}>
+                    <Button onClick={addToCart} className="btn">
+                      Add to Cart
+                    </Button>
+                    <Button onClick={decreaseQty}>
+                      <ArrowDownwardIcon />
+                    </Button>
+                    <Typography>Qty: {qty}</Typography>
+                    <Button onClick={increaseQty}>
+                      <ArrowUpwardIcon />
+                    </Button>
+                  </CardActions>
+                </Card>
+              </Stack>
             </Grid>
           </Grid>
         </Container>
         <Container sx={{ mt: 5 }}>
-          <Grid container spacing={5}>
-            <Grid item sm={12} md={6}>
-              {courseReviews.length > 0 &&
-                courseReviews.map((review, i) => (
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <h2 style={{ textAlign: "center", fontSize: "28px" }}>
+                Customer Reviews
+              </h2>
+            </Grid>
+            {courseReviews.length > 0 ? (
+              courseReviews.map((review, i) => (
+                <Grid item xs={12} sm={6} md={4}>
                   <Card key={i} sx={{ mb: 5, maxWidth: "350px" }}>
                     <CardHeader
                       avatar={
@@ -219,8 +237,15 @@ const CourseDetails = () => {
                         )}
                     </CardContent>
                   </Card>
-                ))}
-            </Grid>
+                </Grid>
+              ))
+            ) : (
+              <Grid item xs={12}>
+                <p style={{ textAlign: "center", marginBottom: "5vh" }}>
+                  This course doesn't have any reviews yet.
+                </p>
+              </Grid>
+            )}
           </Grid>
         </Container>
       </div>
