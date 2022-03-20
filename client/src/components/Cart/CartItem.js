@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSnapshot } from "valtio";
 import store from "../Store/Store";
-import { api, getCartItems } from "../Api/Api";
+import { removeItemFromCart, updateCartItem } from "../Api/Api";
 import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import ButtonBase from "@mui/material/ButtonBase";
-import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
+import DeleteIcon from "@mui/icons-material/Delete";
+import AddBoxIcon from "@mui/icons-material/AddBox";
+import IndeterminateCheckBoxIcon from "@mui/icons-material/IndeterminateCheckBox";
+import { IconButton } from "@mui/material";
 
 const Img = styled("img")({
   margin: "auto",
@@ -19,80 +22,18 @@ const Img = styled("img")({
 const CartItem = ({ course }) => {
   const snap = useSnapshot(store);
 
-  const increaseQty = async (e) => {
-    const cartItemId = parseInt(e.target.value);
-    let currentQty = snap.cartItems.find((c) => c.id === cartItemId).quantity;
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    const body = JSON.stringify({
-      quantity: currentQty + 1,
-    });
-    try {
-      await api.patch(
-        `order/carts/${snap.cartId}/items/${cartItemId}/`,
-        body,
-        config
-      );
-      getCartItems(snap.cartId);
-    } catch (error) {
-      let errorArray = [];
-      for (const key in error.response.data) {
-        errorArray.push(`${key}: ${error.response.data[key]}`);
-      }
-      store.errorResponses = errorArray;
+  const increaseQty = () => {
+    updateCartItem(course.quantity + 1, snap.cartId, course.id);
+  };
+
+  const decreaseQty = () => {
+    if (course.quantity > 1) {
+      updateCartItem(course.quantity - 1, snap.cartId, course.id);
     }
   };
 
-  const decreaseQty = async (e) => {
-    const cartItemId = parseInt(e.target.value);
-    let currentQty = snap.cartItems.find((c) => c.id === cartItemId).quantity;
-    if (currentQty <= 1) return;
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    const body = JSON.stringify({
-      quantity: currentQty - 1,
-    });
-    try {
-      await api.patch(
-        `order/carts/${snap.cartId}/items/${cartItemId}/`,
-        body,
-        config
-      );
-      getCartItems(snap.cartId);
-    } catch (error) {
-      let errorArray = [];
-      for (const key in error.response.data) {
-        errorArray.push(`${key}: ${error.response.data[key]}`);
-      }
-      store.errorResponses = errorArray;
-    }
-  };
-
-  const removeFromCart = async (e) => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    try {
-      await api.delete(
-        `order/carts/${snap.cartId}/items/${e.target.value}/`,
-        config
-      );
-      getCartItems(snap.cartId);
-    } catch (error) {
-      let errorArray = [];
-      for (const key in error.response.data) {
-        errorArray.push(`${key}: ${error.response.data[key]}`);
-      }
-      store.errorResponses = errorArray;
-    }
+  const handleRemove = () => {
+    removeItemFromCart(snap.cartId, course.id);
   };
 
   return (
@@ -111,31 +52,32 @@ const CartItem = ({ course }) => {
           </ButtonBase>
         </Grid>
         <Grid item>
-          <p>{course.item.name}</p>
+          <p style={{ width: "250px" }}>{course.item.name}</p>
         </Grid>
         <Grid item>
           <Stack direction="row">
-            <Button value={course.id} onClick={decreaseQty}>
-              🡻
-            </Button>
-            <p style={{ alignSelf: "center" }}>Qty: {course.quantity}</p>
-            <Button value={course.id} onClick={increaseQty}>
-              🡹
-            </Button>
+            <p style={{ width: "100px", alignSelf: "center" }}>
+              Price: £{course.total_price}
+            </p>
+            <IconButton sx={{ color: "#5e35b1" }} onClick={decreaseQty}>
+              <IndeterminateCheckBoxIcon />
+            </IconButton>
+            <p
+              style={{
+                width: "10px",
+                alignSelf: "center",
+                textAlign: "center",
+              }}
+            >
+              {course.quantity}
+            </p>
+            <IconButton sx={{ color: "#5e35b1" }} onClick={increaseQty}>
+              <AddBoxIcon />
+            </IconButton>
+            <IconButton sx={{ color: "#5e35b1" }} onClick={handleRemove}>
+              <DeleteIcon />
+            </IconButton>
           </Stack>
-        </Grid>
-        <Grid item>
-          <p>Price: £{course.total_price}</p>
-        </Grid>
-        <Grid sx={{ ml: 2 }} item>
-          <Button
-            size="small"
-            className="btn"
-            value={course.id}
-            onClick={removeFromCart}
-          >
-            Remove
-          </Button>
         </Grid>
       </Grid>
     </Paper>

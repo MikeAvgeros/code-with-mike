@@ -6,7 +6,9 @@ import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import ButtonBase from "@mui/material/ButtonBase";
-import Button from "@mui/material/Button";
+import DeleteIcon from "@mui/icons-material/Delete";
+import IconButton from "@mui/material/IconButton";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 const Img = styled("img")({
   margin: "auto",
@@ -18,9 +20,9 @@ const Img = styled("img")({
 const WishlistItem = ({ course }) => {
   const snap = useSnapshot(store);
 
-  const removeFromWishlist = async (e) => {
+  const removeItemFromWishlist = async () => {
     const wishlistItem = snap.wishlistItems.find(
-      (w) => w.item.id === parseInt(e.target.value)
+      (w) => w.item.id === parseInt(course.item.id)
     );
     const config = {
       headers: {
@@ -43,20 +45,20 @@ const WishlistItem = ({ course }) => {
     }
   };
 
-  const addToCart = async (e) => {
+  const addItemToCart = async () => {
     const config = {
       headers: {
         "Content-Type": "application/json",
       },
     };
     const body = JSON.stringify({
-      item_id: e.target.value,
+      item_id: course.item.id,
       quantity: 1,
     });
     try {
       await api.post(`order/carts/${snap.cartId}/items/`, body, config);
       getCartItems(snap.cartId);
-      removeFromWishlist(e);
+      removeItemFromWishlist(course.item.id);
       store.successResponse = "Course added to the cart.";
     } catch (error) {
       let errorArray = [];
@@ -83,30 +85,23 @@ const WishlistItem = ({ course }) => {
           </ButtonBase>
         </Grid>
         <Grid item>
-          <p>{course.item.name}</p>
+          <p style={{ width: "250px" }}>{course.item.name}</p>
         </Grid>
         <Grid item>
           <p>£{course.item.price}/mo</p>
         </Grid>
         <Grid item>
-          <Button
-            value={course.item.id}
-            size="small"
-            className="btn"
-            onClick={addToCart}
-          >
-            Add To Cart
-          </Button>
+          <IconButton sx={{ color: "#5e35b1" }} onClick={addItemToCart}>
+            <ShoppingCartIcon />
+          </IconButton>
         </Grid>
         <Grid item>
-          <Button
-            value={course.item.id}
-            size="small"
-            className="btn"
-            onClick={removeFromWishlist}
+          <IconButton
+            sx={{ color: "#5e35b1" }}
+            onClick={removeItemFromWishlist}
           >
-            Delete Item
-          </Button>
+            <DeleteIcon />
+          </IconButton>
         </Grid>
       </Grid>
     </Paper>

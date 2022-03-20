@@ -15,10 +15,11 @@ import {
   Rating,
   Avatar,
   Stack,
+  IconButton,
 } from "@mui/material";
 import { Image } from "mui-image";
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import AddBoxIcon from "@mui/icons-material/AddBox";
+import IndeterminateCheckBoxIcon from "@mui/icons-material/IndeterminateCheckBox";
 
 const CourseDetails = () => {
   const snap = useSnapshot(store);
@@ -145,26 +146,27 @@ const CourseDetails = () => {
                         alignItems: "baseline",
                       }}
                     >
-                      <h2>
-                        £
-                      </h2>
+                      <h2>£</h2>
                       {snap.courseDetails.promotion ? (
                         <React.Fragment>
-                          <h2 style={{ textDecoration: "line-through", color: "red" }}>
+                          <h2
+                            style={{
+                              textDecoration: "line-through",
+                              color: "red",
+                            }}
+                          >
                             {snap.courseDetails.price}
                           </h2>
                           <h2>
-                            {snap.courseDetails.price - snap.courseDetails.price * snap.courseDetails.promotion.discount }
+                            {snap.courseDetails.price -
+                              snap.courseDetails.price *
+                                snap.courseDetails.promotion.discount}
                           </h2>
                         </React.Fragment>
                       ) : (
-                        <h2>
-                          {snap.courseDetails.price}
-                        </h2>
+                        <h2>{snap.courseDetails.price}</h2>
                       )}
-                      <p>
-                        /month
-                      </p>
+                      <p>/month</p>
                     </Box>
                     <p style={pStyle}>Frequent Course Updates</p>
                     <p style={pStyle}>Tutor Support</p>
@@ -175,13 +177,13 @@ const CourseDetails = () => {
                     <Button onClick={addToCart} className="btn">
                       Add to Cart
                     </Button>
-                    <Button onClick={decreaseQty}>
-                      <ArrowDownwardIcon />
-                    </Button>
-                    <p>Qty: {qty}</p>
-                    <Button onClick={increaseQty}>
-                      <ArrowUpwardIcon />
-                    </Button>
+                    <IconButton sx={{ color: "#5e35b1" }} onClick={decreaseQty}>
+                      <IndeterminateCheckBoxIcon />
+                    </IconButton>
+                    <p style={{ width: "10px", textAlign: "center", marginLeft: "5px" }}>{qty}</p>
+                    <IconButton sx={{ color: "#5e35b1" }} onClick={increaseQty}>
+                      <AddBoxIcon />
+                    </IconButton>
                   </CardActions>
                 </Card>
               </Stack>
