@@ -22,8 +22,8 @@ const Landing = () => {
                 height: "50px",
                 color: "#fafafa",
                 border: "2px solid #fafafa",
-                borderRadius: 2
               }}
+              size="large"
               className="secondary-btn"
             >
               Courses
@@ -37,11 +37,11 @@ const Landing = () => {
                 height: "50px",
                 color: "#fafafa",
                 border: "2px solid #fafafa",
-                borderRadius: 2
               }}
+              size="large"
               className="secondary-btn"
             >
-              Contact Us
+              Contact
             </Button>
           </Link>
         </Stack>

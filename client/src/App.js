@@ -104,7 +104,10 @@ const App = () => {
           <Route path="/course/:id" element={<CourseDetails />} />
           <Route path="/categories" element={<Categories />} />
           <Route path="/category/:id" element={<CategoryDetails />} />
-          <Route path="/promotion/:id" element={<PromotionDetails />} />
+          <Route 
+            path="/promotion/:id" 
+            element={snap.promotions ? <PromotionDetails /> : <Navigate to="/" />} 
+          />
           <Route path="/cart" element={<Cart />} />
           <Route
             path="/signup"

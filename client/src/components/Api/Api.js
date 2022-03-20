@@ -23,6 +23,24 @@ export const getCourses = async () => {
   }
 };
 
+export const getCourseDetails = async (slug) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  try {
+    const { data } = await api.get(`store/products/${slug}/`, config);
+    store.courseDetails = data;
+  } catch (error) {
+    let errorArray = [];
+    for (const key in error.response.data) {
+      errorArray.push(`${key}: ${error.response.data[key]}`);
+    }
+    store.errorResponses = errorArray;
+  }
+};
+
 export const getCategories = async () => {
   const config = {
     headers: {
@@ -41,15 +59,15 @@ export const getCategories = async () => {
   }
 };
 
-export const getReviews = async () => {
+export const getCategoryDetails = async (slug) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
   try {
-    const { data } = await api.get("store/reviews/", config);
-    store.reviews = data;
+    const { data } = await api.get(`store/categories/${slug}/`, config);
+    store.categoryDetails = data;
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
@@ -68,6 +86,42 @@ export const getPromotions = async () => {
   try {
     const { data } = await api.get("store/promotions/", config);
     store.promotions = data;
+  } catch (error) {
+    let errorArray = [];
+    for (const key in error.response.data) {
+      errorArray.push(`${key}: ${error.response.data[key]}`);
+    }
+    store.errorResponses = errorArray;
+  }
+};
+
+export const getPromotionDetails = async (slug) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  try {
+    const { data } = await api.get(`store/promotions/${slug}/`, config);
+    store.promotionDetails = data;
+  } catch (error) {
+    let errorArray = [];
+    for (const key in error.response.data) {
+      errorArray.push(`${key}: ${error.response.data[key]}`);
+    }
+    store.errorResponses = errorArray;
+  }
+};
+
+export const getReviews = async () => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  try {
+    const { data } = await api.get("store/reviews/", config);
+    store.reviews = data;
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {

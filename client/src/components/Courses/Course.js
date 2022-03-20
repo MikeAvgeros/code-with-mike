@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import { api } from "../Api/Api";
 import store from "../Store/Store";
 import { snapshot } from "valtio";
@@ -10,7 +9,6 @@ import {
   CardMedia,
   CardHeader,
   CardActions,
-  Button,
   IconButton,
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -43,19 +41,6 @@ const Course = ({ course }) => {
     });
 
     return summary.join(" ") + "...";
-  };
-
-  const getCourseDetails = async () => {
-    try {
-      const { data } = await axios.get(course.url);
-      store.courseDetails = data;
-    } catch (error) {
-      let errorArray = [];
-      for (const key in error.response.data) {
-        errorArray.push(`${key}: ${error.response.data[key]}`);
-      }
-      store.errorResponses = errorArray;
-    }
   };
 
   const getWishlistItems = async () => {
@@ -127,15 +112,12 @@ const Course = ({ course }) => {
             <FavoriteIcon className="heart-icon" />
           </IconButton>
         )}
-        <Link style={{ textDecoration: "none" }} to={`/course/${course.slug}`}>
-          <Button
-            size="small"
-            className="btn"
-            sx={{ ml: 1, mb: 1 }}
-            onClick={getCourseDetails}
-          >
-            Learn More
-          </Button>
+        <Link 
+          style={{ textDecoration: "none", marginLeft: "5px", marginBottom: "5px" }}
+          className="btn"
+          to={`/course/${course.slug}`}
+        >
+          Learn More
         </Link>
       </CardActions>
     </Card>

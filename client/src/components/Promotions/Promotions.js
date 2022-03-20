@@ -4,7 +4,7 @@ import Promotion from "./Promotion";
 
 const Promotions = ({ promotions }) => {
   return (
-    <Container sx={{ mt: "15vh" }}>
+    <Container sx={{ mt: "10vh" }}>
       <h2 style={{ textAlign: "center" }}>Current Promotions</h2>
       <Grid container sx={{ mt: "5vh", mb: "15vh" }} spacing={5}>
         {promotions ? (

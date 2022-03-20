@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import store from "../Store/Store";
 import { useSnapshot } from "valtio";
-import { api } from "../Api/Api";
+import { getPromotionDetails } from "../Api/Api";
 import { Container, Grid } from "@mui/material";
 import Course from "../Courses/Course";
 
@@ -11,23 +11,8 @@ const PromotionDetails = () => {
   useEffect(() => {
     const url = window.location.href;
     const slug = url.substring(url.lastIndexOf("/") + 1);
-    if (snap.promotionDetails.length === 0) {
-      getPromotionDetails(slug);
-    }
-  }, [snap.promotionDetails.length]);
-
-  const getPromotionDetails = async (slug) => {
-    try {
-      const { data } = await api.get(`store/promotions/${slug}`);
-      store.promotionDetails = data;
-    } catch (error) {
-      let errorArray = [];
-      for (const key in error.response.data) {
-        errorArray.push(`${key}: ${error.response.data[key]}`);
-      }
-      store.errorResponses = errorArray;
-    }
-  };
+    getPromotionDetails(slug);
+  }, []);
 
   return (
     <React.Fragment>

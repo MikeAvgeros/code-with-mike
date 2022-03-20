@@ -4,7 +4,7 @@ import Review from "./Review";
 
 const Reviews = ({ reviews }) => {
   return (
-    <Container sx={{ mt: "15vh" }}>
+    <Container sx={{ mt: "10vh" }}>
       <h2 style={{ textAlign: "center" }}>
         Some happy students!
       </h2>

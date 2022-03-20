@@ -8,13 +8,10 @@ import {
   Collapse,
   CardHeader,
   CardActions,
-  Button,
   IconButton,
   Rating,
   Avatar,
 } from "@mui/material";
-import store from "../Store/Store";
-import { api } from "../Api/Api";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -34,19 +31,6 @@ const Review = ({ review }) => {
     setExpanded(!expanded);
   };
 
-  const getCourseDetails = async () => {
-    try {
-      const { data } = await api.get(`store/products/${review.product.slug}`);
-      store.courseDetails = data;
-    } catch (error) {
-      let errorArray = [];
-      for (const key in error.response.data) {
-        errorArray.push(`${key}: ${error.response.data[key]}`);
-      }
-      store.errorResponses = errorArray;
-    }
-  };
-
   return (
     <Card sx={{ minWidth: 250 }}>
       <CardHeader
@@ -59,12 +43,11 @@ const Review = ({ review }) => {
       </CardContent>
       <CardActions>
         <Link
-          style={{ textDecoration: "none" }}
+          style={{ textDecoration: "none", marginLeft: "5px", marginBottom: "5px" }}
+          className="btn"
           to={`/course/${review.product.slug}`}
         >
-          <Button className="btn" sx={{ ml: 1 }} onClick={getCourseDetails}>
-            View Course
-          </Button>
+          View Course
         </Link>
         <ExpandMore
           expand={expanded}

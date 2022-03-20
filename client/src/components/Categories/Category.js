@@ -1,29 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
-import store from "../Store/Store";
-import {
-  Card,
-  CardContent,
-  Button,
-  CardHeader,
-  CardActions,
-} from "@mui/material";
+import { Card, CardContent, CardHeader, CardActions } from "@mui/material";
 
 const Category = ({ category }) => {
-  const getCategoryDetails = async () => {
-    try {
-      const { data } = await axios.get(category.url);
-      store.categoryDetails = data;
-    } catch (error) {
-      let errorArray = [];
-      for (const key in error.response.data) {
-        errorArray.push(`${key}: ${error.response.data[key]}`);
-      }
-      store.errorResponses = errorArray;
-    }
-  };
-
   const pStyle = {
     marginTop: 10,
     color: "gray",
@@ -44,17 +23,11 @@ const Category = ({ category }) => {
       </CardContent>
       <CardActions>
         <Link
-          style={{ textDecoration: "none" }}
+          style={{ textDecoration: "none", marginLeft: "5px", marginBottom: "5px" }}
+          className="btn"
           to={`/category/${category.slug}`}
         >
-          <Button
-            size="small"
-            className="btn"
-            sx={{ ml: 1, mb: 1 }}
-            onClick={getCategoryDetails}
-          >
-            Learn More
-          </Button>
+          Learn More
         </Link>
       </CardActions>
     </Card>

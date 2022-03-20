@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { api, getCartItems, getReviews } from "../Api/Api";
+import { api, getCourseDetails, getCartItems, getReviews } from "../Api/Api";
 import store from "../Store/Store";
 import { useSnapshot } from "valtio";
 import {
@@ -28,9 +28,7 @@ const CourseDetails = () => {
   useEffect(() => {
     const url = window.location.href;
     const slug = url.substring(url.lastIndexOf("/") + 1);
-    if (snap.courseDetails.length === 0) {
-      getCourseDetails(slug);
-    }
+    getCourseDetails(slug);
     getReviews();
     if (snap.courseDetails.reviews) {
       setCourseReviews(
@@ -38,19 +36,6 @@ const CourseDetails = () => {
       );
     }
   }, [snap.courseDetails, snap.reviews.length]);
-
-  const getCourseDetails = async (slug) => {
-    try {
-      const { data } = await api.get(`store/products/${slug}`);
-      store.courseDetails = data;
-    } catch (error) {
-      let errorArray = [];
-      for (const key in error.response.data) {
-        errorArray.push(`${key}: ${error.response.data[key]}`);
-      }
-      store.errorResponses = errorArray;
-    }
-  };
 
   const addToCart = async () => {
     const config = {
