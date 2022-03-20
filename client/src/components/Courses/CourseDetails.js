@@ -8,7 +8,6 @@ import {
   Box,
   Grid,
   Button,
-  Typography,
   Card,
   CardContent,
   CardHeader,
@@ -161,12 +160,26 @@ const CourseDetails = () => {
                         alignItems: "baseline",
                       }}
                     >
-                      <Typography variant="h3" color="text.primary">
-                        £{snap.courseDetails.price}
-                      </Typography>
-                      <Typography variant="h6" color="text.secondary">
+                      <h2>
+                        £
+                      </h2>
+                      {snap.courseDetails.promotion ? (
+                        <React.Fragment>
+                          <h2 style={{ textDecoration: "line-through", color: "red" }}>
+                            {snap.courseDetails.price}
+                          </h2>
+                          <h2>
+                            {snap.courseDetails.price - snap.courseDetails.price * snap.courseDetails.promotion.discount }
+                          </h2>
+                        </React.Fragment>
+                      ) : (
+                        <h2>
+                          {snap.courseDetails.price}
+                        </h2>
+                      )}
+                      <p>
                         /month
-                      </Typography>
+                      </p>
                     </Box>
                     <p style={pStyle}>Frequent Course Updates</p>
                     <p style={pStyle}>Tutor Support</p>
@@ -180,7 +193,7 @@ const CourseDetails = () => {
                     <Button onClick={decreaseQty}>
                       <ArrowDownwardIcon />
                     </Button>
-                    <Typography>Qty: {qty}</Typography>
+                    <p>Qty: {qty}</p>
                     <Button onClick={increaseQty}>
                       <ArrowUpwardIcon />
                     </Button>
@@ -212,7 +225,7 @@ const CourseDetails = () => {
                     />
                     <CardContent>
                       <Rating name="read-only" value={review.rating} readOnly />
-                      <Typography paragraph>{review.description}</Typography>
+                      <p>{review.description}</p>
                       {snap.customer.user &&
                         review.customer.user.username ===
                           snap.customer.user.username && (

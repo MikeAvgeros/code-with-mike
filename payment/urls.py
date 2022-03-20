@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import StripeCheckoutView
+from .views import StripeCheckout
 
 urlpatterns = [
-    path('checkout/', StripeCheckoutView.as_view()),
+    path('stripe/checkout', StripeCheckout.as_view()),
 ]

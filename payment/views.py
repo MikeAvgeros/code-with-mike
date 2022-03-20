@@ -1,3 +1,5 @@
+import os
+import stripe
 from django.conf import settings
 from rest_framework import permissions
 from rest_framework.decorators import permission_classes
@@ -6,22 +8,20 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import redirect
 
-import stripe
-
-stripe.api_key = settings.STRIPE_SECRET_KEY
+stripe.api_key = os.environ.get('STRIPE_SECRET_KEY')
 
 @permission_classes([permissions.IsAuthenticated])
-class StripeCheckoutView(APIView):
+class StripeCheckout(APIView):
     def post(self, request):
         try:
             checkout_session = stripe.checkout.Session.create(
+                payment_method_types=['card', ],
                 line_items=[
                     {
                         'price': 'price_xxxx',
                         'quantity': 1,
                     },
                 ],
-                payment_method_types=['card', ],
                 mode='payment',
                 success_url=settings.SITE_URL +
                 '/?success=true&session_id={CHECKOUT_SESSION_ID}',

@@ -125,7 +125,7 @@ const CartItem = ({ course }) => {
           </Stack>
         </Grid>
         <Grid item>
-          <p>Total: £{course.total_price}</p>
+          <p>Price: £{course.total_price}</p>
         </Grid>
         <Grid sx={{ ml: 2 }} item>
           <Button

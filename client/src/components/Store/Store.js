@@ -11,6 +11,7 @@ const initialState = storedState
       categoryDetails: [],
       reviews: [],
       promotions: [],
+      promotionDetails: [],
       cartId: null,
       cartItems: [],
       wishlistItems: [],
