@@ -85,14 +85,6 @@ class ProductSerializer(serializers.ModelSerializer):
     promotion = ShortPromotionSerializer(read_only=True)
     category = ShortCategorySerializer(read_only=True)
 
-    discounted_price = serializers.SerializerMethodField(
-        method_name='calculate_discount'
-    )
-
-    def calculate_discount(self, product: Product, 
-                            promotion: Promotion):
-        return product.price - product.price * promotion.discount
-
     class Meta:
         model = Product
         fields = [
@@ -103,7 +95,6 @@ class ProductSerializer(serializers.ModelSerializer):
             'tagline',
             'description',
             'price',
-            'discounted_price',
             'category',
             'promotion',
             'reviews',
