@@ -43,19 +43,19 @@ p {
 
 .about {
   min-height: 100vh;
-  background-image: linear-gradient(to right, #e0e0e0, #f06292);
-}
-
-.promotions {
-  min-height: 80vh;
   background-image: linear-gradient(to right, #e0e0e0, #7986cb);
-  clip-path: polygon(0 10%, 100% 5%, 100% 90%, 0% 95%);
 }
 
 .featured-reviews {
   min-height: 100vh;
   background-image: linear-gradient(to right, #7986cb, #f06292);
-  clip-path: polygon(0 0, 100% 5%, 100% 90%, 0% 95%);
+  clip-path: polygon(0 10%, 100% 5%, 100% 90%, 0% 95%);
+}
+
+.promotions {
+  min-height: 80vh;
+  background-image: linear-gradient(to right, #7986cb, #e0e0e0);
+  clip-path: polygon(0 10%, 100% 5%, 100% 90%, 0% 95%);
 }
 
 .featured-courses {

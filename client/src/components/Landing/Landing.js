@@ -22,6 +22,7 @@ const Landing = () => {
                 height: "50px",
                 color: "#fafafa",
                 border: "2px solid #fafafa",
+                textShadow: "1px 1px #212121"
               }}
               size="large"
               className="secondary-btn"
@@ -37,6 +38,7 @@ const Landing = () => {
                 height: "50px",
                 color: "#fafafa",
                 border: "2px solid #fafafa",
+                textShadow: "1px 1px #212121"
               }}
               size="large"
               className="secondary-btn"

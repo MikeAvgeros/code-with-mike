@@ -1,7 +1,7 @@
 import React from "react";
 import Landing from "../Landing/Landing";
 import About from "../About/About";
-import Reviews from "../Reviews/Reviews";
+import FeaturedReviews from "../Reviews/FeaturedReviews";
 import FeaturedCourses from "../Courses/FeaturedCourses";
 import { useSnapshot } from "valtio";
 import store from "../Store/Store";
@@ -20,11 +20,11 @@ const Home = () => {
       <div className="about">
         <About />
       </div>
+      <div className="featured-reviews">
+        <FeaturedReviews reviews={featuredReviews} />
+      </div>
       <div className="promotions">
         <Promotions promotions={snap.promotions} />
-      </div>
-      <div className="featured-reviews">
-        <Reviews reviews={featuredReviews} />
       </div>
       <div className="featured-courses">
         <FeaturedCourses courses={featuredCourses} />

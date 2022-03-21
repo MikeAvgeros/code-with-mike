@@ -43,6 +43,7 @@ import {
   getWishListItems,
 } from "./components/Api/Api";
 import "./App.css";
+import Reviews from "./components/Profile/Reviews";
 
 const App = () => {
   const snap = useSnapshot(store);
@@ -134,6 +135,10 @@ const App = () => {
           <Route
             path="/orders"
             element={snap.token ? <Orders /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/reviews"
+            element={snap.token ? <Reviews /> : <Navigate to="/" />}
           />
           <Route
             path="/review/send/:id"

@@ -6,7 +6,7 @@ const FeaturedCourses = ({ courses }) => {
   return (
     <Container sx={{ mt: "5vh" }}>
       <h2 style={{ textAlign: "center" }}>
-        Featured Courses
+        Featured courses
       </h2>
       <Grid
         container 
