@@ -51,7 +51,15 @@ const WishlistItem = ({ course }) => {
           <p style={{ width: "250px" }}>{course.item.name}</p>
         </Grid>
         <Grid item>
-          <p>£{course.item.price}/mo</p>
+          <p>
+            £
+            {course.item.promotion
+              ? course.item.price -
+                course.item.price * 
+                course.item.promotion.discount
+              : course.item.price}
+            /mo
+          </p>
         </Grid>
         <Grid item>
           <IconButton sx={{ color: "#5e35b1" }} onClick={handleAddItem}>

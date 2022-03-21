@@ -2,9 +2,9 @@ import React from "react";
 import { Container, Grid } from "@mui/material";
 import Review from "./Review";
 
-const Reviews = ({ reviews }) => {
+const FeaturedReviews = ({ reviews }) => {
   return (
-    <Container sx={{ mt: "10vh" }}>
+    <Container sx={{ mt: "12vh" }}>
       <h2 style={{ textAlign: "center" }}>
         Some happy students!
       </h2>
@@ -24,4 +24,4 @@ const Reviews = ({ reviews }) => {
   );
 };
 
-export default Reviews;
+export default FeaturedReviews;
