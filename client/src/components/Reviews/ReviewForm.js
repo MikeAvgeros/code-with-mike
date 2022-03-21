@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSnapshot } from "valtio";
 import store from "../Store/Store";
-import { sendReview } from "../Api/Api";
+import { createReview } from "../Api/Api";
 import {
   Box,
   Container,
@@ -44,7 +44,7 @@ const ReviewForm = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    sendReview(snap.token, name, description, rating, product, customer);
+    createReview(snap.token, name, description, rating, product, customer);
   };
 
   return (

@@ -131,6 +131,101 @@ export const getReviews = async () => {
   }
 };
 
+export const createReview = async (
+  token,
+  name,
+  description,
+  rating,
+  product,
+  customer
+) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Token ${token}`,
+    },
+  };
+  const body = JSON.stringify({
+    name,
+    description,
+    rating,
+    product,
+    customer,
+  });
+  try {
+    const { status } = await api.post("store/reviews/", body, config);
+    if (status === 201) {
+      window.location.assign("https://codewithmike.herokuapp.com/");
+      store.successResponse = "Thank you for your review.";
+      getReviews();
+    }
+  } catch (error) {
+    let errorArray = [];
+    for (const key in error.response.data) {
+      errorArray.push(`${key}: ${error.response.data[key]}`);
+    }
+    store.errorResponses = errorArray;
+  }
+};
+
+export const updateReview = async (
+  token,
+  name,
+  description,
+  rating,
+  reviewId
+) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Token ${token}`,
+    },
+  };
+  const body = JSON.stringify({
+    name,
+    description,
+    rating,
+  });
+  try {
+    const { status } = await api.patch(
+      `store/reviews/${reviewId}/`,
+      body,
+      config
+    );
+    if (status === 200) {
+      getReviews();
+      window.location.assign("https://codewithmike.herokuapp.com/");
+      store.successResponse = "You have successfully updated your review.";
+    }
+  } catch (error) {
+    let errorArray = [];
+    for (const key in error.response.data) {
+      errorArray.push(`${key}: ${error.response.data[key]}`);
+    }
+    store.errorResponses = errorArray;
+  }
+};
+
+export const deleteReview = async (token, reviewId) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Token ${token}`,
+    },
+  };
+  try {
+    await api.delete(`store/reviews/${reviewId}/`, config);
+    getReviews();
+    store.successResponse = "Review was successfully deleted.";
+  } catch (error) {
+    let errorArray = [];
+    for (const key in error.response.data) {
+      errorArray.push(`${key}: ${error.response.data[key]}`);
+    }
+    store.errorResponses = errorArray;
+  }
+};
+
 export const createCart = async () => {
   const config = {
     headers: {
@@ -169,6 +264,29 @@ export const getCartItems = async (cartId) => {
   }
 };
 
+export const addItemToCart = async (itemId, qty, cartId) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const body = JSON.stringify({
+    item_id: itemId,
+    quantity: qty,
+  });
+  try {
+    await api.post(`order/carts/${cartId}/items/`, body, config);
+    getCartItems(cartId);
+    store.successResponse = "Course added to the cart.";
+  } catch (error) {
+    let errorArray = [];
+    for (const key in error.response.data) {
+      errorArray.push(`${key}: ${error.response.data[key]}`);
+    }
+    store.errorResponses = errorArray;
+  }
+};
+
 export const updateCartItem = async (qty, cartId, itemId) => {
   const config = {
     headers: {
@@ -190,7 +308,7 @@ export const updateCartItem = async (qty, cartId, itemId) => {
   }
 };
 
-export const removeItemFromCart = async (cartId, itemId) => {
+export const deleteItemFromCart = async (cartId, itemId) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -220,6 +338,32 @@ export const getWishListItems = async (token, wishlistId) => {
     store.wishlistItems = data.items.sort((a, b) => {
       return a.id - b.id;
     });
+  } catch (error) {
+    let errorArray = [];
+    for (const key in error.response.data) {
+      errorArray.push(`${key}: ${error.response.data[key]}`);
+    }
+    store.errorResponses = errorArray;
+  }
+};
+
+export const deleteItemFromWishlist = async (
+  token,
+  wishlistId,
+  wishlistItemId
+) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Token ${token}`,
+    },
+  };
+  try {
+    await api.delete(
+      `order/wishlist/${wishlistId}/items/${wishlistItemId}/`,
+      config
+    );
+    getWishListItems(token, wishlistId);
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
@@ -444,81 +588,6 @@ export const resetPasswordConfirmation = async (
     if (status === 204) {
       window.location.assign("https://codewithmike.herokuapp.com/login/");
       store.successResponse = "You can now log in with your new password.";
-    }
-  } catch (error) {
-    let errorArray = [];
-    for (const key in error.response.data) {
-      errorArray.push(`${key}: ${error.response.data[key]}`);
-    }
-    store.errorResponses = errorArray;
-  }
-};
-
-export const sendReview = async (
-  token,
-  name,
-  description,
-  rating,
-  product,
-  customer
-) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Token ${token}`,
-    },
-  };
-  const body = JSON.stringify({
-    name,
-    description,
-    rating,
-    product,
-    customer,
-  });
-  try {
-    const { status } = await api.post("store/reviews/", body, config);
-    if (status === 201) {
-      window.location.assign("https://codewithmike.herokuapp.com/");
-      store.successResponse = "Thank you for your review.";
-      getReviews();
-    }
-  } catch (error) {
-    let errorArray = [];
-    for (const key in error.response.data) {
-      errorArray.push(`${key}: ${error.response.data[key]}`);
-    }
-    store.errorResponses = errorArray;
-  }
-};
-
-export const updateReview = async (
-  token,
-  name,
-  description,
-  rating,
-  reviewId
-) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Token ${token}`,
-    },
-  };
-  const body = JSON.stringify({
-    name,
-    description,
-    rating,
-  });
-  try {
-    const { status } = await api.patch(
-      `store/reviews/${reviewId}/`,
-      body,
-      config
-    );
-    if (status === 200) {
-      getReviews();
-      window.location.assign("https://codewithmike.herokuapp.com/");
-      store.successResponse = "You have successfully updated your review.";
     }
   } catch (error) {
     let errorArray = [];

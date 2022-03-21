@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useSnapshot } from "valtio";
 import store from "../Store/Store";
-import { removeItemFromCart, updateCartItem } from "../Api/Api";
+import { deleteItemFromCart, updateCartItem } from "../Api/Api";
 import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
@@ -33,7 +33,7 @@ const CartItem = ({ course }) => {
   };
 
   const handleRemove = () => {
-    removeItemFromCart(snap.cartId, course.id);
+    deleteItemFromCart(snap.cartId, course.id);
   };
 
   return (

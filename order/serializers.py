@@ -1,13 +1,22 @@
+from decimal import Decimal
 from django.db import transaction
 from rest_framework import serializers
-from store.models import Product
+from store.models import Product, Promotion
 from .models import Cart, CartItem, Order, OrderItem, WishList, WishListItem
 
 
+class ShortPromotionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Promotion
+        fields = ['discount']
+
+
 class ShortProductSerializer(serializers.ModelSerializer):
+    promotion = ShortPromotionSerializer()
+
     class Meta:
         model = Product
-        fields = ['id', 'slug', 'name', 'image', 'price']
+        fields = ['id', 'slug', 'name', 'image', 'promotion', 'price']
 
 
 class CartItemSerializer(serializers.ModelSerializer):
@@ -15,6 +24,13 @@ class CartItemSerializer(serializers.ModelSerializer):
     total_price = serializers.SerializerMethodField()
 
     def get_total_price(self, cart_item: CartItem):
+        if (cart_item.item.promotion):
+            return cart_item.quantity * (
+                cart_item.item.price - (
+                    cart_item.item.price * 
+                    Decimal(cart_item.item.promotion.discount)
+                )
+            )
         return cart_item.quantity * cart_item.item.price
 
     class Meta:
@@ -99,6 +115,13 @@ class OrderItemSerializer(serializers.ModelSerializer):
     total_price = serializers.SerializerMethodField()
 
     def get_total_price(self, order_item: OrderItem):
+        if (order_item.item.promotion):
+            return order_item.quantity * (
+                order_item.item.price - (
+                    order_item.item.price * 
+                    Decimal(order_item.item.promotion.discount)
+                )
+            )
         return order_item.quantity * order_item.item.price
 
     class Meta:

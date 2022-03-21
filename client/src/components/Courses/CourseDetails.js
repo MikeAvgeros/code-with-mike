@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { api, getCourseDetails, getCartItems, getReviews } from "../Api/Api";
+import {
+  getCourseDetails,
+  getReviews,
+  addItemToCart,
+  deleteReview,
+} from "../Api/Api";
 import store from "../Store/Store";
 import { useSnapshot } from "valtio";
 import {
@@ -38,49 +43,6 @@ const CourseDetails = () => {
     }
   }, [snap.courseDetails, snap.reviews.length]);
 
-  const addToCart = async () => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    const body = JSON.stringify({
-      item_id: snap.courseDetails.id,
-      quantity: qty,
-    });
-    try {
-      await api.post(`order/carts/${snap.cartId}/items/`, body, config);
-      getCartItems(snap.cartId);
-      store.successResponse = "Course added to the cart.";
-    } catch (error) {
-      let errorArray = [];
-      for (const key in error.response.data) {
-        errorArray.push(`${key}: ${error.response.data[key]}`);
-      }
-      store.errorResponses = errorArray;
-    }
-  };
-
-  const deleteReview = async (e) => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${snap.token}`,
-      },
-    };
-    try {
-      await api.delete(`store/reviews/${e.target.value}/`, config);
-      getReviews();
-      store.successResponse = "Review was successfully deleted.";
-    } catch (error) {
-      let errorArray = [];
-      for (const key in error.response.data) {
-        errorArray.push(`${key}: ${error.response.data[key]}`);
-      }
-      store.errorResponses = errorArray;
-    }
-  };
-
   const increaseQty = () => {
     setQty((prevQty) => prevQty + 1);
   };
@@ -89,6 +51,14 @@ const CourseDetails = () => {
     if (qty > 1) {
       setQty((prevQty) => prevQty - 1);
     }
+  };
+
+  const handleAddToCart = () => {
+    addItemToCart(snap.courseDetails.id, qty, snap.cartId);
+  };
+
+  const handleDeleteReview = (e) => {
+    deleteReview(snap.token, e.target.value);
   };
 
   const pStyle = {
@@ -174,13 +144,21 @@ const CourseDetails = () => {
                     <p style={pStyle}>Student Forum</p>
                   </CardContent>
                   <CardActions sx={{ mb: 1, justifyContent: "center" }}>
-                    <Button onClick={addToCart} className="btn">
+                    <Button onClick={handleAddToCart} className="btn">
                       Add to Cart
                     </Button>
                     <IconButton sx={{ color: "#5e35b1" }} onClick={decreaseQty}>
                       <IndeterminateCheckBoxIcon />
                     </IconButton>
-                    <p style={{ width: "10px", textAlign: "center", marginLeft: "5px" }}>{qty}</p>
+                    <p
+                      style={{
+                        width: "10px",
+                        textAlign: "center",
+                        marginLeft: "5px",
+                      }}
+                    >
+                      {qty}
+                    </p>
                     <IconButton sx={{ color: "#5e35b1" }} onClick={increaseQty}>
                       <AddBoxIcon />
                     </IconButton>
@@ -216,7 +194,7 @@ const CourseDetails = () => {
                       {snap.customer.user &&
                         review.customer.user.username ===
                           snap.customer.user.username && (
-                          <Stack direction="row" spacing={2}>
+                          <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
                             <Link
                               to={`/review/edit/${snap.courseDetails.slug}`}
                               style={{ textDecoration: "none" }}
@@ -229,7 +207,7 @@ const CourseDetails = () => {
                               value={review.id}
                               size="small"
                               className="btn"
-                              onClick={deleteReview}
+                              onClick={handleDeleteReview}
                             >
                               Delete Review
                             </Button>
