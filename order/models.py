@@ -13,6 +13,9 @@ class Cart(models.Model):
     def __str__(self):
         return f'Cart {self.id}'
 
+    class Meta:
+        ordering = ['created_at']
+
 
 class WishList(models.Model):
     id = models.UUIDField(primary_key=True,
@@ -21,11 +24,12 @@ class WishList(models.Model):
                                     on_delete=models.CASCADE, related_name='wishlist')
     created_at = models.DateTimeField(auto_now_add=True)
 
-    class Meta:
-        verbose_name_plural = ("Wish list")
-
     def __str__(self):
         return f'Wishlist {self.id} from {self.customer}'
+
+    class Meta:
+        ordering = ['created_at']
+        verbose_name_plural = ("Wishlist")
 
 
 class Order(models.Model):
@@ -46,6 +50,7 @@ class Order(models.Model):
                                 on_delete=models.PROTECT, related_name='orders')
 
     class Meta:
+        ordering = ['created_at']
         permissions = [
             ('cancel_order', 'Can cancel order')
         ]
@@ -61,11 +66,12 @@ class CartItem(models.Model):
     quantity = models.PositiveSmallIntegerField(default=1,
                                                 validators=[MinValueValidator(1)])
 
-    class Meta:
-        unique_together = [['cart', 'item']]
-
     def __str__(self):
         return f'{self.quantity} x {self.item}'
+
+    class Meta:
+        verbose_name = ("Cart item")
+        unique_together = [['cart', 'item']]
 
 
 class WishListItem(models.Model):
@@ -73,12 +79,12 @@ class WishListItem(models.Model):
                                 blank=True, null=True, related_name='items')
     item = models.ForeignKey(Product, on_delete=models.CASCADE)
 
-    class Meta:
-        verbose_name = ("Wish list item")
-        unique_together = [['wishlist', 'item']]
-
     def __str__(self):
         return f'{self.item}'
+
+    class Meta:
+        verbose_name = ("Wishlist item")
+        unique_together = [['wishlist', 'item']]
 
 
 class OrderItem(models.Model):
@@ -92,4 +98,5 @@ class OrderItem(models.Model):
         return f'{self.quantity} x {self.item}'
 
     class Meta:
+        verbose_name = ("Order item")
         unique_together = [['order', 'item']]

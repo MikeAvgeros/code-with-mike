@@ -16,6 +16,9 @@ class Promotion(models.Model):
     def __str__(self) -> str:
         return self.name
 
+    class Meta:
+        ordering = ['name']
+
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name, allow_unicode=True)
@@ -27,12 +30,12 @@ class Category(models.Model):
     name = models.CharField(max_length=255, unique=True)
     description = models.TextField()
 
+    def __str__(self) -> str:
+        return self.name
+
     class Meta:
         ordering = ['name']
         verbose_name_plural = ('Categories')
-
-    def __str__(self) -> str:
-        return self.name
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -58,6 +61,9 @@ class Product(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+    class Meta:
+        ordering = ['name']
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -90,3 +96,5 @@ class Review(models.Model):
     def __str__(self):
         return f'Review for {self.product.name} from {self.customer.user.username}'
 
+    class Meta:
+        ordering = ['name']

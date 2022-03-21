@@ -157,7 +157,9 @@ export const getCartItems = async (cartId) => {
   };
   try {
     const { data } = await api.get(`order/carts/${cartId}/`, config);
-    store.cartItems = data.items;
+    store.cartItems = data.items.sort((a, b) => {
+      return a.id - b.id;
+    });
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
@@ -215,7 +217,9 @@ export const getWishListItems = async (token, wishlistId) => {
   };
   try {
     const { data } = await api.get(`order/wishlist/${wishlistId}/`, config);
-    store.wishlistItems = data.items;
+    store.wishlistItems = data.items.sort((a, b) => {
+      return a.id - b.id;
+    });
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
