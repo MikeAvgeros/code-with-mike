@@ -8,33 +8,24 @@ const About = () => {
   return (
     <Container sx={{ mt: "5vh" }}>
       <h2 style={{ textAlign: "center" }}>I love to teach you coding!</h2>
-      <Grid
-        container
-        sx={{ mt: "1vh" }}
-        alignItems="center"
-        spacing={5}
-      >
+      <Grid container sx={{ mt: "1vh" }} alignItems="center" spacing={5}>
         <Grid item xs={12} md={6}>
           <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Doloremque
-            molestiae odit eius veniam dolores commodi exercitationem provident
-            harum itaque dolorum cumque temporibus, alias eligendi ipsum nostrum
-            fugit! Reiciendis, harum animi. Sit cumque natus quas aut
-            perferendis eos hic? Quos expedita molestiae perferendis natus quis
-            quam asperiores odio eveniet praesentium, cum maxime omnis. Dolorum
-            voluptates facilis quisquam laborum dolore aperiam recusandae!
-            Inventore odio praesentium deleniti totam, neque incidunt laudantium
-            ipsum quibusdam voluptatum suscipit esse aliquam ex sint ad
-            perferendis vitae, tempora repudiandae! Rem hic sequi quod non vero
-            dignissimos autem blanditiis. Corporis mollitia, libero repellat
-            recusandae quisquam cum, ad sit autem officiis modi fugiat eligendi
-            ducimus sapiente hic. Harum, quod perspiciatis deserunt inventore
-            enim omnis maiores earum minus, ex eius ea. Perspiciatis nisi velit
-            illum cumque earum dolore enim non assumenda id.
+            My name is Mike and my team and I would love to teach you coding.
+            Our mission is to help novice and professional software engineers
+            increase their skills, make more money, and ultimately change their
+            lives for the better. Our team of expert software developers have
+            been teaching thousands of students for many years. Our students now
+            work for big companies such as Facebook, Google, Microsoft and
+            Amazon to name a few. Our courses offer students the skills and
+            support to advance their careers quickly. We combine high-quality
+            content, frequent updates to stay up to date with trends in
+            technology, and most importantly one-to-one support to help you
+            really understand the content and facilitate success.
           </p>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Image sx={{ maxWidth: "450px" }} src={coding} />
+          <Image sx={{ maxWidth: "320px" }} src={coding} />
         </Grid>
       </Grid>
       <Grid
@@ -45,32 +36,30 @@ const About = () => {
       >
         <Grid item xs={12} md={6}>
           <Image
-            sx={{ maxWidth: "480px", display: { xs: "none", md: "grid" } }}
+            sx={{ maxWidth: "350px", display: { xs: "none", md: "grid" } }}
             src={messages}
           />
         </Grid>
         <Grid item xs={12} md={6}>
           <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Doloremque
-            molestiae odit eius veniam dolores commodi exercitationem provident
-            harum itaque dolorum cumque temporibus, alias eligendi ipsum nostrum
-            fugit! Reiciendis, harum animi. Sit cumque natus quas aut
-            perferendis eos hic? Quos expedita molestiae perferendis natus quis
-            quam asperiores odio eveniet praesentium, cum maxime omnis. Dolorum
-            voluptates facilis quisquam laborum dolore aperiam recusandae!
-            Inventore odio praesentium deleniti totam, neque incidunt laudantium
-            ipsum quibusdam voluptatum suscipit esse aliquam ex sint ad
-            perferendis vitae, tempora repudiandae! Rem hic sequi quod non vero
-            dignissimos autem blanditiis. Corporis mollitia, libero repellat
-            recusandae quisquam cum, ad sit autem officiis modi fugiat eligendi
-            ducimus sapiente hic. Harum, quod perspiciatis deserunt inventore
-            enim omnis maiores earum minus, ex eius ea. Perspiciatis nisi velit
-            illum cumque earum dolore enim non assumenda id.
+            All courses are simple to follow and beginner friendly. They break
+            down complex topics into simple, digestible lessons that anyone can
+            understand. Once students have fully grasped the fundamentals, we
+            also cover advanced software engineering concepts for frontend,
+            backend and mobile development. The way the content works is every
+            course is split up into 3 difficulty levels, with a real-world
+            project to submit upon completion. Upon successful completion of
+            each level, students are awarded with a certificate of completion.
+            The content is constantly being updated to reflect new trends in
+            technology and best practices. Students can access courses on a
+            monthly basis and can freeze and resume their membership as they
+            deem necessary. We strive to add new courses frequently for every
+            new cool framework or language.
           </p>
         </Grid>
         <Grid item xs={12} md={6}>
           <Image
-            sx={{ maxWidth: "480px", display: { md: "none" } }}
+            sx={{ maxWidth: "350px", display: { md: "none" } }}
             src={messages}
           />
         </Grid>

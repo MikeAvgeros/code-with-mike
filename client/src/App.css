@@ -82,7 +82,13 @@ p {
   color: #d81b60;
 }
 
-.header-icon:hover {
+.footer-icon {
+  color: #fafafa;
+  margin-right: 10px;
+}
+
+.header-icon:hover,
+.footer-icon:hover {
   color: #d81b60;
 }
 
