@@ -148,7 +148,7 @@ p {
   color: #fafafa;
   text-shadow: 1px 1px #212121;
   font-weight: 600 !important;
-  font-size: calc(1vw + 22px) !important;
+  font-size: calc(1vw + 26px) !important;
   letter-spacing: 1px;
   text-align: center;
   margin-bottom: 36px;
@@ -157,7 +157,7 @@ p {
 .subtitle {
   color: #fafafa;
   text-shadow: 1px 1px #212121;
-  font-size: calc(.5vw + 16px) !important;
+  font-size: calc(.5vw + 18px) !important;
   letter-spacing: 1px;
   text-align: center;
 }

@@ -29,7 +29,7 @@ const OrderItem = ({ order }) => {
               key={i}
               alignItems="center"
               sx={{ mb: 2 }}
-              spacing={3}
+              spacing={2}
             >
               <Grid item>
                 <Avatar alt={item.item.name} src={item.item.image} />
@@ -48,17 +48,17 @@ const OrderItem = ({ order }) => {
         <Grid
           container
           alignItems="center"
-          sx={{ mb: 2 }}
-          spacing={3}
+          sx={{ mt: 2 }}
+          spacing={2}
         >
-          <Grid item xs={8}>
-            <p style={{ marginBottom: 2 }}>Date of Purchase: {order.created_at.split("T")[0]}</p>
-            <p style={{ marginBottom: 2 }}>Payment Status: {order.payment_status}</p>
-            <p style={{ fontWeight: "bold", marginBottom: 2 }}>Total Price: £{order.total_price}</p>
-            <p style={{ fontWeight: "bold", marginBottom: 2 }}>VAT: £{vat}</p>
-            <p style={{ fontWeight: "bold", marginBottom: 2 }}>Grand Total: £{order.total_price + vat}</p>
+          <Grid item xs={12}>
+            <p style={{ marginBottom: 3 }}>Date of Purchase: {order.created_at.split("T")[0]}</p>
+            <p style={{ marginBottom: 3 }}>Payment Status: {order.payment_status}</p>
+            <p style={{ fontWeight: "bold", marginBottom: 3 }}>Total Price: £{order.total_price}</p>
+            <p style={{ fontWeight: "bold", marginBottom: 3 }}>VAT: £{vat}</p>
+            <p style={{ fontWeight: "bold", marginBottom: 3 }}>Grand Total: £{order.total_price + vat}</p>
           </Grid>
-          <Grid item xs={4} sx={{ alignSelf: "end" }}>
+          <Grid item xs={12}>
             {order.payment_status === "Success" ? (
               <Link to={`/review/send/${order.id}`} style={{ textDecoration: "none" }}>
                 <Button size="small" className="btn">

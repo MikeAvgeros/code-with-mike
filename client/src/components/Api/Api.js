@@ -488,6 +488,7 @@ export const updateProfile = async (
     if (image) {
       updatePhoto(token, image);
     }
+    store.successResponse = "Your profile was successfully updated.";
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {

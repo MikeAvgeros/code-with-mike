@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { sendEmail } from "../Api/Api";
+import store from "../Store/Store";
+import { useSnapshot } from "valtio";
 import {
   Box,
   Container,
@@ -12,9 +14,11 @@ import {
 import EmailIcon from "@mui/icons-material/Email";
 
 const Contact = () => {
+  const snap = useSnapshot(store);
+
   const [formData, setFormData] = useState({
-    email: "",
-    name: "",
+    email: snap.customer.user ? snap.customer.user.email : "",
+    name: snap.customer.user ? snap.customer.user.username : "",
     message: "",
   });
 
