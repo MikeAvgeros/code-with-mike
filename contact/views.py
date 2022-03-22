@@ -19,5 +19,11 @@ class ContactView(views.APIView):
                 email,
                 [settings.EMAIL_HOST_USER],
             )
+            send_mail(
+                f'Email from codewithmike',
+                'Thank you for getting in touch with us.',
+                settings.EMAIL_HOST_USER,
+                [email],
+            )
             return Response({"success": "Sent"})
         return Response({'success': "Failed"}, status=status.HTTP_400_BAD_REQUEST)
