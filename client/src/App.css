@@ -174,4 +174,8 @@ p {
   .featured-reviews {
     clip-path: polygon(0 7.5%, 100% 5%, 100% 92.5%, 0% 95%);
   }
+
+  .promotions {
+    clip-path: polygon(0 7.5%, 100% 5%, 100% 92.5%, 0% 95%);
+  }
 }
