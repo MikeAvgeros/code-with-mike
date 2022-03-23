@@ -19,6 +19,7 @@ const Wishlist = () => {
       <Box
         sx={{
           mt: 12,
+          mb: 7,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",

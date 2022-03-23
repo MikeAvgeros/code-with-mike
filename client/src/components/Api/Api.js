@@ -347,6 +347,27 @@ export const getWishListItems = async (token, wishlistId) => {
   }
 };
 
+export const addToWishList = async (token, wishlistId, courseId) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Token ${token}`,
+    },
+  };
+  const body = JSON.stringify({ item_id: courseId });
+  try {
+    await api.post(`order/wishlist/${wishlistId}/items/`, body, config);
+    getWishListItems(token, wishlistId);
+    store.successResponse = "Course added to the wishlist.";
+  } catch (error) {
+    let errorArray = [];
+    for (const key in error.response.data) {
+      errorArray.push(`${key}: ${error.response.data[key]}`);
+    }
+    store.errorResponses = errorArray;
+  }
+};
+
 export const deleteItemFromWishlist = async (
   token,
   wishlistId,

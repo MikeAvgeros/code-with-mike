@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { api } from "../Api/Api";
+import { addToWishList } from "../Api/Api";
 import store from "../Store/Store";
 import { snapshot } from "valtio";
 import {
@@ -43,48 +43,8 @@ const Course = ({ course }) => {
     return summary.join(" ") + "...";
   };
 
-  const getWishlistItems = async () => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${snap.token}`,
-      },
-    };
-    try {
-      const { data } = await api.get(
-        `order/wishlist/${snap.customer.wishlist}/`,
-        config
-      );
-      store.wishlistItems = data.items;
-    } catch (error) {
-      let errorArray = [];
-      for (const key in error.response.data) {
-        errorArray.push(`${key}: ${error.response.data[key]}`);
-      }
-      store.errorResponses = errorArray;
-    }
-  };
-
-  const addToWishList = async () => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${snap.token}`,
-      },
-    };
-    const wishlist = snap.customer.wishlist;
-    const body = JSON.stringify({ item_id: course.id });
-    try {
-      await api.post(`order/wishlist/${wishlist}/items/`, body, config);
-      getWishlistItems();
-      store.successResponse = "Course added to the wishlist.";
-    } catch (error) {
-      let errorArray = [];
-      for (const key in error.response.data) {
-        errorArray.push(`${key}: ${error.response.data[key]}`);
-      }
-      store.errorResponses = errorArray;
-    }
+  const handleAddToWishlist = () => {
+    addToWishList(snap.token, snap.customer.wishlist, course.id);
   };
 
   return (
@@ -108,12 +68,16 @@ const Course = ({ course }) => {
       </CardContent>
       <CardActions>
         {snap.userAuthenticated && allowWishlist && (
-          <IconButton sx={{ mb: 1 }} onClick={addToWishList}>
+          <IconButton sx={{ mb: 1 }} onClick={handleAddToWishlist}>
             <FavoriteIcon className="heart-icon" />
           </IconButton>
         )}
-        <Link 
-          style={{ textDecoration: "none", marginLeft: "5px", marginBottom: "5px" }}
+        <Link
+          style={{
+            textDecoration: "none",
+            marginLeft: "5px",
+            marginBottom: "5px",
+          }}
           className="btn"
           to={`/course/${course.slug}`}
         >

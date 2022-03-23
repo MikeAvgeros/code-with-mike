@@ -19,13 +19,14 @@ const Cart = () => {
 
   useEffect(() => {
     getCartItems(snap.cartId);
-  }, []);
+  }, [snap.cartId]);
 
   return (
     <Container component="main">
       <Box
         sx={{
           mt: 12,
+          mb: 7,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -53,7 +54,7 @@ const Cart = () => {
         </Stack>
         {snap.cartItems.length > 0 && (
           <Link to="/checkout" style={{ textDecoration: "none" }}>
-            <Button sx={{ mt: 5, mb: 5 }} className="btn">
+            <Button sx={{ mt: 5 }} className="btn">
               Checkout
             </Button>
           </Link>

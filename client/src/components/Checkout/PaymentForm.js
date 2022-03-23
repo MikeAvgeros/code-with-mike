@@ -1,6 +1,5 @@
 import React from "react";
-import { Grid, TextField, Button } from "@mui/material";
-import { payment } from "../Api/Api";
+import { Grid, TextField } from "@mui/material";
 
 const PaymentForm = () => {
   return (
@@ -47,11 +46,6 @@ const PaymentForm = () => {
             autoComplete="cc-csc"
             variant="standard"
           />
-        </Grid>
-        <Grid item xs={12}>
-          <Button className="btn" onClick={payment}>
-            Pay
-          </Button>
         </Grid>
       </Grid>
     </React.Fragment>
