@@ -31,6 +31,7 @@ import Terms from "./components/Terms/Terms";
 import Privacy from "./components/Privacy/Privacy";
 import Alerts from "./components/Alerts/Alerts";
 import Footer from "./components/Footer/Footer";
+import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import Box from "@mui/material/Box";
 import {
   getCourses,
@@ -99,73 +100,76 @@ const App = () => {
         }}
       >
         <Header />
-        <Routes>
-          <Route path="*" element={<Home />} />
-          <Route path="/courses" element={<Courses />} />
-          <Route path="/course/:id" element={<CourseDetails />} />
-          <Route path="/categories" element={<Categories />} />
-          <Route path="/category/:id" element={<CategoryDetails />} />
-          <Route 
-            path="/promotion/:id" 
-            element={snap.promotions ? <PromotionDetails /> : <Navigate to="/" />} 
-          />
-          <Route path="/cart" element={<Cart />} />
-          <Route
-            path="/signup"
-            element={!snap.token ? <Signup /> : <Navigate to="/profile" />}
-          />
-          <Route
-            path="/login"
-            element={!snap.token ? <Login /> : <Navigate to="/profile" />}
-          />
-          <Route path="/reset/password" element={<ResetPassword />} />
-          <Route
-            exact
-            path="/password/reset/confirm/:uid/:token"
-            element={<ResetPasswordConfirm />}
-          />
-          <Route
-            path="/profile"
-            element={snap.token ? <Profile /> : <Navigate to="/login" />}
-          />
-          <Route
-            path="/profile/delete"
-            element={snap.token ? <DeleteUser /> : <Navigate to="/login" />}
-          />
-          <Route
-            path="/orders"
-            element={snap.token ? <Orders /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/reviews"
-            element={snap.token ? <Reviews /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/review/send/:id"
-            element={snap.token ? <ReviewForm /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/review/edit/:id"
-            element={snap.token ? <EditReview /> : <Navigate to="/" />}
-          />
-          <Route 
-            path="/wishlist" 
-            element={snap.token ? <Wishlist /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/checkout"
-            element={
-              snap.cartItems.length > 0 || snap.orders.length > 0 ? (
-                <Checkout />
-              ) : (
-                <Navigate to="/" />
-              )
-            }
-          />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/terms" element={<Terms />} />
-          <Route path="/privacy" element={<Privacy />} />
-        </Routes>
+        <ScrollToTop>
+          <Routes>
+            <Route path="*" element={<Home />} />
+            <Route path="/courses" element={<Courses />} />
+            <Route path="/course/:id" element={<CourseDetails />} />
+            <Route path="/categories" element={<Categories />} />
+            <Route path="/category/:id" element={<CategoryDetails />} />
+            <Route
+              path="/promotion/:id"
+              element={
+                snap.promotions ? <PromotionDetails /> : <Navigate to="/" />
+              }
+            />
+            <Route path="/cart" element={<Cart />} />
+            <Route
+              path="/signup"
+              element={!snap.token ? <Signup /> : <Navigate to="/profile" />}
+            />
+            <Route
+              path="/login"
+              element={!snap.token ? <Login /> : <Navigate to="/profile" />}
+            />
+            <Route path="/reset/password" element={<ResetPassword />} />
+            <Route
+              path="/password/reset/confirm/:uid/:token"
+              element={<ResetPasswordConfirm />}
+            />
+            <Route
+              path="/profile"
+              element={snap.token ? <Profile /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/profile/delete"
+              element={snap.token ? <DeleteUser /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/orders"
+              element={snap.token ? <Orders /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/reviews"
+              element={snap.token ? <Reviews /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/review/send/:id"
+              element={snap.token ? <ReviewForm /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/review/edit/:id"
+              element={snap.token ? <EditReview /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/wishlist"
+              element={snap.token ? <Wishlist /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/checkout"
+              element={
+                snap.cartItems.length > 0 && snap.token ? (
+                  <Checkout />
+                ) : (
+                  <Navigate to="/" />
+                )
+              }
+            />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/privacy" element={<Privacy />} />
+          </Routes>
+        </ScrollToTop>
         <Alerts />
         <Footer />
       </Box>

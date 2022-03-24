@@ -21,6 +21,14 @@ const Cart = () => {
     getCartItems(snap.cartId);
   }, [snap.cartId]);
 
+  const handleCheckout = () => {
+    if (!snap.token) {
+      store.errorResponses = [
+        "You need to be logged in in order to place an order",
+      ];
+    }
+  };
+
   return (
     <Container component="main">
       <Box
@@ -54,7 +62,7 @@ const Cart = () => {
         </Stack>
         {snap.cartItems.length > 0 && (
           <Link to="/checkout" style={{ textDecoration: "none" }}>
-            <Button sx={{ mt: 5 }} className="btn">
+            <Button sx={{ mt: 5 }} className="btn" onClick={handleCheckout}>
               Checkout
             </Button>
           </Link>
