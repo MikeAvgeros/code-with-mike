@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { addToWishList } from "../Api/Api";
+import { addItemToWishlist } from "../Api/Api";
 import store from "../Store/Store";
 import { snapshot } from "valtio";
 import {
@@ -44,7 +44,7 @@ const Course = ({ course }) => {
   };
 
   const handleAddToWishlist = () => {
-    addToWishList(snap.token, snap.customer.wishlist, course.id);
+    addItemToWishlist(snap.token, snap.customer.wishlist, course.id);
   };
 
   return (

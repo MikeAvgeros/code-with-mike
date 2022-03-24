@@ -23,7 +23,7 @@ const WishlistItem = ({ course }) => {
     (w) => w.item.id === parseInt(course.item.id)
   );
 
-  const handleAddItem = () => {
+  const handleAddToCart = () => {
     addItemToCart(course.item.id, 1, snap.cartId);
     deleteItemFromWishlist(snap.token, snap.customer.wishlist, wishlistItem.id);
   };
@@ -62,7 +62,7 @@ const WishlistItem = ({ course }) => {
           </p>
         </Grid>
         <Grid item>
-          <IconButton sx={{ color: "#5e35b1" }} onClick={handleAddItem}>
+          <IconButton sx={{ color: "#5e35b1" }} onClick={handleAddToCart}>
             <ShoppingCartIcon />
           </IconButton>
         </Grid>

@@ -41,7 +41,7 @@ import {
   createCart,
   getCartItems,
   getCustomer,
-  getWishListItems,
+  getWishlistItems,
 } from "./components/Api/Api";
 import "./App.css";
 import Reviews from "./components/Profile/Reviews";
@@ -85,7 +85,7 @@ const App = () => {
         getCustomer(snap.token);
       }
       if (snap.customer.wishlist && snap.wishlistItems.length === 0) {
-        getWishListItems(snap.token, snap.customer.wishlist);
+        getWishlistItems(snap.token, snap.customer.wishlist);
       }
     }
   }, [snap.token, snap.customer, snap.wishlistItems.length]);
@@ -161,7 +161,7 @@ const App = () => {
                 snap.cartItems.length > 0 && snap.token ? (
                   <Checkout />
                 ) : (
-                  <Navigate to="/" />
+                  <Navigate to="/cart" />
                 )
               }
             />

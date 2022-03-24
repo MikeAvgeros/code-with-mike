@@ -275,9 +275,15 @@ export const addItemToCart = async (itemId, qty, cartId) => {
     quantity: qty,
   });
   try {
-    await api.post(`order/carts/${cartId}/items/`, body, config);
-    getCartItems(cartId);
-    store.successResponse = "Course added to the cart.";
+    const { status } = await api.post(
+      `order/carts/${cartId}/items/`,
+      body,
+      config
+    );
+    if (status === 201) {
+      getCartItems(cartId);
+      store.successResponse = "Course successfully added to the cart.";
+    }
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
@@ -326,7 +332,7 @@ export const deleteItemFromCart = async (cartId, itemId) => {
   }
 };
 
-export const getWishListItems = async (token, wishlistId) => {
+export const getWishlistItems = async (token, wishlistId) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -347,7 +353,7 @@ export const getWishListItems = async (token, wishlistId) => {
   }
 };
 
-export const addToWishList = async (token, wishlistId, courseId) => {
+export const addItemToWishlist = async (token, wishlistId, courseId) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -356,9 +362,15 @@ export const addToWishList = async (token, wishlistId, courseId) => {
   };
   const body = JSON.stringify({ item_id: courseId });
   try {
-    await api.post(`order/wishlist/${wishlistId}/items/`, body, config);
-    getWishListItems(token, wishlistId);
-    store.successResponse = "Course added to the wishlist.";
+    const { status } = await api.post(
+      `order/wishlist/${wishlistId}/items/`,
+      body,
+      config
+    );
+    if (status === 201) {
+      getWishlistItems(token, wishlistId);
+      store.successResponse = "Course successfully added to the wishlist.";
+    }
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
@@ -384,7 +396,7 @@ export const deleteItemFromWishlist = async (
       `order/wishlist/${wishlistId}/items/${wishlistItemId}/`,
       config
     );
-    getWishListItems(token, wishlistId);
+    getWishlistItems(token, wishlistId);
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
