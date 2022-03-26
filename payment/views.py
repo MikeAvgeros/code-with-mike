@@ -19,7 +19,7 @@ class StripePayment(APIView):
             amount = data.get('amount')
             try:
                 intent = stripe.PaymentIntent.create(
-                    amount=amount,
+                    amount=(amount + amount * 0.20) * 100,
                     currency='gbp',
                     automatic_payment_methods={
                         'enabled': True,
