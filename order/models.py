@@ -17,6 +17,21 @@ class Cart(models.Model):
         ordering = ['created_at']
 
 
+class CartItem(models.Model):
+    cart = models.ForeignKey(
+        Cart, on_delete=models.CASCADE, related_name='items')
+    item = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveSmallIntegerField(default=1,
+                                                validators=[MinValueValidator(1)])
+
+    def __str__(self):
+        return f'{self.quantity} x {self.item}'
+
+    class Meta:
+        verbose_name = ("Cart item")
+        unique_together = [['cart', 'item']]
+
+
 class WishList(models.Model):
     id = models.UUIDField(primary_key=True,
                         max_length=250, default=uuid4)
@@ -30,6 +45,19 @@ class WishList(models.Model):
     class Meta:
         ordering = ['created_at']
         verbose_name_plural = ("Wishlist")
+
+
+class WishListItem(models.Model):
+    wishlist = models.ForeignKey(WishList, on_delete=models.CASCADE,
+                                blank=True, null=True, related_name='items')
+    item = models.ForeignKey(Product, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.item}'
+
+    class Meta:
+        verbose_name = ("Wishlist item")
+        unique_together = [['wishlist', 'item']]
 
 
 class Order(models.Model):
@@ -46,6 +74,7 @@ class Order(models.Model):
     payment_status = models.CharField(
         max_length=7, choices=PAYMENT_STATUS,
         default=PAYMENT_PENDING)
+    client_secret = models.CharField(max_length=255, blank=True, null=True)
     customer = models.ForeignKey(Customer,
                                 on_delete=models.PROTECT, related_name='orders')
 
@@ -59,40 +88,13 @@ class Order(models.Model):
         return f'Order {self.id} from {self.customer}'
 
 
-class CartItem(models.Model):
-    cart = models.ForeignKey(
-        Cart, on_delete=models.CASCADE, related_name='items')
-    item = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.PositiveSmallIntegerField(default=1,
-                                                validators=[MinValueValidator(1)])
-
-    def __str__(self):
-        return f'{self.quantity} x {self.item}'
-
-    class Meta:
-        verbose_name = ("Cart item")
-        unique_together = [['cart', 'item']]
-
-
-class WishListItem(models.Model):
-    wishlist = models.ForeignKey(WishList, on_delete=models.CASCADE,
-                                blank=True, null=True, related_name='items')
-    item = models.ForeignKey(Product, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f'{self.item}'
-
-    class Meta:
-        verbose_name = ("Wishlist item")
-        unique_together = [['wishlist', 'item']]
-
-
 class OrderItem(models.Model):
     order = models.ForeignKey(
         Order, on_delete=models.PROTECT, related_name='items')
     item = models.ForeignKey(
         Product, on_delete=models.PROTECT, related_name='orderitems')
-    quantity = models.PositiveSmallIntegerField(default=1)
+    quantity = models.PositiveSmallIntegerField(default=1,
+                                                validators=[MinValueValidator(1)])
 
     def __str__(self):
         return f'{self.quantity} x {self.item}'

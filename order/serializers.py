@@ -27,7 +27,7 @@ class CartItemSerializer(serializers.ModelSerializer):
         if (cart_item.item.promotion):
             return cart_item.quantity * (
                 cart_item.item.price - (
-                    cart_item.item.price * 
+                    cart_item.item.price *
                     Decimal(cart_item.item.promotion.discount)
                 )
             )
@@ -74,6 +74,15 @@ class UpdateCartItemSerializer(serializers.ModelSerializer):
         fields = ['quantity']
 
 
+class CartSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    items = CartItemSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Cart
+        fields = ['id', 'items']
+
+
 class WishListItemSerializer(serializers.ModelSerializer):
     item = ShortProductSerializer()
 
@@ -110,6 +119,15 @@ class AddWishListItemSerializer(serializers.ModelSerializer):
         fields = ['id', 'item_id']
 
 
+class WishListSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    items = WishListItemSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = WishList
+        fields = ['id', 'customer', 'items']
+
+
 class OrderItemSerializer(serializers.ModelSerializer):
     item = ShortProductSerializer()
     total_price = serializers.SerializerMethodField()
@@ -118,7 +136,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
         if (order_item.item.promotion):
             return order_item.quantity * (
                 order_item.item.price - (
-                    order_item.item.price * 
+                    order_item.item.price *
                     Decimal(order_item.item.promotion.discount)
                 )
             )
@@ -129,39 +147,13 @@ class OrderItemSerializer(serializers.ModelSerializer):
         fields = ['id', 'item', 'quantity', 'total_price']
 
 
-class CartSerializer(serializers.ModelSerializer):
-    id = serializers.UUIDField(read_only=True)
-    items = CartItemSerializer(many=True, read_only=True)
-    total_price = serializers.SerializerMethodField()
-
-    def get_total_price(self, cart):
-        return sum([item.quantity * item.item.price for item in cart.items.all()])
-
-    class Meta:
-        model = Cart
-        fields = ['id', 'items', 'total_price']
-
-
-class WishListSerializer(serializers.ModelSerializer):
-    id = serializers.UUIDField(read_only=True)
-    items = WishListItemSerializer(many=True, read_only=True)
-
-    class Meta:
-        model = WishList
-        fields = ['id', 'customer', 'items']
-
-
 class OrderSerializer(serializers.ModelSerializer):
     items = OrderItemSerializer(many=True)
-    total_price = serializers.SerializerMethodField()
-
-    def get_total_price(self, order):
-        return sum([item.quantity * item.item.price for item in order.items.all()])
 
     class Meta:
         model = Order
         fields = ['id', 'customer', 'items', 'created_at',
-                'total_price', 'payment_status']
+                'payment_status', 'client_secret']
 
 
 class CreateOrderSerializer(serializers.Serializer):
