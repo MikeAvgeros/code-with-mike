@@ -9,10 +9,8 @@ const Orders = () => {
   const snap = useSnapshot(store);
 
   useEffect(() => {
-    if (snap.orders.length === 0) {
-      getOrders(snap.token);
-    }
-  }, [snap.orders.length, snap.token])
+    getOrders(snap.token);
+  }, [snap.token])
 
   return (
     <Container sx={{ mt: 12, mb: 5 }}>

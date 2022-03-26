@@ -17,6 +17,7 @@ const Alerts = () => {
     if (snap.errorResponses.length > 0) {
       setState({
         ...state,
+        severity: "error",
         open: true,
         message: snap.errorResponses[0],
       });
@@ -52,7 +53,7 @@ const Alerts = () => {
         }}
         open={state.open}
         onClose={handleClose}
-        autoHideDuration={5000}
+        autoHideDuration={3000}
       >
         <Alert
           variant="filled"

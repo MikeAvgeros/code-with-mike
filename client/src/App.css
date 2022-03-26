@@ -16,7 +16,7 @@ body, html {
 
 h2 {
   font-size: calc(1vw + 22px);
-  margin-bottom: 10px;
+  margin-bottom: 1vw;
 }
 
 h3 {
@@ -257,11 +257,11 @@ button:disabled {
   }
   
   .featured-reviews {
-    clip-path: polygon(0 7.5%, 100% 5%, 100% 92.5%, 0% 95%);
+    clip-path: polygon(0 2.5%, 100% 5%, 100% 97.5%, 0% 95%);
   }
 
   .promotions {
-    clip-path: polygon(0 7.5%, 100% 5%, 100% 92.5%, 0% 95%);
+    clip-path: polygon(0 2.5%, 100% 5%, 100% 97.5%, 0% 95%);
   }
 
   #payment-form {

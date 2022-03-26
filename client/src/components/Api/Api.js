@@ -556,25 +556,6 @@ export const deleteUser = async (token, current_password) => {
   }
 };
 
-export const getOrders = async (token) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Token ${token}`,
-    },
-  };
-  try {
-    const { data } = await api.get("order/checkout/", config);
-    store.orders = data;
-  } catch (error) {
-    let errorArray = [];
-    for (const key in error.response.data) {
-      errorArray.push(`${key}: ${error.response.data[key]}`);
-    }
-    store.errorResponses = errorArray;
-  }
-};
-
 export const resetPassword = async (email) => {
   const config = {
     headers: {
@@ -659,6 +640,48 @@ export const sendEmail = async (email, name, message) => {
   }
 };
 
+export const getOrders = async (token) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Token ${token}`,
+    },
+  };
+  try {
+    const { data } = await api.get("order/checkout/", config);
+    store.orders = data;
+  } catch (error) {
+    let errorArray = [];
+    for (const key in error.response.data) {
+      errorArray.push(`${key}: ${error.response.data[key]}`);
+    }
+    store.errorResponses = errorArray;
+  }
+};
+
+export const updateOrder = async (token, body, orderId, redirect) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Token ${token}`,
+    },
+  };
+  alert(body)
+  try {
+    await api.patch(`order/checkout/${orderId}/`, body, config);
+    if (redirect) {
+      window.location.assign("http://localhost:3000/orders/");
+      store.orderId = null;
+    }
+  } catch (error) {
+    let errorArray = [];
+    for (const key in error.response.data) {
+      errorArray.push(`${key}: ${error.response.data[key]}`);
+    }
+    store.errorResponses = errorArray;
+  }
+};
+
 export const createPaymentIntent = async (token, amount) => {
   const config = {
     headers: {
@@ -669,16 +692,12 @@ export const createPaymentIntent = async (token, amount) => {
   try {
     const { data } = await api.post(
       "payment/stripe",
-      { amount: amount },
+      {amount: amount},
       config
     );
     store.clientSecret = data.clientSecret;
   } catch (error) {
-    let errorArray = [];
-    for (const key in error.response.data) {
-      errorArray.push(`${key}: ${error.response.data[key]}`);
-    }
-    store.errorResponses = errorArray;
+    store.errorResponses = Array.from(error);
   }
 };
 
@@ -692,34 +711,15 @@ export const checkout = async (token, cartId) => {
   const body = JSON.stringify({ cart_id: cartId });
   try {
     const { data } = await api.post("order/checkout/", body, config);
-    store.successResponse = "Order submitted successfully.";
-    createPaymentIntent(token, data.total_price);
     store.orderId = data.id;
+    store.successResponse = "Order submitted successfully.";
+    let prices = [];
+    data.items.forEach(item => prices.push(item.total_price));
+    const totalAmount = prices.reduce((a, b) => a + b, 0);
+    createPaymentIntent(token, totalAmount);
     store.cartId = null;
     store.cartItems = [];
     getOrders(token);
-  } catch (error) {
-    let errorArray = [];
-    for (const key in error.response.data) {
-      errorArray.push(`${key}: ${error.response.data[key]}`);
-    }
-    store.errorResponses = errorArray;
-  }
-};
-
-export const updateOrder = async (token, status, orderId) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Token ${token}`,
-    },
-  };
-  const body = JSON.stringify({ payment_status: status });
-  try {
-    await api.patch(`order/checkout/${orderId}/`, body, config);
-    getOrders(token);
-    window.location.assign("http://localhost:3000/orders/");
-    store.orderId = null;
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {

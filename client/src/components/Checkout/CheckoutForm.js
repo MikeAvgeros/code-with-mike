@@ -6,9 +6,9 @@ import {
 } from "@stripe/react-stripe-js";
 import { useSnapshot } from "valtio";
 import store from "../Store/Store";
+import { updateOrder } from "../Api/Api";
 import { Container, Box, Avatar, Button, Typography } from "@mui/material";
 import PaymentsIcon from "@mui/icons-material/Payments";
-import { updateOrder } from "../Api/Api";
 
 export default function CheckoutForm() {
   const snap = useSnapshot(store);
@@ -32,7 +32,12 @@ export default function CheckoutForm() {
         if (status === "succeeded") {
           store.successResponse = "Thank you. Payment was successful!";
           store.clientSecret = null;
-          updateOrder(snap.token, "Success", snap.orderId);
+          const body = JSON.stringify({ payment_status: "Success" });
+          updateOrder(snap.token, body, snap.orderId, true);
+        }
+        if (status === "requires_payment_method") {
+          const body = JSON.stringify({ client_secret: snap.clientSecret });
+          updateOrder(snap.token, body, snap.orderId, false);
         }
       },
       [stripe, snap.clientSecret, status]
@@ -103,12 +108,11 @@ export default function CheckoutForm() {
                 {isLoading ? (
                   <div className="spinner" id="spinner"></div>
                 ) : (
-                  `Pay ${amount}`
+                  `Pay £${amount}`
                 )}
               </span>
             </Button>
           )}
-          
         </Box>
       </Box>
     </Container>
