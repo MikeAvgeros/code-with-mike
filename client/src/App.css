@@ -100,7 +100,7 @@ p {
 }
 
 .primary-btn:hover {
-  filter: contrast(200%);
+  background-image: linear-gradient(to right, #d81b60, #5e35b1) !important;
 }
 
 .secondary-btn {

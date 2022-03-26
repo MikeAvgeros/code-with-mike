@@ -29,10 +29,6 @@ const Cart = () => {
     }
     if (snap.token && snap.cartId) {
       checkout(snap.token, snap.cartId);
-    } else {
-      store.errorResponses = [
-        "Something went wrong when trying to checkout.",
-      ];
     }
   };
 

@@ -31,8 +31,10 @@ export default function CheckoutForm() {
         setStatus(paymentIntent.status);
         if (status === "succeeded") {
           store.successResponse = "Thank you. Payment was successful!";
-          store.clientSecret = null;
-          const body = JSON.stringify({ payment_status: "Success" });
+          const body = JSON.stringify({
+            payment_status: "Success",
+            client_secret: null,
+          });
           updateOrder(snap.token, body, snap.orderId, true);
         }
         if (status === "requires_payment_method") {

@@ -666,7 +666,6 @@ export const updateOrder = async (token, body, orderId, redirect) => {
       Authorization: `Token ${token}`,
     },
   };
-  alert(body)
   try {
     await api.patch(`order/checkout/${orderId}/`, body, config);
     if (redirect) {
@@ -692,7 +691,7 @@ export const createPaymentIntent = async (token, amount) => {
   try {
     const { data } = await api.post(
       "payment/stripe",
-      {amount: amount},
+      { amount: amount },
       config
     );
     store.clientSecret = data.clientSecret;
@@ -714,7 +713,7 @@ export const checkout = async (token, cartId) => {
     store.orderId = data.id;
     store.successResponse = "Order submitted successfully.";
     let prices = [];
-    data.items.forEach(item => prices.push(item.total_price));
+    data.items.forEach((item) => prices.push(item.total_price));
     const totalAmount = prices.reduce((a, b) => a + b, 0);
     createPaymentIntent(token, totalAmount);
     store.cartId = null;
