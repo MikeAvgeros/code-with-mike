@@ -1,113 +1,39 @@
-import React from "react";
-import { api, getOrders } from "../Api/Api";
+import React, { useState, useEffect } from "react";
 import { useSnapshot } from "valtio";
 import store from "../Store/Store";
-import {
-  Box,
-  Container,
-  Paper,
-  Stepper,
-  Step,
-  StepLabel,
-  Button,
-} from "@mui/material";
-import AddressForm from "./AddressForm";
-import PaymentForm from "./PaymentForm";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import CheckoutForm from "./CheckoutForm";
 
-const steps = ["Billing address", "Payment details"];
-
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <AddressForm />;
-    case 1:
-      return <PaymentForm />;
-    default:
-      throw new Error("Unknown step");
-  }
-}
+const stripePromise = loadStripe(
+  "pk_test_51KSMm8DTDaP1UOVWFtZm2PZ8mRtQmlSUz3j6GZ5IhyLIHLkg13S50EJcaaG8edguWjwrw7vWqGGPUAKAmmp4ZVpK00uyiRC50u"
+);
 
 const Checkout = () => {
   const snap = useSnapshot(store);
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [clientSecret, setClientSecret] = useState("");
 
-  const handleNext = () => {
-    setActiveStep(activeStep + 1);
+  useEffect(() => {
+    setClientSecret(snap.clientSecret);
+  }, [snap.clientSecret]);
+
+  const appearance = {
+    theme: "stripe",
   };
 
-  const handleBack = () => {
-    setActiveStep(activeStep - 1);
-  };
-
-  const checkout = async () => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${snap.token}`,
-      },
-    };
-    const body = JSON.stringify({ cart_id: snap.cartId });
-    try {
-      await api.post("order/checkout/", body, config);
-      store.cartId = null;
-      store.cartItems = [];
-      getOrders(snap.token);
-    } catch (error) {
-      let errorArray = [];
-      for (const key in error.response.data) {
-        errorArray.push(`${key}: ${error.response.data[key]}`);
-      }
-      store.errorResponses = errorArray;
-    }
+  const options = {
+    clientSecret,
+    appearance,
   };
 
   return (
-    <Container component="main" maxWidth="sm" sx={{ mt: 4, mb: 4 }}>
-      <Paper
-        variant="outlined"
-        sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
-      >
-        <h2 style={{ textAlign: "center" }}>Checkout</h2>
-        <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
-          {steps.map((label) => (
-            <Step key={label}>
-              <StepLabel>{label}</StepLabel>
-            </Step>
-          ))}
-        </Stepper>
-        <React.Fragment>
-          {activeStep !== steps.length && (
-            <React.Fragment>
-              {getStepContent(activeStep)}
-              <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-                {activeStep !== 0 && (
-                  <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
-                    Back
-                  </Button>
-                )}
-                {activeStep === steps.length - 1 ? (
-                  <Button
-                    variant="contained"
-                    onClick={checkout}
-                    sx={{ mt: 3, ml: 1 }}
-                  >
-                    Place Order
-                  </Button>
-                ) : (
-                  <Button
-                    variant="contained"
-                    onClick={handleNext}
-                    sx={{ mt: 3, ml: 1 }}
-                  >
-                    Next
-                  </Button>
-                )}
-              </Box>
-            </React.Fragment>
-          )}
-        </React.Fragment>
-      </Paper>
-    </Container>
+    <React.Fragment>
+      {clientSecret && (
+        <Elements options={options} stripe={stripePromise}>
+          <CheckoutForm />
+        </Elements>
+      )}
+    </React.Fragment>
   );
 };
 

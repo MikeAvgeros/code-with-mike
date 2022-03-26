@@ -21,14 +21,13 @@ import ResetPassword from "./components/ResetPassword/ResetPassword";
 import ResetPasswordConfirm from "./components/ResetPassword/ResetPasswordConfirm";
 import Profile from "./components/Profile/Profile";
 import DeleteUser from "./components/Profile/DeleteUser";
+import Reviews from "./components/Profile/Reviews";
 import Orders from "./components/Profile/Orders";
 import ReviewForm from "./components/Reviews/ReviewForm";
 import EditReview from "./components/Reviews/EditReview";
 import Wishlist from "./components/Wishlist/Wishlist";
 import Checkout from "./components/Checkout/Checkout";
 import Contact from "./components/Contact/Contact";
-import Terms from "./components/Terms/Terms";
-import Privacy from "./components/Privacy/Privacy";
 import Alerts from "./components/Alerts/Alerts";
 import Footer from "./components/Footer/Footer";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
@@ -44,7 +43,6 @@ import {
   getWishlistItems,
 } from "./components/Api/Api";
 import "./App.css";
-import Reviews from "./components/Profile/Reviews";
 
 const App = () => {
   const snap = useSnapshot(store);
@@ -116,11 +114,11 @@ const App = () => {
             <Route path="/cart" element={<Cart />} />
             <Route
               path="/signup"
-              element={!snap.token ? <Signup /> : <Navigate to="/profile" />}
+              element={!snap.token ? <Signup /> : <Navigate to="/" />}
             />
             <Route
               path="/login"
-              element={!snap.token ? <Login /> : <Navigate to="/profile" />}
+              element={!snap.token ? <Login /> : <Navigate to="/" />}
             />
             <Route path="/reset/password" element={<ResetPassword />} />
             <Route
@@ -158,7 +156,7 @@ const App = () => {
             <Route
               path="/checkout"
               element={
-                snap.cartItems.length > 0 && snap.token ? (
+                snap.token ? (
                   <Checkout />
                 ) : (
                   <Navigate to="/cart" />
@@ -166,8 +164,6 @@ const App = () => {
               }
             />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/terms" element={<Terms />} />
-            <Route path="/privacy" element={<Privacy />} />
           </Routes>
         </ScrollToTop>
         <Alerts />

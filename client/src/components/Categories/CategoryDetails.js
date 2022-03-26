@@ -14,6 +14,8 @@ const CategoryDetails = () => {
     getCategoryDetails(slug);
   }, []);
 
+  if (!snap.categoryDetails) return null;
+
   return (
     <React.Fragment>
       <div className="category-detail">

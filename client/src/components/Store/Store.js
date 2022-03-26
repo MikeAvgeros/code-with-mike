@@ -6,9 +6,9 @@ const initialState = storedState
   ? JSON.parse(storedState)
   : {
       courses: [],
-      courseDetails: [],
+      courseDetails: null,
       categories: [],
-      categoryDetails: [],
+      categoryDetails: null,
       reviews: [],
       promotions: [],
       promotionDetails: [],
@@ -19,6 +19,7 @@ const initialState = storedState
       customer: [],
       token: null,
       userAuthenticated: false,
+      clientSecret: null,
       errorResponses: [],
       successResponse: null,
     };
