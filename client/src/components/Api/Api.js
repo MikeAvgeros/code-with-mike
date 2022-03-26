@@ -669,7 +669,7 @@ export const updateOrder = async (token, body, orderId, redirect) => {
   try {
     await api.patch(`order/checkout/${orderId}/`, body, config);
     if (redirect) {
-      window.location.assign("http://localhost:3000/orders/");
+      window.location.assign("https://codewithmike.herokuapp.com/orders/");
       store.orderId = null;
     }
   } catch (error) {
