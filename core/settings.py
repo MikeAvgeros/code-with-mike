@@ -98,18 +98,9 @@ USE_L10N = True
 
 USE_TZ = True
 
-STATIC_URL = '/static/'
-
-MEDIA_URL = '/images/'
-
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
     os.path.join(BASE_DIR, 'client', 'build', 'static'),
 ]
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static', 'images')
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
