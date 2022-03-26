@@ -24,6 +24,7 @@ class StripePayment(APIView):
                     automatic_payment_methods={
                         'enabled': True,
                     },
+                    payment_method_types=['card'],
                 )
                 return Response({
                     'clientSecret': intent['client_secret']

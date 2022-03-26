@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSnapshot } from "valtio";
 import store from "../Store/Store";
-import { getCartItems } from "../Api/Api";
+import { checkout, getCartItems } from "../Api/Api";
 import {
   Box,
   Container,
@@ -24,7 +24,14 @@ const Cart = () => {
   const handleCheckout = () => {
     if (!snap.token) {
       store.errorResponses = [
-        "You need to be logged in in order to place an order",
+        "You need to be logged in in order to checkout.",
+      ];
+    }
+    if (snap.token && snap.cartId) {
+      checkout(snap.token, snap.cartId);
+    } else {
+      store.errorResponses = [
+        "Something went wrong when trying to checkout.",
       ];
     }
   };

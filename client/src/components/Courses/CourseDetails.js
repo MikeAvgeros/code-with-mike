@@ -36,6 +36,7 @@ const CourseDetails = () => {
     const slug = url.substring(url.lastIndexOf("/") + 1);
     getCourseDetails(slug);
     getReviews();
+    if (!snap.courseDetails) return;
     if (snap.courseDetails.reviews) {
       setCourseReviews(
         snap.reviews.filter((r) => snap.courseDetails.reviews.includes(r.id))
@@ -67,6 +68,8 @@ const CourseDetails = () => {
     marginTop: 2,
   };
 
+  if (!snap.courseDetails) return null;
+
   return (
     <React.Fragment>
       <div className="course-detail">
@@ -95,7 +98,7 @@ const CourseDetails = () => {
             <Grid item sm={12} md={6}>
               <Stack direction="column" spacing={5}>
                 <Image
-                  sx={{ maxWidth: "350px" }}
+                  sx={{ maxWidth: "350px", maxHeight: "300px" }}
                   src={snap.courseDetails.image}
                 />
                 <Card sx={{ width: "350px", alignSelf: "center" }}>
@@ -138,10 +141,11 @@ const CourseDetails = () => {
                       )}
                       <p>/month</p>
                     </Box>
-                    <p style={pStyle}>Frequent Course Updates</p>
+                    <p style={pStyle}>Frequent Updates</p>
                     <p style={pStyle}>Tutor Support</p>
                     <p style={pStyle}>Career Guidance</p>
                     <p style={pStyle}>Student Forum</p>
+                    <p style={pStyle}>Certificate</p>
                   </CardContent>
                   <CardActions sx={{ mb: 1, justifyContent: "center" }}>
                     <Button onClick={handleAddToCart} className="btn">
@@ -177,8 +181,8 @@ const CourseDetails = () => {
             </Grid>
             {courseReviews.length > 0 ? (
               courseReviews.map((review, i) => (
-                <Grid item xs={12} sm={6} md={4}>
-                  <Card key={i} sx={{ mb: 5, maxWidth: "350px" }}>
+                <Grid item key={i} xs={12} sm={6} md={4}>
+                  <Card sx={{ mb: 5, maxWidth: "350px" }}>
                     <CardHeader
                       avatar={
                         <Avatar
