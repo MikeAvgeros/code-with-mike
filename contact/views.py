@@ -25,5 +25,7 @@ class ContactView(views.APIView):
                 settings.EMAIL_HOST_USER,
                 [email],
             )
-            return Response({"success": "Sent"})
-        return Response({'success': "Failed"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'success': 'Email Sent'})
+        return Response(
+            {'error': 'The data you sent were empty or incorrect'},
+            status=status.HTTP_400_BAD_REQUEST)
