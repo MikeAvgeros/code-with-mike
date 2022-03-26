@@ -1,35 +1,38 @@
-import os
 import stripe
 from django.conf import settings
 from rest_framework import permissions
 from rest_framework.decorators import permission_classes
 from rest_framework.views import APIView
+from .serializers import PaymentSerializer
 from rest_framework.response import Response
 from rest_framework import status
-from django.shortcuts import redirect
 
-stripe.api_key = os.environ.get('STRIPE_SECRET_KEY')
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
 
 @permission_classes([permissions.IsAuthenticated])
-class StripeCheckout(APIView):
-    def post(self, request):
-        try:
-            checkout_session = stripe.checkout.Session.create(
-                payment_method_types=['card', ],
-                line_items=[
-                    {
-                        'price': 'price_xxxx',
-                        'quantity': 1,
+class StripePayment(APIView):
+    def post(self, request, *args, **kwargs):
+        serializer = PaymentSerializer(data=request.data)
+        if serializer.is_valid():
+            data = serializer.validated_data
+            amount = data.get('amount')
+            try:
+                intent = stripe.PaymentIntent.create(
+                    amount=amount,
+                    currency='gbp',
+                    automatic_payment_methods={
+                        'enabled': True,
                     },
-                ],
-                mode='payment',
-                success_url=settings.SITE_URL +
-                '/?success=true&session_id={CHECKOUT_SESSION_ID}',
-                cancel_url=settings.SITE_URL + '/?canceled=true',
-            )
-            return redirect(checkout_session.url)
-        except:
-            return Response(
-                {'error': 'Something went wrong when creating stripe checkout session'},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
-            )
+                )
+                return Response({
+                    'clientSecret': intent['client_secret']
+                })
+            except:
+                return Response(
+                    {'error': 'Something went wrong when creating a payment intent'},
+                    status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                )
+        return Response(
+            {'error': 'The data you sent were empty or incorrect'},
+            status=status.HTTP_400_BAD_REQUEST)
