@@ -14,7 +14,7 @@ This project uses Stripe's test payment functionality at checkout, rather than a
 | 5555555555554444      | Mastercard       | Any 3 digits | Any future date |
 | 378282246310005       | American Express | Any 4 digits | Any future date |
 
-View live project here [link to deployed website.](https://codewithmike.herokuapp.com/)
+You can view live project [by clicking here.](https://codewithmike.herokuapp.com/)
 
 ## **PROJECT REQUIREMENTS** 
 
@@ -31,7 +31,8 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
     - [Structure](#structure)
     - [Skeleton](#skeleton)
     - [Surface](#surface)
-  - [Database operations](#database-operations)    
+  - [Database](#database)  
+    - [Database structure](#database-structure)
     - [Allowed CRUD operations](#allowed-crud-operations)
   - [Technologies Used](#technologies-used)
     - [Languages](#languages)
@@ -39,15 +40,14 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
     - [Libraries and frameworks](#libraries-and-frameworks)
     - [Other technologies](#other-technologies)  
   - [Testing](#testing)
-    - [Introduction](#introduction)
-    - [Code validation](#code-validation)
+    - [Manual Testing](#manual-testing)
     - [Testing user stories](#testing-user-stories)
     - [Testing responsiveness](#testing-responsiveness)
     - [Testing performance](#testing-performance)
     - [Testing accessibility](#testing-accessibility)
   - [Deployment](#deployment)
-    - [Deploy site in Heroku](#deploy-site-in-heroku)
-    - [Run the project locally](#run-the-project-locally)
+    - [Github Repository](#github-repository)
+    - [Heroku Deployment](#heroku-deployment)
    - [Credits](#credits)
      - [Code](#code)
      - [Content](#content)
@@ -66,8 +66,6 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
     
     All users can sign up and login to the website, which gives them access to extra features. They can also update or delete their profile, add a profile image and contact the website owner with feedback or suggestions to improve services.
 
-  - ### **User stories** 
-
     - #### **Site owner goals**
       - To develop a financially viable e-commerce web application
       - To provide a beautiful and user-friendly interface
@@ -82,7 +80,9 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
       - To provide feedback after purchasing a course
       - To contact and connect with the website owner
 
-    1. **Navigation and website experience**
+  - ### **User stories** 
+
+    - **Navigation and website experience**
       - As a site user, I want a responsive website so that I can access it on different devices
       - As a site user, I want to easily navigate across the site so that I can find the information I need
       - As a site user, I want to view a lists of products with enough information to make informed decisions
@@ -90,7 +90,7 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
       - As a site user, I want to view reviews and feedback about a product from other buyers.
       - As a site user, I want to contact the website owner to ask questions about their services or offer feedback.
 
-    2. **Shopping experience** 
+    - **Shopping experience** 
       - As a shopper, I want to view all products available so that I can quickly have an overview of what is on offer
       - As a shopper, I want to quickly and easily view featured or best-selling products.
       - As a shopper, I want to select the quantity for an item if applicable so I can order what I need
@@ -99,7 +99,7 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
       - As a shopper, I want to view related items so that I can purchase several in the category of my choice.
       - As a shopper, I want to be able to write a review of a product that I bought or the services that I have received
 
-    3. **Shopping bag and checkout**
+    - **Shopping bag and checkout**
       - As a shopper, I want to review items in my shopping bag so that I can adjust quantities ordered
       - As a shopper, I want to view the total cost of my purchase including VAT before making payment
       - As a shopper, I want to enter payment information in a safe and secure way so that I can checkout quickly with confidence
@@ -107,14 +107,14 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
       - As a shopper, I want to receive confirmation of my order so that I can have a proof of purchase
       - As a shopper, I want to view previously purchased items
 
-    4. **Registration and account management** 
+    - **Registration and account management** 
       - As a site user, I want to register for an account so that I can view my profile, orders, reviews and favourite items
       - As a site user, I want to receive an email upon succesful registration.
       - As a site user, I want to be able to login and logout so that I can access my profile safely 
       - As a site user, I want to personalize my profile so that I can update my information and profile image
       - As a site user, I want to be able to easily reset my password if forgotten to access my account
 
-    5. **Admin and site management** 
+    - **Admin and site management** 
 
       - As the site owner, I want to view, add, update or delete the products on the site
       - As the site owner, I want to view, add, update or delete the collections on the site
@@ -194,15 +194,9 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
       - Contact: A contact form to send emails to site owner
       - Footer: Copyright, links to social media and policies
 
-    - #### **Database structure**
-
-      The diagram below illustrates the database schema used in this project. It was initially used with SQLite during the development process, then migrated to PostgresSQL in production when deployed in Heroku.
-
-      ![Attach db schema](documentation/database/MS4%20Data%20Model%20Chart.png)
-
   - ### **Skeleton**
 
-    I have designed the layout of the website using ![Material UI](https://mui.com/). I have created low fidelity wireframes for desktop and mobile using ![Diagrams](https://app.diagrams.net/) in order to guide me in designing the pages. The design and layout of the website has evolved from the original Balsamiq wireframes. You can view the original low fidelity wireframes below.
+    I have designed the layout of the website using [Material UI](https://mui.com/). I have created low fidelity wireframes for desktop and mobile using [Diagrams](https://app.diagrams.net/) in order to guide me in designing the pages. The design and layout of the website has evolved from the original Balsamiq wireframes. You can view the original low fidelity wireframes below.
     
     - #### **Wireframes**
       You can view all the wireframes for this project [here](documentation/wireframes/). 
@@ -234,14 +228,48 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
   - ### **Surface**
 
     - #### **Colour Scheme**
+      - I used this [Material Design - Color Tool](https://material.io/resources/color/#!/?view.left=0&view.right=0) to help me pick the right colours for my website.
+
+      - The main colours that I chose are pink, purple, indigo, gray, off-white and black. I believe this combination of colours makes the website look modern.
+
+      - I have used a colour gradient effect that is shared across the page on primary button, card headers and the landing page. The colour used on this effect are primarily pink and purple, however, a combination of indigo and gray is also used.
+
+      - Purple is used as background on most buttons.
+
+      - Pink is used as background on most icons.
+
+      - Off-white is used as the main background of the website.
+
+      - Black is used as background on the header and footer as well as the primary colour for the heading and paragraph text.
 
     - #### **Typography**
+      - I have used [Google Fonts](https://fonts.google.com/) to import my chosen font for the website.
+
+      - The font that I imported is Poppins and the weights are 400, 500, 600. I have used this font as it makes the design look fun and modern, which works well with the colour scheme.
+
+      - Sans Serif is used as the fallback font in case Poppins is not being imported into the site correctly.
+
+      - The text used on category and product details was picked from [codewithmosh](https://codewithmosh.com/) as this was my main reference when designing the website. You can find more information on the Credit section.
 
     - #### **Images**
+      - I used [Flaticon](https://www.flaticon.com/) to gather some images for the site. You can find more information on the Credit section.
+
+      - All product images were picked from [codewithmosh](https://codewithmosh.com/) as this was my main reference when designing the website. You can find more information on the Credit section.
 
     - #### **Icons**
+      - All the icons in the website were picked from the [Material UI Icons page](https://mui.com/components/material-icons/)
 
-## **Database operations**
+      - The choice of icons relates to the page or action. For instance, an icon of an envelope is displayed on the contact page to showcase an email being sent.
+
+[**Table of Content**](#table-of-content)
+
+## **DATABASE**
+
+  - #### **Database structure**
+
+      The diagram below illustrates the database schema used in this project. It was initially used with SQLite during the development process, then migrated to PostgresSQL in production when deployed in Heroku.
+
+      ![Attach db schema](documentation/database/MS4%20Data%20Model%20Chart.png)
 
   - ### **Allowed CRUD operations**
     Operations | all users | authenticated users | superusers |
@@ -272,7 +300,7 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
     - [Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
     - [Python](https://www.python.org/)
 
-  - ### **Database platforms and cloud storage**
+  - ### **Database platform and cloud storage**
     - [SQlite](https://www.sqlite.org/index.html): A SQL database provided by default as part of Django that was used during the development process
     - [Heroku PostgresSQL](https://devcenter.heroku.com/articles/heroku-postgresql): A SQL database provided as an add-on by Heroku for storing data that is used in production
     - [Amazon AWS S3](https://aws.amazon.com/s3/): Cloud storage solution used to store images in production
@@ -302,6 +330,80 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
     - [Chrome DevTools](https://developer.chrome.com/docs/devtools/): Google inspect was used to test and fix code and page responsiveness
     - [Google lighthouse](https://developers.google.com/web/tools/lighthouse): Google lighthouse was used to assess performance of the site
 
+[**Table of Content**](##table-of-content)
+
 ## **TESTING**
 
+  - ### **Manual Testing**
+
+    - #### **Signup**   
+      I tested that the signup button directs user to the signup page. I tested that an account is created with the correct infomation from the form. I tested that the form validation works if user adds wrong information. I tested that a welcome email is sent to the email address provided and a flash message appears on screen. I tested that after registration, user is redirected to the login page.
+
+    - #### **Password Reset & Password Confirmation**   
+      I tested that the password reset button directs user to the password reset page. I tested that an email is sent with a link to the Password Reset Confirmation page. I tested that the links takes you to the correct page. I tested that the form validation works if user adds wrong information. I tested that after confirming new password, user is redirected to the login page and a flash message appears on screen. I tested that a confirmation email of the change is sent to the user.
+
+    - #### **Login**   
+      I tested that the login button directs user to the login page. I tested that the form validation works if user adds wrong information. I tested that after logging in, user is redirected to the profile page. I tested that after logging in, the authentication token and customer information are saved in local storage.
+
+    - #### **Logout**   
+      I tested that the logout button logs the user out and deletes the authentication token in the database. It also removed all the customer information from the local storage. A flash message appears on screen to inform the User they have logged out.
+
+    - #### **Update Profile**   
+      I tested that the profile successfully updates all the info on the database and a flash message appears on screen. All inputs are successfully tested for errors.
+
+    - #### **Delete Profile**   
+      I tested that the profile is successfully removed from the database once deleted and a flash message appears on screen.
+
+    - #### **Add to Cart**   
+      I tested that the add to cart button correctly adds a product to the cart and a flash message appears on screen.I tested that if you add the same product to the cart, it only updates the quantity.
+
+    - #### **Update Cart**   
+      I tested that if you change the quantity of a product in the cart or add new products, the change is updated in the database. 
+
+    - #### **Delete Cart Items**   
+      I tested that if you delete a cart item, it also deletes from the database.
+
+    - #### **Add to Wishlist**   
+      I tested that only authenticated users can access the wishlist. I tested that the add to wishlist button correctly adds a product to the wishlist abd a flash message appears on screen. I tested that you cannot duplicate a product in the wishlist.
+
+    - #### **Delete Wishlist Items**   
+      I tested that if you delete a wishlist item, it also deletes from the database. I tested that if you add a wishlist item to cart, it is deleted from the wishlist.
+
+    - #### **Contact**   
+      I tested that the contact button directs User to the contact page. I tested that the form validation works if User adds wrong information. I tested that an email is successfully sent when submitting the form and a flash message appears on screen. I check that user receives a confirmation email.
+
+    - #### **Create Review**   
+      I tested that all inputs on the review form are correctly validated and a new review is added to the database with the correct info.
+
+    - #### **Update Review**   
+      I tested that the chosen review successfully updates all the info on the database and a flash message appears on screen. All inputs are successfully tested for errors.
+
+    - #### **Delete Review**   
+      I tested that the profile is successfully removed from the database once deleted and a flash message appears on screen.
+
+    - #### **Create Order**   
+      I tested that the checkout button creates an order from the cart items and updates the database. I tested that it also redirects you to the payment form.
+
+    - #### **View Order History**   
+      I tested that Orders button directs user to the orders page. I tested that the orders shown on the page are correct.
+
+    - #### **Payments**   
+      I tested that the form validation works if user adds wrong information. I tested that if payment is successful, a flash message appears on screen and user is redirected to the Orders page. I tested that the payment status of the order is marked as Success on the database. I tested that successful and unsuccessful payments who correctly on the Stripe dashboard.
+
 ## **DEPLOYMENT**
+
+  - ### **Github Repository**
+
+    The project is stored on Github using the following steps.
+
+    1.  I logged into my account on GitHub - [My account](https://github.com/MikeAvgeros)
+
+    2.  I created a public repository for my 4th Milestone project - [codewithmike](https://github.com/MikeAvgeros/code-with-mike)
+
+  - ### **Heroku Deployment**
+
+    The project is deployed on Heroku, directly from the master branch via GitHub. I am using PostgreSQL database to store my data. I am using S3 bucket cloud service on AWS to host my media files.
+
+[**Table of Content**](#table-of-content)
+
+## **CREDITS**
