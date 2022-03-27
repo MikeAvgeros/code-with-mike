@@ -460,6 +460,35 @@ export const login = async (email, password) => {
       store.token = data.auth_token;
       window.location.assign("https://codewithmike.herokuapp.com/");
       store.successResponse = "You have successfully logged in.";
+    } else {
+      store.errorResponses = ["Something went wrong went trying to login."]
+    }
+  } catch (error) {
+    let errorArray = [];
+    for (const key in error.response.data) {
+      errorArray.push(`${key}: ${error.response.data[key]}`);
+    }
+    store.errorResponses = errorArray;
+  }
+};
+
+export const logout = async (token) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Token ${token}`,
+    },
+  };
+  try {
+    const { status } = await api.post("auth/token/logout/", token, config);
+    if (status === 204) {
+      store.token = null;
+      store.customer = [];
+      store.userAuthenticated = false;
+      window.location.assign("https://codewithmike.herokuapp.com/");
+      store.successResponse = "You have successfully logged out.";
+    } else {
+      store.errorResponses = ["Something went wrong went trying to logout."]
     }
   } catch (error) {
     let errorArray = [];

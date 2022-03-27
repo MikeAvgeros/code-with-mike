@@ -41,10 +41,13 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
     - [Other technologies](#other-technologies)  
   - [Testing](#testing)
     - [Manual Testing](#manual-testing)
-    - [Testing user stories](#testing-user-stories)
-    - [Testing responsiveness](#testing-responsiveness)
-    - [Testing performance](#testing-performance)
-    - [Testing accessibility](#testing-accessibility)
+    - [User Stories Implementation](#user-stories-implementation)
+    - [Browser Compatibility](#browser-compatibility)
+    - [Responsiveness](#responsiveness)
+    - [HTML Validation](#html-validation)
+    - [CSS Validation](#css-validation)
+    - [Javascript Validation](#javascript-validation)
+    - [Python Validation](#python-validation)
   - [Deployment](#deployment)
     - [Github Repository](#github-repository)
     - [Heroku Deployment](#heroku-deployment)
@@ -67,61 +70,61 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
     All users can sign up and login to the website, which gives them access to extra features. They can also update or delete their profile, add a profile image and contact the website owner with feedback or suggestions to improve services.
 
     - #### **Site owner goals**
-      - To develop a financially viable e-commerce web application
-      - To provide a beautiful and user-friendly interface
-      - To provide great user-experience across multiple devices
-      - To increase online presence
-      - To convert interest into sales 
+      - To develop a financially viable e-commerce web application.
+      - To provide a beautiful and user-friendly interface.
+      - To provide great user-experience across multiple devices.
+      - To increase online presence.
+      - To convert interest into sales.
 
     - #### **Site user goals** 
-      - To access a user-friendly website across multiple devices 
-      - To receive clear information about the courses being sold
-      - To buy courses that are of interest
-      - To provide feedback after purchasing a course
-      - To contact and connect with the website owner
+      - To access a user-friendly website across multiple devices. 
+      - To receive clear information about the courses being sold.
+      - To buy courses that are of interest.
+      - To provide feedback after purchasing a course.
+      - To contact and connect with the website owner.
 
   - ### **User stories** 
 
     - **Navigation and website experience**
-      - As a site user, I want a responsive website so that I can access it on different devices
-      - As a site user, I want to easily navigate across the site so that I can find the information I need
-      - As a site user, I want to view a lists of products with enough information to make informed decisions
+      - As a site user, I want a responsive website so that I can access it on different devices.
+      - As a site user, I want to easily navigate across the site so that I can find the information I need.
+      - As a site user, I want to view a lists of products with enough information to make informed decisions.
       - As a site user, I want to find out if there are any deals, promotions and offers.
       - As a site user, I want to view reviews and feedback about a product from other buyers.
       - As a site user, I want to contact the website owner to ask questions about their services or offer feedback.
 
     - **Shopping experience** 
-      - As a shopper, I want to view all products available so that I can quickly have an overview of what is on offer
+      - As a shopper, I want to view all products available so that I can quickly have an overview of what is on offer.
       - As a shopper, I want to quickly and easily view featured or best-selling products.
-      - As a shopper, I want to select the quantity for an item if applicable so I can order what I need
-      - As a shopper, I want to easily update the quantity of products in my cart or delete if I have changed my mind
-      - As a shopper, I want to be able to save my favourite products in a wishlist to view/purchase at a later date
+      - As a shopper, I want to select the quantity for an item if applicable so I can order what I need.
+      - As a shopper, I want to easily update the quantity of products in my cart or delete if I have changed my mind.
+      - As a shopper, I want to be able to save my favourite products in a wishlist to view/purchase at a later date.
       - As a shopper, I want to view related items so that I can purchase several in the category of my choice.
-      - As a shopper, I want to be able to write a review of a product that I bought or the services that I have received
+      - As a shopper, I want to be able to write a review of a product that I bought or the services that I have received.
 
     - **Shopping bag and checkout**
-      - As a shopper, I want to review items in my shopping bag so that I can adjust quantities ordered
-      - As a shopper, I want to view the total cost of my purchase including VAT before making payment
-      - As a shopper, I want to enter payment information in a safe and secure way so that I can checkout quickly with confidence
-      - As a shopper, I want to be able to remake a failed payment quickly and not have to add all items to cart again
-      - As a shopper, I want to receive confirmation of my order so that I can have a proof of purchase
-      - As a shopper, I want to view previously purchased items
+      - As a shopper, I want to review items in my shopping bag so that I can adjust quantities ordered.
+      - As a shopper, I want to view the total cost of my purchase including VAT before making payment.
+      - As a shopper, I want to enter payment information in a safe and secure way so that I can checkout quickly with confidence.
+      - As a shopper, I want to be able to remake a failed payment quickly and not have to add all items to cart again.
+      - As a shopper, I want to receive confirmation of my order so that I can have a proof of purchase.
+      - As a shopper, I want to view previously purchased items.
 
     - **Registration and account management** 
-      - As a site user, I want to register for an account so that I can view my profile, orders, reviews and favourite items
+      - As a site user, I want to register for an account so that I can view my profile, orders, reviews and favourite items.
       - As a site user, I want to receive an email upon succesful registration.
-      - As a site user, I want to be able to login and logout so that I can access my profile safely 
-      - As a site user, I want to personalize my profile so that I can update my information and profile image
-      - As a site user, I want to be able to easily reset my password if forgotten to access my account
+      - As a site user, I want to be able to login and logout so that I can access my profile safely.
+      - As a site user, I want to personalize my profile so that I can update my information and profile image.
+      - As a site user, I want to be able to easily reset my password if forgotten to access my account.
 
     - **Admin and site management** 
 
-      - As the site owner, I want to view, add, update or delete the products on the site
-      - As the site owner, I want to view, add, update or delete the collections on the site
-      - As the site owner, I want to view, add, update or delete promotions for certain products
-      - As the site owner, I want to display very good feedback on the landing page to create engagement
-      - As the site owner I want to view all orders placed by the customers
-      - As the site owner I want to view customer feedback in order to improve the products and/or services
+      - As the site owner, I want to view, add, update or delete the products on the site.
+      - As the site owner, I want to view, add, update or delete the collections on the site.
+      - As the site owner, I want to view, add, update or delete promotions for certain products.
+      - As the site owner, I want to display very good feedback on the landing page to create engagement.
+      - As the site owner I want to view all orders placed by the customers.
+      - As the site owner I want to view customer feedback in order to improve the products and/or services.
       - As the site owner, I want to be able to edit most of the content, so that I can keep my website up to date and engaging.
 
   - ### **Scope**
@@ -130,45 +133,45 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
       This project is developed as a Minimal Viable Product. There will be room for future improvements and releases incorporating additional pages and features as well as improved design and navigation.
 
     - #### **Current features (Users)**
-      - Users can create an account and get a confirmation email
-      - Users can easily login and logout from their account
-      - Users can reset their password and get a confirmation email
-      - Users can personalise their profile, add a profile picture as well as delete their account if they wish
-      - Users can add courses to the cart or save them in a wishlist
-      - Users can update or delete their cart and place an order
-      - Users can make a fake payment using Stripe at checkout and get a confirmation email
-      - Users can view a list of previously purchased courses
-      - Users can add, edit or delete a review about a purchased course as well as view all their reviews
-      - Users can contact the website owner to ask questions or send feedback
-      - Users can view a list of available courses and categories
-      - Users can view promotions and offers
-      - Users can view reviews from other buyers
+      - Users can create an account and get a confirmation email.
+      - Users can easily login and logout from their account.
+      - Users can reset their password and get a confirmation email.
+      - Users can personalise their profile, add a profile picture as well as delete their account if they wish.
+      - Users can add courses to the cart or save them in a wishlist.
+      - Users can update or delete their cart and place an order.
+      - Users can make a fake payment using Stripe at checkout and get a confirmation email.
+      - Users can view a list of previously purchased courses.
+      - Users can add, edit or delete a review about a purchased course as well as view all their reviews.
+      - Users can contact the website owner to ask questions or send feedback.
+      - Users can view a list of available courses and categories.
+      - Users can view promotions and offers.
+      - Users can view reviews from other buyers.
 
     - #### **Current features (Admin)**
-      - Admins can create/view/update/delete courses via the admin page
-      - Admins can create/view/update/delete categories via the admin page
-      - Admins can create/view/update/delete promotions via the admin page
-      - Admins can create/view/update/delete reviews via the admin page
-      - Admins can create/view/update/delete orders via the admin page
-      - Admins can create/view/update/delete user accounts via the admin page
-      - Admins can add certain permissions/priviledges to certain groups of users via the admin page
-      - Admins can choose to showcase featured courses, reviews and promotions
-      - Admins can view successful, pending and failed payments in Stripe's dashboard
-      - Admins can receive emails from the site using a custom email account created for this project
-      - Admins can update how http error responses are displayed to the user
+      - Admins can create/view/update/delete courses via the admin page.
+      - Admins can create/view/update/delete categories via the admin page.
+      - Admins can create/view/update/delete promotions via the admin page.
+      - Admins can create/view/update/delete reviews via the admin page.
+      - Admins can create/view/update/delete orders via the admin page.
+      - Admins can create/view/update/delete user accounts via the admin page.
+      - Admins can add certain permissions/priviledges to certain groups of users via the admin page.
+      - Admins can choose to showcase featured courses, reviews and promotions.
+      - Admins can view successful, pending and failed payments in Stripe's dashboard.
+      - Admins can receive emails from the site using a custom email account created for this project.
+      - Admins can update how http error responses are displayed to the user.
 
 	  - #### **Current website features**
-      - Display text, images and information in an engaging way
-      - Intuitive and user-friendly navigation and structure
-      - Responsive website that can be accessed from various devices
+      - Display text, images and information in an engaging way.
+      - Intuitive and user-friendly navigation and structure.
+      - Responsive website that can be accessed from various devices.
 
     - #### **Future features**
       -
 
     - #### **Business rules**
-      - A category which contains courses cannot be deleted
-      - An order which contains order items cannot be deleted
-      - Orders will be set as 'pending' upon creation and 'success' upon successful payment
+      - A category which contains courses cannot be deleted.
+      - An order which contains order items cannot be deleted.
+      - Orders will be set as 'pending' upon creation and 'success' upon successful payment.
 
     - #### **Constraints**
       - Technical skills: The site owner is still learning Python and is new to Django and React which may impact on the successful implementation of the planned features. 
@@ -267,9 +270,9 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
 
   - #### **Database structure**
 
-      The diagram below illustrates the database schema used in this project. It was initially used with SQLite during the development process, then migrated to PostgresSQL in production when deployed in Heroku.
+    The diagram below illustrates the database schema used in this project. It was initially used with SQLite during the development process, then migrated to PostgresSQL in production when deployed in Heroku.
 
-      ![Attach db schema](documentation/database/MS4%20Data%20Model%20Chart.png)
+    [Database schema](documentation/database/MS4%20Data%20Model%20Chart.png)
 
   - ### **Allowed CRUD operations**
     Operations | all users | authenticated users | superusers |
@@ -291,6 +294,7 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
     View my reviews | No | Yes | Yes |
     View all reviews | Yes | Yes | Yes |
     Create/update/delete a review | No | Yes | Yes |
+    View all users' details | No | No | Yes |
 
 ## **TECHNOLOGIES USED**
 
@@ -390,20 +394,239 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
     - #### **Payments**   
       I tested that the form validation works if user adds wrong information. I tested that if payment is successful, a flash message appears on screen and user is redirected to the Orders page. I tested that the payment status of the order is marked as Success on the database. I tested that successful and unsuccessful payments who correctly on the Stripe dashboard.
 
+  - ### **User Stories Implementation**
+
+    - **Navigation and website experience**
+
+      - #### **Requirement** 
+        - As a site user, I want a responsive website so that I can access it on different devices.
+      - #### **Implementation** 
+        - This was achieved by adding a grid system and material design. Media queries are used on various elements to change their characteristics depending on screen size to allow for a consistent feel across multiple devices.
+
+      - #### **Requirement** 
+        - As a site user, I want to easily navigate across the site so that I can find the information I need.
+      - #### **Implementation** 
+        - This was achieved by making a consistent design on all the pages, allow enough white space to better digest the information. Text has large enough font size and colour contrast to be easily read. Relevant icons were used to signify what each action is meant to do. A fixed navbar with relevant navigation links as well as buttons with important actions across every page.
+
+      - #### **Requirement** 
+        - As a site user, I want to view a list of products with enough information to make informed decisions.
+      - #### **Implementation** 
+        - This was achieved by adding a courses pages where user can view all available courses with a short summary. In addition to that, a full details page is available upon clicking each course.
+
+      - #### **Requirement** 
+        - As a site user, I want to find out if there are any deals, promotions and offers.
+      - #### **Implementation** 
+        - This was achieved by adding a current promotions section in the home page with links to view discounted courses.
+
+      - #### **Requirement** 
+        - As a site user, I want to view reviews and feedback about a product from other buyers.
+      - #### **Implementation** 
+        - This was achieved by adding a reviews section in each course page as well as a featured reviews section in the home page.
+
+      - #### **Requirement** 
+        - As a site user, I want to contact the website owner to ask questions about their services or offer feedback.
+      - #### **Implementation** 
+        - This was achieved by adding a contact form.
+
+    - **Navigation and website experience**
+      - #### **Requirement** 
+        - As a shopper, I want to view all products available so that I can quickly have an overview of what is on offer.
+      - #### **Implementation** 
+        - This was achieved by adding a courses pages where user can view all available courses with a short summary. In addition to that, a full details page is available upon clicking each course.
+
+      - #### **Requirement** 
+        - As a shopper, I want to quickly and easily view featured or best-selling products.
+      - #### **Implementation** 
+        - This was achieved by adding a featured courses section in the home page.
+      
+      - #### **Requirement** 
+        - As a shopper, I want to select the quantity for an item if applicable so I can order what I need.
+      - #### **Implementation** 
+        - This was achieved by adding a quantity button next to the add to cart button. 
+      
+      - #### **Requirement** 
+        - As a shopper, I want to easily update the quantity of products in my cart or delete them if I have changed my mind.
+      - #### **Implementation** 
+        - This was achieved by adding a quantity and delete button for each item in the cart.
+
+      - #### **Requirement** 
+        - As a shopper, I want to be able to save my favourite products in a wishlist to view/purchase at a later date.
+      - #### **Implementation** 
+        - This was achieved by creating a wishlist page and an option to save any product to the wishlist.
+
+      - #### **Requirement** 
+        - As a shopper, I want to view related items so that I can purchase several in the category of my choice.
+      - #### **Implementation** 
+        - This was achieved by adding a categories page and each category shows related courses and information about the category.
+
+      - #### **Requirement** 
+        - As a shopper, I want to be able to write a review of a product that I bought or the services that I have received.
+      - #### **Implementation** 
+        - This was achieved by adding a review button on all purchased courses, which can be viewed in the orders page.
+
+    - **Shopping bag and checkout**
+      - #### **Requirement** 
+        - As a shopper, I want to review items in my shopping bag so that I can adjust quantities ordered.
+      - #### **Implementation** 
+        - This was achieved by adding a cart page where you can view all your cart items and their quantities.
+
+      - #### **Requirement** 
+        - As a shopper, I want to view the total cost of my purchase including VAT before making payment.
+      - #### **Implementation** 
+        - This was achieved by adding a Total Price on the cart and Pay button.
+
+      - #### **Requirement** 
+        - As a shopper, I want to enter payment information in a safe and secure way so that I can checkout quickly with confidence.
+      - #### **Implementation** 
+        - This was achieved by using Stripe's api, which securely and safely handles online payments.
+
+      - #### **Requirement** 
+        - As a shopper, I want to be able to remake a failed payment quickly and not have to add all items to cart again.
+      - #### **Implementation** 
+        - This was achieved by adding a Retry Payment button on your Order history page.
+
+      - #### **Requirement** 
+        - As a shopper, I want to receive confirmation of my order so that I can have a proof of purchase.
+      - #### **Implementation** 
+        - This was achieved by receiving an email confirming the order number and amount paid.
+
+      - #### **Requirement** 
+        - As a shopper, I want to view previously purchased items
+      - #### **Implementation** 
+        - This was achieved by creating an Orders history page.
+
+    - **Registration and account management**
+      - #### **Requirement** 
+        - As a site user, I want to register for an account so that I can view my profile, orders, reviews and favourite items.
+      - #### **Implementation** 
+        - This was achieved by adding a signup page with and easy-to-use form and functionality to create an account.
+
+      - #### **Requirement** 
+        - As a site user, I want to receive an email upon succesful registration.
+      - #### **Implementation** 
+        - This was achieved by sending an email upon successfully registering the user in the database.
+
+      - #### **Requirement** 
+        - As a site user, I want to be able to login and logout so that I can access my profile safely.
+      - #### **Implementation** 
+        - This was achieved by adding a login and logout page with an easy-to-use form.
+
+      - #### **Requirement** 
+        - As a site user, I want to personalize my profile so that I can update my information and profile image.
+      - #### **Implementation** 
+        - This was achieved by adding a form where user can view their current details and update them as they please.
+
+      - #### **Requirement** 
+        - As a site user, I want to be able to easily reset my password if forgotten to access my account.
+      - #### **Implementation** 
+        - This was achieved by adding a reset password page with clear instructions on how to reset user's password.
+
+    - **Admin and site management** 
+      - #### **Requirement** 
+        - As the site owner, I want to view, add, update or delete the products on the site.
+      - #### **Implementation** 
+        - This was achieved by allowing all crud operations on products to superusers from the admin page.
+
+      - #### **Requirement** 
+        - As the site owner, I want to view, add, update or delete the categories on the site.
+      - #### **Implementation** 
+        - This was achieved by allowing all crud operations on categories to superusers from the admin page.
+
+      - #### **Requirement** 
+        - As the site owner, I want to view, add, update or delete promotions for certain products.
+      - #### **Implementation** 
+        - This was achieved by allowing all crud operations on promotions to superusers from the admin page.
+
+      - #### **Requirement** 
+        - As the site owner, I want to display very good feedback on the landing page to create engagement.
+      - #### **Implementation** 
+        - This was achieved by marking reviews as featured from the admin page.
+
+      - #### **Requirement** 
+        - As the site owner I want to view all orders placed by the customers.
+      - #### **Implementation** 
+        - This was achieved by showing all order place by the users in the admin page.
+
+      - #### **Requirement** 
+        - As the site owner I want to view customer feedback in order to improve the products and/or services.
+      - #### **Implementation** 
+        - This was achieved by showing all reviews by the users in the admin page. Moreover, admins can view emails from users.
+
+      - #### **Requirement** 
+        - As the site owner, I want to be able to edit most of the content, so that I can keep my website up to date and engaging.
+      - #### **Implementation** 
+        - The content of the entire page can be fully edited from the admin page. Site onwners can choose featured reviews, products and promotions.
+
+[**Table of Content**](#table-of-content)
+
 ## **DEPLOYMENT**
 
   - ### **Github Repository**
 
     The project is stored on Github using the following steps.
 
-    1.  I logged into my account on GitHub - [My account](https://github.com/MikeAvgeros)
+    - I logged into my account on GitHub - [My account](https://github.com/MikeAvgeros)
 
-    2.  I created a public repository for my 4th Milestone project - [codewithmike](https://github.com/MikeAvgeros/code-with-mike)
+    - I created a public repository for my 4th Milestone project - [codewithmike](https://github.com/MikeAvgeros/code-with-mike)
 
   - ### **Heroku Deployment**
 
     The project is deployed on Heroku, directly from the master branch via GitHub. I am using PostgreSQL database to store my data. I am using S3 bucket cloud service on AWS to host my media files.
 
-[**Table of Content**](#table-of-content)
+    The following steps were taken to complete the deployment process.
+
+    - I created an account on Heroku
+
+    - Created Pipfile and Pipfile.lock, to allow Heroku to detect this project as a python 3 app and install all required dependencies and libraries.
+
+    - Created a Procfile using echo web: python app.py > Procfile so Heroku would be informed on which file runs the app and how to run this project.
+
+    - Created a new Heroku app, codewithmike and set its region to Europe and programming language to Python.
+
+    - Automatic deployment was set up on Heroku - On the dashboard, in the deploy menu. Connect to GitHub section. The GitHub repository was searched for and connected to the app.
+
+    - On the settings tab on the dashboard, 'Reveal Config Vars' was used to tell Heroku which environment variables are required to run the app. The following config vars were added:
+
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+      - DATABASE_URL
+      - DISABLE_COLLECTSTATIC
+      - EMAIL_HOST_PASS
+      - EMAIL_HOST_USER
+      - SECRET_KEY
+      - STRIPE_SECRET_KEY
+
+    - Clicked the Enable Automatic Deploys button located in the Deploy section of Heroku to allow for automatic deploys.
+
+    - Clicked the Deploy Branch button located in the Deploy section of Heroku to finally deploy this project.
+
+    - Clicked the View button to launch this project's app. You can view the live site [here](https://codewithmike.herokuapp.com/).
+
+    - The deployed site on Heroku will get updated automatically with any new commits to the master branch in the GitHub repo.
+
+  - ### **Run the project locally**
+    
+    To run this project locally on your machine, you can either fork or clone the Github repository following these steps.
+
+    - #### **Clone the repository**
+      - Log into GitHub and navigate to the [GitHub repository](https://github.com/MikeAvgeros/code-with-mike)
+      - Above the repository folder and file content, click “Code”
+      - Copy either the HTTPS or SSH url
+      - Create a directory on your machine
+      - Open the terminal, cd into that directory and run: ```$ git clone <url>```
+
+    - #### **Run Django app**
+   	  - To run Django, open your terminal and cd into the root of the project. Run ```pip install pipenv```. To create a virtual environment run ```pipenv shell```. Once you have created a virtual environment, run ```pipenv install Pipfile``` to install all the required dependencies and libraries from the Pipfile. Finally, to start the server, run ```python manage.py runserver```.
+
+    - #### **Run React app**
+      - To run React, open your terminal and cd into the client folder. Run ```npm install``` to install all the required node modules from the packages.json file. Once everything is installed, to open a development server for the app, you need to run ```npm start```. 
 
 ## **CREDITS**
+
+  - ### **Code**
+
+  - ### **Media and content**
+
+  - ### **Acknowledgments**
+
+[**Table of Content**](#table-of-content)

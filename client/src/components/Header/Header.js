@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { api } from "../Api/Api";
+import { logout } from "../Api/Api";
 import { useSnapshot } from "valtio";
 import store from "../Store/Store";
 import {
@@ -43,29 +43,20 @@ const Header = () => {
   };
 
   const pages = snap.userAuthenticated
-    ? ["Courses", "Categories", "Contact", "Wishlist", "Cart", "Profile", "Orders", "Reviews"]
+    ? [
+        "Courses",
+        "Categories",
+        "Contact",
+        "Wishlist",
+        "Cart",
+        "Profile",
+        "Orders",
+        "Reviews",
+      ]
     : ["Courses", "Categories", "Contact", "Cart", "Login", "Signup"];
 
-  const logout = async () => {
-    const token = snap.token;
-    const config = {
-      headers: {
-        Authorization: `Token ${token}`,
-      },
-    };
-    try {
-      await api.post("auth/token/logout/", token, config);
-      store.token = null;
-      store.customer = [];
-      store.userAuthenticated = false;
-      window.location.assign("https://codewithmike.herokuapp.com/");
-    } catch (error) {
-      let errorArray = [];
-      for (const key in error.response.data) {
-        errorArray.push(`${key}: ${error.response.data[key]}`);
-      }
-      store.errorResponses = errorArray;
-    }
+  const handleLogout = () => {
+    logout(snap.token);
   };
 
   const renderUserSettings = () => {
@@ -113,7 +104,7 @@ const Header = () => {
               Reviews
             </Link>
           </MenuItem>
-          <MenuItem onClick={logout}>
+          <MenuItem onClick={handleLogout}>
             <Typography textAlign="center">Logout</Typography>
           </MenuItem>
         </Menu>
@@ -232,7 +223,7 @@ const Header = () => {
               </MenuItem>
             ))}
             {snap.userAuthenticated && (
-              <MenuItem onClick={logout}>
+              <MenuItem onClick={handleLogout}>
                 <Typography textAlign="center">Logout</Typography>
               </MenuItem>
             )}
