@@ -48,45 +48,30 @@ const App = () => {
   const snap = useSnapshot(store);
 
   useEffect(() => {
-    if (snap.courses.length === 0) {
-      getCourses();
-    }
-    if (snap.categories.length === 0) {
-      getCategories();
-    }
-    if (snap.reviews.length === 0) {
-      getReviews();
-    }
-    if (snap.promotions.length === 0) {
-      getPromotions();
-    }
-  }, [
-    snap.courses.length,
-    snap.categories.length,
-    snap.reviews.length,
-    snap.promotions.length,
-  ]);
+    getCategories();
+    getCourses();
+    getPromotions();
+    getReviews();
+  }, []);
 
   useEffect(() => {
     if (!snap.cartId) {
       createCart();
     }
-    if (snap.cartId && snap.cartItems.length === 0) {
+    if (snap.cartId) {
       getCartItems(snap.cartId);
     }
-  }, [snap.cartId, snap.cartItems, snap.cartItems.length]);
+  }, [snap.cartId]);
 
   useEffect(() => {
     if (snap.token) {
       store.userAuthenticated = true;
-      if (snap.customer.length === 0) {
-        getCustomer(snap.token);
-      }
-      if (snap.customer.wishlist && snap.wishlistItems.length === 0) {
+      getCustomer(snap.token);
+      if (snap.customer.wishlist) {
         getWishlistItems(snap.token, snap.customer.wishlist);
       }
     }
-  }, [snap.token, snap.customer, snap.wishlistItems.length]);
+  }, [snap.token, snap.customer]);
 
   return (
     <Router>
