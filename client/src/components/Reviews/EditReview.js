@@ -69,13 +69,14 @@ const EditReview = () => {
         <Typography component="h1" variant="h5">
           Update your review
         </Typography>
-        <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 3 }}>
+        <Box component="form" onSubmit={onSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Rating name="rating" value={rating} onChange={onChange} />
             </Grid>
             <Grid item xs={12}>
               <TextField
+                required
                 fullWidth
                 id="name"
                 label="Title"

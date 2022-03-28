@@ -22,9 +22,6 @@ const Orders = () => {
       </p>
       <Grid
         container
-        direction="column"
-        justifyContent="center"
-        alignItems="center"
         spacing={5}
       >
         {snap.orders &&

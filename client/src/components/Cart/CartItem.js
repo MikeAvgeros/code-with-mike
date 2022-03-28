@@ -45,20 +45,22 @@ const CartItem = ({ course }) => {
         backgroundColor: "#e0e0e0",
       }}
     >
-      <Grid container alignItems="center" spacing={2}>
+      <Grid 
+        container 
+        justifyContent="center" 
+        alignItems="center" 
+        spacing={2}
+      >
         <Grid item>
           <ButtonBase sx={{ width: 128, height: 128 }}>
             <Img alt={course.item.name} src={course.item.image} />
           </ButtonBase>
         </Grid>
         <Grid item>
-          <p style={{ width: "250px" }}>{course.item.name}</p>
+          <p style={{ alignSelf: "center" }}>{course.item.name}</p>
         </Grid>
         <Grid item>
-          <Stack direction="row">
-            <p style={{ width: "100px", alignSelf: "center" }}>
-              Price: £{course.total_price}
-            </p>
+          <Stack direction="row" spacing={1}>
             <IconButton sx={{ color: "#5e35b1" }} onClick={decreaseQty}>
               <IndeterminateCheckBoxIcon />
             </IconButton>
@@ -78,6 +80,11 @@ const CartItem = ({ course }) => {
               <DeleteIcon />
             </IconButton>
           </Stack>
+        </Grid>
+        <Grid item>
+          <p style={{ alignSelf: "center", width: "150px" }}>
+            Total Price: £{course.total_price}
+          </p>
         </Grid>
       </Grid>
     </Paper>

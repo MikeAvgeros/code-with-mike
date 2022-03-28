@@ -5,6 +5,7 @@ import { addItemToCart, deleteItemFromWishlist } from "../Api/Api";
 import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
+import Stack from "@mui/material/Stack";
 import ButtonBase from "@mui/material/ButtonBase";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
@@ -41,35 +42,38 @@ const WishlistItem = ({ course }) => {
         backgroundColor: "#e0e0e0",
       }}
     >
-      <Grid container alignItems="center" spacing={2}>
+      <Grid 
+        container 
+        justifyContent="center" 
+        alignItems="center" 
+        spacing={2}
+      >
         <Grid item>
           <ButtonBase sx={{ width: 128, height: 128 }}>
             <Img alt={course.item.name} src={course.item.image} />
           </ButtonBase>
         </Grid>
         <Grid item>
-          <p style={{ width: "250px" }}>{course.item.name}</p>
+          <p style={{ alignSelf: "center" }}>{course.item.name}</p>
         </Grid>
         <Grid item>
-          <p>
-            £
-            {course.item.promotion
-              ? course.item.price -
-                course.item.price * 
-                course.item.promotion.discount
-              : course.item.price}
-            /mo
-          </p>
-        </Grid>
-        <Grid item>
-          <IconButton sx={{ color: "#5e35b1" }} onClick={handleAddToCart}>
-            <ShoppingCartIcon />
-          </IconButton>
-        </Grid>
-        <Grid item>
-          <IconButton sx={{ color: "#5e35b1" }} onClick={handleDeleteItem}>
-            <DeleteIcon />
-          </IconButton>
+          <Stack direction="row" spacing={3}>
+            <p style={{ alignSelf: "center" }}>
+              Price: £
+              {course.item.promotion
+                ? course.item.price -
+                  course.item.price * 
+                  course.item.promotion.discount
+                : course.item.price}
+              /mo
+            </p>
+            <IconButton sx={{ color: "#5e35b1" }} onClick={handleAddToCart}>
+              <ShoppingCartIcon />
+            </IconButton>
+            <IconButton sx={{ color: "#5e35b1" }} onClick={handleDeleteItem}>
+              <DeleteIcon />
+            </IconButton>
+          </Stack>
         </Grid>
       </Grid>
     </Paper>

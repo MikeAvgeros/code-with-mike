@@ -15,7 +15,7 @@ const Wishlist = () => {
   const snap = useSnapshot(store);
 
   return (
-    <Container component="main">
+    <Container component="main" maxWidth="xs">
       <Box
         sx={{
           mt: 12,

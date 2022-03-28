@@ -88,7 +88,7 @@ const EditProfile = () => {
       <Typography component="h1" variant="h5">
         Update Profile
       </Typography>
-      <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 3 }}>
+      <Box component="form" onSubmit={onSubmit} sx={{ mt: 3 }}>
         <Grid container spacing={2} alignItems="center">
           <Grid item xs={12}>
             <TextField

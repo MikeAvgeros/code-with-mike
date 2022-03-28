@@ -27,7 +27,7 @@ const OrderItem = ({ order }) => {
   };
 
   return (
-    <Card>
+    <Card sx={{ minWidth: 275 }}>
       <CardHeader
         sx={{
           height: "24px",
@@ -40,63 +40,58 @@ const OrderItem = ({ order }) => {
             <Grid
               container
               key={i}
-              alignItems="center"
               sx={{ mb: 2 }}
               spacing={2}
+              direction="column"
             >
               <Grid item>
-                <Avatar alt={item.item.name} src={item.item.image} />
-              </Grid>
-              <Grid item>
-                <p style={{ width: "300px" }}>{item.item.name}</p>
-              </Grid>
-              <Grid item>
-                <Stack direction="row" spacing={3}>
-                  <p>Qty: {item.quantity}</p>
-                  <p>Price: £{item.total_price}</p>
+                <Stack direction="row" spacing={2}>
+                  <Avatar alt={item.item.name} src={item.item.image} />
+                  <p style={{ width: "250px", alignSelf: "center" }}>{item.item.name}</p>
                 </Stack>
+              </Grid>
+              <Grid item>
+                <p>Date of Purchase: {order.created_at.split("T")[0]}</p>
+              </Grid>
+              <Grid item>
+                <p>Payment Status: {order.payment_status}</p>
+              </Grid>
+              <Grid item>
+                <p>Quantity: {item.quantity}</p>
+              </Grid>
+              <Grid item>
+                <p>Total Price: £{totalAmount}</p>
+              </Grid>
+              <Grid item>
+                <p>VAT: £{vat}</p>
+              </Grid>
+              <Grid item>
+                <p style={{ fontWeight: "bold" }}>Grand Total: £{totalAmount + vat}</p>
+              </Grid>
+              <Grid item>
+                {order.payment_status === "Success" ? (
+                  <Link
+                    to={`/review/send/${order.id}`}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <Button size="small" className="btn">
+                      Leave a review
+                    </Button>
+                  </Link>
+                ) : (
+                  <Link to="/checkout" style={{ textDecoration: "none" }}>
+                    <Button
+                      size="small"
+                      className="btn"
+                      onClick={handleRetryPayment}
+                    >
+                      Retry Payment
+                    </Button>
+                  </Link>
+                )}
               </Grid>
             </Grid>
           ))}
-        <Grid container alignItems="center" sx={{ mt: 2 }} spacing={2}>
-          <Grid item xs={12}>
-            <p style={{ marginBottom: 3 }}>
-              Date of Purchase: {order.created_at.split("T")[0]}
-            </p>
-            <p style={{ marginBottom: 3 }}>
-              Payment Status: {order.payment_status}
-            </p>
-            <p style={{ fontWeight: "bold", marginBottom: 3 }}>
-              Total Price: £{totalAmount}
-            </p>
-            <p style={{ fontWeight: "bold", marginBottom: 3 }}>VAT: £{vat}</p>
-            <p style={{ fontWeight: "bold", marginBottom: 3 }}>
-              Grand Total: £{totalAmount + vat}
-            </p>
-          </Grid>
-          <Grid item xs={12}>
-            {order.payment_status === "Success" ? (
-              <Link
-                to={`/review/send/${order.id}`}
-                style={{ textDecoration: "none" }}
-              >
-                <Button size="small" className="btn">
-                  Leave a review
-                </Button>
-              </Link>
-            ) : (
-              <Link to="/checkout" style={{ textDecoration: "none" }}>
-                <Button
-                  size="small"
-                  className="btn"
-                  onClick={handleRetryPayment}
-                >
-                  Retry Payment
-                </Button>
-              </Link>
-            )}
-          </Grid>
-        </Grid>
       </CardContent>
     </Card>
   );

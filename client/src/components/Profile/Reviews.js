@@ -35,19 +35,16 @@ const Reviews = () => {
     <Container sx={{ mt: 12, mb: 5 }}>
       <h2 style={{ textAlign: "center" }}>My Reviews</h2>
       <p style={{ marginBottom: 25, marginTop: 10, textAlign: "center" }}>
-        Below you can find a list of the reviews you have written.
+        Below you can find a list of all the reviews you have written.
       </p>
       <Grid
         container
-        direction="column"
-        justifyContent="center"
-        alignItems="center"
         spacing={5}
       >
         {myReviews ? (
           myReviews.map((review, i) => (
             <Grid item xs={12} sm={6} md={4}>
-              <Card key={i} sx={{ mb: 5, maxWidth: "350px" }}>
+              <Card key={i} sx={{ mb: 5, minWidth: 275 }}>
                 <CardContent>
                   <h4>{review.product.name}</h4>
                   <Rating name="read-only" value={review.rating} readOnly />

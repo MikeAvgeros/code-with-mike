@@ -33,7 +33,7 @@ const Cart = () => {
   };
 
   return (
-    <Container component="main">
+    <Container component="main" maxWidth="xs">
       <Box
         sx={{
           mt: 12,
@@ -66,7 +66,7 @@ const Cart = () => {
         {snap.cartItems.length > 0 && (
           <Link to="/checkout" style={{ textDecoration: "none" }}>
             <Button sx={{ mt: 5 }} className="btn" onClick={handleCheckout}>
-              Checkout
+              Go to Checkout
             </Button>
           </Link>
         )}
