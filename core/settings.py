@@ -9,7 +9,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', '')
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['codewithmike.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', 'codewithmike.herokuapp.com', 'localhost']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -54,7 +54,9 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'client', 'build')],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'client', 'build')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -98,9 +100,15 @@ USE_L10N = True
 
 USE_TZ = True
 
+STATIC_URL = '/static/'
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'client', 'build', 'static'),
 ]
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
