@@ -25,8 +25,9 @@ export default function CheckoutForm() {
     if (!snap.clientSecret) {
       return;
     }
-    stripe.retrievePaymentIntent(snap.clientSecret).then(
-      ({ paymentIntent }) => {
+    stripe
+      .retrievePaymentIntent(snap.clientSecret)
+      .then(({ paymentIntent }) => {
         setAmount(paymentIntent.amount);
         setStatus(paymentIntent.status);
         if (status === "succeeded") {
@@ -41,10 +42,8 @@ export default function CheckoutForm() {
           const body = JSON.stringify({ client_secret: snap.clientSecret });
           updateOrder(snap.token, body, snap.orderId, false);
         }
-      },
-      [stripe, snap.clientSecret, status]
-    );
-  });
+      });
+  }, [stripe, snap.clientSecret, status]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

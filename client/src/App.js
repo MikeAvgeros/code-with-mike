@@ -141,7 +141,7 @@ const App = () => {
             <Route
               path="/checkout"
               element={
-                snap.token && snap.clientSecret ? (
+                snap.clientSecret ? (
                   <Checkout />
                 ) : (
                   <Navigate to="/cart" />
