@@ -24,8 +24,8 @@ class Customer(models.Model):
     country = models.CharField(max_length=255, blank=True, null=True)
     image = models.ImageField(blank=True, null=True)
     customer_type = models.CharField(blank=True, null=True,
-                                    max_length=12, choices=CUSTOMER_TYPE
-                                    )
+                                     max_length=12, choices=CUSTOMER_TYPE
+                                     )
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self) -> str:

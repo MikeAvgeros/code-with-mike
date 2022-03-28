@@ -9,7 +9,7 @@ from .filters import ProductFilter
 from rest_framework.filters import SearchFilter, OrderingFilter
 from .models import Product, Category, Promotion, Review
 from .serializers import (
-    AddReviewSerializer, ProductSerializer, CategorySerializer, 
+    AddReviewSerializer, ProductSerializer, CategorySerializer,
     PromotionSerializer, ReviewSerializer, UpdateReviewSerializer)
 
 
@@ -58,7 +58,7 @@ class PromotionViewSet(ModelViewSet):
 
 class ReviewViewSet(ModelViewSet):
     http_method_names = ['get', 'post', 'patch',
-                        'delete', 'head', 'options']
+                         'delete', 'head', 'options']
 
     queryset = Review.objects.all()
 

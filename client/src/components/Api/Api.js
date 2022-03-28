@@ -2,7 +2,7 @@ import axios from "axios";
 import store from "../Store/Store";
 
 export const api = axios.create({
-  baseURL: "https://codewithmike.herokuapp.com/api/",
+  baseURL: "http://127.0.0.1:8000/api/",
 });
 
 export const getCourses = async () => {
@@ -743,6 +743,7 @@ export const checkout = async (token, cartId) => {
     store.successResponse = "Order submitted successfully.";
     let prices = [];
     data.items.forEach((item) => prices.push(item.total_price));
+    data.items.forEach((item) => prices.push(item.vat));
     const totalAmount = prices.reduce((a, b) => a + b, 0);
     createPaymentIntent(token, totalAmount);
     store.cartId = null;

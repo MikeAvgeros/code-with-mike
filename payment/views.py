@@ -30,7 +30,8 @@ class StripePayment(APIView):
                 })
             except:
                 return Response(
-                    {'error': 'Something went wrong when creating a payment intent'},
+                    {'error':
+                        'Something went wrong when creating a payment intent'},
                     status=status.HTTP_500_INTERNAL_SERVER_ERROR
                 )
         return Response(

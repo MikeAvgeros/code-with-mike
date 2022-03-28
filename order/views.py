@@ -5,7 +5,7 @@ from rest_framework.mixins import (
     CreateModelMixin, RetrieveModelMixin, DestroyModelMixin)
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
 from .models import (Cart, CartItem, WishList, WishListItem,
-                    Order, OrderItem, WishList)
+                     Order, OrderItem, WishList)
 from customer.models import Customer
 from .serializers import (
     AddCartItemSerializer, AddWishListItemSerializer,
@@ -22,8 +22,8 @@ class CartViewSet(
     serializer_class = CartSerializer
 
 
-class WishListViewSet(CreateModelMixin, 
-        RetrieveModelMixin, GenericViewSet):
+class WishListViewSet(CreateModelMixin,
+                      RetrieveModelMixin, GenericViewSet):
     serializer_class = WishListSerializer
 
     def get_permissions(self):
@@ -41,7 +41,7 @@ class WishListViewSet(CreateModelMixin,
 
 class OrderViewSet(ModelViewSet):
     http_method_names = ['get', 'post', 'patch',
-                        'delete', 'head', 'options']
+                         'delete', 'head', 'options']
 
     def get_permissions(self):
         if self.request.method in ['PATCH', 'DELETE']:
@@ -70,13 +70,13 @@ class OrderViewSet(ModelViewSet):
         serializer.is_valid(raise_exception=True)
         order = serializer.save()
         serializer = OrderSerializer(order,
-                                    context={'request': request})
+                                     context={'request': request})
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
 class CartItemViewSet(ModelViewSet):
     http_method_names = ['get', 'post', 'patch',
-                        'delete', 'head', 'options']
+                         'delete', 'head', 'options']
 
     def get_serializer_class(self):
         if self.request.method == 'POST':
@@ -96,7 +96,7 @@ class CartItemViewSet(ModelViewSet):
 
 class WishListItemViewSet(ModelViewSet):
     http_method_names = ['get', 'post',
-                        'delete', 'head', 'options']
+                         'delete', 'head', 'options']
 
     def get_serializer_class(self):
         if self.request.method == 'POST':

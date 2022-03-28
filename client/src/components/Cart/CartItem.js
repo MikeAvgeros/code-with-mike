@@ -66,7 +66,6 @@ const CartItem = ({ course }) => {
             </IconButton>
             <p
               style={{
-                width: "10px",
                 alignSelf: "center",
                 textAlign: "center",
               }}
@@ -82,8 +81,13 @@ const CartItem = ({ course }) => {
           </Stack>
         </Grid>
         <Grid item>
-          <p style={{ alignSelf: "center", width: "150px" }}>
-            Total Price: £{course.total_price}
+          <p style={{ alignSelf: "center" }}>
+            Price: £{course.total_price}
+          </p>
+        </Grid>
+        <Grid item>
+          <p style={{ alignSelf: "center" }}>
+            VAT: £{course.vat}
           </p>
         </Grid>
       </Grid>

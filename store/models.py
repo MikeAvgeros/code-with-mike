@@ -11,7 +11,8 @@ class Promotion(models.Model):
     slug = models.SlugField(blank=True, null=True)
     name = models.CharField(max_length=255)
     discount = models.FloatField(
-        validators=[MinValueValidator(0.01, MaxValueValidator(1))])
+        validators=[
+            MinValueValidator(0.01, MaxValueValidator(1))])
 
     def __str__(self) -> str:
         return self.name
@@ -54,7 +55,8 @@ class Product(models.Model):
     category = models.ForeignKey(
         Category, on_delete=models.PROTECT, related_name='products')
     promotion = models.ForeignKey(
-        Promotion, on_delete=models.PROTECT, null=True, blank=True, related_name='products')
+        Promotion, on_delete=models.PROTECT, null=True, blank=True,
+        related_name='products')
     image = models.ImageField(blank=True, null=True)
     is_featured = models.BooleanField(default=False)
     last_update = models.DateTimeField(auto_now=True)
@@ -94,7 +96,8 @@ class Review(models.Model):
     last_update = models.DateField(auto_now=True)
 
     def __str__(self):
-        return f'Review for {self.product.name} from {self.customer.user.username}'
+        return f'Review for {self.product.name} \
+                from {self.customer.user.username}'
 
     class Meta:
         ordering = ['name']

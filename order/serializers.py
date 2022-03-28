@@ -22,6 +22,7 @@ class ShortProductSerializer(serializers.ModelSerializer):
 class CartItemSerializer(serializers.ModelSerializer):
     item = ShortProductSerializer()
     total_price = serializers.SerializerMethodField()
+    vat = serializers.SerializerMethodField()
 
     def get_total_price(self, cart_item: CartItem):
         if (cart_item.item.promotion):
@@ -33,9 +34,19 @@ class CartItemSerializer(serializers.ModelSerializer):
             )
         return cart_item.quantity * cart_item.item.price
 
+    def get_vat(self, cart_item: CartItem):
+        if (cart_item.item.promotion):
+            return round((cart_item.quantity * (
+                cart_item.item.price - (
+                    cart_item.item.price *
+                    Decimal(cart_item.item.promotion.discount)
+                ) 
+            )) * Decimal(0.2), 4)
+        return round((cart_item.quantity * cart_item.item.price) * Decimal(0.2), 4)
+
     class Meta:
         model = CartItem
-        fields = ['id', 'item', 'quantity', 'total_price']
+        fields = ['id', 'item', 'quantity', 'total_price', 'vat']
 
 
 class AddCartItemSerializer(serializers.ModelSerializer):
@@ -131,6 +142,7 @@ class WishListSerializer(serializers.ModelSerializer):
 class OrderItemSerializer(serializers.ModelSerializer):
     item = ShortProductSerializer()
     total_price = serializers.SerializerMethodField()
+    vat = serializers.SerializerMethodField()
 
     def get_total_price(self, order_item: OrderItem):
         if (order_item.item.promotion):
@@ -142,9 +154,19 @@ class OrderItemSerializer(serializers.ModelSerializer):
             )
         return order_item.quantity * order_item.item.price
 
+    def get_vat(self, order_item: OrderItem):
+        if (order_item.item.promotion):
+            return round((order_item.quantity * (
+                order_item.item.price - (
+                    order_item.item.price *
+                    Decimal(order_item.item.promotion.discount)
+                ) 
+            )) * Decimal(0.2), 4)
+        return round((order_item.quantity * order_item.item.price) * Decimal(0.2), 4)
+
     class Meta:
         model = OrderItem
-        fields = ['id', 'item', 'quantity', 'total_price']
+        fields = ['id', 'item', 'quantity', 'total_price', 'vat']
 
 
 class OrderSerializer(serializers.ModelSerializer):
@@ -153,7 +175,7 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ['id', 'customer', 'items', 'created_at',
-                'payment_status', 'client_secret']
+                  'payment_status', 'client_secret']
 
 
 class CreateOrderSerializer(serializers.Serializer):

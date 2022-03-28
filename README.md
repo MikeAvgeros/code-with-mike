@@ -557,6 +557,17 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
       - #### **Implementation** 
         - The content of the entire page can be fully edited from the admin page. Site onwners can choose featured reviews, products and promotions.
 
+    - ### **Code validation**
+
+      - #### **W3C HTML Code Validator**
+        I tested every page of my website through the [W3C Markup Validation Service](https://validator.w3.org/) via direct input and returned no errors. 
+
+    - #### **W3C CSS Jigsaw Validator**
+      Each CSS file was tested with [W3C CSS Validator](https://jigsaw.w3.org/css-validator/) via direct input and returned no errors
+
+    - #### **Python 8**
+      I ran all my Python files through [PEP8 online](http://pep8online.com/) and returned no errors, except for settings.py.
+
 [**Table of Content**](#table-of-content)
 
 ## **DEPLOYMENT**
@@ -624,9 +635,20 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
 ## **CREDITS**
 
   - ### **Code**
+    - Before starting my project, I watched Part 2 from Mosh Hamedani's [The Ultimate Django Series](https://codewithmosh.com/p/the-ultimate-django-series). The course inspired how I developed the Django application.
+
+    - While developing the frontend part of the project, I watched the following [Udemy tutorial from Dennis Ivy](https://www.udemy.com/course/django-with-react-an-ecommerce-website). Although, the React code is primarily custom-made, this course inspired how I developed and how I deployed the application.
 
   - ### **Media and content**
+    - Since the design and idea of my project was heavily impacted by [codewithmosh](https://codewithmosh.com), all the images and content for my courses and categories were taken from that website.
+    - The landing page images as well as the logo and favicon were taken from [Freepik at flaticon](https://www.flaticon.com/authors/freepik)
+    - All profile images are provided by the website users.
+    - All icons are provided by [Material UI](https://mui.com/components/material-icons/).
+    - Fonts were provided by [Google Fonts](https://fonts.google.com/).
 
   - ### **Acknowledgments**
+    - I would like to thank my mentor, [Narender Singh](https://www.linkedin.com/in/nar3nd3r/) for his support, guidance and design ideas.
+    - I would like to thank the [Code Institute](https://codeinstitute.net/) for the well-thought-out curriculum and their amazing and super informative and helpful Slack community!
+    - I would like to thank the students and alumni from the Code Institute London Community WhatsApp group for their helpful input during my development and testing phase.
 
 [**Table of Content**](#table-of-content)

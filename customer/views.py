@@ -9,7 +9,7 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 class CustomerViewSet(ModelViewSet):
     http_method_names = ['get', 'post', 'patch',
-                        'delete', 'head', 'options']
+                         'delete', 'head', 'options']
 
     queryset = Customer.objects.all()
     permission_classes = [IsAdminUser]
@@ -23,7 +23,8 @@ class CustomerViewSet(ModelViewSet):
     def history(self, request, pk):
         return Response('ok')
 
-    @action(detail=False, methods=['GET', 'PATCH'], permission_classes=[IsAuthenticated])
+    @action(detail=False, methods=['GET', 'PATCH'],
+            permission_classes=[IsAuthenticated])
     def me(self, request):
         customer = Customer.objects.get(user_id=request.user.id)
         if request.method == 'GET':
