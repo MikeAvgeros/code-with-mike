@@ -155,8 +155,8 @@ export const createReview = async (
   try {
     const { status } = await api.post("store/reviews/", body, config);
     if (status === 201) {
-      store.successResponse = "Thank you for your review.";
       getReviews();
+      store.successResponse = "Thank you for your review.";
     }
   } catch (error) {
     let errorArray = [];
@@ -212,9 +212,11 @@ export const deleteReview = async (token, reviewId) => {
     },
   };
   try {
-    await api.delete(`store/reviews/${reviewId}/`, config);
-    getReviews();
-    store.successResponse = "Review was successfully deleted.";
+    const { status } = await api.delete(`store/reviews/${reviewId}/`, config);
+    if (status === 204) {
+      getReviews();
+      store.successResponse = "Review was successfully deleted.";
+    }
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
@@ -301,8 +303,14 @@ export const updateCartItem = async (qty, cartId, itemId) => {
     quantity: qty,
   });
   try {
-    await api.patch(`order/carts/${cartId}/items/${itemId}/`, body, config);
-    getCartItems(cartId);
+    const { status } = await api.patch(
+      `order/carts/${cartId}/items/${itemId}/`,
+      body,
+      config
+    );
+    if (status === 200) {
+      getCartItems(cartId);
+    }
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
@@ -319,8 +327,13 @@ export const deleteItemFromCart = async (cartId, itemId) => {
     },
   };
   try {
-    await api.delete(`order/carts/${cartId}/items/${itemId}/`, config);
-    getCartItems(cartId);
+    const { status } = await api.delete(
+      `order/carts/${cartId}/items/${itemId}/`,
+      config
+    );
+    if (status === 204) {
+      getCartItems(cartId);
+    }
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
@@ -390,11 +403,13 @@ export const deleteItemFromWishlist = async (
     },
   };
   try {
-    await api.delete(
+    const { status } = await api.delete(
       `order/wishlist/${wishlistId}/items/${wishlistItemId}/`,
       config
     );
-    getWishlistItems(token, wishlistId);
+    if (status === 204) {
+      getWishlistItems(token, wishlistId);
+    }
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
@@ -457,7 +472,7 @@ export const login = async (email, password) => {
       store.token = data.auth_token;
       store.successResponse = "You have successfully logged in.";
     } else {
-      store.errorResponses = ["Something went wrong went trying to login."]
+      store.errorResponses = ["Something went wrong went trying to login."];
     }
   } catch (error) {
     let errorArray = [];
@@ -483,7 +498,7 @@ export const logout = async (token) => {
       store.userAuthenticated = false;
       store.successResponse = "You have successfully logged out.";
     } else {
-      store.errorResponses = ["Something went wrong went trying to logout."]
+      store.errorResponses = ["Something went wrong went trying to logout."];
     }
   } catch (error) {
     let errorArray = [];
@@ -690,7 +705,6 @@ export const updateOrder = async (token, body, orderId, redirect) => {
   try {
     await api.patch(`order/checkout/${orderId}/`, body, config);
     if (redirect) {
-      window.location.assign("https://codewithmike.herokuapp.com/orders/");
       store.orderId = null;
     }
   } catch (error) {
@@ -709,15 +723,20 @@ export const createPaymentIntent = async (token, amount) => {
       Authorization: `Token ${token}`,
     },
   };
+  const body = JSON.stringify({ amount });
   try {
     const { data } = await api.post(
       "payment/stripe",
-      { amount: amount },
+      body,
       config
     );
     store.clientSecret = data.clientSecret;
   } catch (error) {
-    store.errorResponses = Array.from(error);
+    let errorArray = [];
+    for (const key in error.response.data) {
+      errorArray.push(`${key}: ${error.response.data[key]}`);
+    }
+    store.errorResponses = errorArray;
   }
 };
 
@@ -733,14 +752,14 @@ export const checkout = async (token, cartId) => {
     const { data } = await api.post("order/checkout/", body, config);
     store.orderId = data.id;
     store.successResponse = "Order submitted successfully.";
+    store.cartItems = [];
+    store.cartId = null;
     let prices = [];
     data.items.forEach((item) => prices.push(item.total_price));
     data.items.forEach((item) => prices.push(item.vat));
     const totalAmount = prices.reduce((a, b) => a + b, 0);
-    createPaymentIntent(token, totalAmount);
-    store.cartId = null;
-    store.cartItems = [];
-    getOrders(token);
+    const integerAmount = parseInt(totalAmount * 100);
+    createPaymentIntent(token, integerAmount);
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {

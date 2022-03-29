@@ -26,10 +26,9 @@ const Cart = () => {
       store.errorResponses = [
         "You need to be logged in in order to checkout.",
       ];
+      return;
     }
-    if (snap.token && snap.cartId) {
-      checkout(snap.token, snap.cartId);
-    }
+    checkout(snap.token, snap.cartId);
   };
 
   return (

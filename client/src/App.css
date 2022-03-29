@@ -20,7 +20,7 @@ h2 {
 }
 
 h3 {
-  font-size: 22px;
+  font-size: calc(.25vw + 18px);
   margin-bottom: 10px;
 }
 

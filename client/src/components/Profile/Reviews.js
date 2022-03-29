@@ -43,8 +43,8 @@ const Reviews = () => {
       >
         {myReviews ? (
           myReviews.map((review, i) => (
-            <Grid item xs={12} sm={6} md={4}>
-              <Card key={i} sx={{ mb: 5, minWidth: 275 }}>
+            <Grid item key={i} xs={12} sm={6} md={4}>
+              <Card sx={{ mb: 5, minWidth: 275 }}>
                 <CardContent>
                   <h4>{review.product.name}</h4>
                   <Rating name="read-only" value={review.rating} readOnly />

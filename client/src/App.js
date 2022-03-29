@@ -38,7 +38,6 @@ import {
   getReviews,
   getPromotions,
   createCart,
-  getCartItems,
   getCustomer,
   getWishlistItems,
 } from "./components/Api/Api";
@@ -58,20 +57,20 @@ const App = () => {
     if (!snap.cartId) {
       createCart();
     }
-    if (snap.cartId) {
-      getCartItems(snap.cartId);
-    }
-  }, [snap.cartId, snap.cartItems.length]);
+  }, [snap.cartId]);
 
   useEffect(() => {
     if (snap.token) {
       store.userAuthenticated = true;
       getCustomer(snap.token);
-      if (snap.customer.wishlist) {
-        getWishlistItems(snap.token, snap.customer.wishlist);
-      }
     }
-  }, [snap.token, snap.customer, snap.wishlistItems.length]);
+  }, [snap.token]);
+
+  useEffect(() => {
+    if (snap.customer.wishlist) {
+      getWishlistItems(snap.token, snap.customer.wishlist);
+    }
+  }, [snap.wishlistItems.length])
 
   return (
     <Router>
@@ -141,7 +140,7 @@ const App = () => {
             <Route
               path="/checkout"
               element={
-                snap.clientSecret ? (
+                snap.token ? (
                   <Checkout />
                 ) : (
                   <Navigate to="/cart" />

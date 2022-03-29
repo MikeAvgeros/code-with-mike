@@ -28,7 +28,7 @@ export default function CheckoutForm() {
     stripe
       .retrievePaymentIntent(snap.clientSecret)
       .then(({ paymentIntent }) => {
-        setAmount(paymentIntent.amount);
+        setAmount(parseFloat(paymentIntent.amount / 100).toFixed(2));
         setStatus(paymentIntent.status);
         if (status === "succeeded") {
           store.successResponse = "Thank you. Payment was successful!";
@@ -51,15 +51,14 @@ export default function CheckoutForm() {
       return;
     }
     setIsLoading(true);
+    
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
         return_url: "https://codewithmike.herokuapp.com/orders/",
       },
     });
-    if (error.type === "card_error" || error.type === "validation_error") {
-      store.errorResponses = Array.from(error.message);
-    }
+    store.errorResponses = [error.message];
     setIsLoading(false);
   };
 
