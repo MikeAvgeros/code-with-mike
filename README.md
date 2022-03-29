@@ -1,6 +1,6 @@
 # **Code with Mike**
 
-## **INTRODUCTION** 
+## **Introduction** 
 
 Code with Mike is a full-stack ecommerce web application that sells online coding courses to students and professional developers. I created this site for Milestone Project 4 as part of the Code Institute's Full Stack Software Development course.
 
@@ -16,13 +16,13 @@ This project uses Stripe's test payment functionality at checkout, rather than a
 
 You can view live project [by clicking here.](https://codewithmike.herokuapp.com/)
 
-## **PROJECT REQUIREMENTS** 
+## **Project Requirements** 
 
 Build a full-stack ecommerce web application based around business logic used to control a centrally-owned dataset. You will set up an authentication mechanism and provide paid access to the site's data and/or other activities based on the dataset, such as the purchase of a product/service. The website will respond to user actions and alter the way the site displays data/information.
 
 Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Stripe. 
 
-## **TABLE OF CONTENT** 
+## **Table of Content** 
 
   - [UX Design](#ux-design)
     - [Strategy](#strategy)
@@ -40,24 +40,23 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
     - [Libraries and frameworks](#libraries-and-frameworks)
     - [Other technologies](#other-technologies)  
   - [Testing](#testing)
-    - [Manual Testing](#manual-testing)
-    - [User Stories Implementation](#user-stories-implementation)
-    - [Browser Compatibility](#browser-compatibility)
-    - [Responsiveness](#responsiveness)
-    - [HTML Validation](#html-validation)
-    - [CSS Validation](#css-validation)
-    - [Javascript Validation](#javascript-validation)
-    - [Python Validation](#python-validation)
+    - [Manual testing](#manual-testing)
+    - [User stories implementation](#user-stories-implementation)
+    - [Code validation](#code-validation)
+    - [Responsiveness and compatibility](#responsiveness-and-compatibility)
+    - [Further testing](#further-testing)
+    - [Testing methodology](#testing-methodology)
   - [Deployment](#deployment)
-    - [Github Repository](#github-repository)
-    - [Heroku Deployment](#heroku-deployment)
+    - [Github repository](#github-repository)
+    - [Heroku deployment](#heroku-deployment)
+    - [Run the project locally](#run-the-project-locally)
    - [Credits](#credits)
      - [Code](#code)
      - [Content](#content)
      - [Media](#media)
-     - [Acknowledgment](#acknowledgments)
+     - [Acknowledgments](#acknowledgments)
 
-## **UX DESIGN**
+## **UX Design**
 
   - ### **Strategy**  
 
@@ -166,12 +165,14 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
       - Responsive website that can be accessed from various devices.
 
     - #### **Future features**
-      -
+      - More intuitive and customer friendly error messages from the api response, which is displayed in flash messages.
+      - A full Stripe receipt emailed to the user.
+      - A more responsive design with improved UI and layout.
 
     - #### **Business rules**
       - A category which contains courses cannot be deleted.
       - An order which contains order items cannot be deleted.
-      - Orders will be set as 'pending' upon creation and 'success' upon successful payment.
+      - Payment status on orders will be set as 'pending' upon creation and 'success' upon successful payment.
 
     - #### **Constraints**
       - Technical skills: The site owner is still learning Python and is new to Django and React which may impact on the successful implementation of the planned features. 
@@ -266,7 +267,7 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
 
 [**Table of Content**](#table-of-content)
 
-## **DATABASE**
+## **Database**
 
   - #### **Database structure**
 
@@ -296,7 +297,7 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
     Create/update/delete a review | No | Yes | Yes |
     View all users' details | No | No | Yes |
 
-## **TECHNOLOGIES USED**
+## **Technologies Used**
 
   - ### **Languages**
     - [HTML](https://html.spec.whatwg.org/multipage/)
@@ -336,7 +337,7 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
 
 [**Table of Content**](##table-of-content)
 
-## **TESTING**
+## **Testing**
 
   - ### **Manual Testing**
 
@@ -562,15 +563,60 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
       - #### **W3C HTML Code Validator**
         I tested every page of my website through the [W3C Markup Validation Service](https://validator.w3.org/) via direct input and returned no errors. 
 
-    - #### **W3C CSS Jigsaw Validator**
-      Each CSS file was tested with [W3C CSS Validator](https://jigsaw.w3.org/css-validator/) via direct input and returned no errors
+      - #### **W3C CSS Jigsaw Validator**
+        Each CSS file was tested with [W3C CSS Validator](https://jigsaw.w3.org/css-validator/) via direct input and returned no errors.
 
-    - #### **Python 8**
-      I ran all my Python files through [PEP8 online](http://pep8online.com/) and returned no errors, except for settings.py.
+      - #### **JS Hint**
+        I ran all my Javascript files through [JSHint](https://jshint.com/) and returned no errors.
+
+      - #### **Python PEP8**
+        I ran all my Python files through [PEP8 online](http://pep8online.com/) and returned no errors, except for settings.py.
+
+    - ### **Responsiveness and Compatibility**
+
+      - The website is compatible with most modern web browsers. For the best viewing experience, I recommend using Chrome, Firefox, Edge or Safari. 
+
+      - The worst viewing experience is on Internet Explorer. I decided to not include any vendor prefixes for IE or make any changes to my code as IE is no longer supported. 
+
+      - I have been constantly testing how responsive my website is by using [Google Development Tools](https://developers.google.com/web/tools), [Am I Responsive](http://ami.responsivedesign.is/) and [Techsini Multi Device Mockup Generator](https://techsini.com/multi-mockup/index.php)
+
+      - Throughout the development process, I have been consistently testing that all the pages work well on different screen sizes and devices. 
+
+      - This has helped me adjust the values on my font sizes so that my fonts are responsive and work well on all screen sizes.
+
+      - This has helped me adjust the width and height of all my images.
+
+      - This has helped me adjust the width and height of my buttons as their size is responsive depending on the screen width.
+
+      - Overall, most of the elements on the website are responsive based on the screen size so being able to view how the website adapts depending on the screen has helped me make suitable decisions, which have improved the User Experience.
+
+      - During the testing phase, I have used Lighthouse to generate reports for both Desktop and Mobile. The reports showed better practices and syntantical fixes on my HTML and CSS, which in turn helped boost the performance, accessibility and UX of the website.
+
+    - ### **Further Testing**
+
+      - The website was viewed and tested on a variety of devices such as Desktop, Laptop, iPad, and a variety of Android and iOs mobile phones. 
+
+      - The website was viewed and tested on a variety of browsers.
+
+        - Chrome
+        - Firefox
+        - Safari
+        - Opera
+        - Edge
+
+      - A large amount of testing was done to ensure that all links were working as expected.
+
+      - All buttons were carefully tested to ensure they were linking to the correct page.
+
+      - Friends, family members and other Code Institute students were asked to review the site and documentation to point out any bugs, typos and/or user experience issues.
+
+    - ### **Testing Methodology**
+
+      -  Code changes were carefully tested prior to committing and pushing to GitHub. This was in an attempt to prevent faulty or broken code from being pushed to the repository or deployed to the live site. 
 
 [**Table of Content**](#table-of-content)
 
-## **DEPLOYMENT**
+## **Deployment**
 
   - ### **Github Repository**
 
@@ -632,7 +678,7 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
     - #### **Run React app**
       - To run React, open your terminal and cd into the client folder. Run ```npm install``` to install all the required node modules from the packages.json file. Once everything is installed, to open a development server for the app, you need to run ```npm start```. 
 
-## **CREDITS**
+## **Credits**
 
   - ### **Code**
     - Before starting my project, I watched Part 2 from Mosh Hamedani's [The Ultimate Django Series](https://codewithmosh.com/p/the-ultimate-django-series). The course inspired how I developed the Django application.
