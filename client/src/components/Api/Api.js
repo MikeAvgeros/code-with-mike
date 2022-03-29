@@ -155,7 +155,6 @@ export const createReview = async (
   try {
     const { status } = await api.post("store/reviews/", body, config);
     if (status === 201) {
-      window.location.assign("https://codewithmike.herokuapp.com/");
       store.successResponse = "Thank you for your review.";
       getReviews();
     }
@@ -194,7 +193,6 @@ export const updateReview = async (
     );
     if (status === 200) {
       getReviews();
-      window.location.assign("https://codewithmike.herokuapp.com/");
       store.successResponse = "You have successfully updated your review.";
     }
   } catch (error) {
@@ -435,7 +433,6 @@ export const signup = async (email, username, password, re_password) => {
   try {
     const { status } = await api.post("auth/users/", body, config);
     if (status === 201) {
-      window.location.assign("https://codewithmike.herokuapp.com/login/");
       store.successResponse = "You have successfully signed up. Please log in.";
     }
   } catch (error) {
@@ -458,7 +455,6 @@ export const login = async (email, password) => {
     const { data } = await api.post("auth/token/login/", body, config);
     if (data.auth_token) {
       store.token = data.auth_token;
-      window.location.assign("https://codewithmike.herokuapp.com/");
       store.successResponse = "You have successfully logged in.";
     } else {
       store.errorResponses = ["Something went wrong went trying to login."]
@@ -485,7 +481,6 @@ export const logout = async (token) => {
       store.token = null;
       store.customer = [];
       store.userAuthenticated = false;
-      window.location.assign("https://codewithmike.herokuapp.com/");
       store.successResponse = "You have successfully logged out.";
     } else {
       store.errorResponses = ["Something went wrong went trying to logout."]
@@ -571,7 +566,6 @@ export const deleteUser = async (token, current_password) => {
   try {
     const { status } = await api.delete("auth/users/me/", body, config);
     if (status === 204) {
-      window.location.assign("https://codewithmike.herokuapp.com/");
       store.successResponse = "Your account was successfully deleted.";
       store.customer = [];
       store.token = null;
@@ -630,7 +624,6 @@ export const resetPasswordConfirmation = async (
       config
     );
     if (status === 204) {
-      window.location.assign("https://codewithmike.herokuapp.com/login/");
       store.successResponse = "You can now log in with your new password.";
     }
   } catch (error) {
@@ -656,7 +649,6 @@ export const sendEmail = async (email, name, message) => {
   try {
     const { status } = await api.post("contact/email", body, config);
     if (status === 200) {
-      window.location.assign("https://codewithmike.herokuapp.com/");
       store.successResponse =
         "Thank you for getting in touch. We'll respond as soon as possible.";
     }

@@ -61,7 +61,7 @@ const App = () => {
     if (snap.cartId) {
       getCartItems(snap.cartId);
     }
-  }, [snap.cartId]);
+  }, [snap.cartId, snap.cartItems.length]);
 
   useEffect(() => {
     if (snap.token) {
@@ -71,7 +71,7 @@ const App = () => {
         getWishlistItems(snap.token, snap.customer.wishlist);
       }
     }
-  }, [snap.token, snap.customer]);
+  }, [snap.token, snap.customer, snap.wishlistItems.length]);
 
   return (
     <Router>
