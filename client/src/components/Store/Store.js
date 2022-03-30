@@ -16,6 +16,10 @@ const initialState = storedState
       cartItems: [],
       wishlistItems: [],
       orders: [],
+      currentOrder: {
+        id: null,
+        amount: 0
+      },
       customer: [],
       token: null,
       userAuthenticated: false,

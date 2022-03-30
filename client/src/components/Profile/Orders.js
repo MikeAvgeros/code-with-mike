@@ -26,7 +26,7 @@ const Orders = () => {
       >
         {snap.orders &&
           snap.orders.map((order, i) => (
-            <Grid item key={i} xs={12} sm={6} md={4}>
+            <Grid item key={i} xs={12} md={6} lg={4}>
               <OrderItem order={order} />
             </Grid>
           ))}

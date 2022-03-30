@@ -13,7 +13,13 @@ export const getCourses = async () => {
   };
   try {
     const { data } = await api.get("store/products/", config);
-    store.courses = data;
+    if (data.length > 0) {
+      store.courses = data;
+    } else {
+      store.errorResponses = [
+        "Something went wrong when trying to fetch the courses.",
+      ];
+    }
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
@@ -31,7 +37,13 @@ export const getCourseDetails = async (slug) => {
   };
   try {
     const { data } = await api.get(`store/products/${slug}/`, config);
-    store.courseDetails = data;
+    if (data) {
+      store.courseDetails = data;
+    } else {
+      store.errorResponses = [
+        "Something went wrong when trying to fetch the details.",
+      ];
+    }
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
@@ -49,7 +61,13 @@ export const getCategories = async () => {
   };
   try {
     const { data } = await api.get("store/categories/", config);
-    store.categories = data;
+    if (data.length > 0) {
+      store.categories = data;
+    } else {
+      store.errorResponses = [
+        "Something went wrong when trying to fetch the categories.",
+      ];
+    }
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
@@ -67,7 +85,13 @@ export const getCategoryDetails = async (slug) => {
   };
   try {
     const { data } = await api.get(`store/categories/${slug}/`, config);
-    store.categoryDetails = data;
+    if (data) {
+      store.categoryDetails = data;
+    } else {
+      store.errorResponses = [
+        "Something went wrong when trying to fetch the details.",
+      ];
+    }
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
@@ -85,7 +109,13 @@ export const getPromotions = async () => {
   };
   try {
     const { data } = await api.get("store/promotions/", config);
-    store.promotions = data;
+    if (data.length > 0) {
+      store.promotions = data;
+    } else {
+      store.errorResponses = [
+        "Something went wrong when trying to fetch the promotions.",
+      ];
+    }
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
@@ -103,7 +133,13 @@ export const getPromotionDetails = async (slug) => {
   };
   try {
     const { data } = await api.get(`store/promotions/${slug}/`, config);
-    store.promotionDetails = data;
+    if (data) {
+      store.promotionDetails = data;
+    } else {
+      store.errorResponses = [
+        "Something went wrong when trying to fetch the details.",
+      ];
+    }
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
@@ -121,7 +157,13 @@ export const getReviews = async () => {
   };
   try {
     const { data } = await api.get("store/reviews/", config);
-    store.reviews = data;
+    if (data.length > 0) {
+      store.reviews = data;
+    } else {
+      store.errorResponses = [
+        "Something went wrong when trying to fetch the reviews.",
+      ];
+    }
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
@@ -157,6 +199,10 @@ export const createReview = async (
     if (status === 201) {
       getReviews();
       store.successResponse = "Thank you for your review.";
+    } else {
+      store.errorResponses = [
+        "Something went wrong when trying to save the review.",
+      ];
     }
   } catch (error) {
     let errorArray = [];
@@ -194,6 +240,10 @@ export const updateReview = async (
     if (status === 200) {
       getReviews();
       store.successResponse = "You have successfully updated your review.";
+    } else {
+      store.errorResponses = [
+        "Something went wrong when trying to update the review.",
+      ];
     }
   } catch (error) {
     let errorArray = [];
@@ -216,6 +266,10 @@ export const deleteReview = async (token, reviewId) => {
     if (status === 204) {
       getReviews();
       store.successResponse = "Review was successfully deleted.";
+    } else {
+      store.errorResponses = [
+        "Something went wrong when trying to delete the review.",
+      ];
     }
   } catch (error) {
     let errorArray = [];
@@ -234,7 +288,13 @@ export const createCart = async () => {
   };
   try {
     const { data } = await api.post("order/carts/", config);
-    store.cartId = data.id;
+    if (data) {
+      store.cartId = data.id;
+    } else {
+      store.errorResponses = [
+        "Something went wrong when trying to create the cart.",
+      ];
+    }
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
@@ -252,9 +312,15 @@ export const getCartItems = async (cartId) => {
   };
   try {
     const { data } = await api.get(`order/carts/${cartId}/`, config);
-    store.cartItems = data.items.sort((a, b) => {
-      return a.id - b.id;
-    });
+    if (data.items) {
+      store.cartItems = data.items.sort((a, b) => {
+        return a.id - b.id;
+      });
+    } else {
+      store.errorResponses = [
+        "Something went wrong when trying to get the cart items.",
+      ];
+    }
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
@@ -283,6 +349,10 @@ export const addItemToCart = async (itemId, qty, cartId) => {
     if (status === 201) {
       getCartItems(cartId);
       store.successResponse = "Course successfully added to the cart.";
+    } else {
+      store.errorResponses = [
+        "Something went wrong when trying to add course to the cart.",
+      ];
     }
   } catch (error) {
     let errorArray = [];
@@ -310,6 +380,10 @@ export const updateCartItem = async (qty, cartId, itemId) => {
     );
     if (status === 200) {
       getCartItems(cartId);
+    } else {
+      store.errorResponses = [
+        "Something went wrong when trying to update the quantity.",
+      ];
     }
   } catch (error) {
     let errorArray = [];
@@ -333,6 +407,10 @@ export const deleteItemFromCart = async (cartId, itemId) => {
     );
     if (status === 204) {
       getCartItems(cartId);
+    } else {
+      store.errorResponses = [
+        "Something went wrong when trying to delete the course from the cart.",
+      ];
     }
   } catch (error) {
     let errorArray = [];
@@ -352,9 +430,15 @@ export const getWishlistItems = async (token, wishlistId) => {
   };
   try {
     const { data } = await api.get(`order/wishlist/${wishlistId}/`, config);
-    store.wishlistItems = data.items.sort((a, b) => {
-      return a.id - b.id;
-    });
+    if (data.items) {
+      store.wishlistItems = data.items.sort((a, b) => {
+        return a.id - b.id;
+      });
+    } else {
+      store.errorResponses = [
+        "Something went wrong when trying to get the wishlist items.",
+      ];
+    }
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
@@ -381,6 +465,10 @@ export const addItemToWishlist = async (token, wishlistId, courseId) => {
     if (status === 201) {
       getWishlistItems(token, wishlistId);
       store.successResponse = "Course successfully added to the wishlist.";
+    } else {
+      store.errorResponses = [
+        "Something went wrong when trying to add course to the wishlist.",
+      ];
     }
   } catch (error) {
     let errorArray = [];
@@ -409,6 +497,10 @@ export const deleteItemFromWishlist = async (
     );
     if (status === 204) {
       getWishlistItems(token, wishlistId);
+    } else {
+      store.errorResponses = [
+        "Something went wrong when trying to delete course from the wishlist.",
+      ];
     }
   } catch (error) {
     let errorArray = [];
@@ -428,7 +520,13 @@ export const getCustomer = async (token) => {
   };
   try {
     const { data } = await api.get("profile/customers/me/", config);
-    store.customer = data;
+    if (data) {
+      store.customer = data;
+    } else {
+      store.errorResponses = [
+        "Something went wrong when trying to get your profile details.",
+      ];
+    }
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
@@ -449,6 +547,8 @@ export const signup = async (email, username, password, re_password) => {
     const { status } = await api.post("auth/users/", body, config);
     if (status === 201) {
       store.successResponse = "You have successfully signed up. Please log in.";
+    } else {
+      store.errorResponses = ["Something went wrong when trying to sign up."];
     }
   } catch (error) {
     let errorArray = [];
@@ -584,6 +684,10 @@ export const deleteUser = async (token, current_password) => {
       store.successResponse = "Your account was successfully deleted.";
       store.customer = [];
       store.token = null;
+    } else {
+      store.errorResponses = [
+        "Something went wrong when trying to delete your account.",
+      ];
     }
   } catch (error) {
     let errorArray = [];
@@ -610,6 +714,10 @@ export const resetPassword = async (email) => {
     if (status === 204) {
       store.successResponse =
         "We have sent a password reset link to your email.";
+    } else {
+      store.errorResponses = [
+        "Something went wrong when trying to reset your password.",
+      ];
     }
   } catch (error) {
     let errorArray = [];
@@ -640,6 +748,10 @@ export const resetPasswordConfirmation = async (
     );
     if (status === 204) {
       store.successResponse = "You can now log in with your new password.";
+    } else {
+      store.errorResponses = [
+        "Something went wrong when trying to reset your password.",
+      ];
     }
   } catch (error) {
     let errorArray = [];
@@ -666,6 +778,10 @@ export const sendEmail = async (email, name, message) => {
     if (status === 200) {
       store.successResponse =
         "Thank you for getting in touch. We'll respond as soon as possible.";
+    } else {
+      store.errorResponses = [
+        "Something went wrong when trying to email the contact form.",
+      ];
     }
   } catch (error) {
     let errorArray = [];
@@ -685,7 +801,13 @@ export const getOrders = async (token) => {
   };
   try {
     const { data } = await api.get("order/checkout/", config);
-    store.orders = data;
+    if (data.length > 0) {
+      store.orders = data;
+    } else {
+      store.errorResponses = [
+        "Something went wrong when trying to get your order history.",
+      ];
+    }
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
@@ -695,7 +817,7 @@ export const getOrders = async (token) => {
   }
 };
 
-export const updateOrder = async (token, body, orderId, redirect) => {
+export const updateOrder = async (token, body, orderId, paid) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -703,9 +825,23 @@ export const updateOrder = async (token, body, orderId, redirect) => {
     },
   };
   try {
-    await api.patch(`order/checkout/${orderId}/`, body, config);
-    if (redirect) {
-      store.orderId = null;
+    const { status } = await api.patch(
+      `order/checkout/${orderId}/`,
+      body,
+      config
+    );
+    if (status === 200) {
+      if (paid) {
+        store.currentOrder.id = null;
+        store.currentOrder.amount = 0;
+        window.location.assign("https://codewithmike.herokuapp.com/orders")
+      }
+    } else {
+      if (paid) {
+        store.errorResponses = [
+          "Something went wrong when trying to update the payment status of the order.",
+        ];
+      }
     }
   } catch (error) {
     let errorArray = [];
@@ -725,12 +861,14 @@ export const createPaymentIntent = async (token, amount) => {
   };
   const body = JSON.stringify({ amount });
   try {
-    const { data } = await api.post(
-      "payment/stripe",
-      body,
-      config
-    );
-    store.clientSecret = data.clientSecret;
+    const { data } = await api.post("payment/stripe", body, config);
+    if (data.clientSecret) {
+      store.clientSecret = data.clientSecret;
+    } else {
+      store.errorResponses = [
+        "Something went wrong when trying to access Stripe for the payment.",
+      ];
+    }
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
@@ -750,7 +888,7 @@ export const checkout = async (token, cartId) => {
   const body = JSON.stringify({ cart_id: cartId });
   try {
     const { data } = await api.post("order/checkout/", body, config);
-    store.orderId = data.id;
+    store.currentOrder.id = data.id;
     store.successResponse = "Order submitted successfully.";
     store.cartItems = [];
     store.cartId = null;
@@ -758,6 +896,7 @@ export const checkout = async (token, cartId) => {
     data.items.forEach((item) => prices.push(item.total_price));
     data.items.forEach((item) => prices.push(item.vat));
     const totalAmount = prices.reduce((a, b) => a + b, 0);
+    store.currentOrder.amount = totalAmount.toFixed(2);
     const integerAmount = parseInt(totalAmount * 100);
     createPaymentIntent(token, integerAmount);
   } catch (error) {

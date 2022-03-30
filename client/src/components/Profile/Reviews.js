@@ -25,7 +25,7 @@ const Reviews = () => {
           review.customer.user.username === snap.customer.user.username
       )
     );
-  }, []);
+  }, [snap.reviews.length]);
 
   const handleDeleteReview = (e) => {
     deleteReview(snap.token, e.target.value);

@@ -6,7 +6,7 @@ import store from "../Store/Store";
 import {
   AppBar,
   Toolbar,
-  Box,
+  Grid,
   IconButton,
   Typography,
   Menu,
@@ -123,14 +123,16 @@ const Header = () => {
 
   const renderDesktopView = () => {
     return (
-      <React.Fragment>
-        <Box
-          sx={{
-            flexGrow: 1,
-            display: { xs: "none", md: "flex" },
-            marginLeft: 5,
-          }}
-        >
+      <Grid
+        container
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+        sx={{ 
+          display: { xs: "none", md: "flex" }
+        }}
+      >
+        <Grid item>
           <Stack direction="row" spacing={3}>
             <Link className="nav-el" to="/">
               <Image sx={{ maxWidth: "48px" }} src={logo} />
@@ -145,8 +147,8 @@ const Header = () => {
               Contact
             </Link>
           </Stack>
-        </Box>
-        <Box sx={{ display: { xs: "none", md: "flex" }, marginRight: 5 }}>
+        </Grid>
+        <Grid item>
           <Stack direction="row" spacing={3}>
             {snap.userAuthenticated && (
               <Link className="nav-el" to="/wishlist">
@@ -169,21 +171,23 @@ const Header = () => {
             </Link>
             {renderUserSettings()}
           </Stack>
-        </Box>
-      </React.Fragment>
+        </Grid>
+      </Grid>
     );
   };
 
   const renderMobileView = () => {
     return (
-      <React.Fragment>
-        <Box
-          sx={{
-            flexGrow: 1,
-            display: { xs: "flex", md: "none" },
-            marginLeft: 2,
-          }}
-        >
+      <Grid
+        container
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+        sx={{ 
+          display: { xs: "flex", md: "none" }
+        }}
+      >
+        <Grid item>
           <IconButton
             size="large"
             aria-label="navigation menu"
@@ -208,9 +212,6 @@ const Header = () => {
             }}
             open={Boolean(anchorElNav)}
             onClose={closeNavMenu}
-            sx={{
-              display: { xs: "block", md: "none" },
-            }}
           >
             {pages.map((page) => (
               <MenuItem key={page} onClick={closeNavMenu}>
@@ -228,13 +229,13 @@ const Header = () => {
               </MenuItem>
             )}
           </Menu>
-        </Box>
-        <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+        </Grid>
+        <Grid item>
           <Link className="nav-el" to="/">
             <Image sx={{ maxWidth: "48px" }} src={logo} />
           </Link>
-        </Box>
-        <Box sx={{ display: { xs: "flex", md: "none" }, marginRight: 3 }}>
+        </Grid>
+        <Grid item>
           <Stack direction="row" spacing={3}>
             {snap.userAuthenticated && (
               <Link className="nav-el" to="/wishlist">
@@ -252,14 +253,14 @@ const Header = () => {
               </Badge>
             </Link>
           </Stack>
-        </Box>
-      </React.Fragment>
+        </Grid>
+      </Grid>
     );
   };
 
   return (
     <AppBar sx={{ backgroundColor: "#212121" }}>
-      <Toolbar disableGutters>
+      <Toolbar>
         {renderDesktopView()}
         {renderMobileView()}
       </Toolbar>

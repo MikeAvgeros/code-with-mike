@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import store from "../Store/Store";
 import {
@@ -17,17 +17,14 @@ const OrderItem = ({ order }) => {
   const totalAmount = prices.reduce((a, b) => a + b, 0);
   const vat = parseFloat((totalAmount * 0.2).toFixed(2));
 
-  useEffect(() => {
-    store.clientSecret = null;
-  }, []);
-
   const handleRetryPayment = () => {
     store.clientSecret = order.client_secret;
-    store.orderId = order.id;
+    store.currentOrder.id = order.id;
+    store.currentOrder.amount = totalAmount + vat;
   };
 
   return (
-    <Card sx={{ minWidth: 275 }}>
+    <Card sx={{ minWidth: 300 }}>
       <CardHeader
         sx={{
           height: "24px",
@@ -43,12 +40,13 @@ const OrderItem = ({ order }) => {
               sx={{ mb: 2 }}
               spacing={2}
               direction="column"
+              alignItems="center"
             >
               <Grid item>
-                <Stack direction="row" spacing={2}>
-                  <Avatar alt={item.item.name} src={item.item.image} />
-                  <p style={{ width: "250px", alignSelf: "center" }}>{item.item.name}</p>
-                </Stack>
+                <Avatar alt={item.item.name} src={item.item.image} />
+              </Grid>
+              <Grid item>
+                <p style={{ width: "250px", textAlign: "center" }}>{item.item.name}</p>
               </Grid>
               <Grid item>
                 <p>Date of Purchase: {order.created_at.split("T")[0]}</p>
@@ -70,24 +68,44 @@ const OrderItem = ({ order }) => {
               </Grid>
               <Grid item>
                 {order.payment_status === "Success" ? (
-                  <Link
-                    to={`/review/send/${order.id}`}
-                    style={{ textDecoration: "none" }}
-                  >
-                    <Button size="small" className="btn">
-                      Leave a review
-                    </Button>
-                  </Link>
-                ) : (
-                  <Link to="/checkout" style={{ textDecoration: "none" }}>
-                    <Button
-                      size="small"
-                      className="btn"
-                      onClick={handleRetryPayment}
+                  <Stack direction="row" spacing={2}>
+                    <Link
+                      to="/"
+                      style={{ textDecoration: "none" }}
                     >
-                      Retry Payment
-                    </Button>
-                  </Link>
+                      <Button size="small" className="btn">
+                        View Course
+                      </Button>
+                    </Link>
+                    <Link
+                      to={`/review/send/${order.id}`}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <Button size="small" className="btn">
+                        Send review
+                      </Button>
+                    </Link>
+                  </Stack>
+                ) : (
+                  <Stack direction="row" spacing={2}>
+                    <Link to="/checkout" style={{ textDecoration: "none" }}>
+                      <Button
+                        size="small"
+                        className="btn"
+                        onClick={handleRetryPayment}
+                      >
+                        Make Payment
+                      </Button>
+                    </Link>
+                    <Link to="/contact" style={{ textDecoration: "none" }}>
+                      <Button
+                        size="small"
+                        className="btn"
+                      >
+                        Contact Us
+                      </Button>
+                    </Link>
+                  </Stack>
                 )}
               </Grid>
             </Grid>

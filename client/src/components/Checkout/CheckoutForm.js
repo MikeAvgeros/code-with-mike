@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import {
   PaymentElement,
   useStripe,
-  useElements,
+  useElements
 } from "@stripe/react-stripe-js";
 import { useSnapshot } from "valtio";
 import store from "../Store/Store";
@@ -16,46 +16,60 @@ export default function CheckoutForm() {
   const elements = useElements();
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState(null);
-  const [status, setStatus] = useState("");
 
   useEffect(() => {
     if (!stripe) {
       return;
     }
-    if (!snap.clientSecret) {
+
+    setAmount(snap.currentOrder.amount);
+
+    const clientSecret = new URLSearchParams(window.location.search).get(
+      "payment_intent_client_secret"
+    );
+
+    if (!clientSecret) {
       return;
     }
-    stripe
-      .retrievePaymentIntent(snap.clientSecret)
-      .then(({ paymentIntent }) => {
-        setAmount(parseFloat(paymentIntent.amount / 100).toFixed(2));
-        setStatus(paymentIntent.status);
-        if (status === "succeeded") {
+
+    stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
+      let body;
+      switch (paymentIntent.status) {
+        case "succeeded":
           store.successResponse = "Thank you. Payment was successful!";
-          const body = JSON.stringify({
-            payment_status: "Success",
-            client_secret: null,
-          });
-          updateOrder(snap.token, body, snap.orderId, true);
-        }
-        if (status === "requires_payment_method") {
-          const body = JSON.stringify({ client_secret: snap.clientSecret });
-          updateOrder(snap.token, body, snap.orderId, false);
-        }
-      });
-  }, [stripe, snap.clientSecret, status]);
+          store.clientSecret = null;
+          body = JSON.stringify({ payment_status: "Success" });
+          updateOrder(snap.token, body, snap.currentOrder.id, true);
+          break;
+        case "processing":
+          store.successResponse = "Your payment is processing";
+          break;
+        case "requires_payment_method":
+          store.errorResponses = ["Your payment was not successful, please try again."];
+          body = JSON.stringify({ client_secret: snap.clientSecret });
+          updateOrder(snap.token, body, snap.currentOrder.id, false);
+          break;
+        default:
+          store.errorResponses = ["Something went wrong when connecting to Stripe."];
+          body = JSON.stringify({ client_secret: snap.clientSecret });
+          updateOrder(snap.token, body, snap.currentOrder.id, false);
+          break;
+      }
+    });
+  }, [stripe]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!stripe || !elements) {
       return;
     }
+
     setIsLoading(true);
     
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: "https://codewithmike.herokuapp.com/orders/",
+        return_url: window.location.href,
       },
     });
     store.errorResponses = [error.message];

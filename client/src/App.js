@@ -50,8 +50,11 @@ const App = () => {
     getCategories();
     getCourses();
     getPromotions();
-    getReviews();
   }, []);
+
+  useEffect(() => {
+    getReviews();
+  }, [snap.reviews.length])
 
   useEffect(() => {
     if (!snap.cartId) {
@@ -70,7 +73,7 @@ const App = () => {
     if (snap.customer.wishlist) {
       getWishlistItems(snap.token, snap.customer.wishlist);
     }
-  }, [snap.wishlistItems.length])
+  }, [snap.customer, snap.wishlistItems.length])
 
   return (
     <Router>
