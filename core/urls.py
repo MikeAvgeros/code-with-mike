@@ -11,7 +11,7 @@ urlpatterns = [
     path('api/store/', include('store.urls')),
     path('api/order/', include('order.urls')),
     path('api/payment/', include('payment.urls')),
-    path('api/contact/', include('contact.urls')),
+    path('api/email/', include('contact.urls')),
     path('api/profile/', include('customer.urls')),
     path('api/auth/', include('djoser.urls')),
     path('api/auth/', include('djoser.urls.authtoken')),

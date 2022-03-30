@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { sendEmail } from "../Api/Api";
+import { sendContactEmail } from "../Api/Api";
 import store from "../Store/Store";
 import { useSnapshot } from "valtio";
 import {
@@ -30,7 +30,7 @@ const Contact = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    sendEmail(email, name, message);
+    sendContactEmail(email, name, message);
   };
 
   return (

@@ -762,7 +762,7 @@ export const resetPasswordConfirmation = async (
   }
 };
 
-export const sendEmail = async (email, name, message) => {
+export const sendContactEmail = async (email, name, message) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -774,7 +774,7 @@ export const sendEmail = async (email, name, message) => {
     message,
   });
   try {
-    const { status } = await api.post("contact/email", body, config);
+    const { status } = await api.post("email/contact", body, config);
     if (status === 200) {
       store.successResponse =
         "Thank you for getting in touch. We'll respond as soon as possible.";
@@ -783,6 +783,27 @@ export const sendEmail = async (email, name, message) => {
         "Something went wrong when trying to email the contact form.",
       ];
     }
+  } catch (error) {
+    let errorArray = [];
+    for (const key in error.response.data) {
+      errorArray.push(`${key}: ${error.response.data[key]}`);
+    }
+    store.errorResponses = errorArray;
+  }
+};
+
+export const sendReceipt = async (email, message) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const body = JSON.stringify({
+    email,
+    message,
+  });
+  try {
+    await api.post("email/receipt", body, config);
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {

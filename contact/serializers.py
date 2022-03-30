@@ -3,6 +3,12 @@ from .models import Contact
 
 
 class ContactSerializer(serializers.ModelSerializer):
-  class  Meta:
-    model = Contact
-    fields = ['email', 'name', 'message']
+    class Meta:
+        model = Contact
+        fields = ['email', 'name', 'message']
+
+
+class ReceiptSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Contact
+        fields = ['email', 'message']

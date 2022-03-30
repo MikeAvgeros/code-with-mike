@@ -165,8 +165,12 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
       - Responsive website that can be accessed from various devices.
 
     - #### **Future features**
+      - Allow users to signup and login using social media accounts.
+      - A Stripe receipt emailed to the user.
+      - More payment methods - Google and Apple pay.
+      - Store customer's card information using Stripe.
+      - Allow refunds through the website.
       - More intuitive and customer friendly error messages from the api response, which is displayed in flash messages.
-      - A full Stripe receipt emailed to the user.
       - A more responsive design with improved UI and layout.
 
     - #### **Business rules**
@@ -314,19 +318,23 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
   - ### **Libraries and frameworks**
     - [Django](https://www.djangoproject.com/): A Python web development framework
     - [Django REST](https://www.django-rest-framework.org/): A powerful and flexible toolkit for building Web APIs with Django
-    - [Django CORS Headers](https://pypi.org/project/django-cors-headers/) A toolkit that allows in-browser requests to your Django application from other origins
+    - [Django CORS Headers](https://pypi.org/project/django-cors-headers/): A toolkit that allows in-browser requests to your Django application from other origins
     - [Djoser](https://djoser.readthedocs.io/en/latest/): A REST implementation of Django's authentication system
     - [Pillow](https://pypi.org/project/Pillow/): A Python library for extended image processing capabilities
     - [Stripe](https://stripe.com/docs/payments): An API used to securely handle payments 
-    - [Whitenoise](https://pypi.org/project/whitenoise/) A Python library for easily serving static files
+    - [Whitenoise](https://pypi.org/project/whitenoise/): A Python library for easily serving static files
     - [Gunicorn](https://gunicorn.org/): WSGI HTTP Server to support deployment of Django application
+    - [Psycopg2](https://pypi.org/project/psycopg2/): A very popular PostgreSQL database adapter for the Python programming language.
+    - [Boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html): Boto is the Amazon Web Services (AWS) SDK for Python.
     - [React](https://reactjs.org/): A Javascript library for building web interfaces
     - [Material UI](https://reactjs.org/): A UI library for React using Google's material design
-    - [Axios](https://www.npmjs.com/package/axios) A promise based HTTP client for the browser and node.js
-    - [Valtio](https://github.com/pmndrs/valtio) A simple and light-weight proxy-based state management for React
+    - [Axios](https://www.npmjs.com/package/axios): A promise based HTTP client for the browser and node.js
+    - [Valtio](https://github.com/pmndrs/valtio): A simple and light-weight proxy-based state management for React
 
   - ### **Other technologies**
-    - [Diagrams](https://app.diagrams.net/) Used to design the wireframes and database schema for the project
+    - [Git](https://git-scm.com/): A version control system for tracking changes in source code during software development
+    - [Github](https://github.com): Github provides hosting for software development version control using Git
+    - [Diagrams](https://app.diagrams.net/): Used to design the wireframes and database schema for the project
     - [W3C Markup Validation Service](https://validator.w3.org/): Used to check if there are any HTML errors
     - [W3C CSS Validator](https://jigsaw.w3.org/css-validator/): Used to check if there are any CSS errors
     - [WAVE Web Accessibility Evaluation Tool](https://wave.webaim.org/): Used to evaluate accessibility of the website
@@ -697,4 +705,5 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
     - I would like to thank the [Code Institute](https://codeinstitute.net/) for the well-thought-out curriculum and their amazing and super informative and helpful Slack community!
     - I would like to thank the students and alumni from the Code Institute London Community WhatsApp group for their helpful input during my development and testing phase.
 
-[**Table of Content**](#table-of-content)
+## **Disclaimer**
+  #### This website was made for educational purposes only

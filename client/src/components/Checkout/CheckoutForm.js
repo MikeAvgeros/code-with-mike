@@ -6,7 +6,7 @@ import {
 } from "@stripe/react-stripe-js";
 import { useSnapshot } from "valtio";
 import store from "../Store/Store";
-import { updateOrder } from "../Api/Api";
+import { sendReceipt, updateOrder } from "../Api/Api";
 import { Container, Box, Avatar, Button, Typography } from "@mui/material";
 import PaymentsIcon from "@mui/icons-material/Payments";
 
@@ -38,6 +38,10 @@ export default function CheckoutForm() {
         case "succeeded":
           store.successResponse = "Thank you. Payment was successful!";
           store.clientSecret = null;
+          const message = 
+          `This is a payment receipt for order number ${snap.currentOrder.id} for the amount of £${snap.currentOrder.amount}.
+          Please keep this order id for your records.`
+          sendReceipt(snap.customer.user.email, message);
           body = JSON.stringify({ payment_status: "Success" });
           updateOrder(snap.token, body, snap.currentOrder.id, true);
           break;
