@@ -275,9 +275,13 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
 
   - #### **Database structure**
 
-    The diagram below illustrates the database schema used in this project. It was initially used with SQLite during the development process, then migrated to PostgresSQL in production when deployed in Heroku.
+    The diagram below illustrates the database schema used in this project. It was initially used with SQLite during the development process, then migrated to PostgresSQL in production when deployed in Heroku. 
 
-    [Database schema](documentation/database/MS4%20Data%20Model%20Chart.png)
+    I have included both the original version from before I started the project and the final version.
+
+    [Original database schema](documentation/database/MS4%20Database%20Schema%20Original.png)
+
+    [Final database schema](documentation/database/MS4%20Database%20Schema%20Final.png)
 
   - ### **Allowed CRUD operations**
     Operations | all users | authenticated users | superusers |

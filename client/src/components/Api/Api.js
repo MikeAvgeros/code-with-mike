@@ -855,7 +855,7 @@ export const updateOrder = async (token, body, orderId, paid) => {
       if (paid) {
         store.currentOrder.id = null;
         store.currentOrder.amount = 0;
-        window.location.assign("https://codewithmike.herokuapp.com/orders")
+        window.location.assign("https://codewithmike.herokuapp.com/orders");
       }
     } else {
       if (paid) {
@@ -873,7 +873,7 @@ export const updateOrder = async (token, body, orderId, paid) => {
   }
 };
 
-export const createPaymentIntent = async (token, amount) => {
+export const createPaymentIntent = async (token, amount, orderId) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -885,6 +885,10 @@ export const createPaymentIntent = async (token, amount) => {
     const { data } = await api.post("payment/stripe", body, config);
     if (data.clientSecret) {
       store.clientSecret = data.clientSecret;
+      const clientSecretBody = JSON.stringify({
+        client_secret: data.clientSecret,
+      });
+      updateOrder(token, clientSecretBody, orderId, false);
     } else {
       store.errorResponses = [
         "Something went wrong when trying to access Stripe for the payment.",
@@ -919,7 +923,7 @@ export const checkout = async (token, cartId) => {
     const totalAmount = prices.reduce((a, b) => a + b, 0);
     store.currentOrder.amount = totalAmount.toFixed(2);
     const integerAmount = parseInt(totalAmount * 100);
-    createPaymentIntent(token, integerAmount);
+    createPaymentIntent(token, integerAmount, data.id);
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {

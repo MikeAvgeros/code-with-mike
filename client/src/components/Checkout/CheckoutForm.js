@@ -33,7 +33,6 @@ export default function CheckoutForm() {
     }
 
     stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
-      let body;
       switch (paymentIntent.status) {
         case "succeeded":
           store.successResponse = "Thank you. Payment was successful!";
@@ -42,7 +41,7 @@ export default function CheckoutForm() {
           `This is a payment receipt for order number ${snap.currentOrder.id} for the amount of £${snap.currentOrder.amount}.
           Please keep this order id for your records.`
           sendReceipt(snap.customer.user.email, message);
-          body = JSON.stringify({ payment_status: "Success" });
+          const body = JSON.stringify({ payment_status: "Success" });
           updateOrder(snap.token, body, snap.currentOrder.id, true);
           break;
         case "processing":
@@ -50,13 +49,9 @@ export default function CheckoutForm() {
           break;
         case "requires_payment_method":
           store.errorResponses = ["Your payment was not successful, please try again."];
-          body = JSON.stringify({ client_secret: snap.clientSecret });
-          updateOrder(snap.token, body, snap.currentOrder.id, false);
           break;
         default:
           store.errorResponses = ["Something went wrong when connecting to Stripe."];
-          body = JSON.stringify({ client_secret: snap.clientSecret });
-          updateOrder(snap.token, body, snap.currentOrder.id, false);
           break;
       }
     });
