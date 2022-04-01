@@ -693,7 +693,9 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
 
   - ### **Media and content**
     - Since the design and idea for my project was heavily influenced by [codewithmosh](https://codewithmosh.com), all the images and content for my courses and categories were taken from that website.
-    - The landing page images as well as the logo and favicon were taken from [Freepik at flaticon](https://www.flaticon.com/authors/freepik)
+    - The landing page images as well as the logo and favicon were taken from [Freepik at flaticon](https://www.flaticon.com/authors/freepik).
+    - The blank profile picture image is taken from WandererCreative at [Pixabay](https://pixabay.com/vectors/blank-profile-picture-mystery-man-973460/).
+    - The Unity engine image was taken from [logosvg](http://logosvg.com/unity-technologies-logo/).
     - All profile images are provided by the website users.
     - All icons are provided by [Material UI](https://mui.com/components/material-icons/).
     - Fonts were provided by [Google Fonts](https://fonts.google.com/).
@@ -704,4 +706,4 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
     - I would like to thank the students and alumni from the Code Institute London Community WhatsApp group for their helpful input during my development and testing phase.
 
 ## **Disclaimer**
-  #### This website was made for educational purposes only
+  #### This website was made for educational purposes only.

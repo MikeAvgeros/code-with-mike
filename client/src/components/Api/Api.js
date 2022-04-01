@@ -187,6 +187,7 @@ export const createReview = async (
     if (status === 201) {
       getReviews();
       store.successResponse = "Thank you for your review.";
+      window.location.assign("https://codewithmike.herokuapp.com/reviews");
     } else {
       store.errorResponses = [
         "Something went wrong when trying to save the review.",
