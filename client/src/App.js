@@ -64,7 +64,6 @@ const App = () => {
 
   useEffect(() => {
     if (snap.token) {
-      store.userAuthenticated = true;
       getCustomer(snap.token);
     }
   }, [snap.token]);
@@ -114,31 +113,31 @@ const App = () => {
             />
             <Route
               path="/profile"
-              element={snap.token ? <Profile /> : <Navigate to="/login" />}
+              element={snap.token ? <Profile /> : <Navigate to="/" />}
             />
             <Route
               path="/profile/delete"
-              element={snap.token ? <DeleteUser /> : <Navigate to="/login" />}
+              element={snap.token ? <DeleteUser /> : <Navigate to="/" />}
             />
             <Route
               path="/orders"
-              element={snap.token ? <Orders /> : <Navigate to="/login" />}
+              element={snap.token ? <Orders /> : <Navigate to="/" />}
             />
             <Route
               path="/reviews"
-              element={snap.token ? <Reviews /> : <Navigate to="/login" />}
+              element={snap.token ? <Reviews /> : <Navigate to="/" />}
             />
             <Route
               path="/review/send/:id"
-              element={snap.token ? <ReviewForm /> : <Navigate to="/login" />}
+              element={snap.token ? <ReviewForm /> : <Navigate to="/" />}
             />
             <Route
               path="/review/edit/:id"
-              element={snap.token ? <EditReview /> : <Navigate to="/login" />}
+              element={snap.token ? <EditReview /> : <Navigate to="/" />}
             />
             <Route
               path="/wishlist"
-              element={snap.token ? <Wishlist /> : <Navigate to="/login" />}
+              element={snap.token ? <Wishlist /> : <Navigate to="/" />}
             />
             <Route
               path="/checkout"

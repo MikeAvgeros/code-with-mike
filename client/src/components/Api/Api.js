@@ -506,16 +506,24 @@ export const getCustomer = async (token) => {
       Authorization: `Token ${token}`,
     },
   };
+  
   try {
     const { data } = await api.get("profile/customers/me/", config);
-    if (data) {
+    if (Object.keys(data).length > 0) {
       store.customer = data;
+      store.userAuthenticated = true;
     } else {
       store.errorResponses = [
         "Something went wrong when trying to get your profile details.",
       ];
+      store.token = null;
+      store.customer = [];
+      store.userAuthenticated = false;
     }
   } catch (error) {
+    store.token = null;
+    store.customer = [];
+    store.userAuthenticated = false;
     let errorArray = [];
     for (const key in error.response.data) {
       errorArray.push(`${error.response.data[key]}`);
@@ -585,7 +593,6 @@ export const logout = async (token) => {
       store.token = null;
       store.customer = [];
       store.userAuthenticated = false;
-      store.canSignup = true;
       store.successResponse = "You have successfully logged out.";
     } else {
       store.errorResponses = ["Something went wrong went trying to logout."];

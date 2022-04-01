@@ -40,6 +40,7 @@ const Reviews = () => {
       <Grid
         container
         spacing={5}
+        justifyContent="space-evenly"
       >
         {myReviews && (
           myReviews.map((review, i) => (

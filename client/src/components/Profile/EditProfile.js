@@ -33,7 +33,7 @@ const EditProfile = () => {
       : "",
     birth_date: snap.customer.birth_date
       ? snap.customer.birth_date
-      : new Date(),
+      : "",
     image: null,
   });
 

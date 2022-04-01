@@ -23,6 +23,7 @@ const Orders = () => {
       <Grid
         container
         spacing={5}
+        justifyContent="space-evenly"
       >
         {snap.orders &&
           snap.orders.map((order, i) => (
