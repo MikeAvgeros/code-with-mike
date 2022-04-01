@@ -54,8 +54,7 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
     - [Run the project locally](#run-the-project-locally)
    - [Credits](#credits)
      - [Code](#code)
-     - [Content](#content)
-     - [Media](#media)
+     - [Media & Content](#media-and-content)
      - [Acknowledgments](#acknowledgments)
 
 ## **UX Design**

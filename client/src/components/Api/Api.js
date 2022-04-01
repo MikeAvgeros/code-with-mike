@@ -748,6 +748,7 @@ export const resetPasswordConfirmation = async (
     );
     if (status === 204) {
       store.successResponse = "You can now log in with your new password.";
+      window.location.assign("https://codewithmike.herokuapp.com/login");
     } else {
       store.errorResponses = [
         "Something went wrong when trying to reset your password.",
