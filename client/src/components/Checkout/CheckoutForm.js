@@ -38,8 +38,7 @@ export default function CheckoutForm() {
           store.successResponse = "Thank you. Payment was successful!";
           store.clientSecret = null;
           const message = 
-          `This is a payment receipt for order number ${snap.currentOrder.id} for the amount of £${snap.currentOrder.amount}.
-          Please keep this order id for your records.`
+          `Dear ${snap.customer.user.username}\r\r\nThis is a payment receipt for order number ${snap.currentOrder.id} for the amount of £${snap.currentOrder.amount}.\r\r\nPlease keep this order id for your records.\r\r\nKind regards,\r\r\nThe codewithmike team`
           sendReceipt(snap.customer.user.email, message);
           const body = JSON.stringify({ payment_status: "Success" });
           updateOrder(snap.token, body, snap.currentOrder.id, true);

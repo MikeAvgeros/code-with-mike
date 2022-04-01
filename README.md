@@ -1,5 +1,7 @@
 # **Code with Mike**
 
+![mockup](documentation/screenshots/homepage_screenshot.png)
+
 ## **Introduction** 
 
 Code with Mike is a full-stack ecommerce web application that sells online coding courses to students and professional developers. I created this site for Milestone Project 4 as part of the Code Institute's Full Stack Software Development course.
@@ -159,7 +161,7 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
       - Admins can receive emails from the site using a custom email account created for this project.
       - Admins can update how http error responses are displayed to the user.
 
-	- #### **Current website features**
+	- #### **Current design features**
       - Display text, images and information in an engaging way.
       - Intuitive and user-friendly navigation and structure.
       - Responsive website that can be accessed from various devices.
@@ -169,13 +171,10 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
       - A Stripe receipt emailed to the user.
       - Store customer's card information using Stripe.
       - Allow refunds through the website.
-      - More intuitive and customer friendly error messages from the api response, which is displayed in flash messages.
+      - More intuitive and customer friendly error messages from the api.
       - A more responsive design with improved UI and layout.
-
-    - #### **Business rules**
-      - A category which contains courses cannot be deleted.
-      - An order which contains order items cannot be deleted.
-      - Payment status on orders will be set as 'pending' upon creation and 'success' upon successful payment.
+      - A background tasks service to clean-up database from expired objects.
+      - Currently the app allows for user accounts and orders to be deleted. I would like to implement a backup of deleted objects.
 
     - #### **Constraints**
       - Technical skills: The site owner is still learning Python and is new to Django and React which may impact on the successful implementation of the planned features. 
@@ -268,11 +267,11 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
 
     The diagram below illustrates the database schema used in this project. It was initially used with SQLite during the development process, then migrated to PostgresSQL in production when deployed in Heroku. 
 
-    I have included both the original version from before I started the project and the final version.
+    ![Final database schema](documentation/database/MS4%20Database%20Schema%20Final.png)
+
+    I have also included the original version of the schema from before I started the project as a reference. You can view it via the following link.
 
     [Original database schema](documentation/database/MS4%20Database%20Schema%20Original.png)
-
-    [Final database schema](documentation/database/MS4%20Database%20Schema%20Final.png)
 
   - ### **Allowed CRUD operations**
     Operations | all users | authenticated users | superusers |

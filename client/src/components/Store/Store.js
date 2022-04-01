@@ -23,6 +23,7 @@ const initialState = storedState
       customer: [],
       token: null,
       userAuthenticated: false,
+      canSignup: true,
       clientSecret: null,
       errorResponses: [],
       successResponse: null,

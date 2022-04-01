@@ -13,6 +13,7 @@ import {
   Button,
 } from "@mui/material";
 import EditProfile from "./EditProfile";
+import blank from "../../images/blank-profile-picture.png";
 
 const Profile = () => {
   const snap = useSnapshot(store);
@@ -43,7 +44,7 @@ const Profile = () => {
               component="img"
               width="256"
               height="256"
-              image={snap.customer.image}
+              image={snap.customer.image ? snap.customer.image : blank}
               alt={`${snap.customer.user.username} profile picture`}
             />
             <CardContent spacing={2}>

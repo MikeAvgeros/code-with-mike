@@ -54,7 +54,7 @@ const App = () => {
 
   useEffect(() => {
     getReviews();
-  }, [snap.reviews.length])
+  }, [snap.reviews.length]);
 
   useEffect(() => {
     if (!snap.cartId) {
@@ -73,7 +73,7 @@ const App = () => {
     if (snap.customer.wishlist) {
       getWishlistItems(snap.token, snap.customer.wishlist);
     }
-  }, [snap.customer, snap.wishlistItems.length])
+  }, [snap.customer, snap.wishlistItems.length]);
 
   return (
     <Router>
@@ -101,7 +101,13 @@ const App = () => {
             <Route path="/cart" element={<Cart />} />
             <Route
               path="/signup"
-              element={!snap.token ? <Signup /> : <Navigate to="/" />}
+              element={
+                snap.canSignup ? (
+                  <Signup />
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
             />
             <Route
               path="/login"
@@ -118,7 +124,7 @@ const App = () => {
             />
             <Route
               path="/profile/delete"
-              element={snap.token ? <DeleteUser /> : <Navigate to="/login" />}
+              element={snap.token ? <DeleteUser /> : <Navigate to="/" />}
             />
             <Route
               path="/orders"
@@ -142,13 +148,7 @@ const App = () => {
             />
             <Route
               path="/checkout"
-              element={
-                snap.token ? (
-                  <Checkout />
-                ) : (
-                  <Navigate to="/cart" />
-                )
-              }
+              element={snap.token ? <Checkout /> : <Navigate to="/cart" />}
             />
             <Route path="/contact" element={<Contact />} />
           </Routes>

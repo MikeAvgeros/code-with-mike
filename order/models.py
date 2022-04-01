@@ -79,7 +79,7 @@ class Order(models.Model):
     client_secret = models.CharField(
         max_length=255, blank=True, null=True)
     customer = models.ForeignKey(Customer,
-                                 on_delete=models.PROTECT,
+                                 on_delete=models.CASCADE,
                                  related_name='orders')
 
     class Meta:
@@ -94,9 +94,9 @@ class Order(models.Model):
 
 class OrderItem(models.Model):
     order = models.ForeignKey(
-        Order, on_delete=models.PROTECT, related_name='items')
+        Order, on_delete=models.CASCADE, related_name='items')
     item = models.ForeignKey(
-        Product, on_delete=models.PROTECT, related_name='orderitems')
+        Product, on_delete=models.CASCADE, related_name='orderitems')
     quantity = models.PositiveSmallIntegerField(default=1,
                                                 validators=[
                                                     MinValueValidator(1)])

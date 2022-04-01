@@ -547,6 +547,7 @@ export const signup = async (email, username, password, re_password) => {
     const { status } = await api.post("auth/users/", body, config);
     if (status === 201) {
       store.successResponse = "You have successfully signed up. Please log in.";
+      store.canSignup = false;
     } else {
       store.errorResponses = ["Something went wrong when trying to sign up."];
     }
@@ -596,6 +597,7 @@ export const logout = async (token) => {
       store.token = null;
       store.customer = [];
       store.userAuthenticated = false;
+      store.canSignup = true;
       store.successResponse = "You have successfully logged out.";
     } else {
       store.errorResponses = ["Something went wrong went trying to logout."];

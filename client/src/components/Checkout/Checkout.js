@@ -28,11 +28,11 @@ const Checkout = () => {
 
   return (
     <React.Fragment>
-      {clientSecret && (
+      {clientSecret ? (
         <Elements options={options} stripe={stripePromise}>
           <CheckoutForm />
         </Elements>
-      )}
+      ) : <p style={{ marginTop: "12vh", textAlign:"center" }}>Connecting to Stripe...</p>}
     </React.Fragment>
   );
 };

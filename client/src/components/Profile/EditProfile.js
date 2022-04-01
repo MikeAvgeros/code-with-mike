@@ -24,12 +24,16 @@ const EditProfile = () => {
   const snap = useSnapshot(store);
 
   const [formData, setFormData] = useState({
-    first_name: snap.customer.first_name,
-    last_name: snap.customer.last_name,
-    phone: snap.customer.phone,
-    country: snap.customer.country,
-    customer_type: snap.customer.customer_type,
-    birth_date: snap.customer.birth_date,
+    first_name: snap.customer.first_name ? snap.customer.first_name : "",
+    last_name: snap.customer.last_name ? snap.customer.last_name : "",
+    phone: snap.customer.phone ? snap.customer.phone : "",
+    country: snap.customer.country ? snap.customer.country : "",
+    customer_type: snap.customer.customer_type
+      ? snap.customer.customer_type
+      : "",
+    birth_date: snap.customer.birth_date
+      ? snap.customer.birth_date
+      : new Date(),
     image: null,
   });
 
