@@ -31,9 +31,7 @@ const EditProfile = () => {
     customer_type: snap.customer.customer_type
       ? snap.customer.customer_type
       : "",
-    birth_date: snap.customer.birth_date
-      ? snap.customer.birth_date
-      : "",
+    birth_date: snap.customer.birth_date,
     image: null,
   });
 
@@ -157,7 +155,7 @@ const EditProfile = () => {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={8}>
+          <Grid item xs={7}>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
                 label="Birth Date"
@@ -168,7 +166,7 @@ const EditProfile = () => {
               />
             </LocalizationProvider>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={4} sx={{ ml: ".5vw"}}>
             <label htmlFor="image">
               <input
                 style={{ display: "none" }}

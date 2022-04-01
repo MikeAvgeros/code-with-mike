@@ -31,9 +31,10 @@ const Profile = () => {
         sx={{ mt: 15, mb: 10 }}
         justifyContent="space-around"
         alignItems="center"
+        spacing={1}
       >
         <Grid item xs={12} sm={6} md={4}>
-          <Card sx={{ minWidth: 250 }}>
+          <Card>
             <CardHeader
               sx={{
                 height: "24px",
