@@ -61,8 +61,6 @@ const DeleteUser = () => {
             name="password"
             value={password}
             type="password"
-            autoComplete="password"
-            autoFocus
             onChange={onChange}
           />
           <Button

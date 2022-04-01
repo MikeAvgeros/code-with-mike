@@ -673,17 +673,19 @@ export const updateProfile = async (
 export const deleteUser = async (token, current_password) => {
   const config = {
     headers: {
-      "Content-Type": "application/json",
       Authorization: `Token ${token}`,
     },
+    data: {
+      current_password
+    }
   };
-  const body = JSON.stringify({ current_password });
   try {
-    const { status } = await api.delete("auth/users/me/", body, config);
+    const { status } = await api.delete("auth/users/me/", config);
     if (status === 204) {
       store.successResponse = "Your account was successfully deleted.";
       store.customer = [];
       store.token = null;
+      store.userAuthenticated = false;
     } else {
       store.errorResponses = [
         "Something went wrong when trying to delete your account.",

@@ -47,10 +47,10 @@ const OrderItem = ({ order }) => {
                   <p>Quantity: {item.quantity}</p>
                 </Grid>
                 <Grid item>
-                  <p>Total Price: £{totalAmount.toFixed(2)}</p>
+                  <p>Total Price: £{item.total_price}</p>
                 </Grid>
                 <Grid item>
-                  <p>VAT: £{vat.toFixed(2)}</p>
+                  <p>VAT: £{item.vat}</p>
                 </Grid>
               </Grid>
             ))}

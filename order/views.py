@@ -44,7 +44,7 @@ class OrderViewSet(ModelViewSet):
                          'delete', 'head', 'options']
 
     def get_permissions(self):
-        if self.request.method in ['PATCH', 'DELETE']:
+        if self.request.method in ['DELETE']:
             return [IsAdminUser()]
         return [IsAuthenticated()]
 

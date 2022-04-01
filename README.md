@@ -129,7 +129,7 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
   - ### **Scope**
   
     - #### **Feature trade-off**
-      This project is developed as a Minimal Viable Product. There will be room for future improvements and releases incorporating additional pages and features as well as improved design and navigation.
+      This project is developed as a Minimal Viable Product. There will be room for future improvements and releases incorporating additional pages and features as well as improved design, navigation and bug fixes.
 
     - #### **Current features (Users)**
       - Users can create an account and get a confirmation email.
@@ -159,7 +159,7 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
       - Admins can receive emails from the site using a custom email account created for this project.
       - Admins can update how http error responses are displayed to the user.
 
-	  - #### **Current website features**
+	- #### **Current website features**
       - Display text, images and information in an engaging way.
       - Intuitive and user-friendly navigation and structure.
       - Responsive website that can be accessed from various devices.
@@ -167,7 +167,6 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
     - #### **Future features**
       - Allow users to signup and login using social media accounts.
       - A Stripe receipt emailed to the user.
-      - More payment methods - Google and Apple pay.
       - Store customer's card information using Stripe.
       - Allow refunds through the website.
       - More intuitive and customer friendly error messages from the api response, which is displayed in flash messages.
@@ -187,51 +186,43 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
     - #### **Website functionality and content**
       - Header: Logo and a collapsible menu with navigational links
       - Home: An overview of what the site provides including featured courses, reviews and current promotions
-      - Courses: A list of available courses
-      - Course Details: Detailed information about a course
-      - Categories: A list of available categories
-      - Category Details: Detailed information about a category
-      - Wishlist: Display items added in the wishlist
-      - Shopping cart: Display items added in the cart
-      - Checkout: A payment form using Stripe
-      - Signup: A signup form to create an account
+      - Courses: A list of all the available courses with a course image and short summary
+      - Course Details: Detailed information about a course including reviews, and option to add to cart
+      - Categories: A list of all available categories including a short summary
+      - Category Details: Detailed information about a category including links to all associated courses
+      - Wishlist: Display items added in the wishlist including the option to add them to cart or delete them
+      - Shopping cart: Display items added in the cart including the option to update them, delete them or checkout
+      - Checkout: A payment form using Stripe that lets users pay for their order
+      - Signup: A signup form to create a new account
       - Login: A login form to access your account
+      - Password Reset: A password reset form that emails users details on how to reset their password
+      - Password Reset Confirm: A password confirmation form to choose your new password
       - Profile: Display user's personal info and a form to update them
+      - Profile Delete: A profile delete form to delete your account
       - Orders: Display previously purchased courses and order information
       - Reviews: Dislay all reviews written by user and a way to update or delete them
       - Contact: A contact form to send emails to site owner
-      - Footer: Copyright, links to social media and policies
+      - Footer: Copyright claim and links to social media
 
   - ### **Skeleton**
 
     I have designed the layout of the website using [Material UI](https://mui.com/). I have created low fidelity wireframes for desktop and mobile using [Diagrams](https://app.diagrams.net/) in order to guide me in designing the pages. The design and layout of the website has evolved from the original Balsamiq wireframes. You can view the original low fidelity wireframes below.
     
     - #### **Wireframes**
-      You can view all the wireframes for this project [here](documentation/wireframes/). 
+      You can view all the wireframes I created for this project [on this link.](documentation/wireframes/). 
 
-      Please find below links to a selection of wireframes used for this project.
+      Please find below links to a selection of wireframes for the most commonly visited pages.
 
-      - #### **Desktop**
-        - [Home](documentation/wireframes/desktop/MS4%20Home%20Desktop.png)
-        - [Courses](documentation/wireframes/desktop/MS4%20Courses%20Desktop.png) 
-        - [Course details](documentation/wireframes/desktop/MS4%20CourseDetail%20Desktop.png)
-        - [Categories](documentation/wireframes/desktop/MS4%20Categories%20Desktop.png) 
-        - [Category details](documentation/wireframes/desktop/MS4%20CategoryDetail%20Desktop.png)
-        - [Contact](documentation/wireframes/desktop/MS4%20Contact%20Desktop.png) 
-        - [Signup](documentation/wireframes/desktop/MS4%20Signup%20Desktop.png)
-        - [Login](documentation/wireframes/desktop/MS4%20Login%20Desktop.png) 
-        - [Profile](documentation/wireframes/desktop/MS4%20Profile%20Desktop.png)
+        - [Home](documentation/wireframes/MS4%20Home%20Desktop.png)
+        - [Courses](documentation/wireframes/MS4%20Courses%20Desktop.png) 
+        - [Course details](documentation/wireframes/MS4%20CourseDetail%20Desktop.png)
+        - [Categories](documentation/wireframes/MS4%20Categories%20Desktop.png) 
+        - [Category details](documentation/wireframes/MS4%20CategoryDetail%20Desktop.png)
+        - [Contact](documentation/wireframes/MS4%20Contact%20Desktop.png) 
+        - [Signup](documentation/wireframes/MS4%20Signup%20Desktop.png)
+        - [Login](documentation/wireframes/MS4%20Login%20Desktop.png) 
+        - [Profile](documentation/wireframes/MS4%20Profile%20Desktop.png)
 
-      - #### **Mobile**
-        - [Home](documentation/wireframes/desktop/MS4%20Home%20Desktop.png)
-        - [Courses](documentation/wireframes/desktop/MS4%20Courses%20Desktop.png) 
-        - [Course details](documentation/wireframes/desktop/MS4%20CourseDetail%20Desktop.png)
-        - [Categories](documentation/wireframes/desktop/MS4%20Categories%20Desktop.png) 
-        - [Category details](documentation/wireframes/desktop/MS4%20CategoryDetail%20Desktop.png)
-        - [Contact](documentation/wireframes/desktop/MS4%20Contact%20Desktop.png) 
-        - [Signup](documentation/wireframes/desktop/MS4%20Signup%20Desktop.png)
-        - [Login](documentation/wireframes/desktop/MS4%20Login%20Desktop.png) 
-        - [Profile](documentation/wireframes/desktop/MS4%20Profile%20Desktop.png)
 
   - ### **Surface**
 
@@ -347,7 +338,7 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
     - [Chrome DevTools](https://developer.chrome.com/docs/devtools/): Google inspect was used to test and fix code and page responsiveness
     - [Google lighthouse](https://developers.google.com/web/tools/lighthouse): Google lighthouse was used to assess performance of the site
 
-[**Table of Content**](##table-of-content)
+[**Table of Content**](#table-of-content)
 
 ## **Testing**
 
@@ -680,25 +671,29 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
     - #### **Clone the repository**
       - Log into GitHub and navigate to the [GitHub repository](https://github.com/MikeAvgeros/code-with-mike)
       - Above the repository folder and file content, click “Code”
-      - Copy either the HTTPS or SSH url
-      - Create a directory on your machine
-      - Open the terminal, cd into that directory and run: ```$ git clone <url>```
+      - Copy the clone URL (either the SSH format or the HTTPS)
+      - If you are using the SSH protocol, ensure your public key is loaded on the local system to which you are cloning
+      - Create a directory on your local system
+      - Open the terminal, change into that directory and run ```$ git clone <clone URL>```
 
     - #### **Run Django app**
-   	  - To run Django, open your terminal and cd into the root of the project. Run ```pip install pipenv```. To create a virtual environment run ```pipenv shell```. Once you have created a virtual environment, run ```pipenv install Pipfile``` to install all the required dependencies and libraries from the Pipfile. Finally, to start the server, run ```python manage.py runserver```.
+   	  - To run the Django app, open your terminal and change directory into the root of the project. Run ```pip install pipenv``` to install pipenv which will allow you to manage your dependencies inside a virtual environment. To create a virtual environment run ```pipenv shell```. Once you have created the virtual environment, run ```pipenv install Pipfile``` to install all the required dependencies and libraries from the Pipfile. Finally, to start the development server, run ```python manage.py runserver```.
 
     - #### **Run React app**
-      - To run React, open your terminal and cd into the client folder. Run ```npm install``` to install all the required node modules from the packages.json file. Once everything is installed, to open a development server for the app, you need to run ```npm start```. 
+      - To run the React app, open your terminal and change directory into the client folder. Run ```npm install``` to install all the required node modules from the packages.json file. Once everything is installed, to open a development server for the app, you need to run ```npm start```. If you wish to use the api from the local development server, go into the Api component inside the client folder and change the baseURL from Axios to http://127.0.0.1:8000/api/
+
+    - #### **Run React app from Django**
+      - To run the React app from Django, after your have installed all the node modules using ```npm install```, you will need to build the app using ```npm run build```. After that's done, change the direcory back to the root and run ```python manage.py collectstatic``` This will collect all the static files from the build folder. Then to run the Django developement server run ```python manage.py runserver```. This step requires the creation of a virtual environment and installation of all the dependencies as described in the above step.
 
 ## **Credits**
 
   - ### **Code**
-    - Before starting my project, I watched Part 2 from Mosh Hamedani's [The Ultimate Django Series](https://codewithmosh.com/p/the-ultimate-django-series). The course inspired how I developed the Django application.
+    - Before starting my project, I watched Part 2 from Mosh Hamedani's [The Ultimate Django Series](https://codewithmosh.com/p/the-ultimate-django-series). This course inspired how I developed the Django application.
 
-    - While developing the frontend part of the project, I watched the following [Udemy tutorial from Dennis Ivy](https://www.udemy.com/course/django-with-react-an-ecommerce-website). Although, the React code is primarily custom-made, this course inspired how I developed and how I deployed the application.
+    - While developing the frontend part of the project, I watched the following [Udemy tutorial from Dennis Ivy](https://www.udemy.com/course/django-with-react-an-ecommerce-website). This course inspired how I developed and deployed the application.
 
   - ### **Media and content**
-    - Since the design and idea of my project was heavily impacted by [codewithmosh](https://codewithmosh.com), all the images and content for my courses and categories were taken from that website.
+    - Since the design and idea for my project was heavily influenced by [codewithmosh](https://codewithmosh.com), all the images and content for my courses and categories were taken from that website.
     - The landing page images as well as the logo and favicon were taken from [Freepik at flaticon](https://www.flaticon.com/authors/freepik)
     - All profile images are provided by the website users.
     - All icons are provided by [Material UI](https://mui.com/components/material-icons/).
