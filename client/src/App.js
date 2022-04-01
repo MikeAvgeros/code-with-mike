@@ -101,13 +101,7 @@ const App = () => {
             <Route path="/cart" element={<Cart />} />
             <Route
               path="/signup"
-              element={
-                snap.canSignup ? (
-                  <Signup />
-                ) : (
-                  <Navigate to="/login" />
-                )
-              }
+              element={!snap.token ? <Signup /> : <Navigate to="/" />}
             />
             <Route
               path="/login"
@@ -124,7 +118,7 @@ const App = () => {
             />
             <Route
               path="/profile/delete"
-              element={snap.token ? <DeleteUser /> : <Navigate to="/" />}
+              element={snap.token ? <DeleteUser /> : <Navigate to="/login" />}
             />
             <Route
               path="/orders"
@@ -148,7 +142,7 @@ const App = () => {
             />
             <Route
               path="/checkout"
-              element={snap.token ? <Checkout /> : <Navigate to="/cart" />}
+              element={snap.token ? <Checkout /> : <Navigate to="/" />}
             />
             <Route path="/contact" element={<Contact />} />
           </Routes>

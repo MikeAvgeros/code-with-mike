@@ -9,7 +9,7 @@ import {
 
 const Promotion = ({ promotion }) => {
   return (
-    <Card sx={{ minWidth: 275 }}>
+    <Card sx={{ minWidth: 275, boxShadow: 3 }}>
       <CardHeader
         sx={{
           height: "18px",

@@ -23,7 +23,7 @@ export const getCourses = async () => {
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
-      errorArray.push(`${key}: ${error.response.data[key]}`);
+      errorArray.push(`${error.response.data[key]}`);
     }
     store.errorResponses = errorArray;
   }
@@ -47,7 +47,7 @@ export const getCourseDetails = async (slug) => {
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
-      errorArray.push(`${key}: ${error.response.data[key]}`);
+      errorArray.push(`${error.response.data[key]}`);
     }
     store.errorResponses = errorArray;
   }
@@ -71,7 +71,7 @@ export const getCategories = async () => {
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
-      errorArray.push(`${key}: ${error.response.data[key]}`);
+      errorArray.push(`${error.response.data[key]}`);
     }
     store.errorResponses = errorArray;
   }
@@ -95,7 +95,7 @@ export const getCategoryDetails = async (slug) => {
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
-      errorArray.push(`${key}: ${error.response.data[key]}`);
+      errorArray.push(`${error.response.data[key]}`);
     }
     store.errorResponses = errorArray;
   }
@@ -109,17 +109,11 @@ export const getPromotions = async () => {
   };
   try {
     const { data } = await api.get("store/promotions/", config);
-    if (data.length > 0) {
-      store.promotions = data;
-    } else {
-      store.errorResponses = [
-        "Something went wrong when trying to fetch the promotions.",
-      ];
-    }
+    store.promotions = data;
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
-      errorArray.push(`${key}: ${error.response.data[key]}`);
+      errorArray.push(`${error.response.data[key]}`);
     }
     store.errorResponses = errorArray;
   }
@@ -143,7 +137,7 @@ export const getPromotionDetails = async (slug) => {
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
-      errorArray.push(`${key}: ${error.response.data[key]}`);
+      errorArray.push(`${error.response.data[key]}`);
     }
     store.errorResponses = errorArray;
   }
@@ -157,17 +151,11 @@ export const getReviews = async () => {
   };
   try {
     const { data } = await api.get("store/reviews/", config);
-    if (data.length > 0) {
-      store.reviews = data;
-    } else {
-      store.errorResponses = [
-        "Something went wrong when trying to fetch the reviews.",
-      ];
-    }
+    store.reviews = data;
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
-      errorArray.push(`${key}: ${error.response.data[key]}`);
+      errorArray.push(`${error.response.data[key]}`);
     }
     store.errorResponses = errorArray;
   }
@@ -207,7 +195,7 @@ export const createReview = async (
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
-      errorArray.push(`${key}: ${error.response.data[key]}`);
+      errorArray.push(`${error.response.data[key]}`);
     }
     store.errorResponses = errorArray;
   }
@@ -248,7 +236,7 @@ export const updateReview = async (
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
-      errorArray.push(`${key}: ${error.response.data[key]}`);
+      errorArray.push(`${error.response.data[key]}`);
     }
     store.errorResponses = errorArray;
   }
@@ -274,7 +262,7 @@ export const deleteReview = async (token, reviewId) => {
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
-      errorArray.push(`${key}: ${error.response.data[key]}`);
+      errorArray.push(`${error.response.data[key]}`);
     }
     store.errorResponses = errorArray;
   }
@@ -298,7 +286,7 @@ export const createCart = async () => {
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
-      errorArray.push(`${key}: ${error.response.data[key]}`);
+      errorArray.push(`${error.response.data[key]}`);
     }
     store.errorResponses = errorArray;
   }
@@ -324,7 +312,7 @@ export const getCartItems = async (cartId) => {
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
-      errorArray.push(`${key}: ${error.response.data[key]}`);
+      errorArray.push(`${error.response.data[key]}`);
     }
     store.errorResponses = errorArray;
   }
@@ -357,7 +345,7 @@ export const addItemToCart = async (itemId, qty, cartId) => {
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
-      errorArray.push(`${key}: ${error.response.data[key]}`);
+      errorArray.push(`${error.response.data[key]}`);
     }
     store.errorResponses = errorArray;
   }
@@ -388,7 +376,7 @@ export const updateCartItem = async (qty, cartId, itemId) => {
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
-      errorArray.push(`${key}: ${error.response.data[key]}`);
+      errorArray.push(`${error.response.data[key]}`);
     }
     store.errorResponses = errorArray;
   }
@@ -415,7 +403,7 @@ export const deleteItemFromCart = async (cartId, itemId) => {
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
-      errorArray.push(`${key}: ${error.response.data[key]}`);
+      errorArray.push(`${error.response.data[key]}`);
     }
     store.errorResponses = errorArray;
   }
@@ -442,7 +430,7 @@ export const getWishlistItems = async (token, wishlistId) => {
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
-      errorArray.push(`${key}: ${error.response.data[key]}`);
+      errorArray.push(`${error.response.data[key]}`);
     }
     store.errorResponses = errorArray;
   }
@@ -473,7 +461,7 @@ export const addItemToWishlist = async (token, wishlistId, courseId) => {
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
-      errorArray.push(`${key}: ${error.response.data[key]}`);
+      errorArray.push(`${error.response.data[key]}`);
     }
     store.errorResponses = errorArray;
   }
@@ -505,7 +493,7 @@ export const deleteItemFromWishlist = async (
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
-      errorArray.push(`${key}: ${error.response.data[key]}`);
+      errorArray.push(`${error.response.data[key]}`);
     }
     store.errorResponses = errorArray;
   }
@@ -530,7 +518,7 @@ export const getCustomer = async (token) => {
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
-      errorArray.push(`${key}: ${error.response.data[key]}`);
+      errorArray.push(`${error.response.data[key]}`);
     }
     store.errorResponses = errorArray;
   }
@@ -547,14 +535,14 @@ export const signup = async (email, username, password, re_password) => {
     const { status } = await api.post("auth/users/", body, config);
     if (status === 201) {
       store.successResponse = "You have successfully signed up. Please log in.";
-      store.canSignup = false;
+      window.location.assign("https://codewithmike.herokuapp.com/login");
     } else {
       store.errorResponses = ["Something went wrong when trying to sign up."];
     }
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
-      errorArray.push(`${key}: ${error.response.data[key]}`);
+      errorArray.push(`${error.response.data[key]}`);
     }
     store.errorResponses = errorArray;
   }
@@ -578,7 +566,7 @@ export const login = async (email, password) => {
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
-      errorArray.push(`${key}: ${error.response.data[key]}`);
+      errorArray.push(`${error.response.data[key]}`);
     }
     store.errorResponses = errorArray;
   }
@@ -605,7 +593,7 @@ export const logout = async (token) => {
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
-      errorArray.push(`${key}: ${error.response.data[key]}`);
+      errorArray.push(`${error.response.data[key]}`);
     }
     store.errorResponses = errorArray;
   }
@@ -626,7 +614,7 @@ const updatePhoto = async (token, image) => {
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
-      errorArray.push(`${key}: ${error.response.data[key]}`);
+      errorArray.push(`${error.response.data[key]}`);
     }
     store.errorResponses = errorArray;
   }
@@ -666,7 +654,7 @@ export const updateProfile = async (
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
-      errorArray.push(`${key}: ${error.response.data[key]}`);
+      errorArray.push(`${error.response.data[key]}`);
     }
     store.errorResponses = errorArray;
   }
@@ -696,7 +684,7 @@ export const deleteUser = async (token, current_password) => {
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
-      errorArray.push(`${key}: ${error.response.data[key]}`);
+      errorArray.push(`${error.response.data[key]}`);
     }
     store.errorResponses = errorArray;
   }
@@ -726,7 +714,7 @@ export const resetPassword = async (email) => {
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
-      errorArray.push(`${key}: ${error.response.data[key]}`);
+      errorArray.push(`${error.response.data[key]}`);
     }
     store.errorResponses = errorArray;
   }
@@ -760,7 +748,7 @@ export const resetPasswordConfirmation = async (
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
-      errorArray.push(`${key}: ${error.response.data[key]}`);
+      errorArray.push(`${error.response.data[key]}`);
     }
     store.errorResponses = errorArray;
   }
@@ -782,6 +770,7 @@ export const sendContactEmail = async (email, name, message) => {
     if (status === 200) {
       store.successResponse =
         "Thank you for getting in touch. We'll respond as soon as possible.";
+        window.location.assign("https://codewithmike.herokuapp.com/");
     } else {
       store.errorResponses = [
         "Something went wrong when trying to email the contact form.",
@@ -790,7 +779,7 @@ export const sendContactEmail = async (email, name, message) => {
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
-      errorArray.push(`${key}: ${error.response.data[key]}`);
+      errorArray.push(`${error.response.data[key]}`);
     }
     store.errorResponses = errorArray;
   }
@@ -811,7 +800,7 @@ export const sendReceipt = async (email, message) => {
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
-      errorArray.push(`${key}: ${error.response.data[key]}`);
+      errorArray.push(`${error.response.data[key]}`);
     }
     store.errorResponses = errorArray;
   }
@@ -826,17 +815,11 @@ export const getOrders = async (token) => {
   };
   try {
     const { data } = await api.get("order/checkout/", config);
-    if (data.length > 0) {
-      store.orders = data;
-    } else {
-      store.errorResponses = [
-        "Something went wrong when trying to get your order history.",
-      ];
-    }
+    store.orders = data;
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
-      errorArray.push(`${key}: ${error.response.data[key]}`);
+      errorArray.push(`${error.response.data[key]}`);
     }
     store.errorResponses = errorArray;
   }
@@ -871,7 +854,7 @@ export const updateOrder = async (token, body, orderId, paid) => {
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
-      errorArray.push(`${key}: ${error.response.data[key]}`);
+      errorArray.push(`${error.response.data[key]}`);
     }
     store.errorResponses = errorArray;
   }
@@ -901,7 +884,7 @@ export const createPaymentIntent = async (token, amount, orderId) => {
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
-      errorArray.push(`${key}: ${error.response.data[key]}`);
+      errorArray.push(`${error.response.data[key]}`);
     }
     store.errorResponses = errorArray;
   }
@@ -931,7 +914,7 @@ export const checkout = async (token, cartId) => {
   } catch (error) {
     let errorArray = [];
     for (const key in error.response.data) {
-      errorArray.push(`${key}: ${error.response.data[key]}`);
+      errorArray.push(`${error.response.data[key]}`);
     }
     store.errorResponses = errorArray;
   }

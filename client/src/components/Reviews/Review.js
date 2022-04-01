@@ -32,7 +32,7 @@ const Review = ({ review }) => {
   };
 
   return (
-    <Card sx={{ minWidth: 250 }}>
+    <Card sx={{ minWidth: 250, boxShadow: 3 }}>
       <CardHeader
         avatar={<Avatar alt="reviewer's avatar" src={review.customer.image} />}
         title={review.customer.user.username}

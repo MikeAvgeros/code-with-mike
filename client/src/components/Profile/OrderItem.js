@@ -25,7 +25,7 @@ const OrderItem = ({ order }) => {
   };
 
   return (
-    <Card sx={{ minWidth: 300 }}>
+    <Card sx={{ minWidth: 300, boxShadow: 3 }}>
       <CardHeader
         sx={{
           height: "24px",

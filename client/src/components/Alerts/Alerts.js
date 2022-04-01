@@ -14,7 +14,8 @@ const Alerts = () => {
   });
 
   useEffect(() => {
-    if (snap.errorResponses.length > 0) {
+    if (snap.errorResponses.length > 0 && 
+      snap.errorResponses[0].length > 0) {
       setState({
         ...state,
         severity: "error",

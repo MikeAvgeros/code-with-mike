@@ -101,7 +101,7 @@ const CourseDetails = () => {
                   sx={{ maxWidth: "350px", maxHeight: "300px" }}
                   src={snap.courseDetails.image}
                 />
-                <Card sx={{ width: "350px", alignSelf: "center" }}>
+                <Card sx={{ width: "350px", alignSelf: "center", boxShadow: 3 }}>
                   <CardHeader
                     title="Monthly Payment"
                     titleTypographyProps={{ align: "center", color: "#fafafa" }}
@@ -182,7 +182,7 @@ const CourseDetails = () => {
             {courseReviews.length > 0 ? (
               courseReviews.map((review, i) => (
                 <Grid item key={i} xs={12} sm={6} md={4}>
-                  <Card sx={{ mb: 5, maxWidth: "350px" }}>
+                  <Card sx={{ mb: 5, maxWidth: "350px", boxShadow: 3 }}>
                     <CardHeader
                       avatar={
                         <Avatar

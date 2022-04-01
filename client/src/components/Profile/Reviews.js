@@ -41,10 +41,10 @@ const Reviews = () => {
         container
         spacing={5}
       >
-        {myReviews ? (
+        {myReviews && (
           myReviews.map((review, i) => (
             <Grid item key={i} xs={12} sm={6} md={4}>
-              <Card sx={{ mb: 5, minWidth: 275 }}>
+              <Card sx={{ mb: 5, minWidth: 275, boxShadow: 3 }}>
                 <CardContent>
                   <h4>{review.product.name}</h4>
                   <Rating name="read-only" value={review.rating} readOnly />
@@ -70,12 +70,7 @@ const Reviews = () => {
                 </CardContent>
               </Card>
             </Grid>
-          ))
-        ) : (
-          <p style={{ marginBottom: 20, marginTop: 10, textAlign: "center" }}>
-            You haven't written any reviews yet.
-          </p>
-        )}
+          )))}
       </Grid>
     </Container>
   );
