@@ -207,7 +207,10 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
     I have designed the layout of the website using [Material UI](https://mui.com/). I have created low fidelity wireframes for desktop and mobile using [Diagrams](https://app.diagrams.net/) in order to guide me in designing the pages. The design and layout of the website has evolved from the original Balsamiq wireframes. You can view the original low fidelity wireframes below.
     
     - #### **Wireframes**
-      You can view all the wireframes I created for this project [on this link.](documentation/wireframes/). 
+
+      ![Home](documentation/wireframes/MS4%20Home%20Desktop.png)
+
+      You can view all the wireframes I created for this project in png format [on this link.](documentation/wireframes/). 
 
       Please find below links to a selection of wireframes for the most commonly visited pages.
 
@@ -339,6 +342,10 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
 [**Table of Content**](#table-of-content)
 
 ## **Testing**
+
+  - ### **Automated Testing**
+
+    Due to time constraints and the developer's inexperience with automated testing, unfortunately, automated tests were not implemented. However this is something that the developer is keen to learn, explore and implement.
 
   - ### **Manual Testing**
 
@@ -629,11 +636,11 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
 
   - ### **Heroku Deployment**
 
-    The project is deployed on Heroku, directly from the master branch via GitHub. I am using PostgreSQL database to store my data. I am using S3 bucket cloud service on AWS to host my media files.
+    The project is deployed on Heroku, directly from the master branch via Github. I am using PostgreSQL database to store my data. I am using S3 bucket cloud service on AWS to host my media files. The static files are being served using Whitenoise. No CDN was used, however, I am using compression (gzip and Brotli formats) and caching to improve performance and loading speeds.
 
     The following steps were taken to complete the deployment process.
 
-    - I created an account on Heroku
+    - Logged into my account on [Heroku](https://www.heroku.com/), entered a unique name for the application and chose the region closest to me.
 
     - Created Pipfile and Pipfile.lock, to allow Heroku to detect this project as a python 3 app and install all required dependencies and libraries.
 
@@ -645,14 +652,17 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
 
     - On the settings tab on the dashboard, 'Reveal Config Vars' was used to tell Heroku which environment variables are required to run the app. The following config vars were added:
 
-      - AWS_ACCESS_KEY_ID
-      - AWS_SECRET_ACCESS_KEY
-      - DATABASE_URL
-      - DISABLE_COLLECTSTATIC
-      - EMAIL_HOST_PASS
-      - EMAIL_HOST_USER
-      - SECRET_KEY
-      - STRIPE_SECRET_KEY
+      | KEY         | VALUE |
+       | ----------- | ----------- |
+       | DISABLE_COLLECTSTATIC | True |
+       | SECRET_KEY  | Your_value |
+       | AWS_ACCESS_KEY_ID | Your_value |
+       | AWS_SECRET_ACCESS_KEY | Your_value |
+       | DATABASE_URL | Your_value |
+       | STRIPE_SECRET_KEY | Your_value |
+       | STRIPE_PUBLIC_KEY | Your_value |
+       | EMAIL_HOST_USER | Your_value |
+       | EMAIL_HOST_PASS | Your_value |
 
     - Clicked the Enable Automatic Deploys button located in the Deploy section of Heroku to allow for automatic deploys.
 
@@ -661,6 +671,8 @@ Required Technologies : HTML, CSS, JavaScript, Python, Django, SQL database, Str
     - Clicked the View button to launch this project's app. You can view the live site [here](https://codewithmike.herokuapp.com/).
 
     - The deployed site on Heroku will get updated automatically with any new commits to the master branch in the GitHub repo.
+
+    - Created an AWS account. Created and configured a publically accessed S3 bucket in order to host my media files.
 
   - ### **Run the project locally**
     
